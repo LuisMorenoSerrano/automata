@@ -1,4 +1,4 @@
-# Automata Theory and Theory of Computation
+# 🤖 Automata Theory and Theory of Computation
 
 This repository contains comprehensive material for studying automata theory, formal languages, and computational theory. It includes course materials, assignments, presentations, videos, and reference books.
 
@@ -35,6 +35,7 @@ Tools for automata visualization and design:
 Utility scripts and automation tools:
 
 - **compress_videos.sh**: Script for compressing MP4 video files to optimize repository size
+- **md_to_html.sh**: Script for converting README.md to index.html for GitHub Pages
 
 ### 5-Certification/
 
@@ -88,6 +89,15 @@ bash 4-Tools/compress_videos.sh
 ```
 
 This script automatically compresses all MP4 files in the project to optimize repository size while maintaining acceptable quality.
+
+**Markdown to HTML Conversion:**
+
+```bash
+# Convert README.md to index.html for GitHub Pages
+bash 4-Tools/md_to_html.sh
+```
+
+This script converts the README.md file to index.html for GitHub Pages hosting.
 
 ## 📖 Course Topics Covered
 

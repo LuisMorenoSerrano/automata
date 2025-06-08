@@ -1,0 +1,241 @@
+/* CSS moderno para documentación técnica */
+:root {
+    --primary-color: #0366d6;
+    --secondary-color: #586069;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-bg: #f6f8fa;
+    --dark-bg: #24292e;
+    --border-color: #e1e4e8;
+    --text-color: #24292e;
+    --code-bg: #f6f8fa;
+    --shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+}
+
+/* Encabezados */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.3rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+/* Enlaces */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Código */
+code {
+    background: var(--code-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+}
+
+pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
+}
+
+pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+}
+
+/* Tablas */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+th {
+    background: var(--light-bg);
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+tr:nth-child(even) {
+    background: #fafbfc;
+}
+
+/* Listas */
+ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+li {
+    margin: 0.25rem 0;
+}
+
+/* Blockquotes */
+blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-left: 4px solid var(--border-color);
+    color: var(--secondary-color);
+}
+
+/* Contenedores especiales */
+.highlight {
+    background: linear-gradient(135deg, var(--light-bg) 0%, #e8f4fd 100%);
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0 6px 6px 0;
+}
+
+/* Badges y etiquetas */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    background: var(--primary-color);
+    border-radius: 12px;
+    margin: 0.2rem;
+}
+
+.badge.success {
+    background: var(--success-color);
+}
+
+.badge.warning {
+    background: var(--warning-color);
+    color: var(--dark-bg);
+}
+
+/* Checkmarks y símbolos */
+.check {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    pre {
+        padding: 0.75rem;
+    }
+}
+
+/* Mejoras de impresión */
+@media print {
+    body {
+        max-width: none;
+        padding: 0;
+    }
+
+    h1, h2, h3 {
+        break-after: avoid;
+    }
+
+    pre, table {
+        break-inside: avoid;
+    }
+}
+
+/* Índice de contenido */
+.toc {
+    background: var(--light-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 2rem 0;
+}
+
+.toc h2 {
+    margin-top: 0;
+    border: none;
+    font-size: 1.3rem;
+}
+
+.toc ul {
+    margin: 0;
+}
+
+.toc a {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
