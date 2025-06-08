@@ -30,7 +30,13 @@ Tools for automata visualization and design:
 - **JFLAP.jar**: Java Formal Languages and Automata Package
 - **JFLAP8_beta.jar**: Beta version of JFLAP
 
-### 4-Certification/
+### 4-Tools/
+
+Utility scripts and automation tools:
+
+- **compress_videos.sh**: Script for compressing MP4 video files to optimize repository size
+
+### 5-Certification/
 
 - Coursera Automata certification (2015)
 
@@ -40,6 +46,7 @@ Tools for automata visualization and design:
 - **Graphviz**: For creating visual representations of automata (.gv files)
 - **LaTeX**: For mathematical documentation and problem solutions
 - **Java/Python**: Programming assignments implementation
+- **FFmpeg**: Video compression tool (used by automation scripts)
 
 ## 🚀 Getting Started
 
@@ -67,6 +74,20 @@ pdflatex document_name.tex
 ```bash
 dot -Tpng filename.gv -o filename.png
 ```
+
+### Using Project Tools
+
+The repository includes automation scripts in the `4-Tools/` directory:
+
+**Video Compression:**
+
+```bash
+# Navigate to project root and run compression script
+cd /path/to/Automata
+bash 4-Tools/compress_videos.sh
+```
+
+This script automatically compresses all MP4 files in the project to optimize repository size while maintaining acceptable quality.
 
 ## 📖 Course Topics Covered
 
