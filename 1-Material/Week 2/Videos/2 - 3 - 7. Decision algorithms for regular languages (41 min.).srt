@@ -1,0 +1,2847 @@
+1
+00:00:00,380 --> 00:00:02,600
+Today we're going to
+discuss algorithms for
+
+2
+00:00:02,600 --> 00:00:05,750
+answering questions about
+regular languages, or
+
+3
+00:00:05,750 --> 00:00:09,860
+really about the representations for
+the languages, such as finite automata.
+
+4
+00:00:11,120 --> 00:00:12,410
+The questions that we can resolve for
+
+5
+00:00:12,410 --> 00:00:15,980
+finite automata include many we cannot
+resolve for programs in general.
+
+6
+00:00:17,070 --> 00:00:20,960
+Examples include whether a given string
+is accepted by a given automata.
+
+7
+00:00:20,960 --> 00:00:22,180
+That's the membership problem.
+
+8
+00:00:23,290 --> 00:00:26,120
+Or whether a given automaton
+accepts any string at all.
+
+9
+00:00:26,120 --> 00:00:26,980
+The emptiness problem.
+
+10
+00:00:28,200 --> 00:00:31,360
+As part of our discussion, we're going
+to prove an important theorem called
+
+11
+00:00:31,360 --> 00:00:34,820
+the Pumping Lemma that let's us show
+certain languages not to be regular.
+
+12
+00:00:37,280 --> 00:00:41,070
+Automata theory talks about many different
+classes of languages including context
+
+13
+00:00:41,070 --> 00:00:45,220
+free languages, recursive, and
+recursively innumerable languages.
+
+14
+00:00:45,220 --> 00:00:46,950
+We're going to meet each of these classes,
+but
+
+15
+00:00:46,950 --> 00:00:50,020
+for the moment we know only one class,
+the regular languages.
+
+16
+00:00:51,040 --> 00:00:54,650
+When we investigate a class of
+languages they're two important issues.
+
+17
+00:00:54,650 --> 00:00:56,520
+The first is decision properties.
+
+18
+00:00:56,520 --> 00:00:59,560
+Which we'll see that there are many
+questions we might like to ask about
+
+19
+00:00:59,560 --> 00:01:00,600
+a language, or
+
+20
+00:01:00,600 --> 00:01:04,249
+rather its representation such at
+whether it is empty finite or infinite.
+
+21
+00:01:05,320 --> 00:01:08,740
+It's good to know there are algorithms
+to answer such questions at least for
+
+22
+00:01:08,740 --> 00:01:10,630
+the regular languages.
+
+23
+00:01:10,630 --> 00:01:13,290
+Unfortunately as we meet
+larger classes of languages,
+
+24
+00:01:13,290 --> 00:01:17,550
+we find that in general the larger the
+class of languages, the less likely there
+
+25
+00:01:17,550 --> 00:01:21,000
+is to be an algorithm to answer
+question about languages in that class.
+
+26
+00:01:25,280 --> 00:01:28,000
+The second important issue is
+closure properties of the class.
+
+27
+00:01:28,000 --> 00:01:33,240
+These involve applying operations such
+as union to languages in the class.
+
+28
+00:01:33,240 --> 00:01:36,980
+We're going to defer the discussion of
+closure properties to another lecture,
+
+29
+00:01:36,980 --> 00:01:40,170
+though I'll give you
+an example on the next slide.
+
+30
+00:01:41,840 --> 00:01:45,600
+Closure properties are statements that
+when we apply certain operations to
+
+31
+00:01:45,600 --> 00:01:48,490
+languages in the class,
+the result is also in the class.
+
+32
+00:01:48,490 --> 00:01:52,600
+For example, we say that a class of
+languages is closed under union if, given
+
+33
+00:01:52,600 --> 00:01:56,600
+two languages in the class, the union of
+those languages is also in the class.
+
+34
+00:01:58,100 --> 00:02:01,990
+So if I have two regular languages, I can
+represent them by regular expressions, and
+
+35
+00:02:01,990 --> 00:02:05,650
+connect those expressions by a plus
+with the appropriate parentheses,
+
+36
+00:02:05,650 --> 00:02:08,400
+to get a regular expression for
+their union.
+
+37
+00:02:08,400 --> 00:02:11,400
+Similar constructions work for
+their concatenation enclosure.
+
+38
+00:02:14,400 --> 00:02:16,620
+Now let us address the main
+topic of this lecture,
+
+39
+00:02:16,620 --> 00:02:19,640
+decision properties of regular languages.
+
+40
+00:02:19,640 --> 00:02:24,510
+We've used both formal and
+informal ways of describing languages.
+
+41
+00:02:24,510 --> 00:02:27,910
+The formal ways including finding
+atomata and regular expressions,
+
+42
+00:02:27,910 --> 00:02:31,430
+each of which defines a language by
+a precise mathematical definition.
+
+43
+00:02:35,520 --> 00:02:39,441
+But we've also described languages
+informally by pro statements and
+
+44
+00:02:39,441 --> 00:02:40,907
+set formats such as this.
+
+45
+00:02:45,421 --> 00:02:48,810
+Or even more informal statements,
+like this.
+
+46
+00:02:49,990 --> 00:02:51,370
+Okay.
+
+47
+00:02:51,370 --> 00:02:54,110
+However, you can't answer questions
+about a language unless you have
+
+48
+00:02:54,110 --> 00:02:55,390
+a formal description.
+
+49
+00:02:55,390 --> 00:02:58,990
+For example, for instance we will talk
+shortly about testing whether a regular
+
+50
+00:02:58,990 --> 00:03:02,750
+language is infinite,
+given one of its formal representation.
+
+51
+00:03:02,750 --> 00:03:07,970
+It looks like the last of the informal
+description describes an infinite set, but
+
+52
+00:03:07,970 --> 00:03:14,750
+does the word some mean any or
+
+53
+00:03:14,750 --> 00:03:18,330
+some, one particular number like 10,
+for example, that I have in mind.
+
+54
+00:03:19,520 --> 00:03:22,620
+Thus we're only going to use formal
+descriptions of languages when we
+
+55
+00:03:22,620 --> 00:03:25,650
+talk about algorithms, for
+deciding things about those languages.
+
+56
+00:03:27,370 --> 00:03:31,060
+Thus a decision property for
+class of languages is an algorithm that
+
+57
+00:03:31,060 --> 00:03:33,890
+takes a formal representative
+of the language.
+
+58
+00:03:33,890 --> 00:03:36,990
+The algorithm answers some particular
+question about the language,
+
+59
+00:03:36,990 --> 00:03:40,870
+such as whether or not the language
+described by the representation is empty.
+
+60
+00:03:43,730 --> 00:03:48,670
+Here are a few examples of why we might
+be interested in decision properties of
+
+61
+00:03:48,670 --> 00:03:49,550
+regular languages.
+
+62
+00:03:52,150 --> 00:03:54,594
+Both involve protocols
+represented by automata.
+
+63
+00:03:56,630 --> 00:04:00,070
+If we ask whether the language's
+section automaton is finite, we are in
+
+64
+00:04:00,070 --> 00:04:05,090
+effect asking whether the protocol it
+represents is guaranteed to terminate.
+
+65
+00:04:06,120 --> 00:04:10,800
+Or if we make the final state of the
+automaton the error state, then asking if
+
+66
+00:04:10,800 --> 00:04:14,359
+it's language is empty is tantamount to
+asking whether the protocol can fail.
+
+67
+00:04:15,710 --> 00:04:19,550
+And remember, we couldn't answer either of
+these questions about programs in general,
+
+68
+00:04:19,550 --> 00:04:23,570
+so we couldn't get the answers to these
+questions about protocols by looking at
+
+69
+00:04:23,570 --> 00:04:24,910
+the code that implements them.
+
+70
+00:04:27,030 --> 00:04:27,730
+Another use for
+
+71
+00:04:27,730 --> 00:04:32,570
+decision properties of regular languages
+involves minimizing the representations.
+
+72
+00:04:32,570 --> 00:04:35,200
+For instance,
+DFAs are a good representation for
+
+73
+00:04:35,200 --> 00:04:39,450
+certain kinds of digital circuits,
+those that have memory.
+
+74
+00:04:39,450 --> 00:04:42,310
+We usually want the smallest
+circuit to accomplish a task and
+
+75
+00:04:42,310 --> 00:04:45,500
+a good first step is to find
+a DFA that does what we want and
+
+76
+00:04:45,500 --> 00:04:49,470
+has the smallest number of states
+of any DFA for the same language.
+
+77
+00:04:49,470 --> 00:04:55,070
+It turns out that we can tell
+whether two DFA's are equivalent,
+
+78
+00:04:55,070 --> 00:04:56,899
+that is whether they
+define the same language.
+
+79
+00:04:57,900 --> 00:05:02,120
+That lets us find a minimum state
+DFA equivalent to any given DFA.
+
+80
+00:05:03,280 --> 00:05:05,650
+Again, we can do none of this
+with programs in general.
+
+81
+00:05:05,650 --> 00:05:08,680
+We can't tell whether two
+programs do the same thing, and
+
+82
+00:05:08,680 --> 00:05:10,600
+we can't find a smallest equivalent for
+
+83
+00:05:10,600 --> 00:05:14,210
+a given program, even though we know
+in principle that one must exist.
+
+84
+00:05:15,820 --> 00:05:19,580
+The membership question for regular
+language is answered by an algorithm that
+
+85
+00:05:19,580 --> 00:05:23,900
+takes a DFA in a string and tells whether
+or not the strings accepted by the DFA.
+
+86
+00:05:25,120 --> 00:05:27,470
+The algorithm is the obvious one.
+
+87
+00:05:27,470 --> 00:05:33,586
+Simulate the DFA on the input [SOUND],
+okay.
+
+88
+00:05:33,586 --> 00:05:38,770
+Here's an example it's something
+we've seen several times before.
+
+89
+00:05:38,770 --> 00:05:42,280
+Each time I show it to you, I use
+a different style of presentation but
+
+90
+00:05:42,280 --> 00:05:45,180
+the idea is always the same.
+
+91
+00:05:45,180 --> 00:05:46,390
+Here it's the DFA for
+
+92
+00:05:46,390 --> 00:05:51,080
+strings without consecutive ones,uh,
+something which I know we've seen before.
+
+93
+00:05:51,080 --> 00:05:55,220
+And the input string is 01011.
+
+94
+00:05:55,220 --> 00:05:58,200
+That obviously has consecutive ones so
+it shouldn't be accepted.
+
+95
+00:05:59,560 --> 00:06:03,037
+Well let's see what happens
+when we simulate it.
+
+96
+00:06:03,037 --> 00:06:04,630
+Read a zero stay in A.
+
+97
+00:06:05,750 --> 00:06:06,720
+When we read a one we go to B.
+
+98
+00:06:06,720 --> 00:06:08,800
+We read zero, we go back to A.
+
+99
+00:06:08,800 --> 00:06:12,840
+Read a one we go to B.
+
+100
+00:06:14,510 --> 00:06:16,800
+Read another one we go to C.
+
+101
+00:06:16,800 --> 00:06:20,570
+When we simulate this DFA on the input we
+see that in D the string gets the state C,
+
+102
+00:06:20,570 --> 00:06:23,960
+and it is not accepted.
+
+103
+00:06:23,960 --> 00:06:28,900
+Now you might wonder what if
+the regular language were
+
+104
+00:06:28,900 --> 00:06:32,210
+represented by an NFA or
+a regular expression for example.
+
+105
+00:06:33,340 --> 00:06:36,580
+Then you first need to convert
+the representation to a DFA, and
+
+106
+00:06:36,580 --> 00:06:37,730
+then simulate the DFA.
+
+107
+00:06:38,820 --> 00:06:42,250
+It is possible to convert from any of
+the four representations we know about
+
+108
+00:06:42,250 --> 00:06:45,810
+to any of the others using
+this circle of conversions.
+
+109
+00:06:45,810 --> 00:06:48,600
+So doing might exponentiate
+the size of the description but
+
+110
+00:06:48,600 --> 00:06:50,640
+there's still an algorithm
+to do the conversion.
+
+111
+00:06:50,640 --> 00:06:53,660
+And that's all we need
+to show there is for
+
+112
+00:06:53,660 --> 00:06:57,140
+example an algorithm to tell
+given a regular expression and
+
+113
+00:06:57,140 --> 00:07:00,699
+a string, whether the string is in
+the language of the regular expression.
+
+114
+00:07:02,420 --> 00:07:03,970
+Generally, proofs the closure or
+
+115
+00:07:03,970 --> 00:07:08,510
+decision properties require either a DFA
+or a regular expression by the way.
+
+116
+00:07:10,290 --> 00:07:13,080
+The emptiness problem is
+given a representation for
+
+117
+00:07:13,080 --> 00:07:16,010
+a regular language, does it's
+language contain any string at all?
+
+118
+00:07:18,690 --> 00:07:21,890
+Okay, we're going to assume
+language is represented by DFA.
+
+119
+00:07:21,890 --> 00:07:25,050
+Obviously if by some other representation,
+then convert it to a DFA.
+
+120
+00:07:27,440 --> 00:07:29,960
+Finding reachable states
+requires a breadth first or
+
+121
+00:07:29,960 --> 00:07:31,680
+depth first search from the start state.
+
+122
+00:07:32,790 --> 00:07:36,659
+I'm not going to assume you are familiar
+with these search techniques, but
+
+123
+00:07:36,659 --> 00:07:40,529
+it is fairly easy to think of some way of
+searching a graph from a single node by
+
+124
+00:07:40,529 --> 00:07:44,114
+following all arch are nodes and
+markings those nodes are to visited.
+
+125
+00:07:44,114 --> 00:07:47,397
+Then, follow archs under
+the nodes you visited and
+
+126
+00:07:47,397 --> 00:07:49,468
+mark any other notes you visit.
+
+127
+00:07:49,468 --> 00:07:52,920
+Keep doing that until you
+cannot mark any other nodes.
+
+128
+00:07:52,920 --> 00:07:57,425
+The mark nodes are those that are reached
+from the start estate on some input,
+
+129
+00:07:57,425 --> 00:08:01,874
+if at least one final state is marked and
+the DFA accepted at least one input.
+
+130
+00:08:01,874 --> 00:08:04,989
+If no final state is marked,
+then it isn't possible for
+
+131
+00:08:04,989 --> 00:08:07,920
+the DFA to accept anything
+in it's language empty.
+
+132
+00:08:10,140 --> 00:08:15,849
+Here is an example here, here's your
+
+133
+00:08:15,849 --> 00:08:22,160
+start state we might mark, mark it.
+
+134
+00:08:22,160 --> 00:08:30,020
+Mark these guys,
+maybe mark these guys as we go.
+
+135
+00:08:33,720 --> 00:08:38,730
+But if all your final states
+are out here and never get marked.
+
+136
+00:08:42,140 --> 00:08:47,260
+Then obviously no matter how
+complex this automaton is
+
+137
+00:08:47,260 --> 00:08:51,060
+you can't reach your final state and
+you can't accept anything.
+
+138
+00:08:52,250 --> 00:08:54,230
+Now if you have an automaton
+with three states,
+
+139
+00:08:54,230 --> 00:08:57,480
+it's pretty easy to tell what's
+reachable and what isn't.
+
+140
+00:08:57,480 --> 00:09:00,650
+But if you have a million states
+represented by some table,
+
+141
+00:09:00,650 --> 00:09:02,740
+then it hardly easy to tell.
+
+142
+00:09:02,740 --> 00:09:05,970
+But fortunately we have a straightforward
+search algorithm regardless how
+
+143
+00:09:05,970 --> 00:09:08,250
+large the automaton or graph is.
+
+144
+00:09:09,990 --> 00:09:14,280
+Now let us take up a more difficult
+problem, but one that we can still solve.
+
+145
+00:09:14,280 --> 00:09:15,410
+We'd like to know whether or
+
+146
+00:09:15,410 --> 00:09:18,230
+not the language defined by
+DFA is finite or infinite.
+
+147
+00:09:19,740 --> 00:09:23,170
+The first fact we're going to prove, is
+that if the language of the DFA contains
+
+148
+00:09:23,170 --> 00:09:26,645
+any string of length n or more where n
+is the number of the states the DFA.
+
+149
+00:09:26,645 --> 00:09:29,820
+Then the DFA contains
+an infinite number of strings.
+
+150
+00:09:32,830 --> 00:09:36,980
+Surely if DFA doesn't accept any string
+of length equal to or greater than n and
+
+151
+00:09:36,980 --> 00:09:39,577
+exceptionally finite number of strings.
+
+152
+00:09:39,577 --> 00:09:43,310
+However, it doesn't seem feasible
+to test membership roll and
+
+153
+00:09:43,310 --> 00:09:47,380
+push string's length and more, since
+there are an infinite number of them.
+
+154
+00:09:47,380 --> 00:09:49,080
+Can we ever finish?
+
+155
+00:09:49,080 --> 00:09:52,450
+If not, then we really don't have
+an algorithm for testing infiniteness.
+
+156
+00:09:53,530 --> 00:09:56,750
+But as we shall see, it is possible
+to limit the length of strings we
+
+157
+00:09:56,750 --> 00:10:00,280
+have to test to twice
+the number of states.
+
+158
+00:10:00,280 --> 00:10:02,180
+So we have a really large and ugly but
+
+159
+00:10:02,180 --> 00:10:05,080
+finite task, and
+we really do have an algorithm.
+
+160
+00:10:06,160 --> 00:10:08,150
+So lets try to prove the point we need.
+
+161
+00:10:08,150 --> 00:10:12,850
+That if DFA accepts any string who's
+length is at least the number of states n,
+
+162
+00:10:12,850 --> 00:10:14,770
+that an accepted infinite
+number of strings.
+
+163
+00:10:15,940 --> 00:10:17,700
+First observe that a string of length n or
+
+164
+00:10:17,700 --> 00:10:20,690
+more has at least n plus
+1 states along this path.
+
+165
+00:10:21,800 --> 00:10:25,400
+For example, a string of length
+two has three states on it's.
+
+166
+00:10:25,400 --> 00:10:30,680
+It's path here is a typical
+picture we might have.
+
+167
+00:10:31,966 --> 00:10:37,800
+String ab looks like that.
+
+168
+00:10:37,800 --> 00:10:40,780
+Notice no matter how many, well,
+
+169
+00:10:40,780 --> 00:10:47,240
+the number of symbols in
+the string is the number of.
+
+170
+00:10:47,240 --> 00:10:52,780
+Arcs, and there's always one more
+node than there are arcs in the path.
+
+171
+00:10:52,780 --> 00:10:56,676
+That's why, there will be,
+
+172
+00:10:56,676 --> 00:11:01,410
+n plus 1 states, for a string of length n.
+
+173
+00:11:03,260 --> 00:11:06,269
+Now, if there are only n different states,
+
+174
+00:11:07,600 --> 00:11:11,450
+and there are n plus one
+states along the path.
+
+175
+00:11:11,450 --> 00:11:14,370
+Then two states along
+the path must be the same.
+
+176
+00:11:14,370 --> 00:11:17,450
+That's called the pigeonhole principle,
+you might remember.
+
+177
+00:11:18,530 --> 00:11:23,340
+Here's a picture of the path for
+string w, which we're breaking up as xyz.
+
+178
+00:11:24,500 --> 00:11:29,870
+X is the prefix of w that gets the DFA to
+the first state that repeats on the path,
+
+179
+00:11:29,870 --> 00:11:32,860
+which we call state q,
+right here of course.
+
+180
+00:11:34,640 --> 00:11:39,760
+Then y is a part of w that gets
+the DFA back to q for the first time.
+
+181
+00:11:39,760 --> 00:11:45,300
+That is the end of y is
+the second occurrence of q.
+
+182
+00:11:45,300 --> 00:11:49,700
+Notice that therefore y cannot be the
+empty string, although x or z might be.
+
+183
+00:11:52,140 --> 00:11:56,230
+Finally, z is the rest of w when we
+know it gets the DFA to a final state,
+
+184
+00:11:56,230 --> 00:11:58,410
+because w is accepted by the DFA.
+
+185
+00:12:00,210 --> 00:12:03,980
+Notice that the path labelled z may have
+states that also appear earlier, but
+
+186
+00:12:03,980 --> 00:12:04,800
+it doesn't matter.
+
+187
+00:12:04,800 --> 00:12:08,209
+The important thing is that we
+identify the first repeating state, q.
+
+188
+00:12:10,920 --> 00:12:15,140
+The claim that x followed by i
+repetitions of y followed by z
+
+189
+00:12:15,140 --> 00:12:18,240
+is also accepted by the DFA for
+any integer i.
+
+190
+00:12:19,668 --> 00:12:25,710
+To see y, x takes us to state q so
+for example go like this.
+
+191
+00:12:29,190 --> 00:12:33,550
+Okay, and then we could skip y altogether,
+just follow z and
+
+192
+00:12:33,550 --> 00:12:37,310
+we get to a final state that tells
+us that xz is in the language.
+
+193
+00:12:38,800 --> 00:12:45,480
+Or, we could follow x to state q,
+we could go around loops many, many times,
+
+194
+00:12:47,480 --> 00:12:52,010
+and then finally go off following z,
+and again get to the final sate.
+
+195
+00:12:53,720 --> 00:12:58,220
+Or, after i, use of input y for
+
+196
+00:12:58,220 --> 00:13:02,640
+any i, however large,
+we follow input z and we accept.
+
+197
+00:13:02,640 --> 00:13:07,270
+This proves that xy to the iz
+is accepted for any i.
+
+198
+00:13:08,900 --> 00:13:13,410
+Remember that y cannot be empty, so
+all these excepted strings are different,
+
+199
+00:13:13,410 --> 00:13:17,110
+thus the DFA accept an infinite
+number of strings, one for each i.
+
+200
+00:13:18,440 --> 00:13:21,240
+Remember, we still do not have
+an algorithm because we can't test
+
+201
+00:13:21,240 --> 00:13:25,730
+the infinite number of strings at
+length equal to or greater than n.
+
+202
+00:13:25,730 --> 00:13:26,860
+However, we don't have to.
+
+203
+00:13:28,250 --> 00:13:32,340
+Because it is sufficient to test strings
+of length between n and 2n minus one.
+
+204
+00:13:32,340 --> 00:13:34,530
+And there are a finite
+number of such strings.
+
+205
+00:13:35,600 --> 00:13:39,030
+When we prove the state, well, we should
+at least have an algorithm although it is
+
+206
+00:13:39,030 --> 00:13:41,430
+a rather time consuming one.
+
+207
+00:13:41,430 --> 00:13:44,020
+Now we picked y to be the first
+cycle on the path, so
+
+208
+00:13:44,020 --> 00:13:46,130
+the length of xy cannot be greater than n.
+
+209
+00:13:47,760 --> 00:13:52,870
+That is some state within the first n plus
+1 states on the path, surely repeats.
+
+210
+00:13:55,240 --> 00:13:59,600
+We also know that if length of y is at
+least one, so y lies between one and n.
+
+211
+00:14:02,170 --> 00:14:05,710
+Then if w is the shortest accepted
+string of length at least n,
+
+212
+00:14:05,710 --> 00:14:08,630
+then we,
+claim that w cannot be as long as 2n.
+
+213
+00:14:09,840 --> 00:14:10,739
+For suppose it were?
+
+214
+00:14:11,850 --> 00:14:15,160
+Now, xz as we know,
+is another accepted string.
+
+215
+00:14:15,160 --> 00:14:18,950
+And the length of xz is the length
+of w minus the length of y.
+
+216
+00:14:18,950 --> 00:14:21,200
+And the length of y is at most n.
+
+217
+00:14:21,200 --> 00:14:22,810
+So the length of xz is at least n.
+
+218
+00:14:23,990 --> 00:14:26,390
+That means that xz is
+a string shorter that double,
+
+219
+00:14:26,390 --> 00:14:30,450
+but at least n in length,
+and it's also accepted.
+
+220
+00:14:30,450 --> 00:14:34,040
+But we assume that there was no strings
+accepted that were shorter than w and
+
+221
+00:14:34,040 --> 00:14:36,730
+also of length at least n.
+
+222
+00:14:36,730 --> 00:14:43,720
+As a result, given any really long string
+w that's accepted we can keep taking out
+
+223
+00:14:43,720 --> 00:14:48,564
+pieces of length between one and n, that's
+the y in each of these, the diagrams.
+
+224
+00:14:49,680 --> 00:14:51,920
+And we just keep throwing them away and
+
+225
+00:14:51,920 --> 00:14:56,850
+eventually what's left of w will
+be between n and 2n minus one.
+
+226
+00:15:01,010 --> 00:15:04,940
+So the algorithm to decide whether
+a regular language is infinite is to
+
+227
+00:15:04,940 --> 00:15:09,410
+construct a DFA for it and
+let the DFA have end states.
+
+228
+00:15:09,410 --> 00:15:12,420
+Test all the strings of length
+between n and 2n minus one and
+
+229
+00:15:12,420 --> 00:15:15,580
+say infinite if any of them are accepted.
+
+230
+00:15:15,580 --> 00:15:16,720
+Otherwise say finite.
+
+231
+00:15:18,990 --> 00:15:20,580
+This is a terrible algorithm.
+
+232
+00:15:20,580 --> 00:15:24,410
+If there are k input symbols in end states
+then the number of strings we have to
+
+233
+00:15:24,410 --> 00:15:28,140
+simulate is about k to the power 2n.
+
+234
+00:15:28,140 --> 00:15:30,560
+That is a lot of work and
+there's a much more efficient algorithm.
+
+235
+00:15:30,560 --> 00:15:34,580
+Algorithm, one that takes time
+proportional to the number of transitions,
+
+236
+00:15:34,580 --> 00:15:37,920
+that is, k times n, if implemented right.
+
+237
+00:15:37,920 --> 00:15:40,710
+I wanted to give you the argument
+about the lengths of strings,
+
+238
+00:15:40,710 --> 00:15:44,370
+because it's important when we take
+up the pumping lemma, a technique for
+
+239
+00:15:44,370 --> 00:15:46,800
+showing languages not to be regular.
+
+240
+00:15:46,800 --> 00:15:49,379
+However, let's sketch how
+the efficient algorithm will.
+
+241
+00:15:53,440 --> 00:15:56,220
+We already discussed searching
+forward from a node in a graph to
+
+242
+00:15:56,220 --> 00:15:57,820
+find all the nodes you can reach.
+
+243
+00:16:00,390 --> 00:16:03,580
+So we can eliminate the states not
+reachable from the start state.
+
+244
+00:16:06,460 --> 00:16:10,030
+We then want to eliminate states
+that don't reach a final state.
+
+245
+00:16:10,030 --> 00:16:13,540
+This algorithm is the same except
+start by marking the final states and
+
+246
+00:16:13,540 --> 00:16:14,880
+follow the arcs backwards.
+
+247
+00:16:18,200 --> 00:16:21,780
+Now there's an elegant algorithm for
+finding cycles using depth-first search
+
+248
+00:16:21,780 --> 00:16:25,780
+that takes time proportional to
+the number of edges or transitions.
+
+249
+00:16:25,780 --> 00:16:30,130
+I'm going to trust that you'll meet this
+algorithm in a course on algorithms if
+
+250
+00:16:30,130 --> 00:16:30,699
+a data structure.
+
+251
+00:16:31,980 --> 00:16:33,390
+If you haven't already done so.
+
+252
+00:16:35,770 --> 00:16:39,140
+However here's a simple way to test for
+a cycle in a graph.
+
+253
+00:16:39,140 --> 00:16:41,400
+It takes time proportional
+to the number of nodes or
+
+254
+00:16:41,400 --> 00:16:43,570
+states times the number of arcs or
+transitions.
+
+255
+00:16:45,190 --> 00:16:47,730
+We're going to do the same thing for
+each node n.
+
+256
+00:16:47,730 --> 00:16:51,199
+Starting at n search forward until
+you either can reach no more nodes.
+
+257
+00:16:52,910 --> 00:16:54,990
+Or you discover that you can reach in,
+
+258
+00:16:54,990 --> 00:16:59,870
+that is, here's node n,
+we explore forward from it.
+
+259
+00:17:01,400 --> 00:17:06,790
+And if we're lucky, at some point, we,
+we reach a node that has an R back to n.
+
+260
+00:17:06,790 --> 00:17:07,290
+Okay.
+
+261
+00:17:09,310 --> 00:17:12,610
+If you can reach n,
+then you have a cycle and
+
+262
+00:17:12,610 --> 00:17:15,480
+you conclude the language
+of the DFA is infinite.
+
+263
+00:17:15,480 --> 00:17:19,020
+If not,
+try the same process from another node.
+
+264
+00:17:19,020 --> 00:17:22,030
+If you exhaust all the nodes or starting
+points and you still haven't found
+
+265
+00:17:22,030 --> 00:17:25,190
+a cycle, then there are none and
+you conclude the language is finite.
+
+266
+00:17:27,050 --> 00:17:29,470
+This is a good time to
+introduce the pumping lemma for
+
+267
+00:17:29,470 --> 00:17:32,520
+regular languages because we have
+essentially proved it during our
+
+268
+00:17:32,520 --> 00:17:34,290
+analysis of the infiniteness problem.
+
+269
+00:17:38,030 --> 00:17:39,680
+Here is the statement
+of the pumping lemma.
+
+270
+00:17:40,930 --> 00:17:43,600
+For every regular language
+L there is is an integer n,
+
+271
+00:17:45,900 --> 00:17:48,800
+which happens to be number of states for
+some DFA for
+
+272
+00:17:48,800 --> 00:17:53,050
+L, such that every string w in
+L whose link is at least n.
+
+273
+00:17:53,050 --> 00:17:55,790
+We can break w into w equals xyz,
+
+274
+00:17:59,700 --> 00:18:02,435
+where y is the label of
+the first substring of
+
+275
+00:18:02,435 --> 00:18:07,232
+wthat goes from the state to the same
+state, as we saw on the previous slide,
+
+276
+00:18:07,232 --> 00:18:13,400
+such that the three things are true First,
+the prefix of xy of w is short,.
+
+277
+00:18:13,400 --> 00:18:15,360
+It is of length at most n.
+
+278
+00:18:15,360 --> 00:18:19,360
+We assure that by making y be the label
+of the first cycle we encounter.
+
+279
+00:18:21,650 --> 00:18:23,530
+Second, y is not the empty string.
+
+280
+00:18:24,730 --> 00:18:27,750
+We assure this because y connects
+two different occurrences of
+
+281
+00:18:27,750 --> 00:18:31,660
+the same state along the same of w.
+
+282
+00:18:31,660 --> 00:18:35,600
+And lastly x z is in L for all integers i.
+
+283
+00:18:37,650 --> 00:18:41,060
+The statement is particularly complex,
+because it is in the form for
+
+284
+00:18:41,060 --> 00:18:43,330
+all there exists, for all there exists.
+
+285
+00:18:44,510 --> 00:18:45,910
+But here's how we use it.
+
+286
+00:18:45,910 --> 00:18:48,135
+Think of game played between you and
+an advisory.
+
+287
+00:18:50,010 --> 00:18:52,908
+You pick the language L that you
+want to show is not regular, and
+
+288
+00:18:52,908 --> 00:18:56,210
+suppose the advisory claims it is regular.
+
+289
+00:18:57,260 --> 00:19:01,490
+Then the advisory has to provide that
+their exist parts while you play the for
+
+290
+00:19:01,490 --> 00:19:02,720
+all parts.
+
+291
+00:19:02,720 --> 00:19:08,020
+You've already picked L, now the advisory
+has to pick n, he can pick a number as
+
+292
+00:19:08,020 --> 00:19:12,310
+large as he likes but once picked it
+is finalized and the game proceeds.
+
+293
+00:19:14,290 --> 00:19:17,870
+Now you get to pick the string w
+subject only to the constraint that
+
+294
+00:19:17,870 --> 00:19:19,080
+is at least as long as n.
+
+295
+00:19:19,080 --> 00:19:20,800
+Then the number that the advisory picked.
+
+296
+00:19:22,938 --> 00:19:27,710
+Next the advisory has to break your w up
+into xyz, subject to the constraint that
+
+297
+00:19:27,710 --> 00:19:32,090
+the length of xy is at most n, and
+the length of y is at least one.
+
+298
+00:19:32,090 --> 00:19:36,440
+You win the game by picking an i
+such that xy to the iz is not in L.
+
+299
+00:19:38,450 --> 00:19:42,410
+However, in a proof, we don't know
+what moves the adversary will make.
+
+300
+00:19:42,410 --> 00:19:44,890
+Thus to win,
+we need to cover all possible moves.
+
+301
+00:19:46,430 --> 00:19:50,160
+That is, we know the picked n but
+we don't know n's actual value so
+
+302
+00:19:50,160 --> 00:19:51,880
+we must pick w in terms of n.
+
+303
+00:19:53,030 --> 00:19:57,380
+Similarly, we know w equals xyz but
+we don't know exactly where
+
+304
+00:19:57,380 --> 00:20:01,910
+y is except that it is not empty, and
+it is among the first n positions of w.
+
+305
+00:20:03,090 --> 00:20:06,670
+Thus our argument that xy to the iz
+is not an incomplete work for
+
+306
+00:20:06,670 --> 00:20:08,260
+any of these possible y's.
+
+307
+00:20:09,500 --> 00:20:11,670
+Now, let's see an example.
+
+308
+00:20:11,670 --> 00:20:13,270
+Let us pick this language as L.
+
+309
+00:20:13,270 --> 00:20:16,320
+It is the set of strings
+consisting of some number of
+
+310
+00:20:16,320 --> 00:20:18,320
+zeros followed with
+the same number of ones.
+
+311
+00:20:18,320 --> 00:20:22,420
+And we've claimed before that it is
+an example of a non regular language.
+
+312
+00:20:22,420 --> 00:20:23,598
+Now we're going to prove it.
+
+313
+00:20:23,598 --> 00:20:28,610
+Now the advisory picks n,
+
+314
+00:20:28,610 --> 00:20:31,540
+we don't know what n is, but
+we know it has some fixed value.
+
+315
+00:20:33,540 --> 00:20:41,470
+Now we get to choose w in terms of n,
+and we pick w equals zero to the n one.
+
+316
+00:20:41,470 --> 00:20:43,700
+That is n zeroes follwed by n ones.
+
+317
+00:20:44,700 --> 00:20:47,870
+But then the advisory gets
+to break w into x, y, z, and
+
+318
+00:20:47,870 --> 00:20:49,870
+we don't know exactly how it is broken.
+
+319
+00:20:51,500 --> 00:20:55,640
+But we know enough about xyz to show that
+there is some string, in particular,
+
+320
+00:20:55,640 --> 00:21:00,780
+the case i equals two, that the pumping
+lemma says has to be in the language L.
+
+321
+00:21:02,220 --> 00:21:08,568
+But obviously it isn't because
+it has more zeros than ones.
+
+322
+00:21:08,568 --> 00:21:12,900
+That is, we know that y,
+
+323
+00:21:12,900 --> 00:21:17,330
+being part of the first n positions of w,
+can have only zeros.
+
+324
+00:21:19,020 --> 00:21:23,370
+Okay, so two y's, have more,
+zeros than one y.
+
+325
+00:21:24,550 --> 00:21:29,420
+And the number of oness, which are all
+contained within z, doesn't change.
+
+326
+00:21:30,990 --> 00:21:34,060
+We next take up a question of
+testing whether two regular
+
+327
+00:21:34,060 --> 00:21:35,040
+languages are the same.
+
+328
+00:21:36,190 --> 00:21:39,290
+We suppose we are given representations
+for two languages L and M.
+
+329
+00:21:41,900 --> 00:21:45,480
+Whatever representation we're given,
+we convert to DFAs, and
+
+330
+00:21:45,480 --> 00:21:48,475
+then we have to combine those
+DFAs into a single DFA,
+
+331
+00:21:48,475 --> 00:21:52,080
+that in a sense that runs both
+of those DFAs in parallel.
+
+332
+00:21:52,080 --> 00:21:53,520
+We call it the product DFA.
+
+333
+00:21:56,280 --> 00:21:59,410
+Suppose these two DFAs have states,
+q and r.
+
+334
+00:22:01,890 --> 00:22:06,330
+In the product DFA, the states of pair
+as one state from Q, the other from R.
+
+335
+00:22:08,530 --> 00:22:11,590
+The start state of the product
+DFA is the pair consisting of
+
+336
+00:22:11,590 --> 00:22:13,530
+the start state from each DFA.
+
+337
+00:22:15,830 --> 00:22:17,770
+For the transitions of the product DFA,
+
+338
+00:22:17,770 --> 00:22:20,756
+suppose we have a state
+that is the pair of q,r?
+
+339
+00:22:23,020 --> 00:22:25,040
+And suppose A is the input symbol for
+
+340
+00:22:25,040 --> 00:22:27,000
+which we want to figure
+out the transition.
+
+341
+00:22:28,200 --> 00:22:32,490
+We look at the transition function for
+the first DFA, say delta L.
+
+342
+00:22:32,490 --> 00:22:34,576
+And we see where q goes on input A.
+
+343
+00:22:34,576 --> 00:22:42,620
+So here's q, and on input A,
+it goes to some state like that.
+
+344
+00:22:44,060 --> 00:22:48,790
+Then we look at the transition function
+for the second DFA, say delta M, and
+
+345
+00:22:48,790 --> 00:22:51,400
+we see where r goes on input A.
+
+346
+00:22:51,400 --> 00:22:55,210
+So here's r on input A,
+it goes somewhere here.
+
+347
+00:22:58,050 --> 00:22:59,220
+Then in the product DFA,
+
+348
+00:22:59,220 --> 00:23:04,169
+the transition from the state
+QR on input A is the state pair.
+
+349
+00:23:05,610 --> 00:23:09,270
+That is the first component is delta,
+
+350
+00:23:11,740 --> 00:23:15,630
+the L of QA, and
+who's second component is delta M of RA.
+
+351
+00:23:16,680 --> 00:23:19,390
+That is we stimulate the two
+transitions in parallel.
+
+352
+00:23:20,840 --> 00:23:21,930
+Here's a little example.
+
+353
+00:23:22,940 --> 00:23:24,800
+Here are the two given DFAs.
+
+354
+00:23:24,800 --> 00:23:28,930
+Call this the orange DFA,
+and that the purple DFA.
+
+355
+00:23:30,660 --> 00:23:32,400
+And here's the product DFA.
+
+356
+00:23:32,400 --> 00:23:33,790
+It's here.
+
+357
+00:23:37,140 --> 00:23:42,790
+For example let's figure out
+the transition from A, C, on zero.
+
+358
+00:23:42,790 --> 00:23:44,230
+So here's state A, C.
+
+359
+00:23:45,800 --> 00:23:51,570
+And I look in the orange automaton,
+A out of zero goes to A itself.
+
+360
+00:23:53,080 --> 00:23:57,110
+And in the purple automaton,
+C on a zero goes to D.
+
+361
+00:23:57,110 --> 00:24:01,930
+So the combination AC goes to AD,
+and you see that transition here.
+
+362
+00:24:03,310 --> 00:24:06,910
+For another example,
+where does AD go on input one?
+
+363
+00:24:08,340 --> 00:24:12,320
+Well, the orange automaton
+says A goes to B on one,
+
+364
+00:24:12,320 --> 00:24:15,776
+and the purple automaton
+says D goes to C on one,
+
+365
+00:24:15,776 --> 00:24:21,710
+so on one, AD goes to BC.
+
+366
+00:24:22,870 --> 00:24:24,440
+That's this transition there.
+
+367
+00:24:26,590 --> 00:24:29,300
+The algorithm for testing whether
+testing to DFAs are equivalent,
+
+368
+00:24:29,300 --> 00:24:34,720
+that is whether they accept the language,
+begins by constructing the product DFA.
+
+369
+00:24:34,720 --> 00:24:38,300
+Make the final states with the product
+DFA be all those pairs such that
+
+370
+00:24:38,300 --> 00:24:40,110
+one is a final stage and the other isn't.
+
+371
+00:24:41,110 --> 00:24:44,740
+Extreme w reaches one of these
+final states in the product.
+
+372
+00:24:44,740 --> 00:24:48,730
+And w is accepted by one of
+the original DFAs and not the other.
+
+373
+00:24:48,730 --> 00:24:50,470
+Thus the two languages are not the same.
+
+374
+00:24:51,700 --> 00:24:55,100
+Only if the product DFA with this
+selection of final states has
+
+375
+00:24:55,100 --> 00:24:58,950
+an empty language
+are the two DFAs equivalent.
+
+376
+00:24:58,950 --> 00:24:59,720
+Here's an example.
+
+377
+00:24:59,720 --> 00:25:03,800
+A,C is made a final state because
+in the original automaton,
+
+378
+00:25:03,800 --> 00:25:06,330
+C is final and A is not.
+
+379
+00:25:07,640 --> 00:25:11,280
+Likewise, BD is final because
+B is final but D is not.
+
+380
+00:25:13,450 --> 00:25:17,460
+We now see that the two original
+DFAs are not equivalent.
+
+381
+00:25:17,460 --> 00:25:22,020
+It happens that the final state BD is
+not reachable from the start state.
+
+382
+00:25:22,020 --> 00:25:25,280
+So there are no strings that
+the orange automaton accepts but
+
+383
+00:25:25,280 --> 00:25:26,410
+the purple one does not.
+
+384
+00:25:28,070 --> 00:25:31,260
+However, AC is also a final state and
+
+385
+00:25:31,260 --> 00:25:34,840
+it is obviously reachable from the start
+state because it is the start state.
+
+386
+00:25:36,180 --> 00:25:39,760
+That is, the empty string distinguishes
+from between the two automata.
+
+387
+00:25:39,760 --> 00:25:45,930
+The empty string is accepted by the orange
+automaton but not the purple one.
+
+388
+00:25:45,930 --> 00:25:48,645
+A related question to ask
+about regular languages is,
+
+389
+00:25:48,645 --> 00:25:50,355
+is whether one is
+contained than the other.
+
+390
+00:25:50,355 --> 00:25:56,328
+[SOUND] The test is in a sense one half
+of the equivalence test we just saw.
+
+391
+00:25:56,328 --> 00:25:58,756
+Start by building the product automaton.
+
+392
+00:25:58,756 --> 00:26:03,517
+[SOUND] But we have to define
+the final states differently.
+
+393
+00:26:03,517 --> 00:26:04,570
+How would you do that?
+
+394
+00:26:05,850 --> 00:26:09,200
+That is, L is not contained in M if, and
+
+395
+00:26:09,200 --> 00:26:13,060
+only if,
+some string w that is in L is not in M.
+
+396
+00:26:14,130 --> 00:26:17,570
+Such a string would get the DFA for
+L to a final state, but
+
+397
+00:26:17,570 --> 00:26:20,940
+would not get the DFA for
+M to a final state.
+
+398
+00:26:20,940 --> 00:26:24,300
+So the question of containment
+is the same as the question of
+
+399
+00:26:24,300 --> 00:26:28,740
+whether there is any string w that gets
+the product automaton to a state, q,r,
+
+400
+00:26:28,740 --> 00:26:31,520
+where q is final and r is not.
+
+401
+00:26:33,090 --> 00:26:36,070
+Here, b is the only final state
+of the first automaton and
+
+402
+00:26:36,070 --> 00:26:39,005
+d is the only non-final state
+of the second automaton.
+
+403
+00:26:39,005 --> 00:26:44,760
+So only b,d is final.
+
+404
+00:26:44,760 --> 00:26:49,650
+As we ob, as we observed before b,
+d is not reachable from the start state.
+
+405
+00:26:49,650 --> 00:26:52,600
+It has arcs out but not arcs in.
+
+406
+00:26:52,600 --> 00:26:55,920
+Thus the language of the product
+automaton is empty, and
+
+407
+00:26:55,920 --> 00:26:59,240
+we conclude that the language of
+the orange automaton is a subset of.
+
+408
+00:26:59,240 --> 00:27:02,670
+Of the line between the purple atomata.
+
+409
+00:27:02,670 --> 00:27:05,710
+Next we're going to attack
+the problem of given DFA,
+
+410
+00:27:05,710 --> 00:27:08,930
+find the equivalent DFA
+with the fewest states.
+
+411
+00:27:08,930 --> 00:27:12,470
+There is an obvious dumb algorithm,
+just consider all the DFAs with
+
+412
+00:27:12,470 --> 00:27:16,400
+the same input alphabet but
+a smaller number of states.
+
+413
+00:27:16,400 --> 00:27:18,850
+There is a huge but
+finite number of such automata.
+
+414
+00:27:18,850 --> 00:27:20,900
+So in principle we can solve this problem.
+
+415
+00:27:21,990 --> 00:27:24,410
+This time we're not going to
+dwell on the bad algorithm.
+
+416
+00:27:24,410 --> 00:27:26,830
+We'll talk you through the good
+algorithm immediately.
+
+417
+00:27:28,760 --> 00:27:31,350
+The key idea is to build
+a table of pairs of states and
+
+418
+00:27:31,350 --> 00:27:33,880
+figure out which pairs
+are distinguishable.
+
+419
+00:27:33,880 --> 00:27:36,720
+In the sense that there is some input
+string that leads one of the pair to
+
+420
+00:27:36,720 --> 00:27:39,540
+a final state and
+the other two are non final state.
+
+421
+00:27:40,590 --> 00:27:44,295
+Otherwise state indistinguishable and
+they can be conversed to a single state.
+
+422
+00:27:44,295 --> 00:27:49,008
+Here's the tennis of automata,
+
+423
+00:27:49,008 --> 00:27:55,357
+we saw way back the beginning course
+now let's look at the states for
+
+424
+00:27:55,357 --> 00:28:00,670
+40-30 and Ad-in.
+
+425
+00:28:00,670 --> 00:28:06,260
+Input S takes them both to an accepting
+state that is Server Wins, and
+
+426
+00:28:06,260 --> 00:28:10,640
+input O takes them both to deuce,
+here and here.
+
+427
+00:28:12,900 --> 00:28:18,360
+Thus no further inputs could ever
+distinguish 40-30 from Ad-in.
+
+428
+00:28:18,360 --> 00:28:21,590
+Similarly 30-40 and
+Ad-out are indistinguishable.
+
+429
+00:28:24,310 --> 00:28:28,632
+Now we can deduce that 30-all, here.
+
+430
+00:28:28,632 --> 00:28:35,610
+And deuce are also
+indistinguishable on input S.
+
+431
+00:28:37,380 --> 00:28:44,273
+They go to 40-30 and Ad-in,
+respectively, that is here 30-all,
+
+432
+00:28:44,273 --> 00:28:49,670
+goes to 40-30 on S, and
+deuce goes to Ad-in on, on S.
+
+433
+00:28:51,500 --> 00:28:53,649
+But we know that those two
+states are indistinguishable.
+
+434
+00:28:56,560 --> 00:28:59,610
+So we'll never be able to
+distinguish 30-all from
+
+435
+00:28:59,610 --> 00:29:02,380
+deuce by a sequence beginning with S.
+
+436
+00:29:03,430 --> 00:29:10,167
+And further on input O,
+well 30-all goes to 30-40,
+
+437
+00:29:10,167 --> 00:29:14,010
+and deuce goes to Ad-out.
+
+438
+00:29:14,010 --> 00:29:16,590
+And we said we can't
+distinguish these two states.
+
+439
+00:29:17,680 --> 00:29:22,840
+So there's no string whatsoever that
+can distinguish 30-all from deuce.
+
+440
+00:29:22,840 --> 00:29:27,990
+'Kay, we're now going to talk about how
+we find the distinguishable states.
+
+441
+00:29:27,990 --> 00:29:31,480
+The basis is pairs that
+are distinguishable by the empty string.
+
+442
+00:29:31,480 --> 00:29:34,800
+These are the pairs that have one
+final and one non-final state.
+
+443
+00:29:36,640 --> 00:29:39,750
+For the inductive step we can mark
+
+444
+00:29:39,750 --> 00:29:45,830
+a pair q,r if these states go at some
+input to distinguishable states.
+
+445
+00:29:45,830 --> 00:29:53,910
+That is say here is q and
+an a goes to some state.
+
+446
+00:29:53,910 --> 00:29:57,140
+I don't know what it is, but
+it's certainly delta of q and a.
+
+447
+00:29:57,140 --> 00:30:00,750
+And here's r, and it goes on a,
+to, again, some other state.
+
+448
+00:30:00,750 --> 00:30:03,660
+I don't know what it is,
+but it's delta of r and a.
+
+449
+00:30:03,660 --> 00:30:08,140
+And then these two states on input
+w will say that this one goes to
+
+450
+00:30:08,140 --> 00:30:12,910
+a non-final state, and
+that goes to a final state on input w.
+
+451
+00:30:12,910 --> 00:30:20,860
+'Kay, then I claim a,w distinguishes
+q from r because obviously
+
+452
+00:30:20,860 --> 00:30:26,760
+q goes on aw to a non final state and
+r goes on the same a,w to a final state.
+
+453
+00:30:28,050 --> 00:30:32,100
+After no more marks are possible,
+the unmarked pairs are equivalent.
+
+454
+00:30:32,100 --> 00:30:33,980
+And can be merged into one state.
+
+455
+00:30:35,970 --> 00:30:39,770
+This point may be obvious, but
+we're going to to need it and one follows.
+
+456
+00:30:39,770 --> 00:30:43,180
+If there's no string w that
+distinguishes state p, states p and q,
+
+457
+00:30:43,180 --> 00:30:46,720
+and there is no string that
+distinguishes q from r,
+
+458
+00:30:46,720 --> 00:30:50,320
+then how could some string
+w distinguish p from r?
+
+459
+00:30:50,320 --> 00:30:54,250
+That would mean that there's some
+string w means one of p and r,
+
+460
+00:30:58,340 --> 00:31:01,500
+to a final state and
+the other two in non-final state.
+
+461
+00:31:01,500 --> 00:31:03,490
+Let's say r leads to a final state, so
+
+462
+00:31:03,490 --> 00:31:09,680
+here's w leading p to
+a non-final state and here's r.
+
+463
+00:31:09,680 --> 00:31:12,620
+And on the same w, gets to a final state.
+
+464
+00:31:14,480 --> 00:31:17,290
+But then w,
+also distinguishes q from either p or r.
+
+465
+00:31:18,410 --> 00:31:23,750
+So here's q, and w,
+leads it to some state.
+
+466
+00:31:27,360 --> 00:31:31,839
+Okay, so let's say that w,
+leads q to a final state.
+
+467
+00:31:34,510 --> 00:31:40,810
+And w distinguishes q from p because
+your p on w goes to a non-final state,
+
+468
+00:31:40,810 --> 00:31:43,024
+q on w goes to a final state.
+
+469
+00:31:43,024 --> 00:31:44,620
+Okay?
+
+470
+00:31:44,620 --> 00:31:50,770
+If q goes to a non-final state,
+then it doesn't distinguish p from q.
+
+471
+00:31:50,770 --> 00:31:52,520
+But it does distinguish r from q.
+
+472
+00:31:52,520 --> 00:31:56,070
+Because q will then go [INAUDIBLE]
+non-final state while r
+
+473
+00:31:56,070 --> 00:31:57,420
+goes to a final state.
+
+474
+00:32:00,040 --> 00:32:02,570
+Incidentally, distinguishable
+is not transitive.
+
+475
+00:32:02,570 --> 00:32:07,260
+It is quite possible that w distinguishes
+p from q and also q from r.
+
+476
+00:32:07,260 --> 00:32:09,580
+But does not distinguish p from r.
+
+477
+00:32:09,580 --> 00:32:14,970
+For example w could lead both p and r to
+final states, and q to a non-final state.
+
+478
+00:32:16,870 --> 00:32:20,020
+We're now going to use the table
+of indistinguishabliliy to
+
+479
+00:32:20,020 --> 00:32:22,650
+merge states are indistinguishable.
+
+480
+00:32:22,650 --> 00:32:26,300
+That gives us the minimum state DFA,
+although we must be carefully to remove at
+
+481
+00:32:26,300 --> 00:32:30,170
+some stage, all the states that are not
+reachable from the start state.
+
+482
+00:32:32,840 --> 00:32:38,870
+Suppose we have a set of indistinguishable
+states, say q-1 through q-k.
+
+483
+00:32:38,870 --> 00:32:43,050
+We're going to replace them all by a
+single state that behaves as they all do.
+
+484
+00:32:43,050 --> 00:32:44,160
+Call the representative q.
+
+485
+00:32:44,160 --> 00:32:48,040
+It can be one of the qi's or
+some new name we create for this purpose.
+
+486
+00:32:49,170 --> 00:32:52,910
+On any symbol a, all
+the indistinguishable states, the qi's,
+
+487
+00:32:52,910 --> 00:32:56,440
+go to states that are also
+indistinguishable from one another.
+
+488
+00:32:56,440 --> 00:33:01,750
+For if not then we could use a distinction
+between, say, the states delta q1 of a and
+
+489
+00:33:01,750 --> 00:33:05,660
+delta of q2 of a to
+distinguish between q1 and q2.
+
+490
+00:33:05,660 --> 00:33:10,600
+But we already know that q1 and q2 are
+indistinguishable so that can't happen.
+
+491
+00:33:12,850 --> 00:33:16,650
+Thus make the transition for state q
+on input a, be the representative for
+
+492
+00:33:16,650 --> 00:33:19,970
+the indistinguishable states delta q1 a,
+and so on.
+
+493
+00:33:22,020 --> 00:33:25,130
+Let's work with the DFA that we
+constructed from the NFA that
+
+494
+00:33:25,130 --> 00:33:27,070
+represented moves on a chessboard.
+
+495
+00:33:28,600 --> 00:33:32,080
+We're going to make it easier to
+work with by renaming the states to
+
+496
+00:33:32,080 --> 00:33:33,650
+be single letters.
+
+497
+00:33:33,650 --> 00:33:37,340
+For example,
+A is the set containing only one.
+
+498
+00:33:37,340 --> 00:33:40,770
+And G is the set containing one,
+three, five, seven, and nine.
+
+499
+00:33:44,570 --> 00:33:45,630
+Here's a little trick for
+
+500
+00:33:45,630 --> 00:33:49,205
+arranging pairs in a triangle, so
+each pair appears exactly once.
+
+501
+00:33:50,320 --> 00:33:52,750
+Notice that the rows of
+the states in order, except for
+
+502
+00:33:52,750 --> 00:33:54,990
+the last state, G,
+which doesn't appear there.
+
+503
+00:33:54,990 --> 00:33:59,920
+There, then the columns are labelled by
+the states in backwards order, except for
+
+504
+00:33:59,920 --> 00:34:00,790
+the first state, A.
+
+505
+00:34:02,330 --> 00:34:05,530
+We begin the table of
+indistinguishabilities by marking each
+
+506
+00:34:05,530 --> 00:34:10,070
+pair that consists of a final state and
+a non-final state.
+
+507
+00:34:10,070 --> 00:34:14,070
+Here the final states are F and G,
+so pairs that have one of these and
+
+508
+00:34:14,070 --> 00:34:16,169
+one of the other states,
+A through E, are marked.
+
+509
+00:34:17,645 --> 00:34:19,850
+Let's look at the transitions on input r.
+
+510
+00:34:19,850 --> 00:34:23,290
+Notice that the column for
+r has only states b and d.
+
+511
+00:34:23,290 --> 00:34:26,760
+Since we have not yet distinguished
+b from d, there's no way input r can
+
+512
+00:34:26,760 --> 00:34:29,100
+help distinguish other pairs
+of states at this point.
+
+513
+00:34:30,880 --> 00:34:32,580
+However, we have more luck with input b.
+
+514
+00:34:34,570 --> 00:34:38,280
+Some states go to final states on input b,
+mainly C, D, E and
+
+515
+00:34:38,280 --> 00:34:42,810
+G, and the others A B and
+F go to nonfinal states.
+
+516
+00:34:42,810 --> 00:34:48,720
+Thus we can distinguish any of C,
+D, E or G from any of A, B, or F.
+
+517
+00:34:48,720 --> 00:34:50,760
+Some of these pairs
+are already distinguished but
+
+518
+00:34:50,760 --> 00:34:53,240
+we get seven new pairs marked in red here.
+
+519
+00:34:56,560 --> 00:35:00,770
+At the next step, we discovered two
+more distinguishable pairs, C,D and C,E.
+
+520
+00:35:01,830 --> 00:35:05,990
+For example C and D lead to F and
+Grespectively, on input B.
+
+521
+00:35:07,680 --> 00:35:11,540
+So we know that whatever string
+w distinguishes F from G,
+
+522
+00:35:11,540 --> 00:35:14,100
+B followed by w will distinguish C from D.
+
+523
+00:35:16,210 --> 00:35:18,310
+Now we can mark the pair A,B.
+
+524
+00:35:18,310 --> 00:35:21,090
+These states transition
+on input R to B and
+
+525
+00:35:21,090 --> 00:35:24,760
+D respectively, and we already
+know we can distinguish B from D.
+
+526
+00:35:27,280 --> 00:35:28,100
+Unfortunately D and
+
+527
+00:35:28,100 --> 00:35:31,960
+E can never be marked because on both
+inputs they go to the same state.
+
+528
+00:35:35,750 --> 00:35:37,281
+[SOUND] Okay.
+We are now done,
+
+529
+00:35:37,281 --> 00:35:41,200
+we have distinguished every pair
+of states except for D and E.
+
+530
+00:35:41,200 --> 00:35:43,150
+Moreover, we can never
+distinguish these states,
+
+531
+00:35:43,150 --> 00:35:47,745
+since they both go to D on input r,
+and to G on input B.
+
+532
+00:35:47,745 --> 00:35:53,470
+[SOUND] Thus, D and E form
+an indistinguishable group of states,
+
+533
+00:35:53,470 --> 00:35:57,507
+and we can replace them
+by a representative.
+
+534
+00:35:57,507 --> 00:36:01,280
+We choose the new state
+H as the representative.
+
+535
+00:36:01,280 --> 00:36:05,500
+And all transitions from other states, the
+D or E, are replaced by transitions to H.
+
+536
+00:36:05,500 --> 00:36:09,040
+The rows for D and
+E are replaced by a row for H.
+
+537
+00:36:11,040 --> 00:36:16,230
+As D and E transition to D on input r,
+H transitions to itself on r.
+
+538
+00:36:19,260 --> 00:36:22,200
+The transition on input B for H is to G,
+
+539
+00:36:23,680 --> 00:36:27,360
+which is the same as it was for
+both D and E.
+
+540
+00:36:29,520 --> 00:36:32,540
+As we mentioned, collapsing
+indistinguishable states to a single state
+
+541
+00:36:32,540 --> 00:36:35,830
+goes a long way to finding the
+minimum-state equivalent to a given DFA.
+
+542
+00:36:37,830 --> 00:36:41,420
+But there is one other ratio that
+indistinguishablility doesn't address,
+
+543
+00:36:41,420 --> 00:36:44,430
+the possible existence of unreachable
+states that are cluttering up
+
+544
+00:36:44,430 --> 00:36:46,170
+the transition diagram or table.
+
+545
+00:36:47,580 --> 00:36:50,920
+But it is easy to find such states,
+and we can either eliminate them from
+
+546
+00:36:50,920 --> 00:36:55,386
+the original DFA or we can eliminate them
+after merging indistinguishable states.
+
+547
+00:36:55,386 --> 00:36:58,711
+It doesn't matter.
+
+548
+00:36:58,711 --> 00:37:03,479
+[SOUND] Now we're done our best to combine
+states that we know how to combine.
+
+549
+00:37:03,479 --> 00:37:07,746
+[SOUND] But it is in principle
+possible that there is some
+
+550
+00:37:07,746 --> 00:37:13,057
+other smaller DFA that we can't get
+by combining states of our DFA.
+
+551
+00:37:13,057 --> 00:37:21,635
+[SOUND] And fortunately,
+that can't happen, as we shall now see.
+
+552
+00:37:21,635 --> 00:37:25,725
+Here's the proof that there is
+nothing smaller than the DFA we get by
+
+553
+00:37:25,725 --> 00:37:29,040
+merging states and
+eliminating unreachable states.
+
+554
+00:37:32,410 --> 00:37:37,760
+Suppose A is our DFA, and B is a
+hypothetical equivalent with fewer states.
+
+555
+00:37:41,030 --> 00:37:44,320
+Okay, imagine we combine the states
+of A and B to form a larger DFA.
+
+556
+00:37:44,320 --> 00:37:48,400
+It doesn't matter what the start state
+of the combined automaton is, but
+
+557
+00:37:48,400 --> 00:37:51,740
+the final states are those of A and B.
+
+558
+00:37:51,740 --> 00:37:55,930
+We need to use distinguishable in
+its contrapositive form, that is.
+
+559
+00:37:55,930 --> 00:37:59,891
+If w distinguishes delta
+of q,a from delta of p,a,
+
+560
+00:37:59,891 --> 00:38:03,880
+then surely a,w distinguishes q from p.
+
+561
+00:38:03,880 --> 00:38:09,855
+So if q and p are indistinguishable then
+so are their successors on any input a.
+
+562
+00:38:09,855 --> 00:38:16,133
+[SOUND] Here's an informal
+illustration of the proof technique.
+
+563
+00:38:16,133 --> 00:38:19,620
+We start off with the fact that
+the start states of the time of A and
+
+564
+00:38:19,620 --> 00:38:24,160
+B are surely indistinguishable, because
+the automata accept the same language.
+
+565
+00:38:27,320 --> 00:38:30,930
+Now suppose the start A go to
+some states P and Q on input A.
+
+566
+00:38:34,350 --> 00:38:37,770
+P and Q must be indistinguishable,
+because if they were distinguishable,
+
+567
+00:38:37,770 --> 00:38:43,330
+then we could distinguish the start
+states, and we know we cannot do that.
+
+568
+00:38:43,330 --> 00:38:48,875
+Now, suppose q and
+p go on input b to to other states,
+
+569
+00:38:48,875 --> 00:38:54,978
+r and s, then r and s must be
+indistinguishable for the same reason.
+
+570
+00:38:59,358 --> 00:39:04,210
+Formerly we should prove that every state
+q of A is indistinguishable from the som,
+
+571
+00:39:04,210 --> 00:39:05,190
+some state of B.
+
+572
+00:39:06,510 --> 00:39:10,140
+The proof is in induction on the length
+of the shortest string that gets you to q
+
+573
+00:39:10,140 --> 00:39:11,230
+from A start state.
+
+574
+00:39:12,320 --> 00:39:15,290
+Notice that because we eliminated
+unreasonable states we know there is
+
+575
+00:39:15,290 --> 00:39:16,467
+such a short string.
+
+576
+00:39:16,467 --> 00:39:23,131
+[SOUND] For bases the state of A that
+is reachable from the start state
+
+577
+00:39:23,131 --> 00:39:29,797
+by string of length zero which is
+of course the start state itself.
+
+578
+00:39:29,797 --> 00:39:33,021
+We know that this state of a is
+indistinguishable from the start state
+
+579
+00:39:33,021 --> 00:39:35,005
+a to b because the languages are the same.
+
+580
+00:39:35,005 --> 00:39:40,397
+[SOUND] For the induction,
+assume the inductive hypothesis for
+
+581
+00:39:40,397 --> 00:39:47,123
+strings shorter than w, and suppose w is
+a shorter string getting A to state q.
+
+582
+00:39:47,123 --> 00:39:51,300
+Let w equal xa,
+that is A is the last symbol of w, and.
+
+583
+00:39:51,300 --> 00:39:54,370
+X is all the rest of w.
+
+584
+00:39:56,250 --> 00:39:59,890
+We can plot the inductive hypothesis
+to x because it is shorter than w.
+
+585
+00:39:59,890 --> 00:40:07,050
+You know, x gets a to some state r that is
+indistinguishable from some state p of b.
+
+586
+00:40:10,370 --> 00:40:13,720
+But then,
+a takes state r on input a to state q.
+
+587
+00:40:14,820 --> 00:40:19,640
+And we know B takes state p on input a,
+to some state, say s.
+
+588
+00:40:19,640 --> 00:40:22,630
+And q must be indistinguishable from s,
+
+589
+00:40:22,630 --> 00:40:25,135
+using the argument that
+we saw two slides ago.
+
+590
+00:40:25,135 --> 00:40:31,540
+Okay, now, we use the transistivity of
+indistinguishable to argue that no two
+
+591
+00:40:31,540 --> 00:40:35,200
+states today, are in, indistinguishable
+from the same state of B.
+
+592
+00:40:35,200 --> 00:40:37,830
+For, if they were, they would be
+indistinguishable from each other.
+
+593
+00:40:39,090 --> 00:40:39,690
+But, we A,
+
+594
+00:40:39,690 --> 00:40:43,480
+can not have indistinguishable states,
+because we merged them all constructing A.
+
+595
+00:40:44,940 --> 00:40:48,990
+Thus, B has at least as many states as A.
+
+596
+00:40:48,990 --> 00:40:52,904
+Even though we started off assuming
+that there was no relationship between
+
+597
+00:40:52,904 --> 00:40:57,965
+automata A and B except that they
+each accepted the same language.
+
+598
+00:40:57,965 --> 00:41:04,160
+So that concludes the, entire argument.
+
+599
+00:41:04,160 --> 00:41:07,930
+It says that,
+by throwing away unreachable states and
+
+600
+00:41:07,930 --> 00:41:12,670
+then merging indistinguishable states
+you get an automaton, that is a small,
+
+601
+00:41:12,670 --> 00:41:16,960
+that is, has as few states as any
+other automaton for the same language.
+

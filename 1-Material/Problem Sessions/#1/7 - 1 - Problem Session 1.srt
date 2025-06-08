@@ -1,0 +1,714 @@
+1
+00:00:00,000 --> 00:00:11,745
+Good afternoon. Spring has hit 
+California. You can see that I am wearing
+
+2
+00:00:11,745 --> 00:00:17,942
+one of my Hawaiian shirts unlike the
+button downs that I recorded the lectures
+
+3
+00:00:17,942 --> 00:00:24,792
+in, so everything is feeling good and in
+this video, I'd like to discuss a few
+
+4
+00:00:24,792 --> 00:00:28,684
+questions that have arisen, in the
+discussion forum, that I think may
+
+5
+00:00:28,684 --> 00:00:34,917
+represent common misconceptions. First, I
+want to remind everyone to be aware of the
+
+6
+00:00:34,917 --> 00:00:42,910
+types of things that we discussed. Strings
+versus characters and so on. Then I want
+
+7
+00:00:42,910 --> 00:00:46,643
+to point out a subtle difference between
+an automaton accepting a string and
+
+8
+00:00:46,643 --> 00:00:51,748
+accepting a language. And finally there
+are a few interesting edge effects that we
+
+9
+00:00:51,748 --> 00:00:58,253
+need to understand. You may have heard of the
+Zen Koan, what is the sound of one hand
+
+10
+00:00:58,253 --> 00:01:04,721
+clapping? I don't know, but here we face a
+harder problem under the sound of no hands
+
+11
+00:01:04,721 --> 00:01:09,549
+clapping, I want to remind people what it
+means for example to compute the sum of
+
+12
+00:01:09,549 --> 00:01:21,189
+zero integers. We're familiar with types
+or classes from work with most any modern
+
+13
+00:01:21,189 --> 00:01:25,993
+programming language. The things we talked
+about in automata theory also have
+
+14
+00:01:25,993 --> 00:01:31,868
+types, and confusing one type for another
+is just as dangerous here as it is in
+
+15
+00:01:31,868 --> 00:01:38,814
+programming. Two distinctions I want to
+emphasize today are first, between
+
+16
+00:01:38,814 --> 00:01:44,245
+characters and strings, and then between
+sets and the members of those sets. A
+
+17
+00:01:44,245 --> 00:01:50,422
+string is a sequence of zero or more
+characters. In most programming languages,
+
+18
+00:01:50,422 --> 00:01:56,006
+double quotes are placed around the
+string. And single quotes around the
+
+19
+00:01:56,006 --> 00:02:02,292
+character. The distinction is most
+important when the string is of length one
+
+20
+00:02:02,292 --> 00:02:05,444
+because then it looks just like a
+character if you don't do something like
+
+21
+00:02:05,444 --> 00:02:10,609
+double quoted to indicate its type. Most
+importantly, epsilon is the way we
+
+22
+00:02:10,609 --> 00:02:14,326
+represent the empty string. In most
+languages, the way to represent the empty
+
+23
+00:02:14,326 --> 00:02:24,234
+string is by double quotes with nothing in
+between them like this. And I think most
+
+24
+00:02:24,234 --> 00:02:29,532
+confusion occurred when people noticed
+that in an epsilon NFA, some arcs are
+
+25
+00:02:29,532 --> 00:02:35,062
+labeled by the string epsilon while others
+are labeled by input characters or input
+
+26
+00:02:35,062 --> 00:02:42,553
+symbols. Previously, DFAs and ordinary
+NFAs had all arcs labeled by characters
+
+27
+00:02:42,553 --> 00:02:46,629
+but epsilon is not a character and yet we
+appeared to use it where you expected an
+
+28
+00:02:46,629 --> 00:02:53,587
+input symbol, that is, a character to
+appear. But there is no real problem,
+
+29
+00:02:53,587 --> 00:02:58,089
+since a character can be coerced to be a
+string of length one. It's in fact very
+
+30
+00:02:58,089 --> 00:03:03,141
+natural in programming languages. For
+example in Java, an easy way to convert
+
+31
+00:03:03,141 --> 00:03:07,616
+characters to strings is to write the
+empty string concatenated with that
+
+32
+00:03:07,616 --> 00:03:14,675
+character. Since characters are coerced to
+strings, the character, say, zero, is
+
+33
+00:03:14,675 --> 00:03:19,292
+converted to the string zero and
+concatenated with the empty string which
+
+34
+00:03:19,292 --> 00:03:26,411
+leaves just the original character, but
+converted to a string of length one. So
+
+35
+00:03:26,411 --> 00:03:30,143
+for an Epsilon NFA, just think of the
+character's labeled in the arcs as strings
+
+36
+00:03:30,143 --> 00:03:36,905
+of length one. Then you can concatenate
+the epsilons and characters along any path
+
+37
+00:03:36,905 --> 00:03:42,859
+and get a string naturally. As with any
+kind of automaton, the sequence of labels
+
+38
+00:03:42,859 --> 00:03:49,831
+along any path is of type string. Here's
+a pretty picture of a path in an
+
+39
+00:03:49,831 --> 00:03:54,421
+epsilon NFA. It doesn't matter whether the
+states are distinct or if some repeat
+
+40
+00:03:54,421 --> 00:04:02,101
+along the path. You just concatenate the
+labels Epsilon, the string zero, the
+
+41
+00:04:02,101 --> 00:04:14,420
+string one, the string epsilon again, string
+zero. The concatenation of these five strings
+
+42
+00:04:14,420 --> 00:04:26,177
+then is the string 010. Now let's move on
+to sets and elements. Elements come in
+
+43
+00:04:26,177 --> 00:04:34,254
+many different types. For example
+integers, strings, characters and so on.
+
+44
+00:04:34,254 --> 00:04:38,831
+Sets can have elements as members, so for
+example a language in the world of a
+
+45
+00:04:38,831 --> 00:04:43,880
+automata theory is set of elements of
+type string. That is, the type of a
+
+46
+00:04:43,880 --> 00:04:51,645
+language is: set of strings. And remember
+that epsilon is a string. While the empty
+
+47
+00:04:51,645 --> 00:04:56,391
+set is a set. There is a notion of
+membership that relates the set to the
+
+48
+00:04:56,391 --> 00:05:01,691
+members of that set. A set can have
+members. The element types like string do
+
+49
+00:05:01,691 --> 00:05:06,285
+not have members. Technically the members
+of a set can be sets themselves but we're
+
+50
+00:05:06,285 --> 00:05:10,954
+not going to talk about such sets much.
+Occasionally, we mention the power set of
+
+51
+00:05:10,954 --> 00:05:15,820
+a set S whose members are the each of
+the subsets of the set S and thus are
+
+52
+00:05:15,820 --> 00:05:20,142
+sets themselves. But, in most cases you
+can assume that sets have members that
+
+53
+00:05:20,142 --> 00:05:25,820
+are elements and not sets. The empty set
+is a set but it has no members. All other
+
+54
+00:05:25,820 --> 00:05:32,375
+sets do have one or more members. And
+elements do not have members either for
+
+55
+00:05:32,375 --> 00:05:37,454
+example epsilon has no members, but the
+reason epsilon has no members is because
+
+56
+00:05:37,454 --> 00:05:42,064
+it is of a type for which having members
+makes no sense. We must not confuse the
+
+57
+00:05:42,064 --> 00:05:47,132
+empty string with the empty set. They each
+have no members, but for very different
+
+58
+00:05:47,132 --> 00:05:52,237
+reasons and their types are not the same.
+Let's see how the set element distinction
+
+59
+00:05:52,237 --> 00:05:58,883
+applies to states of a non-deterministic
+finite automaton. First, states of any
+
+60
+00:05:58,883 --> 00:06:05,630
+automaton are elements not sets. The subset
+construction seems to create a DFA who
+
+61
+00:06:05,630 --> 00:06:13,410
+states, are sets of the states of the NFA.
+But really, what we're doing is computing
+
+62
+00:06:13,410 --> 00:06:19,118
+sets of NFA states and giving each one a
+name. This name is the name of a DFA
+
+63
+00:06:19,118 --> 00:06:25,631
+state and each DFA state corresponds to a
+set of NFA states, but the DFA state is an
+
+64
+00:06:25,631 --> 00:06:31,839
+element with an associated value and the
+value is the set of NFA states. We can
+
+65
+00:06:31,839 --> 00:06:36,878
+even use the set of NFA states as the name
+of the DFA state but we should then
+
+66
+00:06:36,878 --> 00:06:47,027
+understand the notation for the set like
+the set containing p and q, is this, is
+
+67
+00:06:47,027 --> 00:06:51,544
+a string that is the name of a DFA
+state. Here's another point that has
+
+68
+00:06:51,544 --> 00:06:58,008
+caused some confusion, Automata accept
+strings. The labels of the paths that lead
+
+69
+00:06:58,008 --> 00:07:04,055
+from the start state to an accepting
+state. But we also said that an automaton
+
+70
+00:07:04,055 --> 00:07:09,625
+accepts a language. This language is the
+set of strings that the automaton accepts.
+
+71
+00:07:09,625 --> 00:07:15,409
+If we say automaton A accepts language L
+then we mean that L consists of all and
+
+72
+00:07:15,409 --> 00:07:22,017
+only the strings that A accepts. Thus,
+while the typical automaton accepts an
+
+73
+00:07:22,017 --> 00:07:26,791
+infinite number of different strings, it
+accepts exactly one language, the set of
+
+74
+00:07:26,791 --> 00:07:34,391
+strings that it accepts. Let's remember
+that the phrase "automaton A accepts
+
+75
+00:07:34,391 --> 00:07:39,717
+language L" means that L is the one
+language of A. A accepts all the strings
+
+76
+00:07:39,717 --> 00:07:44,782
+in L and A does not accept any other
+strings. The extreme case of the confusion
+
+77
+00:07:44,782 --> 00:07:50,019
+would be an automaton like the one shown
+which accepts every string, but only
+
+78
+00:07:50,019 --> 00:07:59,990
+accepts one language, the one we refer
+to as "zero one star". That's this. That is,
+
+79
+00:07:59,990 --> 00:08:05,276
+it's the language of all strings of zeros
+and ones. If you don't see the difference
+
+80
+00:08:05,276 --> 00:08:09,646
+between accepting strings and accepting a
+language, you would erroneously conclude
+
+81
+00:08:09,646 --> 00:08:16,650
+that this automaton accepts every language
+whatsoever such as the set of zero to the
+
+82
+00:08:16,650 --> 00:08:23,976
+n, one to the n such that n is equal to or
+greater than one. It doesn't. It accepts this
+
+83
+00:08:23,976 --> 00:08:29,375
+language, the set of all strings of zeroes
+and ones. I now want to talk about a point
+
+84
+00:08:29,375 --> 00:08:34,034
+of confusion that comes up in several
+places. What happens when you try to apply
+
+85
+00:08:34,034 --> 00:08:41,612
+an operation to zero things? For example,
+we know what it means to sum two integers
+
+86
+00:08:41,612 --> 00:08:47,764
+or ten integers but what if we were asked
+to sum zero integers or if I have a string
+
+87
+00:08:47,764 --> 00:08:52,093
+of zeroes and ones, it makes sense to ask
+whether the string has an even or odd
+
+88
+00:08:52,093 --> 00:09:01,418
+number of zeroes but if the string is
+empty? So for example, four + seven +
+
+89
+00:09:01,418 --> 00:09:08,373
+three = fourteen, no problem. If I just
+want to sum four + seven, cross out the
+
+90
+00:09:08,373 --> 00:09:15,432
+three, again no problem that's eleven. If
+I just want to sum the four, no seven
+
+91
+00:09:15,432 --> 00:09:25,763
+there, fine: that sum is four. Now if I
+take the four away, what's left? What is
+
+92
+00:09:25,763 --> 00:09:31,610
+its sum? I claim that in general, we should
+take the operation applied to nothing to
+
+93
+00:09:31,610 --> 00:09:37,979
+be the identity for that operation. For
+sum, the identity is zero. That is, zero
+
+94
+00:09:37,979 --> 00:09:47,877
+plus anything is that other thing. This is
+a well accepted convention. I can't prove to
+
+95
+00:09:47,877 --> 00:09:56,753
+you... that the sum of zero things <i>must</i> be
+the identity zero, but neither have I seen a
+
+96
+00:09:56,753 --> 00:10:01,303
+reasonable justification for any other
+convention and if you have one it would be
+
+97
+00:10:01,303 --> 00:10:07,701
+a great topic for the discussion forum of
+the class. And it is natural
+
+98
+00:10:07,701 --> 00:10:12,101
+and intuitive, as we can see If we write the
+obvious quote to sum the n elements of
+
+99
+00:10:12,101 --> 00:10:19,432
+an array. Here's what the code looks like:
+you initialize the sum to zero, there, and
+
+100
+00:10:19,432 --> 00:10:27,023
+then go through the array in a loop. And
+you go through n times. You'll get the
+
+101
+00:10:27,023 --> 00:10:35,636
+correct sum for any n equal to or greater than one
+but what happens if n happens to be zero?
+
+102
+00:10:35,636 --> 00:10:42,282
+If that's the case, you never execute the
+loop. You just jump right around it and
+
+103
+00:10:42,282 --> 00:10:47,008
+the sum is left at zero. And initializing
+the sum to anything but zero makes no
+
+104
+00:10:47,008 --> 00:10:51,484
+sense and would not give the correct
+result for n equal to or greater than one
+
+105
+00:10:51,484 --> 00:10:58,364
+unless you did serious contortions to the
+code. Here are some other examples where
+
+106
+00:10:58,364 --> 00:11:04,426
+the identity for the operator is the only
+thing that makes sense. The OR of zero
+
+107
+00:11:04,426 --> 00:11:10,943
+propositional variables is false because
+false is the identity for OR, that is
+
+108
+00:11:10,943 --> 00:11:30,705
+false OR x = x. Similarly, the AND of no
+propositions is true because true AND x = x.
+
+109
+00:11:30,705 --> 00:11:39,556
+The product of no integers or reals
+is one because one  x = x. And if we
+
+110
+00:11:39,556 --> 00:11:46,451
+concatenate zero strings, we should get
+the empty string since epsilon
+
+111
+00:11:46,451 --> 00:11:53,542
+concatenated with any string x is x. As an
+example of why the convention for strings
+
+112
+00:11:53,542 --> 00:11:58,346
+make sense, look at an automaton where the
+start state is also an accepting state.
+
+113
+00:11:58,346 --> 00:12:03,418
+This automaton has more to it, I just
+didn't draw it. There is a path from a to
+
+114
+00:12:03,418 --> 00:12:08,948
+a that goes through no arcs. It is of
+length zero. In general, the string that
+
+115
+00:12:08,948 --> 00:12:13,245
+labels a path is the concatenation of
+all the strings that come from the input
+
+116
+00:12:13,245 --> 00:12:17,723
+symbols along that path. Again, remember
+that the characters labeling the arcs are
+
+117
+00:12:17,723 --> 00:12:23,216
+converted to strings for concatenation.
+But in this case, the path has no arcs so
+
+118
+00:12:23,216 --> 00:12:28,192
+its label must be the concatenation of
+zero strings, that is, the empty string.
+
+119
+00:12:28,192 --> 00:12:32,700
+That's great because it means that the
+empty string is accepted by this automaton
+
+120
+00:12:32,700 --> 00:12:36,953
+and since the automaton starts out in an
+accepting state before it reads any input,
+
+121
+00:12:36,953 --> 00:12:42,918
+that makes sense. Next, let's look at the
+question of whether zero is odd or even.
+
+122
+00:12:42,918 --> 00:12:47,150
+Curiously, this question causes a great
+deal of disagreement. For example, I
+
+123
+00:12:47,150 --> 00:12:53,099
+remember one day in 1973 when we had gas
+rationing, you could only fill up on a day
+
+124
+00:12:53,099 --> 00:12:58,741
+whose number was even, if the digits on
+your license plate formed an even number.
+
+125
+00:12:58,741 --> 00:13:03,048
+And ditto for odds. But, what if your
+license plate had no digits? A vanity
+
+126
+00:13:03,048 --> 00:13:11,610
+plate like LOVER, okay. Since
+legislatures are not Mathematicians,
+
+127
+00:13:11,610 --> 00:13:17,882
+different states have different policies.
+Some treating a plate like this as odd and
+
+128
+00:13:17,882 --> 00:13:26,726
+others as even. But we know that zero is
+even because it leaves remainder of zero
+
+129
+00:13:26,726 --> 00:13:35,183
+when divided by two. That is zero is two
+times an integer namely zero in this case
+
+130
+00:13:35,183 --> 00:13:43,878
+plus a remainder of zero. And anything
+that leaves, that is of the form two times any
+
+131
+00:13:43,878 --> 00:13:51,276
+integer + zero is even. Now, the empty
+string has zero of every character and
+
+132
+00:13:51,276 --> 00:13:56,789
+zero is even. So if we ask a question
+like, does the empty string contain an
+
+133
+00:13:56,789 --> 00:14:01,789
+even number of some character like zero?
+The answer is yes and if we ask whether it
+
+134
+00:14:01,789 --> 00:14:08,886
+has an odd number of zero, the answer is
+no, okay. Here's a bonus answer, okay. A
+
+135
+00:14:08,886 --> 00:14:14,593
+few people actually use automaton and
+automata correctly. Let's learn to be
+
+136
+00:14:14,593 --> 00:14:19,954
+pedants and use them right, okay.
+Automaton is a singular noun and its
+
+137
+00:14:19,954 --> 00:14:26,650
+plural, an irregular plural because of its
+Greek origin is automata, one automaton,
+
+138
+00:14:26,650 --> 00:14:32,950
+two automata. But it gets worse, okay?
+Everybody says a automata theory, never
+
+139
+00:14:32,950 --> 00:14:39,343
+the singular form, automaton theory. But
+other theories use a singular form of the
+
+140
+00:14:39,343 --> 00:14:44,706
+noun that describes what they are about.
+For example, physicists talk about String
+
+141
+00:14:44,706 --> 00:14:50,943
+Theory or Quantum Theory, never Strings
+theory or Quantums theory well, that
+
+142
+00:14:50,943 --> 00:14:59,352
+should be Quanta Theory anyways since
+Quantum is another irregular plural and
+
+143
+00:14:59,352 --> 00:15:44,320
+don't ask me why. Anyway, see you in
+class.

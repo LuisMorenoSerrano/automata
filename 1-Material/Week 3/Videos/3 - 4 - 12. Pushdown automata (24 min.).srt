@@ -1,0 +1,1134 @@
+1
+00:00:00,000 --> 00:00:05,260
+Today, we're going to see an automaton
+that is the equivalent in power to the
+
+2
+00:00:05,260 --> 00:00:10,521
+context free grammar. The equivalence is
+analogous to the equivalence between
+
+3
+00:00:10,521 --> 00:00:15,782
+regular expressions in automata, epsilon
+NFAs in particular. The automaton is
+
+4
+00:00:15,782 --> 00:00:21,385
+called the push down automaton, or PDA. A
+term that was in use long before there
+
+5
+00:00:21,385 --> 00:00:27,371
+were personal digital assistants. After
+describing the mechanics of the PDA we'll
+
+6
+00:00:27,371 --> 00:00:32,299
+talk about two different but equivalent
+ways that PDAs can define a language.
+
+7
+00:00:32,299 --> 00:00:37,738
+We'll also mention the deterministic PDAs
+since the standard model of the PDA is the
+
+8
+00:00:37,738 --> 00:00:42,922
+non-deterministic version with epsilon
+transitions allowed. One of the key points
+
+9
+00:00:42,922 --> 00:00:47,797
+to remember is that PDAs define all and
+only the context free languages. But
+
+10
+00:00:47,797 --> 00:00:53,419
+unlike [inaudible], the non deterministic
+version is strictly more powerful than the
+
+11
+00:00:53,419 --> 00:00:58,304
+deterministic version. And only the
+non-deterministic version defines the
+
+12
+00:00:58,304 --> 00:01:03,323
+class of context free languages. However,
+the deterministic version is quite
+
+13
+00:01:03,323 --> 00:01:08,811
+important in compiling. Since parses for
+programming languages usually behave like
+
+14
+00:01:08,811 --> 00:01:13,942
+a deterministic BDA. Most programming
+languages are designed to be recognized by
+
+15
+00:01:13,942 --> 00:01:18,683
+deterministic PDA. For example we
+mentioned previously the class of [laugh]
+
+16
+00:01:18,683 --> 00:01:23,297
+[inaudible] one grammars and such a
+grammar can be converted easily to a
+
+17
+00:01:23,297 --> 00:01:28,417
+deterministic PDA. We'll get to a formal
+definition of a PDA shortly. But to start
+
+18
+00:01:28,417 --> 00:01:33,663
+think of the PDA as an epsilon NFA with an
+additional stack on which you can store
+
+19
+00:01:33,663 --> 00:01:40,890
+symbols. Like any stack you can only see
+the top symbol. The next move of the PDA
+
+20
+00:01:40,890 --> 00:01:46,784
+is a function of three things. The move
+can depend on the state it is in, just
+
+21
+00:01:46,784 --> 00:01:52,068
+like a finite automaton. The move also
+depends on the next input symbol, or the
+
+22
+00:01:52,068 --> 00:01:57,421
+PDA may make a move on epsilon that is
+without regard to the next input symbol.
+
+23
+00:01:57,421 --> 00:02:03,325
+This behavior is exactly like that of the
+epsilon NFA. But the thing that make the
+
+24
+00:02:03,325 --> 00:02:08,442
+PDA different from the final automaton is
+that it has a stack of symbols chosen from
+
+25
+00:02:08,442 --> 00:02:13,439
+a finite alphabet, and it can use the top
+symbol to help decide on the next move to
+
+26
+00:02:13,439 --> 00:02:20,553
+make. Here's the image of a PDA we should
+keep in mind. At the center is the state.
+
+27
+00:02:20,553 --> 00:02:27,757
+Like the state of the [inaudible] it
+controls what happens. Here's an input
+
+28
+00:02:27,757 --> 00:02:33,142
+which is waiting to be processed by the
+PDA. The PDA can only see the next input
+
+29
+00:02:33,142 --> 00:02:38,190
+symbol and can use the symbol to help
+decide the next rule. It also has the
+
+30
+00:02:38,190 --> 00:02:43,576
+option to make a move on the abs long
+without consulting the input and they has
+
+31
+00:02:43,576 --> 00:02:48,826
+a stack of symbols. It can see only the
+top symbol and use that to help choose
+
+32
+00:02:48,826 --> 00:02:54,948
+next rule. Moves of the PDA can involve a
+change of state, like the [inaudible]
+
+33
+00:02:54,948 --> 00:03:00,318
+automaton. But it can also push or pop the
+stack. In any situation that is, is some
+
+34
+00:03:00,318 --> 00:03:05,291
+state, with some next input and some
+[inaudible] stack, the PDA has a finite
+
+35
+00:03:05,291 --> 00:03:10,396
+number of choices of next move. Since it
+is non-deterministic, it is perfectly
+
+36
+00:03:10,396 --> 00:03:16,760
+acceptable for it to be more than one
+choice. A move choice consists of a change
+
+37
+00:03:16,760 --> 00:03:24,595
+in state which could of course be to the
+same state it is in. A manipulation of the
+
+38
+00:03:24,595 --> 00:03:30,229
+stack. And each move, the top stacks
+[inaudible] is replaced by a string of
+
+39
+00:03:30,229 --> 00:03:35,259
+stack symbols. If the string is empty, it
+has the effect of popping the stack. If
+
+40
+00:03:35,259 --> 00:03:40,479
+the string is of length one, then the top
+stack symbol can be changed or not, since
+
+41
+00:03:40,479 --> 00:03:45,637
+the replacing symbol can be the same as
+the original. If the replacing string has
+
+42
+00:03:45,637 --> 00:03:50,921
+length K greater than one, we can see them
+move as a change of the top stack symbol,
+
+43
+00:03:50,921 --> 00:03:56,078
+followed by K minus one pushes of symbols.
+Now we'll give the formal notation and
+
+44
+00:03:56,078 --> 00:04:02,160
+usual symbols for the components of the
+PDA. There is a finite set of states for
+
+45
+00:04:02,160 --> 00:04:08,437
+which we tend to use Q. Just as for finite
+atomata. There's a finite input alphabet
+
+46
+00:04:08,437 --> 00:04:15,028
+for which we'll continue to use sigma.
+There's a finite stack alphabet. Symbols
+
+47
+00:04:15,028 --> 00:04:21,453
+that can appear on the stack. For this
+alphabet we use gamma. There's a
+
+48
+00:04:21,453 --> 00:04:27,026
+transition function delta to be described
+shortly. There's a starred state,
+
+49
+00:04:27,026 --> 00:04:33,353
+typically Q0 as finite atomata. There is a
+starred symbol. This symbol is a member of
+
+50
+00:04:33,353 --> 00:04:39,680
+the stack alphabet and initially the stack
+contains only this symbol. And there is a
+
+51
+00:04:39,680 --> 00:04:46,642
+set F of final states again analogous to
+the finite atomata. There are conventions
+
+52
+00:04:46,642 --> 00:04:52,104
+for PDAs that are analogous to the
+conventions we made for [inaudible] and
+
+53
+00:04:52,104 --> 00:04:58,172
+[inaudible] previously. We continue to use
+lower case letters at the beginning of the
+
+54
+00:04:58,172 --> 00:05:03,170
+alphabet for input symbols. However, for
+PDAs it is sometimes convenient to allow
+
+55
+00:05:03,170 --> 00:05:08,901
+these letters to stand for epsilon as well
+the symbols of the input alphabet. Capital
+
+56
+00:05:08,901 --> 00:05:14,443
+letters at the end of the alphabet are
+stack symbols. Lower case letters at the
+
+57
+00:05:14,443 --> 00:05:19,985
+end of alphabet are strings of input
+symbols. Greek letters at the beginning of
+
+58
+00:05:19,985 --> 00:05:25,456
+the Greek alphabet are strings of stack
+symbols. We always write stack strings
+
+59
+00:05:25,456 --> 00:05:30,998
+where the tops of stack is at the left
+end. The transition function for PDA has
+
+60
+00:05:30,998 --> 00:05:36,944
+three arguments. The third argument is the
+symbol at the top of the stack. First
+
+61
+00:05:36,944 --> 00:05:43,727
+comes the state, as we find at Atomana.
+Second, an input symbol or epsilon as for
+
+62
+00:05:43,727 --> 00:05:49,855
+the epsilon in a phase transition
+function. And last the stack symbol. Delta
+
+63
+00:05:49,855 --> 00:05:55,740
+for state Q, input A, which can be
+epsilon, and stack symbol Z, is a set of
+
+64
+00:05:55,740 --> 00:06:02,361
+zero or more actions. Each action consist
+of a next state P and a string alpha of
+
+65
+00:06:02,361 --> 00:06:08,838
+stack symbols possibly empty with which to
+replace the top symbol Z. To summarize,
+
+66
+00:06:08,838 --> 00:06:14,705
+when delta of q A and [inaudible] contains
+p alpha. Then one choice of move for the
+
+67
+00:06:14,705 --> 00:06:20,502
+pda when it is in state q. Sees A at the
+front of the remaining input and has z on
+
+68
+00:06:20,502 --> 00:06:25,874
+top of stack. Is to go to, to state p,
+remove A from the front of the input. Of
+
+69
+00:06:25,874 --> 00:06:30,892
+course, if A is [inaudible]. Then the
+remaining input doesn't change. And
+
+70
+00:06:30,892 --> 00:06:36,194
+replace Z by alpha on top of the stack.
+Note that although the pda may have
+
+71
+00:06:36,194 --> 00:06:41,920
+choices. Several different p alpha pairs.
+It has to pick one pair and then do both.
+
+72
+00:06:41,920 --> 00:06:47,489
+Things associated with that pair. It can't
+pick a next state from one pair, and a
+
+73
+00:06:47,489 --> 00:06:55,991
+stack string from another. Let's design
+the PDA for our favorite context free
+
+74
+00:06:55,991 --> 00:07:02,346
+language. The set of strings are the forms
+zero to the N, one to the N. Okay? We need
+
+75
+00:07:02,346 --> 00:07:08,622
+three states, Q will be the start state.
+It represents the condition that we've so
+
+76
+00:07:08,622 --> 00:07:15,362
+far seen only zeros on the input. B is the
+state that we go to first when we see the
+
+77
+00:07:15,362 --> 00:07:20,769
+first one. We use the states to remember
+not to accept the string if we see anymore
+
+78
+00:07:20,769 --> 00:07:27,431
+zeros. And f will be the final state. It's
+there only so we can accept if the numbers
+
+79
+00:07:27,431 --> 00:07:35,466
+of 1s match the number of 0s. We also need
+two [inaudible] symbols. Z zero was the
+
+80
+00:07:35,466 --> 00:07:41,310
+star symbol. It has an important job.
+Marks the bottom of the stack. As we read
+
+81
+00:07:41,310 --> 00:07:47,306
+zeros on the input. We will push one x on
+to the stack for each zero we read. As
+
+82
+00:07:47,306 --> 00:07:53,681
+ones come in we pop one x for each one. So
+in the bottom mark, the zero again becomes
+
+83
+00:07:53,681 --> 00:07:59,753
+the top stack symbol. We know we've seen
+exactly as many ones as they were zeros.
+
+84
+00:07:59,753 --> 00:08:06,626
+So we accept. >> Here's the transition
+function of our PDA. >> Hm. Initially, Z
+
+85
+00:08:06,626 --> 00:08:13,422
+zero is at the top of the stack. When we
+see the first zero, we push an X onto the
+
+86
+00:08:13,422 --> 00:08:19,631
+stack. Notice that the replacement string
+is XZ zero, it's that. That string
+
+87
+00:08:19,631 --> 00:08:26,259
+replaces Z zero, but the net effect is
+that Z zero remains, and X is pushed onto
+
+88
+00:08:26,259 --> 00:08:33,054
+the top. Remember that stat strings are
+written with the top at the left. We
+
+89
+00:08:33,054 --> 00:08:38,912
+remain [inaudible] as long as zeros remain
+on the input. After the first zero, each
+
+90
+00:08:38,912 --> 00:08:44,913
+additional zero causes the x on top of the
+stack to be replaced by two x's. Thus, the
+
+91
+00:08:44,913 --> 00:08:50,700
+number of x's on the stack always equals
+the number of zeros read from the input.
+
+92
+00:08:51,680 --> 00:08:56,551
+When a one appears at the front of the
+input, if x is on top of the stack, then
+
+93
+00:08:56,551 --> 00:09:01,672
+we go to state b and pop the top x. Notice
+that there has to be an x on top of the
+
+94
+00:09:01,672 --> 00:09:06,731
+stack so if the first input is one, when
+we still have z zero on top of the stack
+
+95
+00:09:06,731 --> 00:09:12,776
+we have no move at all, and, and never
+accept. As long as more 1's appear on the
+
+96
+00:09:12,776 --> 00:09:18,917
+input we stay in state P., and pop an X.
+From the input. Thus after seeing N. 0's
+
+97
+00:09:18,917 --> 00:09:24,980
+followed by M. 1's, the number of X's
+remaining on the stack will be N. Minus M.
+
+98
+00:09:26,600 --> 00:09:32,401
+And thus after seeing N0 followed by
+exactly N1s there are no more Xs on the
+
+99
+00:09:32,401 --> 00:09:38,730
+stack and the top symbol becomes Z0 again.
+The last move of this PDA says that if we
+
+100
+00:09:38,730 --> 00:09:44,833
+are in state P with Z0 on top of the stack
+then without using any input we go to
+
+101
+00:09:44,833 --> 00:09:52,800
+state F. Z0 remains on the stack although
+that is not important. Here's a moving
+
+102
+00:09:52,800 --> 00:09:59,929
+picture of the PDA we designed. With
+000111 waiting on the input. Initially its
+
+103
+00:09:59,929 --> 00:10:07,901
+with state Q. With just ZO on the stack.
+That's the initial configuration. For the
+
+104
+00:10:07,901 --> 00:10:14,195
+first move we consume the first zero from
+the input and replace Z0 by XZ0 on the
+
+105
+00:10:14,195 --> 00:10:21,073
+stack. Notice the X is on top of the Z0.
+It's at the top of the stack. We consume
+
+106
+00:10:21,073 --> 00:10:29,880
+another zero and replace the top X by two
+Xs, and the same thing happens again. Now
+
+107
+00:10:29,880 --> 00:10:35,620
+the first one is consumed from the input.
+We transition to state P and [inaudible]
+
+108
+00:10:35,620 --> 00:10:42,087
+the top X. Staying in stay P, we consume
+another one and pop another X, same thing.
+
+109
+00:10:42,087 --> 00:10:48,399
+Now all the input is gone, but we have Z
+zero on top of the stacks, so with epsilon
+
+110
+00:10:48,399 --> 00:10:54,172
+input we can go to state F and accept.
+We're done. And we accepted the input
+
+111
+00:10:54,172 --> 00:11:02,820
+string that was consumed, 0,0,0,1,1,1. To
+talk more formally about the behavior of a
+
+112
+00:11:02,820 --> 00:11:09,000
+PDA, we need the notion of an
+instantaneous description, or ID. The ID
+
+113
+00:11:09,000 --> 00:11:15,634
+tells us the current state Q, the
+remaining input W, and the stat contents
+
+114
+00:11:15,634 --> 00:11:22,865
+Alpha. Again remember that the top of the
+stack will be the left most symbol of
+
+115
+00:11:22,865 --> 00:11:28,685
+alpha. There is an analogy between
+derivations for grammar and sequences of
+
+116
+00:11:28,685 --> 00:11:34,660
+ID's for PDA. The ID's are analogist to
+the sentential form to the grammar. In
+
+117
+00:11:34,660 --> 00:11:41,835
+place of the double arrow we use the turn
+style symbol that's this. To express the
+
+118
+00:11:41,835 --> 00:11:50,841
+idea that one IDI can become another IDJ
+by one move of the PDA. That is, suppose
+
+119
+00:11:50,841 --> 00:12:03,765
+the first ID has state Q. And input AW,
+where A is either the first symbol or
+
+120
+00:12:03,765 --> 00:12:14,080
+epsilon, whatever is used for the next
+move. And it has stack X alpha. Where X is
+
+121
+00:12:14,080 --> 00:12:21,867
+the top symbol and alpha is then
+everything below that. Suppose the delta
+
+122
+00:12:21,867 --> 00:12:35,529
+of QAX contains P beta. Then a possible
+next id has state P, which is this. W is
+
+123
+00:12:35,529 --> 00:12:41,559
+reigning on the input because A got
+consumed and A maybe a symbol or an
+
+124
+00:12:41,559 --> 00:12:50,877
+[inaudible] doesn't matter. And, beta
+alpha on the stack where the x here got
+
+125
+00:12:50,877 --> 00:12:58,155
+replaced by beta. We also have a goes to
+star relation for i.d.s defined
+
+126
+00:12:58,155 --> 00:13:04,344
+analogously to the way we defined arrow
+star for centenral forms. That is the
+
+127
+00:13:04,344 --> 00:13:10,954
+basis representing zero moves says that
+any ID goes to star itself. And for the
+
+128
+00:13:10,954 --> 00:13:17,565
+induction, if I goes to J by some number
+of moves, possibly zero, and J goes to K
+
+129
+00:13:17,565 --> 00:13:27,044
+by one move, then I goes to K by some
+number of moves. Here's the sequence of
+
+130
+00:13:27,044 --> 00:13:35,606
+IDs that we get from our previous example.
+The input is 000111, so the initial ID has
+
+131
+00:13:35,606 --> 00:13:43,251
+state Q, that input, and stack Z zero.
+Here it is. The first move consumes the
+
+132
+00:13:43,251 --> 00:13:51,508
+zero from the input, and pushes X onto the
+stack. So this zero got consumed, that's
+
+133
+00:13:51,508 --> 00:14:00,218
+what's left, and, of course, the X zero,
+XZ zero is now on the stack. The second
+
+134
+00:14:00,218 --> 00:14:09,295
+and third moves do the same. And you can
+see additional x's being pushed onto the
+
+135
+00:14:09,295 --> 00:14:20,063
+stack. Okay. Next because, the next input
+is one, the state becomes P and the one is
+
+136
+00:14:20,063 --> 00:14:28,791
+removed from the input. Also an X is
+popped. And that explains that ID. And two
+
+137
+00:14:28,791 --> 00:14:38,282
+more moves pop the remaining X's, it's
+that and that. And then, in the final ID,
+
+138
+00:14:38,282 --> 00:14:47,629
+the state P has become F. And we accept.
+We can summarize the sequence by saying
+
+139
+00:14:47,629 --> 00:14:54,280
+that the initial ID, this. Goes to star
+the final ID. That, we can also say that
+
+140
+00:14:54,280 --> 00:15:00,665
+any of these IDs goes to star itself and
+also to any of the IDs that follow in the
+
+141
+00:15:00,665 --> 00:15:07,674
+sequence we just showed you. In order to
+understand better the idea of acceptance
+
+142
+00:15:07,674 --> 00:15:13,257
+of an input by a PDA, we have to ask
+ourselves, what would happen if there were
+
+143
+00:15:13,257 --> 00:15:19,056
+an extra one on the input? We'll take that
+up on the next slide. Okay, the sequence
+
+144
+00:15:19,056 --> 00:15:24,926
+of ideas is the same, except that an extra
+one tags along at the end of each input
+
+145
+00:15:24,926 --> 00:15:30,080
+string. The last move, where the state
+changes from P to F, is still legal,
+
+146
+00:15:30,080 --> 00:15:36,900
+because a PDA can use epsilon input even
+if there is input remaining. [sound].
+
+147
+00:15:38,120 --> 00:15:44,316
+State F has no transitions so the sequence
+cannot be extended and the last one can
+
+148
+00:15:44,316 --> 00:15:50,346
+never be consumed. We conclude that 0-0-0
+followed by four 1's is not accepted
+
+149
+00:15:50,346 --> 00:15:55,463
+because the input was not completely
+consumed even though we entered the final
+
+150
+00:15:55,463 --> 00:16:00,953
+state in the middle of the process of
+consuming the input. Okay. The normal way
+
+151
+00:16:00,953 --> 00:16:06,258
+to define the language of the P.D.A. Is by
+final state. That is, L. Of P. The
+
+152
+00:16:06,258 --> 00:16:11,999
+language of the P.D.A.P. Is the set of
+strings W. Such as that when P. Is started
+
+153
+00:16:11,999 --> 00:16:18,537
+in its start state. The W on the input and
+the start symbol on the stack that's this,
+
+154
+00:16:18,775 --> 00:16:24,963
+ID. There is a sequence of moves that
+[inaudible] leaves to an ID with a final
+
+155
+00:16:24,963 --> 00:16:31,242
+state. There we are. With w completely
+consumed. It's that and anything on a
+
+156
+00:16:31,242 --> 00:16:36,719
+stack. I don't care. However there is
+another way to define the language of a
+
+157
+00:16:36,719 --> 00:16:42,483
+pda. And this approach turns out to be
+rather useful. Especially when we show how
+
+158
+00:16:42,483 --> 00:16:47,671
+to convert pdas to grammars and visa
+versa. We can talk about the set of
+
+159
+00:16:47,671 --> 00:16:53,075
+strings that make the pda empty it's
+stack. This language is conventionally
+
+160
+00:16:53,075 --> 00:16:59,199
+called BFP for pdap. The n stands for null
+stack although we're not going to use that
+
+161
+00:16:59,199 --> 00:17:06,124
+term. Formally, this language is the set
+of strings W, [inaudible] started in the
+
+162
+00:17:06,124 --> 00:17:13,201
+usual ID with input W. That's, of course,
+this. P eventually reaches an ID in which
+
+163
+00:17:13,201 --> 00:17:20,278
+it has consumed all of W, and its stack is
+empty. Okay, we don't care about the state
+
+164
+00:17:20,278 --> 00:17:27,367
+Q, it can be final or non final, doesn't
+matter. Thus, every PDA defines two
+
+165
+00:17:27,367 --> 00:17:33,969
+different languages in two different ways.
+However, the classes of languages defined
+
+166
+00:17:33,969 --> 00:17:40,650
+by all the PDAs in these 2As are the same.
+And, in fact, the context free languages,
+
+167
+00:17:40,650 --> 00:17:47,030
+as we should see later. That is, if we
+have a PDAP that defines a language L by
+
+168
+00:17:47,030 --> 00:17:52,046
+final state, then there's another
+different PDAP prime that defines the same
+
+169
+00:17:52,046 --> 00:17:57,393
+language L, but does so by empty stack. P
+prime will presumably define a different
+
+170
+00:17:57,393 --> 00:18:02,277
+language by a final state, but that
+doesn't matter. The point is that every
+
+171
+00:18:02,277 --> 00:18:07,425
+language defined by final state, by some
+PDA, is also defined by empty stack by
+
+172
+00:18:07,425 --> 00:18:13,595
+some PDA. And conversely if a language L.
+Is defined by some P.D.A.P., by empty
+
+173
+00:18:13,595 --> 00:18:19,280
+stack, then L. Is also defined by some
+P.D.A.P. Double prime, by final state.
+
+174
+00:18:20,560 --> 00:18:27,840
+Here's a rough idea of how we can work a
+PDAP accepting L by final state to P prime
+
+175
+00:18:27,840 --> 00:18:34,638
+accepting L by MP stack. Basically P prime
+will simulate P, that is it does what P
+
+176
+00:18:34,638 --> 00:18:40,694
+does with a few exceptions. If P prime
+finds that P is accepted by entering a
+
+177
+00:18:40,694 --> 00:18:46,435
+final state, P prime empties its stack.
+Since P and P prime are in general
+
+178
+00:18:46,435 --> 00:18:52,884
+non-deterministic P prime can also guess
+that P will read more input, P prime will
+
+179
+00:18:52,884 --> 00:18:59,097
+then not empty its stack in that sequence
+of moves. But rather will continue
+
+180
+00:18:59,097 --> 00:19:06,753
+simulating P. But since P. Prime accepts
+whenever it empties its stack, and P.
+
+181
+00:19:06,753 --> 00:19:11,621
+Might do that on inputs it doesn't want to
+accept. P. Prime needs a bottom of the
+
+182
+00:19:11,621 --> 00:19:16,186
+stack marker to prevent it from
+accidentally emptying its stack during the
+
+183
+00:19:16,186 --> 00:19:24,385
+simulation of P. Plus, we'll give P prime
+all the state symbols and moves of P, in
+
+184
+00:19:24,385 --> 00:19:30,643
+order to do the simulation of P. Plus a
+few other bells and whistles, which we'll
+
+185
+00:19:30,643 --> 00:19:37,517
+explain next. First P prime has a stack
+symbol at zero. This is the start symbol
+
+186
+00:19:37,517 --> 00:19:42,795
+of P prime. And it also has the job of
+guarding the stack bottom against
+
+187
+00:19:42,795 --> 00:19:48,879
+accidental emptying. That is if P empties
+its stack, P prime will find a zero on top
+
+188
+00:19:48,879 --> 00:19:54,937
+of its stack and realize that P can make
+no move from this ID. Although being under
+
+189
+00:19:54,937 --> 00:20:00,607
+terministic, it may have other ways to
+proceed. P prime thus does not empty its
+
+190
+00:20:00,607 --> 00:20:10,171
+own stack. B prime has a new start state S
+and an erase state E. P prime has several
+
+191
+00:20:10,171 --> 00:20:18,451
+additional transitions. This rule. Says
+that in its additional ID it has only one
+
+192
+00:20:18,451 --> 00:20:24,609
+choice. It must change from its start
+state of p and push z-zero, p's start
+
+193
+00:20:24,609 --> 00:20:31,100
+symbol on top of its own start symbol,
+x-zero. Which remains to guard the stack.
+
+194
+00:20:31,380 --> 00:20:37,506
+P prime is now ready and able to simulate
+p. Until p accepts, all the moves of p
+
+195
+00:20:37,506 --> 00:20:44,021
+prime are the same as the moves of p. With
+the guard x zero sitting at the bottom of
+
+196
+00:20:44,021 --> 00:20:49,750
+the stack, but unseen. And if p prime
+enters any final state f of p. Then it
+
+197
+00:20:49,750 --> 00:20:55,850
+enters the erase state E, and it popped
+its stack without reading any more input.
+
+198
+00:20:55,850 --> 00:21:02,027
+Moreover, in the erase state E, it also
+has only the choice of [inaudible] popping
+
+199
+00:21:02,027 --> 00:21:07,669
+the stack and staying in state E.
+Eventually, P prime empties its stack and
+
+200
+00:21:07,669 --> 00:21:12,832
+accepts. Now let's explain the
+construction in the opposite direction.
+
+201
+00:21:12,832 --> 00:21:18,505
+That is [inaudible] accepts some language
+by empty stack. And we must design P
+
+202
+00:21:18,505 --> 00:21:23,707
+double prime to accept the same language
+but by final state. P double prime also
+
+203
+00:21:23,707 --> 00:21:28,389
+stimulates P with a few bells and
+whistles. First, P double prime needs a
+
+204
+00:21:28,389 --> 00:21:33,656
+bottom marker to detect that P has emptied
+its stack. If P double prime sees this
+
+205
+00:21:33,656 --> 00:21:38,857
+marker at the top of the stack after its
+initial move then it knows that it has
+
+206
+00:21:38,857 --> 00:21:43,929
+emptied its stack and so P double prime
+must accept by entering its own final
+
+207
+00:21:43,929 --> 00:21:54,015
+state. P. Double prime has all the states,
+symbols, and transitions of P. In
+
+208
+00:21:54,015 --> 00:22:01,109
+addition. P. Prime has a new start symbol
+X. Zero that also guards the stack bottom
+
+209
+00:22:01,109 --> 00:22:09,088
+just like it does for P. Prime. P Double
+Prime has a new start state S and a new
+
+210
+00:22:09,088 --> 00:22:17,817
+final state F. From the ini-, the initial
+ID. A P. Double prime goes to the start
+
+211
+00:22:17,817 --> 00:22:24,152
+state of P., and pushes the start symbol
+of P. Onto it's own stack. It is thus
+
+212
+00:22:24,152 --> 00:22:30,657
+ready to simulate, P. Once in the states
+of P., if P. Double prime ever sees the
+
+213
+00:22:30,657 --> 00:22:36,515
+guard X. Zero at the top of the stack, it
+knows P. Is accepted. P double prime
+
+214
+00:22:36,515 --> 00:22:42,036
+therefore goes to its own final state.
+[inaudible] Without reading anymore input,
+
+215
+00:22:42,036 --> 00:22:48,313
+and therefore accepts by final state the
+input that P accepted by empty stack. And
+
+216
+00:22:48,313 --> 00:22:55,149
+a final word about the deterministic PDA.
+In order that there never be a choice of
+
+217
+00:22:55,149 --> 00:23:01,818
+move, we certainly want the PDA to have,
+at most, one choice of move for any state
+
+218
+00:23:01,818 --> 00:23:09,415
+Q, input symbol A, including epsilon, and
+stack symbol X. But we also have to rule
+
+219
+00:23:09,415 --> 00:23:15,363
+out the possibility that there is a choice
+between using a real input symbol and
+
+220
+00:23:15,363 --> 00:23:21,236
+making a move on epsilon. To be precise,
+for no q and x can both delta of qax and
+
+221
+00:23:21,236 --> 00:23:28,360
+delta of q epsilon x be nonempty. Such a
+PDA can have only one sequence of ID's.
+
+222
+00:23:28,360 --> 00:23:33,170
+Starting from the initial id with a given
+input stream. We, generally, assume
+
+223
+00:23:33,170 --> 00:23:38,430
+acceptance is by final states and if you
+accept by emptying your stack you cannot
+
+224
+00:23:38,430 --> 00:23:43,368
+ever process any more input if you're
+deterministic. Well, we shall not expand
+
+225
+00:23:43,368 --> 00:23:48,371
+on the matter the placid language is
+accepted by deterministic bda's, contains
+
+226
+00:23:48,371 --> 00:23:53,439
+all the regular languages obvious since it
+cam simulate a deterministic finite
+
+227
+00:23:53,439 --> 00:23:58,698
+automaton by just ignoring its stack. But
+it does not include all the context free

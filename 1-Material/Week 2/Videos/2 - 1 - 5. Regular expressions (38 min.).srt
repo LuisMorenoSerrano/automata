@@ -1,0 +1,1799 @@
+1
+00:00:00,000 --> 00:00:07,000
+Today we're going introduce the idea of
+regular expressions. This is a simple
+
+2
+00:00:07,000 --> 00:00:14,035
+algebraic notation that describes exactly
+the regular languages. In practice it's
+
+3
+00:00:14,035 --> 00:00:22,080
+very common. To have. A regular expression
+like notation to, to describe patterns,
+
+4
+00:00:23,009 --> 00:00:30,016
+such as patterns in text and to have.
+Behind the scenes, a compiler from regular
+
+5
+00:00:30,016 --> 00:00:36,021
+expressions into finite automata. In
+particular, deterministic finite automata.
+
+6
+00:00:36,021 --> 00:00:43,005
+Because these are the things that actually
+can be executed. So, after introducing the
+
+7
+00:00:43,005 --> 00:00:49,022
+notion of a regular expression, we're
+going to, show you that. You can convert
+
+8
+00:00:49,022 --> 00:00:55,021
+any regular expression into an automaton
+and also any automaton into a regular
+
+9
+00:00:55,021 --> 00:01:01,057
+expression, that proves that the language
+is accepted by regular expressions and the
+
+10
+00:01:01,057 --> 00:01:08,026
+various kinds of final automaton that we
+have met are exactly the same. The algebra
+
+11
+00:01:08,026 --> 00:01:14,014
+you are most familiar with is probably
+arithmetic using operators plus and times
+
+12
+00:01:14,014 --> 00:01:19,080
+and operating on numbers. The regular
+expression algebra operates on languages
+
+13
+00:01:19,080 --> 00:01:25,062
+and it has three specialized operators.
+Regular expressions like algebraic
+
+14
+00:01:25,062 --> 00:01:32,002
+expressions built up by applying these
+operators to operate. So regular
+
+15
+00:01:32,002 --> 00:01:39,002
+expressions then describe languages of an
+algebra. And they as I said describe the
+
+16
+00:01:39,002 --> 00:01:46,023
+regular languages. We'll use L and E as
+the notation for the language described by
+
+17
+00:01:46,023 --> 00:01:52,097
+the regular expression E. And we will
+describe regular expressions and their
+
+18
+00:01:52,097 --> 00:01:59,009
+languages recursively. Regular expressions use three
+operations, the union, concatenation, and the Kleene
+
+19
+00:01:59,092 --> 00:02:06,095
+star. Okay, a union of languages is the
+usual thing, since languages are sets. And
+
+20
+00:02:06,095 --> 00:02:16,077
+here's a, a very simple evolve. Here too.
+Sets, their languages, each with three
+
+21
+00:02:16,077 --> 00:02:25,081
+strings and with two strings. Zero one
+happens to be in both so it will be once
+
+22
+00:02:25,081 --> 00:02:34,028
+in the union. One, one, one is there, zero
+is there, and zero, zero is there, so
+
+23
+00:02:34,028 --> 00:02:43,044
+that's the common notion of the union on
+sets or languages. Concatenation is. Also
+
+24
+00:02:43,044 --> 00:02:50,069
+a fairly simple operation. We'll denote
+the concatenation of two languages, say L
+
+25
+00:02:50,069 --> 00:02:57,088
+and M, by juxtaposition, that is L, M with
+no punctuation in between them. The
+
+26
+00:02:57,088 --> 00:03:06,089
+language LM contains every string that is
+W concatenated with X, such that W is in L
+
+27
+00:03:06,089 --> 00:03:13,066
+and X is in M. So, here's an example, we
+are in effect multiplying the two
+
+28
+00:03:13,066 --> 00:03:20,074
+languages, that is we'll take 01 from the
+first language, and we can concatenate it
+
+29
+00:03:20,074 --> 00:03:27,081
+with 00. That gives us 0100. We could also
+take 01 again, concatenate it with 01, and
+
+30
+00:03:27,081 --> 00:03:33,078
+that gives us that. And one, one, one
+[inaudible] with the two strings here
+
+31
+00:03:34,002 --> 00:03:40,067
+gives us these two strings and the result
+and one zero concatenated with zero, zero
+
+32
+00:03:40,067 --> 00:03:47,002
+and zero one gives us. The final two
+strings in the result, okay. Kleene star
+
+33
+00:03:47,002 --> 00:03:54,020
+is probably something that you're least
+familiar with. If L is a language, then L
+
+34
+00:03:54,020 --> 00:04:01,021
+star which will, is called the Kleene
+star, or just the star operator, is the
+
+35
+00:04:01,021 --> 00:04:07,096
+set of strings that you can form by
+concatenating zero or more strings from L,
+
+36
+00:04:07,096 --> 00:04:14,008
+in any order. That is, you can take, One
+string from L, you take no strings from L.
+
+37
+00:04:14,025 --> 00:04:18,079
+That would give you the empty string. You
+take one string from L. You take two
+
+38
+00:04:18,079 --> 00:04:23,016
+strings from L, they can be any two
+strings, they don't have to be the same.
+
+39
+00:04:23,016 --> 00:04:28,005
+You can concatenate them. You can take
+three strings from L, concatenate them and
+
+40
+00:04:28,005 --> 00:04:32,059
+so on. Incidentally Stephen Kleene was
+the fellow who invented regular
+
+41
+00:04:32,059 --> 00:04:37,037
+expressions, and showed that the describe
+the same languages that finite automata
+
+42
+00:04:37,037 --> 00:04:45,001
+described. Okay, if L is a language, then
+L star, the Kleene star, or just star
+
+43
+00:04:45,001 --> 00:04:51,066
+operator, is the set of strings formed by
+concatenating zero or more strings from L
+
+44
+00:04:51,066 --> 00:04:58,023
+in any order. Thus, L star would consist
+of the set containing the empty tree.
+
+45
+00:04:58,023 --> 00:05:04,097
+Empty string is always in the star of any
+[inaudible]. Because that represents no
+
+46
+00:05:04,097 --> 00:05:11,021
+choices of string from L. Then the union
+with L itself. And then we take two
+
+47
+00:05:11,021 --> 00:05:18,058
+strings from L so we take L concatenated
+with L. We can take three strings and so
+
+48
+00:05:18,058 --> 00:05:25,077
+on. Any [inaudible] from L, anything you
+can form by concatenating any number of
+
+49
+00:05:25,077 --> 00:05:33,025
+strings from L will be in the language L
+star. So here's an example. Language l is
+
+50
+00:05:33,025 --> 00:05:39,028
+just as two strings. Zero And one zero.
+The star of that language. Well, we can
+
+51
+00:05:39,028 --> 00:05:45,046
+take no. No choices, that would give us
+the empty string. We can take one or the
+
+52
+00:05:45,046 --> 00:05:53,055
+other string. That will give us these two.
+We can take two choices from the language
+
+53
+00:05:53,055 --> 00:06:02,001
+L so we if both choices is zero we get 00.
+We take zero from the first choice and ten
+
+54
+00:06:02,001 --> 00:06:10,006
+for the second that is 0100.
+All it takes ten for the first choice and
+
+55
+00:06:10,006 --> 00:06:18,002
+zero for the second choice that gives us
+100 or we can make both choices be ten
+
+56
+00:06:18,002 --> 00:06:21,023
+that give us. In the string 1010 have any
+choices and so on.
+
+57
+00:06:21,023 --> 00:06:27,083
+There are three parts to the basis in the,
+in the Regular Expressions definition.
+
+58
+00:06:27,083 --> 00:06:34,042
+The first part is
+for the single symbol. If A is the symbol.
+
+59
+00:06:34,042 --> 00:06:41,099
+Then A also denotes a regular expression.
+It denotes, the language, that, this
+
+60
+00:06:41,099 --> 00:06:48,071
+regular expression denotes is the language
+with one string. That string has length
+
+61
+00:06:48,071 --> 00:06:55,027
+one and the one position of that string
+has A in it. Okay, by the way, in order to
+
+62
+00:06:55,027 --> 00:07:02,007
+distinguish A as a symbol or string from A
+as a regular expression, we usually make
+
+63
+00:07:02,007 --> 00:07:08,063
+the regular expression bold-faced, but
+context should, help you to distinguish,
+
+64
+00:07:08,087 --> 00:07:16,069
+Strings, symbols, and regular expressions
+anyway. Okay. The second part of the basis
+
+65
+00:07:16,069 --> 00:07:22,031
+is the symbol epsilon. Okay, this is a
+regular expression and it's language is
+
+66
+00:07:22,031 --> 00:07:28,006
+the language that has one string. That
+string is the empty string. And the third
+
+67
+00:07:28,006 --> 00:07:33,090
+part of the basis is the empty set symbol.
+This is a regular expression and it's
+
+68
+00:07:33,090 --> 00:07:39,058
+language is the empty language. Okay, the
+inductive part of the definition also
+
+69
+00:07:39,058 --> 00:07:45,057
+happens to have three parts. 'Kay. For the
+first part we can connect any two regular
+
+70
+00:07:45,057 --> 00:07:51,035
+expressions by a plus sign. And this plus
+sign represents set union. That is the
+
+71
+00:07:51,035 --> 00:07:57,042
+language of e one plus e two. Is the union
+of languages that e one and e two denote.
+
+72
+00:07:59,086 --> 00:08:04,066
+The second part. Involves the
+concatenation operator. We can write one
+
+73
+00:08:04,066 --> 00:08:08,090
+regular expression next to another to
+denote the concatenation of their
+
+74
+00:08:08,090 --> 00:08:14,072
+languages. That is E1 followed by E2
+denotes the concatenation of the languages
+
+75
+00:08:14,072 --> 00:08:21,036
+that E1 and E2 denote. As we shall discuss
+in a minute, we sometimes need parentheses
+
+76
+00:08:21,036 --> 00:08:27,091
+to group expressions properly. So in some
+circumstances we need to put parentheses
+
+77
+00:08:27,091 --> 00:08:33,075
+around E1 and or E2. So we might, for
+example, see something like that, okay.
+
+78
+00:08:33,075 --> 00:08:40,032
+The third part is the star operator. If we
+follow a regular expression E by a star,
+
+79
+00:08:40,032 --> 00:08:46,087
+then the language we denote is the clean
+enclosure of the language that E denotes.
+
+80
+00:08:46,087 --> 00:08:52,061
+Again, it is in some circumstances
+necessary. Put parentheses around the E to
+
+81
+00:08:52,061 --> 00:08:57,087
+make sure the operators inside the
+expression E group properly like that. As
+
+82
+00:08:57,087 --> 00:09:03,041
+with other algebras, we can and must use
+parentheses to force the intended order
+
+83
+00:09:03,041 --> 00:09:08,068
+for operations. For regular expressions,
+the order is star, then concatenation,
+
+84
+00:09:08,068 --> 00:09:14,008
+then plus. [inaudible] of plus, the lowest
+[inaudible] operator is analogous to
+
+85
+00:09:14,008 --> 00:09:19,062
+addition in arithmetic. Concatenation is
+analogous to multiplication, and star as
+
+86
+00:09:19,062 --> 00:09:25,062
+analogous to exponentiation. Although, in
+the case of star, [inaudible]. No power to
+
+87
+00:09:25,062 --> 00:09:33,035
+which its argument is raised. In a sense,
+star means raised to all powers. For
+
+88
+00:09:33,035 --> 00:09:38,093
+example. The regular expression zero one
+represents the concatenation of the
+
+89
+00:09:38,093 --> 00:09:44,074
+language consisting of one string which is
+zero. And the language consisting of one
+
+90
+00:09:44,074 --> 00:09:49,085
+string one. The results of the language
+containing one string zero one. In
+
+91
+00:09:49,085 --> 00:09:56,053
+general. Any string of symbols as a
+regular expression represents the language
+
+92
+00:09:56,053 --> 00:10:03,061
+that contains only that one string. The
+language of expression zero one plus zero.
+
+93
+00:10:03,061 --> 00:10:11,003
+That's this. Is the union of the language
+containing only the strings zero one and
+
+94
+00:10:11,003 --> 00:10:17,094
+the language containing only the string
+zero. The language of zero concatenated
+
+95
+00:10:17,094 --> 00:10:24,008
+with one plus zero, that's this
+expression, is the two strings. 01 and 00.
+
+96
+00:10:24,008 --> 00:10:30,052
+Notice that we need parentheses to force
+the plus the group first. Without them
+
+97
+00:10:30,052 --> 00:10:36,096
+since concatenation take precedence over
+plus we get the interpretation of the
+
+98
+00:10:36,096 --> 00:10:42,091
+second example. That is this one and
+obviously you get somewhat different
+
+99
+00:10:42,091 --> 00:10:48,097
+languages. The language zero star is the
+star of the language containing only the
+
+100
+00:10:48,097 --> 00:10:54,051
+string zero. This is all strings of 0's
+including the empty string. Here's a
+
+101
+00:10:54,051 --> 00:10:59,082
+little more complicated example. It
+denotes the language that we've been
+
+102
+00:10:59,082 --> 00:11:05,022
+playing with when we talked about
+automana, that is, all strings of 0's and
+
+103
+00:11:05,022 --> 00:11:11,057
+1's without two consecutive 1's. To see
+why this works in every such string, that
+
+104
+00:11:11,057 --> 00:11:17,048
+is any string in the language, each one is
+either followed immediately by a zero.
+
+105
+00:11:17,048 --> 00:11:24,007
+Where it comes at the end of the string.
+This part of the expression. Zero plus
+
+106
+00:11:24,007 --> 00:11:32,066
+one, zero, star. Denotes all strings in
+which every one is, is followed by a zero.
+
+107
+00:11:32,066 --> 00:11:38,099
+Okay. These strings are surely in the
+language that we want, but we also want
+
+108
+00:11:38,099 --> 00:11:45,073
+those strings that are followed by a final
+one. Thus we can concatenate the language
+
+109
+00:11:45,073 --> 00:11:52,004
+of zero plus one, zero star. With. The
+union of two languages. One is epsilon,
+
+110
+00:11:52,004 --> 00:11:57,032
+and concatenating with epsilon, just give
+us the same strings. That is, that is
+
+111
+00:11:57,032 --> 00:12:02,059
+those that don't have a final one. And we
+can also concatenate with the language
+
+112
+00:12:02,059 --> 00:12:07,073
+containing the string one. That gives us
+any string that, in which every one is
+
+113
+00:12:07,073 --> 00:12:13,007
+followed by a zero, and then it also has a
+final one, okay? We're going to show the
+
+114
+00:12:13,007 --> 00:12:18,053
+regular expressions, and find exactly the
+regular languages. We already have three
+
+115
+00:12:18,053 --> 00:12:24,019
+equivalent representations to the regular
+languages, DFAs, NFAs, and Epsilon NFAs.
+
+116
+00:12:24,019 --> 00:12:29,007
+We need to show that for every regular
+expression, there is some automaton that
+
+117
+00:12:29,007 --> 00:12:34,008
+defines the same language. And for this
+job, we may as well pick the most powerful
+
+118
+00:12:34,008 --> 00:12:39,012
+of the three varieties of automaton, the
+Epsilon NFA. For the other direction, we
+
+119
+00:12:39,012 --> 00:12:44,046
+need to show that every regular language
+is defined by some regular expression.
+
+120
+00:12:44,046 --> 00:12:49,053
+Here, we may as well with the most
+restrictive variety of automaton, the DFA.
+
+121
+00:12:49,053 --> 00:12:55,024
+We'll begin with, the process of how you
+convert a regular expression to an epsilon
+
+122
+00:12:55,024 --> 00:13:00,035
+NFA. The proof is an induction on the
+number of operators, the operators of
+
+123
+00:13:00,035 --> 00:13:05,060
+course being the plus concatenation and
+the star, that appear in the regular
+
+124
+00:13:05,060 --> 00:13:10,084
+expression. And we're always going to
+construct an automaton that has a special
+
+125
+00:13:10,084 --> 00:13:17,009
+form which I'll show you on the next
+slide. The special fall of epsilon NFA we
+
+126
+00:13:17,009 --> 00:13:22,048
+construct as suggested by this sketch.
+They can be any number of states in the
+
+127
+00:13:22,048 --> 00:13:28,027
+middle, but only one starts [inaudible] as
+true for any automaton. And only one final
+
+128
+00:13:28,027 --> 00:13:34,016
+state, which is a restriction. More
+importantly, as we build larger automata
+
+129
+00:13:34,016 --> 00:13:41,006
+from this from smaller ones, we never
+allow an arc into the middle or into the
+
+130
+00:13:41,006 --> 00:13:47,069
+final state. The only outside arcs must
+come into the star state. That is, we
+
+131
+00:13:47,069 --> 00:13:55,021
+might add arcs like that but you can't add
+an arc that goes with state that's inside.
+
+132
+00:13:55,021 --> 00:14:04,033
+Okay. Likewise you can't add an arch that
+goes to the final state. [inaudible] We
+
+133
+00:14:04,033 --> 00:14:11,070
+never have an ark from any of these
+states. Except the final state. To some
+
+134
+00:14:11,070 --> 00:14:19,014
+place on the outside. So you can't install
+some arc leaving like that. And notice
+
+135
+00:14:19,014 --> 00:14:25,015
+that we put quotes around the term final,
+in final state, because although this
+
+136
+00:14:25,015 --> 00:14:31,008
+state is, is final if this is the entire
+automaton that we construct. If it's a
+
+137
+00:14:31,008 --> 00:14:36,086
+piece of a larger automaton, then the
+final state will no longer be final in
+
+138
+00:14:36,086 --> 00:14:43,031
+the, ... >> Allow the larger automaton. >>
+Okay. >> The induction is on the number of
+
+139
+00:14:43,031 --> 00:14:49,046
+operators in the regular expression. And
+here are the bases cases, the expressions
+
+140
+00:14:49,046 --> 00:14:55,037
+with zero operators. Okay, a regular
+expression without operators has to be one
+
+141
+00:14:55,037 --> 00:15:01,061
+of the bases cases from the definition or
+regular expressions. If the expression is
+
+142
+00:15:01,061 --> 00:15:07,039
+a symbol A, then the epsilon [inaudible]
+we need consists of only a start and a
+
+143
+00:15:07,039 --> 00:15:13,016
+final state, with an arc labeled A from
+start to final. Obviously, this automaton
+
+144
+00:15:13,016 --> 00:15:18,072
+accepts the language of the regular
+expression A. That being only the one
+
+145
+00:15:18,072 --> 00:15:24,035
+string A. If the expression is epsilon,
+then it is sort of the same, except the
+
+146
+00:15:24,035 --> 00:15:30,044
+arc is labeled epsilon. And if the
+expression is the empty set symbol, and we
+
+147
+00:15:30,044 --> 00:15:35,077
+just have the start and the final state,
+and no way to get from one to the other,
+
+148
+00:15:35,077 --> 00:15:40,003
+okay? Now what do you get in the
+induction? There are three cases,
+
+149
+00:15:40,003 --> 00:15:44,096
+depending on whether the outermost
+operator's union concatenation is star.
+
+150
+00:15:44,096 --> 00:15:50,002
+Here's the instruction for union. Suppose
+our expression is E1+E2. Both E1 and E2
+
+151
+00:15:50,002 --> 00:15:55,008
+have fewer operators than the entire
+expression. So the inductive hypothesis
+
+152
+00:15:55,008 --> 00:16:02,055
+applies to these sub expressions. We may
+thus assume that there is an epsilon NFA
+
+153
+00:16:02,055 --> 00:16:10,030
+for, of the desired form for E1 and
+likewise for E2. We form the epsilon NFA
+
+154
+00:16:10,030 --> 00:16:15,071
+for E1 plus E2 by introducing a new start
+state and a new final state. The old final
+
+155
+00:16:15,071 --> 00:16:20,060
+states are no longer final. There are
+epsilon transitions from the new start
+
+156
+00:16:20,060 --> 00:16:26,007
+state to each of the two old start states,
+and there are epsilon transitions from the
+
+157
+00:16:26,007 --> 00:16:31,061
+old states to the new final state. If
+there's a path from the new start state to
+
+158
+00:16:31,061 --> 00:16:36,064
+the new final state, it must consist of
+epsilon transitions at the beginning and
+
+159
+00:16:36,064 --> 00:16:41,055
+end, with a path that is either wholly
+within E1 or wholly within E2. So for
+
+160
+00:16:41,055 --> 00:16:48,085
+example the path might look like, this go
+here and then we go around to go through
+
+161
+00:16:48,085 --> 00:16:55,089
+the same statement many times finally
+comes the old final state of E1 and then
+
+162
+00:16:55,089 --> 00:17:03,002
+out to the new final state. Notice the
+fact that there is no way to get into the
+
+163
+00:17:03,002 --> 00:17:09,094
+green thing labeled for E1. And no way to
+get out of it except as I've shown.
+
+164
+00:17:09,094 --> 00:17:16,090
+Guarantees that the path must from, the
+path from here to here must either go.
+
+165
+00:17:17,063 --> 00:17:23,089
+Through E1 or through E2. There are no
+other options. ?Kay. Here's the
+
+166
+00:17:23,089 --> 00:17:30,096
+construction for concatenation of E1 and
+E2. Again we assume by the inductor
+
+167
+00:17:30,096 --> 00:17:38,021
+hypothesis that there is an Epsilon NFA of
+the right form for E1 and dido for E2. We
+
+168
+00:17:38,021 --> 00:17:43,094
+add an epsilon arc from the final state of
+the automaton for E1. And that state, of
+
+169
+00:17:43,094 --> 00:17:49,000
+course, then, is your final. The start
+state of the automaton for E2. The start
+
+170
+00:17:49,000 --> 00:17:54,027
+state with the bigger automaton is the
+start state of the automaton for E1. And
+
+171
+00:17:54,027 --> 00:17:59,073
+the final state is the final state of the
+automaton for E2. The new automatons the
+
+172
+00:17:59,073 --> 00:18:06,069
+concatenation of the languages. E1 and E2.
+Any path from the start to final state
+
+173
+00:18:06,069 --> 00:18:15,039
+must first pass through E1 but as it will
+do something like this Then it will take
+
+174
+00:18:15,039 --> 00:18:23,035
+this epsilon arch and then it will do
+something in two. There is no other option
+
+175
+00:18:23,035 --> 00:18:31,001
+because you can't get into or out of the
+green areas except as shown. Finally,
+
+176
+00:18:31,001 --> 00:18:37,059
+here's the construction for star. Suppose
+we have an automaton for some expression
+
+177
+00:18:37,059 --> 00:18:43,049
+E, and we want to construct the automaton
+for E star. We add a new start and final
+
+178
+00:18:43,049 --> 00:18:49,034
+states, and the old final state is no
+longer final. There's an epsilon arc from
+
+179
+00:18:49,034 --> 00:18:54,066
+the new start state to the new final
+state, so epsilon is always in the
+
+180
+00:18:54,066 --> 00:19:00,058
+language of this new automaton. There are
+three other epsilon arcs as shown. The
+
+181
+00:19:00,058 --> 00:19:06,088
+first of these epsilon arcs, brings us to
+the start state for, the automaton for E.
+
+182
+00:19:06,088 --> 00:19:12,080
+We must reverse the automaton for E,
+following a path whose label is any string
+
+183
+00:19:12,080 --> 00:19:21,070
+in the language for E No. When we reach
+the old final state of this automaton,
+
+184
+00:19:21,070 --> 00:19:27,089
+they have a choice. We follow the
+[inaudible] r in the new final state. Then
+
+185
+00:19:27,089 --> 00:19:34,048
+we're done. We've found the path. That is,
+has a label that is one string from the
+
+186
+00:19:34,048 --> 00:19:42,069
+language of e. Or, we have another option.
+We can go from the old final state back to
+
+187
+00:19:42,069 --> 00:19:49,088
+the old start state. Maybe take another
+path to there. Now we have a path that has
+
+188
+00:19:49,088 --> 00:19:57,033
+a label that is the concatenation that is
+two strains from the language of E. And we
+
+189
+00:19:57,033 --> 00:20:04,068
+can go back again. Take another path.
+Make, a label of that path would have now,
+
+190
+00:20:04,068 --> 00:20:11,070
+concatenation of three strings for me, and
+so on. We can do this as many times as we
+
+191
+00:20:11,070 --> 00:20:18,071
+like. But then, finally, we go off to the
+final state, new final. And, we are, done
+
+192
+00:20:18,071 --> 00:20:25,081
+with that. So, this automaton really does
+have a language that's E star. You can go
+
+193
+00:20:25,081 --> 00:20:32,054
+through the automaton for E. Zero times by
+just, just going around it. Or you can go
+
+194
+00:20:32,054 --> 00:20:38,078
+through it once, twice, three times as
+many times as you'd like. Now we're going
+
+195
+00:20:38,078 --> 00:20:43,036
+to do the construction the other way.
+We'll start with a DFA and construct a
+
+196
+00:20:43,036 --> 00:20:47,088
+regular expression to find the same
+language. The proof is inductive and to
+
+197
+00:20:47,088 --> 00:20:52,052
+make the induction work, we need to assume
+the states are named one through N.
+
+198
+00:20:52,052 --> 00:20:57,028
+There's no harm in making this assumption
+since the names of the states do not
+
+199
+00:20:57,028 --> 00:21:03,027
+influence the language in automanotic
+sets. The induction is on the maximum
+
+200
+00:21:03,027 --> 00:21:08,072
+number of a state that is allowed to be in
+the middle of a path. An idea that is
+
+201
+00:21:08,072 --> 00:21:14,003
+explained on the next slide. We're going
+to talk about k-Paths, which are paths
+
+202
+00:21:14,003 --> 00:21:19,048
+that can go from any state to any state.
+But in the middle that is excluding the
+
+203
+00:21:19,048 --> 00:21:25,063
+endpoints only states numbered K or less
+can be found. The inductive on k, and it
+
+204
+00:21:25,063 --> 00:21:33,074
+states that there is a regular expression,
+whose language is the set of labels of all
+
+205
+00:21:33,074 --> 00:21:40,056
+k-paths who state I to state j. We start
+with 0-Paths, paths as a basis, and by
+
+206
+00:21:40,056 --> 00:21:45,019
+the time we get to n-Paths, there's no
+restriction on, on paths at all, so we
+
+207
+00:21:45,019 --> 00:21:50,019
+have a regular expression describing the
+language of the automaton itself. Notice
+
+208
+00:21:50,019 --> 00:21:55,031
+that an n-Path represents no restriction
+on paths at all since there are no states
+
+209
+00:21:55,031 --> 00:22:00,037
+whose names are higher than N. To get a
+regular expression for the language of the
+
+210
+00:22:00,037 --> 00:22:05,043
+DFA we take the union of the expressions
+for the n-Path that describe how you get
+
+211
+00:22:05,043 --> 00:22:11,007
+from the start state to each of the final
+states. For example, he's a little
+
+212
+00:22:11,007 --> 00:22:17,011
+automatoned. The 0-Paths from state two
+to state three are the language of the
+
+213
+00:22:17,011 --> 00:22:22,056
+regular expression zero. The reason is
+that we can only follow an arc from two to
+
+214
+00:22:22,056 --> 00:22:28,075
+three, and there's only one. The one that
+has label zero. That is, that's the zero
+
+215
+00:22:28,075 --> 00:22:35,002
+is describes the only path that gets the
+state two to three without going through
+
+216
+00:22:35,002 --> 00:22:41,021
+any another state. 1-Path from two to
+three we can go through state one but not
+
+217
+00:22:41,021 --> 00:22:46,025
+through two or three. Plus we can still follow
+the arch from two to three label zero
+
+218
+00:22:46,025 --> 00:22:53,014
+but we can also follow the arch labeled
+one from state two to state one. That's this.
+
+219
+00:22:53,021 --> 00:22:58,087
+And from there, the arc labeled one.
+From state one to state three.
+
+220
+00:22:58,087 --> 00:23:01,098
+Notice that once we get to state one,
+we cannot go back to two in a 1-Path.
+
+221
+00:23:01,098 --> 00:23:10,046
+And if we go to three, we're finished, the path
+must end. The 2-Paths from state two
+
+222
+00:23:10,046 --> 00:23:13,097
+to state three are more varied. The only think
+it cannot do is pass through state three.
+
+223
+00:23:13,097 --> 00:23:19,051
+Thus, from state two, we can go to state
+one and back to two zero or more times.
+
+224
+00:23:19,051 --> 00:23:25,020
+The labels along
+each such path is 1-0. So 1-0 star.
+
+225
+00:23:25,059 --> 00:23:31,025
+Describes the labels we reached by
+following this path any number of times.
+
+226
+00:23:31,025 --> 00:23:37,004
+Including zero times. After oscillating as
+many times as we wish. In warming up in
+
+227
+00:23:37,004 --> 00:23:42,041
+state two. We can then follow the zero arc
+to three. That's that part of the
+
+228
+00:23:42,041 --> 00:23:48,013
+regular expression. This path from state
+two to state three are described by the
+
+229
+00:23:48,013 --> 00:23:53,056
+regular expression. One zero Star zero.
+That's this whole part. An alternative
+
+230
+00:23:53,056 --> 00:23:59,062
+plan is to oscillate between state two and
+one. Winding up in one. The labels of all
+
+231
+00:23:59,062 --> 00:24:05,097
+these paths are described by one, that is
+you can to state one for the first time,
+
+232
+00:24:05,097 --> 00:24:12,000
+and then you can go 01, 01 as many times
+as you like including, including zero
+
+233
+00:24:12,000 --> 00:24:19,003
+times. Finally though you have to follow
+the path from one to three, the arch from
+
+234
+00:24:19,003 --> 00:24:25,025
+one to three, in fact. And, so one
+followed by one, sorry, one followed by
+
+235
+00:24:25,025 --> 00:24:32,044
+zero one star, followed by another one,
+describes all of those paths that start in
+
+236
+00:24:32,044 --> 00:24:39,055
+two. Go from one to two several times.
+Wind up in one. And then go to three. The
+
+237
+00:24:39,055 --> 00:24:43,097
+regular expression for the labels of all
+2-Paths. From state two to state three.
+
+238
+00:24:43,097 --> 00:24:48,043
+Is the union of these two expressions that
+we have just described. The 3-Paths
+
+239
+00:24:48,043 --> 00:24:52,030
+from state to state three also have a
+regular expression. But it is
+
+240
+00:24:52,030 --> 00:24:56,088
+sufficiently convicted that we're going to
+save that example until we have seen the
+
+241
+00:24:56,088 --> 00:25:06,078
+complete construction. Okay. Now, here's
+the induction of how you, go from a DFA to
+
+242
+00:25:06,078 --> 00:25:14,003
+a regular expression. Okay. The basis is K
+equals zero. Notice that a 0-Path. Can
+
+243
+00:25:14,003 --> 00:25:20,051
+have no intermediate states at all, plus
+the set of 0-Paths from the state I to
+
+244
+00:25:20,051 --> 00:25:26,051
+state J, can only consist of a single arc
+plus, in the special case that I=J, no
+
+245
+00:25:26,051 --> 00:25:32,091
+arcs at all. We can construct a regular
+expression for this language. Connect with
+
+246
+00:25:32,091 --> 00:25:39,041
+pluses each of the labels and in addition,
+if I=J, then add an epsilon. So for
+
+247
+00:25:39,041 --> 00:25:48,090
+example, here's state I, here's state J,
+and suppose it has an arc, labeled A, B,
+
+248
+00:25:48,090 --> 00:25:57,070
+and C. Then it's regular expression is
+A+B+C. And if there's also an arc, let's
+
+249
+00:25:57,070 --> 00:26:07,023
+say, from I to I, in addition, let's say
+that there is a loop with labels D and E
+
+250
+00:26:07,023 --> 00:26:18,033
+on the state I. Then regular expression for
+the paths from I to I would be D+E+epsilon.
+
+251
+00:26:23,833 --> 00:26:31,484
+We now need to introduce some
+notation. Let Rij super K, be the regular
+
+252
+00:26:31,484 --> 00:26:39,430
+expression for the set of labels of the K
+paths from state I to state J. We've
+
+253
+00:26:39,430 --> 00:26:45,442
+really seen the basis case, K equals zero,
+that is Rij super zero is the sum of the
+
+254
+00:26:45,442 --> 00:26:51,469
+labels on the arc from state I to state J.
+If there's no such arc, then use the empty
+
+255
+00:26:51,469 --> 00:26:58,471
+sets symbol as the regular expression, but
+we add epsilon if I equals J. Use our
+
+256
+00:26:58,471 --> 00:27:07,421
+example DFA again. R one two super zero
+equals zero, since that is the label of
+
+257
+00:27:07,421 --> 00:27:14,419
+the arc from the state one to state two,
+and of course the state one is not equal
+
+258
+00:27:14,419 --> 00:27:22,423
+to state two. Now consider our R-1-1 super
+zero. There's no arc from state one to
+
+259
+00:27:22,423 --> 00:27:28,476
+itself, so we start out with the empty
+set. However, since the beginning and the
+
+260
+00:27:28,476 --> 00:27:36,410
+end states are the same, we have epsilon.
+Okay. And incidentally, notice that
+
+261
+00:27:36,410 --> 00:27:43,411
+there's an algebraic law. That is, the
+empty set union anything is that other
+
+262
+00:27:43,411 --> 00:27:50,411
+thing. So, whenever you see an empty set
+symbol plus something else, you can just
+
+263
+00:27:50,411 --> 00:27:59,484
+get rid of the empty set and plus, and
+just take what's. Now we shall do the
+
+264
+00:27:59,484 --> 00:28:04,421
+inductive step where we assume we've
+written all the regular expressions with
+
+265
+00:28:04,421 --> 00:28:09,438
+super K minus one, and we need to write
+the expressions for the K paths. A K path.
+
+266
+00:28:09,438 --> 00:28:15,435
+I would never go through state K at all or
+does so one or more times. That let's us
+
+267
+00:28:15,435 --> 00:28:21,404
+write the expression for Rij super K in
+terms of expressions for K minus one
+
+268
+00:28:21,404 --> 00:28:26,486
+paths. The first term covers the case that
+the K path doesn't even go through the
+
+269
+00:28:26,486 --> 00:28:34,456
+state K once. That is every K minus one
+path is a K path. All other k pads. Gets
+
+270
+00:28:34,456 --> 00:28:40,462
+to state k at least once. Thus, we
+start out as Rik super k minus one. Which
+
+271
+00:28:40,462 --> 00:28:46,484
+generates us the labels of all the pads
+that get us from state I to state k for
+
+272
+00:28:46,484 --> 00:28:53,427
+the first time. Then comes Rkk super K-1,
+all starred. It generates the labels of
+
+273
+00:28:53,427 --> 00:28:59,486
+all paths to go from state K to state K
+zero or more times with those paths not
+
+274
+00:28:59,486 --> 00:29:05,487
+passing through any state K or higher.
+Finally, we, we concatenate with the
+
+275
+00:29:05,487 --> 00:29:12,446
+language of the expression Rkj super K-1.
+That generates the labels of all paths
+
+276
+00:29:12,446 --> 00:29:20,492
+from state K to state J that do not pass
+through state K or higher. Here's a
+
+277
+00:29:20,492 --> 00:29:26,468
+picture of what a k pad looks like with
+the vertical axis representing the state
+
+278
+00:29:26,468 --> 00:29:32,401
+number. We've shown I and J above K.
+Although they can be at any height. That
+
+279
+00:29:32,401 --> 00:29:37,464
+is for example I could be down here. So
+could J, could be down there. Or they can
+
+280
+00:29:37,464 --> 00:29:43,453
+be higher. Doesn't matter. So one
+possibility is that the K path never goes
+
+281
+00:29:43,453 --> 00:29:50,447
+through state K. Or it could go through
+state K for the first time but only to a
+
+282
+00:29:50,447 --> 00:29:58,488
+lower states. And from k to k, you could
+go get through lower states zero or more
+
+283
+00:29:58,488 --> 00:30:06,435
+times and, finally, you go from k to j
+through lower number states, number states
+
+284
+00:30:06,435 --> 00:30:14,459
+numbered lower than k and that represents
+all the paths that go from I to j through
+
+285
+00:30:14,459 --> 00:30:24,474
+k and lower numbered states. Finally, as
+we have hinted, the regular expression
+
+286
+00:30:24,474 --> 00:30:28,421
+with the same language is the given
+DFA is formed by taking the union
+
+287
+00:30:28,421 --> 00:30:33,488
+overall final states "J" of "Rij super
+N" where "i" is the start state.
+
+288
+00:30:33,488 --> 00:30:41,468
+So here's, here our example of DFA again.
+Now we have to install a start state and some
+
+289
+00:30:41,468 --> 00:30:49,421
+final states. So let's assume that state
+two is the start state and three is the
+
+290
+00:30:49,421 --> 00:30:56,417
+only final state. So the regular
+expression that we want is just R23 super
+
+291
+00:30:56,417 --> 00:31:04,458
+three. Okay. Here's the expression for r23
+super three in terms of the super two
+
+292
+00:31:04,458 --> 00:31:11,479
+expressions. This expression is special
+because state three appears in two places
+
+293
+00:31:11,479 --> 00:31:18,465
+as both k and j and as a result we can
+simplify it as shown to r23 super two
+
+294
+00:31:18,465 --> 00:31:25,442
+concatenated with r33 super two star. The
+reason is that if e is any regular
+
+295
+00:31:25,442 --> 00:31:37,447
+expression, such as r33 super two. Then. E
+star E. Is the concatenation of one or
+
+296
+00:31:37,447 --> 00:31:46,411
+more Es. Okay. Now we have. Another
+expression are 2,3, super two. That you
+
+297
+00:31:46,411 --> 00:31:54,479
+can think of as, itself concatenated with
+none of the e's. Remember e is actually
+
+298
+00:31:54,479 --> 00:32:03,411
+r33 super two. So this is r23 super two
+concatenated with no e's. This is R323
+
+299
+00:32:03,411 --> 00:32:10,486
+Supertube concatenated with E<i>E, that's
+one or more Es. So together you have R23</i>
+
+300
+00:32:10,486 --> 00:32:19,421
+Super two in candidate with zero one more
+Es and that's what that expression is, is
+
+301
+00:32:19,421 --> 00:32:27,431
+saying. Again, remember, E is R33
+Super two. Okay, so, we figured out what R
+
+302
+00:32:27,431 --> 00:32:37,450
+23 super two is, we did that earlier, so
+lets just use it here. And here's an
+
+303
+00:32:37,450 --> 00:32:43,489
+expression for R33 super two. I won't give
+the details but remember that this
+
+304
+00:32:43,489 --> 00:32:49,422
+expression has to represent paths from
+three to three that never go through
+
+305
+00:32:49,422 --> 00:32:54,483
+three. So you could only jump from one to
+two and back again until it returns to
+
+306
+00:32:54,483 --> 00:32:59,495
+three. And here's the simplified
+expression composed of R23 super two and
+
+307
+00:32:59,495 --> 00:33:07,414
+R33 super two. That last being starred.
+So, what you have at the end is a regular
+
+308
+00:33:07,414 --> 00:33:15,489
+expression whose language is the same as
+the regular expression of this automaton
+
+309
+00:33:15,489 --> 00:33:21,413
+order. Each of the three types of
+automatons, the DFA, NFA, and the epsilon
+
+310
+00:33:21,413 --> 00:33:26,457
+NFA that we discussed, and regular
+expressions as well, define exactly the
+
+311
+00:33:26,457 --> 00:33:32,454
+same set of languages, regular languages.
+That is, if you remember, we started with
+
+312
+00:33:32,454 --> 00:33:39,413
+the DFA. And we show that any nfa could be
+converted to dfa. That's the subset
+
+313
+00:33:39,413 --> 00:33:46,455
+construction. We then show that any x one
+nfa could be converted to an ordinary nfa.
+
+314
+00:33:46,455 --> 00:33:53,472
+That was the closure construction. And
+earlier in this lecture, we showed that
+
+315
+00:33:53,472 --> 00:34:00,497
+any regular expression can be converted to
+an epsilon NFA and now we just showed that
+
+316
+00:34:00,497 --> 00:34:07,480
+every DFA can be converted to a regular
+expression. That says any language defined
+
+317
+00:34:07,480 --> 00:34:13,427
+by any one of these four notations is
+defined by all the others. Okay, we're
+
+318
+00:34:13,427 --> 00:34:19,453
+going to finish up with a little
+discussion with the algebraic laws for
+
+319
+00:34:19,453 --> 00:34:25,407
+regular expressions. We have several times
+argued that two different regular
+
+320
+00:34:25,407 --> 00:34:30,498
+expressions represent the same language
+and therefore one can be substituted for
+
+321
+00:34:30,498 --> 00:34:36,471
+the other. Now these are examples of the
+sort of algebraic laws that we find in the
+
+322
+00:34:36,471 --> 00:34:41,423
+algebra of regular expressions of
+arithmetic, Boolean algebra, and other
+
+323
+00:34:41,423 --> 00:34:46,426
+algebras. The laws for regular expressions
+are not too different from those for
+
+324
+00:34:46,426 --> 00:34:51,436
+arithmetic, but we have to be very careful
+to observe the differences. First, plus
+
+325
+00:34:51,436 --> 00:34:56,420
+and concatenation behave almost like plus
+and times for arithmetic. The plus
+
+326
+00:34:56,420 --> 00:35:01,442
+operator which remember, is a set union,
+is associative and communicative just like
+
+327
+00:35:01,442 --> 00:35:07,469
+addition. Remember, ultimate, the
+commutative law says that X plus Y equals
+
+328
+00:35:07,469 --> 00:35:14,494
+Y plus X. That is the order of the
+arguments doesn't matter. The associative
+
+329
+00:35:14,494 --> 00:35:22,487
+law says that you can group the operator
+in any order. Or formally, x plus y
+
+330
+00:35:22,487 --> 00:35:30,414
+grouped plus z equals x plus the grouping
+of y plus z. That is, you can apply plus
+
+331
+00:35:30,414 --> 00:35:35,439
+to the first two arguments first, or apply
+it to the last two arguments first. It
+
+332
+00:35:35,439 --> 00:35:40,431
+doesn't matter, the result is the same.
+Concatenation, like multiplication, is
+
+333
+00:35:40,431 --> 00:35:44,477
+associative. Moreover, concatenation
+distributes over union just like
+
+334
+00:35:44,477 --> 00:35:53,432
+multiplication distributes over addition.
+That is x. Concatenated with y plus z.
+
+335
+00:35:53,432 --> 00:36:04,407
+Equals xy plus xa. That is xy plus z
+equals xy plus xz. That is the
+
+336
+00:36:04,407 --> 00:36:12,424
+distributive law. And the big difference
+between regular expressions in arithmetic
+
+337
+00:36:12,424 --> 00:36:20,405
+is that concatenation is not commutative.
+Although multiplication obviously is. That
+
+338
+00:36:20,405 --> 00:36:26,479
+is, the regular expressions, AB and BA,
+[sound] don't denote the same languages.
+
+339
+00:36:26,479 --> 00:36:33,411
+That is, the first AB just denotes the
+language that contains the string AB,
+
+340
+00:36:33,411 --> 00:36:39,465
+while the second, BA, denotes the language
+that contains only the string BA. Okay.
+
+341
+00:36:39,465 --> 00:36:44,462
+Arithmetic also has certain constants that
+serve as identities for addition and
+
+342
+00:36:44,462 --> 00:36:49,428
+multiplication. Obviously zero is the
+identity for addition, and that adding
+
+343
+00:36:49,428 --> 00:36:54,406
+zero to any number gives you that number
+back. Likewise,1 is the identity for
+
+344
+00:36:54,406 --> 00:36:58,471
+multiplication because multiplying any
+number by one, gives you that number.
+
+345
+00:36:58,471 --> 00:37:03,468
+Finally zero is also the annihilator for
+multiplication because multiplying any
+
+346
+00:37:03,468 --> 00:37:09,407
+number by zero gives you zero. Union and
+concatenation have analogous identities as
+
+347
+00:37:09,407 --> 00:37:14,458
+we should see the identity for union is
+the annihilator of concatenation just like
+
+348
+00:37:14,458 --> 00:37:19,436
+the identity for addition is the
+annihilator for multiplication. Now, the
+
+349
+00:37:19,436 --> 00:37:24,441
+identity for union as we actually have
+mentioned is the empty set. Obviously
+
+350
+00:37:24,441 --> 00:37:29,436
+taking the union of the empty set with any
+set yields that set. The language
+
+351
+00:37:29,436 --> 00:37:34,415
+containing only the empty string is the
+identity for calculation. Calculating any
+
+352
+00:37:34,415 --> 00:37:38,458
+string as with the empty string yields as
+you can calculating the language
+
+353
+00:37:38,458 --> 00:37:43,412
+represented by the regular session r
+[inaudible] with the other language say
+
+354
+00:37:43,412 --> 00:37:47,473
+the line represented by [inaudible] would
+result in the same language the one
+
+355
+00:37:47,473 --> 00:37:52,445
+represented by r. Finally the empty set is
+the annihilator from concatenation. That
+
+356
+00:37:52,445 --> 00:37:57,409
+is we take any language, say the language
+represented by regular expression R and
+
+357
+00:37:57,409 --> 00:38:01,484
+concatenate it with the empty language, we
+get the empty language. Why? The result of
+
+358
+00:38:01,484 --> 00:38:05,496
+the concatenation requires that we take
+strings from both languages and
+
+359
+00:38:05,496 --> 00:38:10,465
+concatenate them in all possible ways. But
+you can't find any strings in the empty
+
+360
+00:38:10,465 --> 00:38:13,440
+language to use in the concatenation of
+strings.

@@ -1,0 +1,1458 @@
+1
+00:00:00,000 --> 00:00:04,137
+Context-free grammars can be badly
+designed. For example they can have
+
+2
+00:00:04,137 --> 00:00:08,452
+variables that play no role in the
+derivation of any terminal string and
+
+3
+00:00:08,452 --> 00:00:13,418
+therefore shouldn't be there. As analogous
+to states in the [inaudible] an automaton
+
+4
+00:00:13,418 --> 00:00:18,785
+that aren't reachable from the start
+state. There are also certain productions
+
+5
+00:00:18,785 --> 00:00:23,487
+that, while they are necessary, cause
+derivations to take many steps that can
+
+6
+00:00:23,487 --> 00:00:28,127
+obviously be combined. These include
+productions whose bodies are the empty
+
+7
+00:00:28,127 --> 00:00:33,138
+string or unit productions where the body
+is a single variable. We can get rid of
+
+8
+00:00:33,138 --> 00:00:38,087
+these and the way to do so is similar to
+the way we removed epsilon transitions
+
+9
+00:00:38,087 --> 00:00:42,702
+from an NFA. Finally, we're going to
+introduce [inaudible] normal form where
+
+10
+00:00:42,702 --> 00:00:47,128
+all the production bodies are either a
+single terminal or two variables.
+
+11
+00:00:47,128 --> 00:00:51,985
+Incidentally, the Chomsky we refer to is
+Noam Chomsky. Back in 1956, he wrote the
+
+12
+00:00:51,985 --> 00:00:56,288
+paper that introduced the idea of
+context-free grammars. Then he was a
+
+13
+00:00:56,288 --> 00:01:00,529
+linguist trying to provide some
+mathematics for the structure of the
+
+14
+00:01:00,529 --> 00:01:05,140
+language. Since then he has unfortunately
+became somewhat notorious for his
+
+15
+00:01:05,140 --> 00:01:09,771
+political views. Oh well, back to
+context-free grammars. Here is an example
+
+16
+00:01:09,771 --> 00:01:15,016
+of a really bad grammar. A is okay, it
+derives all strings of one or more A's
+
+17
+00:01:15,016 --> 00:01:20,538
+using its two productions. However B has
+only one production and that production
+
+18
+00:01:20,538 --> 00:01:25,438
+has B in its body. Thus, once it's
+sentential form has a B in it, you can
+
+19
+00:01:25,438 --> 00:01:30,779
+never get rid of that B. And as a result,
+B derives no terminal strings. To make
+
+20
+00:01:30,779 --> 00:01:35,810
+matters worse, S is only one production.
+So that must be the first used than any
+
+21
+00:01:35,810 --> 00:01:41,031
+derivation. But that production introduces
+a B into the cententional form so it is
+
+22
+00:01:41,031 --> 00:01:46,317
+impossible to derive any terminal string
+from S and therefore the language of this
+
+23
+00:01:46,317 --> 00:01:50,975
+grammar is empty. Almost all the
+algorithms we need to simplify grammars
+
+24
+00:01:50,975 --> 00:01:56,240
+are based on the same principle, which I
+call discovery algorithms. These discover
+
+25
+00:01:56,240 --> 00:02:01,533
+facts by an induction process The basis is
+always certain facts that are obvious.
+
+26
+00:02:01,533 --> 00:02:06,384
+Then based on what is already known, we
+discover facts and repeated rounds.
+
+27
+00:02:06,384 --> 00:02:11,628
+Finally, at some round, they can discover
+no more facts. There's no point in going
+
+28
+00:02:11,628 --> 00:02:17,134
+on since without new facts in the current
+round, we cannot discover more on the next
+
+29
+00:02:17,134 --> 00:02:22,116
+round. We generally have to prove only
+that any true fact of the type we are
+
+30
+00:02:22,116 --> 00:02:27,736
+trying to discover will be found this way.
+Here's the image of discovery algorithms
+
+31
+00:02:27,736 --> 00:02:33,972
+we should keep in mind. We start with some
+facts you get from the basis. We expand
+
+32
+00:02:33,972 --> 00:02:40,227
+the set of facts you know by using the
+basis fact, this is the first round. For
+
+33
+00:02:40,227 --> 00:02:44,937
+the second round, we expand the set of
+known facts further by using both the
+
+34
+00:02:44,937 --> 00:02:50,310
+basic facts and the facts you discovered
+around one. You keep going until some
+
+35
+00:02:50,310 --> 00:02:55,265
+round you have no more facts that can be
+discovered. So one of the first things we
+
+36
+00:02:55,265 --> 00:03:00,158
+need to do when dealing with grammars is
+to detect and get rid of variables that
+
+37
+00:03:00,158 --> 00:03:04,810
+can't derive any terminal string. We shall
+give a discovery algorithm to find
+
+38
+00:03:04,810 --> 00:03:09,825
+inductively, all variables that do derive
+at least one terminal string, any variable
+
+39
+00:03:09,825 --> 00:03:14,840
+not discovered by this algorithm derives
+no terminal strings and can be eliminated.
+
+40
+00:03:14,840 --> 00:03:20,090
+For the basis of a variable A has a
+production who's body has no variables,
+
+41
+00:03:20,090 --> 00:03:25,899
+then A certainly derives a terminal string
+in one step. Note that this body could be
+
+42
+00:03:25,899 --> 00:03:31,236
+the empty string, technically string is a
+string of terminals. Now suppose A has
+
+43
+00:03:31,236 --> 00:03:36,641
+production with a body alpha and alpha
+consists of only terminals and variables
+
+44
+00:03:36,641 --> 00:03:42,249
+that we have previously discovered derives
+from terminal string and A derives from
+
+45
+00:03:42,249 --> 00:03:46,377
+terminal string. Since the number of
+variables is finite eventually this
+
+46
+00:03:46,377 --> 00:03:50,731
+algorithm terminates where it can't find
+no more variables that derive terminal
+
+47
+00:03:50,731 --> 00:03:54,704
+strings. Its is easy to prove that
+whenever the algorithm says a variable
+
+48
+00:03:54,704 --> 00:03:59,167
+derives a terminal string that it really
+does derive a terminal string, we are not
+
+49
+00:03:59,167 --> 00:04:03,466
+going to prove that. The harder part is
+showing that the algorithm doesn't miss
+
+50
+00:04:03,466 --> 00:04:07,765
+anything, that is if variable A derives
+some terminal string, then the algorithm
+
+51
+00:04:07,765 --> 00:04:11,956
+will eventually discover A, we will do
+that on the next slide. The proof is in
+
+52
+00:04:11,956 --> 00:04:16,255
+the induction of the minimum height of a
+parse tree with root A and a yield of
+
+53
+00:04:16,255 --> 00:04:21,444
+terminals. The basis is a tree of height
+one which consists of root A and one or
+
+54
+00:04:21,444 --> 00:04:26,420
+more leaves labeled by terminals or
+perhaps epsilon. Then the basis step of
+
+55
+00:04:26,420 --> 00:04:31,463
+the algorithm discovers A, so we are okay
+there. For the induction, assume the
+
+56
+00:04:31,463 --> 00:04:36,837
+statement is true for height up to H-1,
+that is all variables at are the roots of
+
+57
+00:04:36,837 --> 00:04:42,411
+parse trees with a height up to H-1 and a
+yield of terminals that are discovered by
+
+58
+00:04:42,411 --> 00:04:48,028
+the algorithm. The parse tree for height
+H, which must be of course equal to or
+
+59
+00:04:48,028 --> 00:04:54,108
+greater than two, has children of the root
+labeled X1 through Xn, that's this. Anyone
+
+60
+00:04:54,108 --> 00:05:00,189
+of these Xi's that is a variable is the
+root of the sub tree of height at most H-1
+
+61
+00:05:00,189 --> 00:05:06,652
+and therefore it is discovered. Moreover,
+one of these variables is discovered last.
+
+62
+00:05:06,652 --> 00:05:11,419
+At the round, with the last of the
+variables AIs is discovered, we must
+
+63
+00:05:11,419 --> 00:05:17,003
+surely do another round since the set of
+discovered variables just changed. On the
+
+64
+00:05:17,003 --> 00:05:22,314
+next round, A will be discovered because
+it has a production, that is A goes to
+
+65
+00:05:22,314 --> 00:05:27,464
+X1through XN. Who's body consists of only
+bodies and discovered variables. The
+
+66
+00:05:27,464 --> 00:05:32,729
+algorithms do eliminate variables that
+derive no terminal string is no-, simple.
+
+67
+00:05:32,729 --> 00:05:37,927
+Use the algorithm that we just described
+to find the variables that do derive
+
+68
+00:05:37,927 --> 00:05:44,079
+terminal strings. Call the other variables
+useless. Then remove from the grammar all
+
+69
+00:05:44,079 --> 00:05:49,729
+productions in which in least one useless
+variable appears. It doesn't matter if the
+
+70
+00:05:49,729 --> 00:05:55,178
+variable appears in the head, the body or
+both. Here's an example grammar to which
+
+71
+00:05:55,178 --> 00:06:00,585
+we first apply the algorithm that derive
+terminal strings. For the basis step, we
+
+72
+00:06:00,585 --> 00:06:06,335
+immediately discover A and C because they
+have productions with terminals only. Here
+
+73
+00:06:06,335 --> 00:06:11,606
+they are. For the first round of the
+production, S is discovered because there
+
+74
+00:06:11,606 --> 00:06:17,238
+is a S production with body C. And C was
+previously discovered. However at the next
+
+75
+00:06:17,238 --> 00:06:22,949
+round we can discover no more variables.
+The only variable we have not yet found to
+
+76
+00:06:22,949 --> 00:06:28,660
+derive a terminal string is B and B has
+only one production body which is little B
+
+77
+00:06:28,660 --> 00:06:33,889
+followed by big B. This body does not
+exist only of terminals and discovered
+
+78
+00:06:33,889 --> 00:06:39,697
+variables so we can never add B to the set
+of discovered variables. Unless B is
+
+79
+00:06:39,697 --> 00:06:47,877
+useless and we eliminate all traces of it.
+That includes not only the production B
+
+80
+00:06:47,877 --> 00:06:55,957
+goes to but the production S goes to AB,
+leaving us of course, fortunately, S goes
+
+81
+00:06:55,957 --> 00:07:01,749
+to C, still remains as well as the 2A
+production and the C production. In
+
+82
+00:07:01,749 --> 00:07:06,272
+addition to eliminating the variables that
+don't derive anything, we need to
+
+83
+00:07:06,272 --> 00:07:10,795
+eliminate variables that derive some
+terminal strings but cannot be derived
+
+84
+00:07:10,795 --> 00:07:15,139
+from the start symbol. The algorithm to
+define symbols both terminals and
+
+85
+00:07:15,139 --> 00:07:19,900
+variables that appear in variation from
+the start symbol is a derivation of the
+
+86
+00:07:19,900 --> 00:07:24,423
+discovery algorithm. For the basis,
+obviously the start symbol can be derived
+
+87
+00:07:24,423 --> 00:07:29,469
+from zero steps from itself. For the
+induction, suppose we have discovered that
+
+88
+00:07:29,469 --> 00:07:35,146
+we can reach variable A and then for every
+production with body alpha and head A, we
+
+89
+00:07:35,146 --> 00:07:40,552
+can also redraw the symbols appearing in
+alpha. The terminals and variables that
+
+90
+00:07:40,552 --> 00:07:45,351
+appear there. It is an easy pair of
+inductions to show, first that if we
+
+91
+00:07:45,351 --> 00:07:50,622
+discover an a symbol by this algorithm,
+that it appears in the sentential form
+
+92
+00:07:50,622 --> 00:07:55,708
+derived from the start symbol. Second,
+that if we do not discover a symbol, then
+
+93
+00:07:55,708 --> 00:08:00,678
+there is no derivation from the start
+symbol from which it appears, we are not
+
+94
+00:08:00,678 --> 00:08:05,472
+going to give the proofs here. But
+remember our goal is to get rid of that do
+
+95
+00:08:05,472 --> 00:08:10,500
+not appear on the derivations from S. So
+after discovering all the symbols that do
+
+96
+00:08:10,500 --> 00:08:15,529
+appear in a derivation, delete from the
+grammar all the productions that contain a
+
+97
+00:08:15,529 --> 00:08:20,558
+symbol, and now that head or body or both,
+that does not appear in a derivation. Say
+
+98
+00:08:20,558 --> 00:08:25,402
+a symbol is useful if it appears in a
+derivation of a terminal string from the
+
+99
+00:08:25,402 --> 00:08:30,763
+start symbol. And call it useless
+otherwise. There are two reasons a symbol
+
+100
+00:08:30,763 --> 00:08:35,417
+can be useless, either it derives no
+terminal string or it appears in no
+
+101
+00:08:35,417 --> 00:08:40,654
+derivation from the start symbol, or both.
+We have algorithms to eliminate symbols
+
+102
+00:08:40,654 --> 00:08:46,020
+that are useless fro each of the reasons
+but we must apply them in the right order.
+
+103
+00:08:46,300 --> 00:08:51,791
+First eliminate the symbols that fail to
+derive a terminal string. And then
+
+104
+00:08:51,791 --> 00:08:57,578
+eliminate symbols that do not appear from
+any derivation from the start symbol. In
+
+105
+00:08:57,578 --> 00:09:03,775
+this example grammar, if as we should, we
+first eliminate variables that do not
+
+106
+00:09:03,775 --> 00:09:09,893
+derive a terminal string. We eliminate
+only B, however eliminating productions
+
+107
+00:09:09,893 --> 00:09:15,810
+with B gets rids of the only S production.
+We then use the algorithm to find symbol
+
+108
+00:09:15,810 --> 00:09:20,971
+unreachable from the start symbol and we
+find that everything is unreachable, that
+
+109
+00:09:20,971 --> 00:09:25,502
+is all the productions are deleted.
+However, if we do things in the wrong
+
+110
+00:09:25,502 --> 00:09:30,411
+order and first eliminate unreachable
+symbols, we find everything is reachable
+
+111
+00:09:30,411 --> 00:09:36,603
+from S so nothing is eliminated here. Then
+when we look from the symbols that do not
+
+112
+00:09:36,603 --> 00:09:42,362
+derive terminal strings, we eliminate only
+B. That leaves the productions A and C
+
+113
+00:09:42,362 --> 00:09:48,337
+goes to little c, these guys, which should
+not be there because A, C and little c are
+
+114
+00:09:48,337 --> 00:09:53,664
+useless. Here's why first eliminating
+variables that don't derive terminal
+
+115
+00:09:53,664 --> 00:09:59,316
+strings is the right thing to do. After
+eliminating those variables, every
+
+116
+00:09:59,316 --> 00:10:04,721
+remaining symbol is either a terminal or
+is a variable that derives a terminal
+
+117
+00:10:04,721 --> 00:10:09,736
+string. After removing symbols not
+reachable form the start symbol, all
+
+118
+00:10:09,736 --> 00:10:14,524
+remaining symbols appear in some
+derivation from the start symbol of some
+
+119
+00:10:14,524 --> 00:10:20,832
+sentential form. But the variables that
+appear in sentential form still derive at
+
+120
+00:10:20,832 --> 00:10:25,683
+terminal string because such a derivation
+can only involve symbols that are also
+
+121
+00:10:25,683 --> 00:10:30,295
+reachable from the start symbol. Epsilon
+productions are those that have body
+
+122
+00:10:30,295 --> 00:10:34,966
+epsilon, they can be eliminated from a
+context free grammar and the only thing
+
+123
+00:10:34,966 --> 00:10:40,037
+that we lose is that we can no longer
+derive the empty string. If the empty
+
+124
+00:10:40,037 --> 00:10:44,987
+stream was not on the language to begin
+with, then we can eliminate epsilon
+
+125
+00:10:44,987 --> 00:10:50,200
+productions and still have a grammar that
+derives the same language. However, if
+
+126
+00:10:50,200 --> 00:10:55,678
+epsilon was in the language then we lose
+it, the two cases can be summarized by the
+
+127
+00:10:55,678 --> 00:11:00,509
+theorem on the slide, if L has the
+grammar. Then L minus the set containing
+
+128
+00:11:00,509 --> 00:11:05,465
+the empty string has a grammar with no
+epsilon productions. Notice that if an
+
+129
+00:11:05,465 --> 00:11:10,614
+epsilon was not an L then L minus epsilon
+is just L anyway. To eliminate epsilon
+
+130
+00:11:10,614 --> 00:11:15,956
+productions, we need yet another discovery
+algorithm, this one to find the variables
+
+131
+00:11:15,956 --> 00:11:20,655
+that derive the empty string by one or
+more steps. We call them null-able
+
+132
+00:11:20,655 --> 00:11:25,883
+symbols. The basis of the discovery
+algorithm is that if A has a production
+
+133
+00:11:25,883 --> 00:11:31,864
+with an empty body then it is surely
+nullable. And the inductions is that if A
+
+134
+00:11:31,864 --> 00:11:37,207
+has a production with body alpha and alpha
+consists only of variables that are
+
+135
+00:11:37,207 --> 00:11:42,864
+nullable then A is also nullable. Here is
+an example grammar for which we will
+
+136
+00:11:42,864 --> 00:11:49,217
+discover the nullable symbols. The basis
+we know that A is nullable because of the
+
+137
+00:11:49,217 --> 00:11:55,093
+production with epsilon body, its that. In
+the first round of the induction we find B
+
+138
+00:11:55,093 --> 00:12:00,409
+is nullabe because of the production B
+goes to A. That is all symbols on the
+
+139
+00:12:00,409 --> 00:12:05,865
+body, namely the A, are already known to
+be nullable. In the second round of the
+
+140
+00:12:05,865 --> 00:12:11,251
+basis we discover that S is nullable
+because of it's body AB, both symbols of
+
+141
+00:12:11,251 --> 00:12:16,999
+which are already known to be nullable.
+This algorithm finds all and only the
+
+142
+00:12:16,999 --> 00:12:22,581
+nullable symbols. We are not going to give
+the proof, which consists of two simple
+
+143
+00:12:22,581 --> 00:12:28,186
+inductions. To eliminate epsilon
+productions from our grammar we need to we
+
+144
+00:12:28,186 --> 00:12:34,092
+need to turn each production, say A goes
+to epsilon through Xn, into a possibly
+
+145
+00:12:34,092 --> 00:12:40,302
+large number of productions. The idea is
+to guess which of the nullable symbols of
+
+146
+00:12:40,302 --> 00:12:46,208
+the body of a production will derive
+epsilon in a particular derivation, since
+
+147
+00:12:46,208 --> 00:12:52,342
+we make all possible guess by creating
+many different many productions, we always
+
+148
+00:12:52,342 --> 00:12:58,300
+manage to guess right. More precisely, for
+each set of nullable Xis. These from the
+
+149
+00:12:58,300 --> 00:13:03,169
+body of the production make a new A
+production. Note, that if two of the Xi's
+
+150
+00:13:03,169 --> 00:13:08,230
+are the same nullable symbol then we have
+to consider the possibility that one
+
+151
+00:13:08,230 --> 00:13:13,483
+[inaudible] derives epsilon and the other
+does not. That is we form one production
+
+152
+00:13:13,483 --> 00:13:18,480
+for each set of positions that hold
+nullable symbols, not just for each set of
+
+153
+00:13:18,480 --> 00:13:23,624
+nullable symbols. However in the special
+case that all the Xi's are nullable
+
+154
+00:13:23,624 --> 00:13:29,052
+symbols, we do not consider the set of all
+positions and we do not create a new
+
+155
+00:13:29,052 --> 00:13:40,102
+production with the epsilon body. Here is
+an example grammar. Each of A, B, and C
+
+156
+00:13:40,102 --> 00:13:46,863
+are nullable because they have epsilon
+productions. Thus, S is also nullable
+
+157
+00:13:46,863 --> 00:13:56,599
+because of it's production S goes to A, B,
+C. Lets construct the new grammar. For the
+
+158
+00:13:56,599 --> 00:14:02,470
+S production there are seven sub sets of
+nullable positions that we must use. The
+
+159
+00:14:02,470 --> 00:14:08,050
+set of all three positions is also
+nullable of course, but eliminating all of
+
+160
+00:14:08,050 --> 00:14:13,920
+A, B, C would leave an empty body which we
+don't allow. However if we use the empty
+
+161
+00:14:13,920 --> 00:14:21,716
+set positions we get body A, B, C. If we
+use the set of only the third position, we
+
+162
+00:14:21,716 --> 00:14:29,721
+get AB, and so on. Now lets look at the A
+productions. We do not use A goes to
+
+163
+00:14:29,721 --> 00:14:38,012
+epsilon of course, but for production A
+goes to little A big A, its that. Only the
+
+164
+00:14:38,012 --> 00:14:45,055
+second position is nullable so we get two
+productions, one with the variable A
+
+165
+00:14:45,055 --> 00:14:52,188
+present and the other not, that is what we
+have here. The situation for B is the
+
+166
+00:14:52,188 --> 00:15:00,851
+same. However C we, for C we cannot use
+the C goes to epsilon production. So in
+
+167
+00:15:00,851 --> 00:15:06,344
+the new grammar, C has no production. That
+means that in the new grammar, although
+
+168
+00:15:06,344 --> 00:15:11,631
+not in the old grammar, C is useless and
+must be eliminated. That forces us to
+
+169
+00:15:11,631 --> 00:15:17,517
+eliminate all productions with C in the
+body. And we are done. The proof that the
+
+170
+00:15:17,517 --> 00:15:22,427
+new grammar we construct generates the
+same strings except for epsilon as the old
+
+171
+00:15:22,427 --> 00:15:27,158
+grammar generates is a little tricky. So
+we're going to give the details in one
+
+172
+00:15:27,158 --> 00:15:31,888
+direction. As is often the case, we need
+to prove something more general than we
+
+173
+00:15:31,888 --> 00:15:36,835
+really need. In this case, we need two
+statements about every variable A. First,
+
+174
+00:15:36,835 --> 00:15:42,715
+if W is a non-empty string that is derived
+from A in the old grammar, then A also
+
+175
+00:15:42,715 --> 00:15:48,232
+derives W in the newly constructed
+grammar. Second, if A derives W in the new
+
+176
+00:15:48,232 --> 00:15:53,895
+grammar, first of all W is not empty and
+second A derives W in the old grammar.
+
+177
+00:15:53,895 --> 00:15:59,993
+Once we have that for all A we can apply
+the statement to the start symbol and thus
+
+178
+00:15:59,993 --> 00:16:06,018
+prove that the language of the new grammar
+is the language of the old grammar with
+
+179
+00:16:06,018 --> 00:16:12,272
+epsilon removed if it was in that
+language. We're going to prove the first
+
+180
+00:16:12,272 --> 00:16:17,312
+direction and it is an induction on the
+number of steps by which A derives W in
+
+181
+00:16:17,312 --> 00:16:24,662
+the old grammar. For the basis, if there's
+a one step derivation of W from A then A
+
+182
+00:16:24,662 --> 00:16:32,373
+goes to W must be a production. We assume
+in part one that W's not empty, so A goes
+
+183
+00:16:32,373 --> 00:16:38,887
+to W is a production of the new grammar.
+You make a desired conclusion that A
+
+184
+00:16:38,887 --> 00:16:46,378
+derives W in the new grammar. Now let's do
+the induction. Assume the inductive
+
+185
+00:16:46,378 --> 00:16:53,290
+hypothesis for derivations at fewer than K
+steps and suppose W is derived from A in K
+
+186
+00:16:53,290 --> 00:17:00,192
+steps of the old grammar. The first step
+of this derivation must be A replaced by
+
+187
+00:17:00,192 --> 00:17:05,620
+the body of some A production. Assume this
+body consists of symbols X1 through Xn.
+
+188
+00:17:06,500 --> 00:17:13,512
+Then we can break W into W1 through Wn
+where each WI is the portion of W that
+
+189
+00:17:13,512 --> 00:17:20,615
+either is XI if XI is a terminal or it's
+derived by XI if XI is a variable. All
+
+190
+00:17:20,615 --> 00:17:29,761
+these derivations from variables are in
+fewer than K steps. If XI is a variable
+
+191
+00:17:29,761 --> 00:17:36,237
+and the piece WI is not empty, then the
+inductive hypothesis tells us that XI
+
+192
+00:17:36,237 --> 00:17:45,341
+derives WI in the new grammar. When we
+construct the new grammar we replace the A
+
+193
+00:17:45,341 --> 00:17:50,840
+production A goes to XI through Xn. By a
+family of productions and one of these
+
+194
+00:17:50,840 --> 00:17:56,476
+eliminates from the body exactly those
+XI's such that WI is epsilon. We know that
+
+195
+00:17:56,476 --> 00:18:02,385
+is the case because if WI is epsilon then
+surely XI is nullable. We also know that
+
+196
+00:18:02,385 --> 00:18:08,438
+not all WI's are epsilon because W is not
+epsilon. That is at least one XI is either
+
+197
+00:18:08,438 --> 00:18:14,419
+a terminal or it is a variable that we do
+not need to remove from the body. Thus in
+
+198
+00:18:14,419 --> 00:18:19,679
+the new grammar, the first step can
+replace A by a body consisting of all
+
+199
+00:18:19,679 --> 00:18:25,479
+those XI's such that WI is not epsilon. We
+can continue the derivation in the new
+
+200
+00:18:25,479 --> 00:18:31,162
+grammar by a derivation from each XI that
+remains of the non-empty string WI. We
+
+201
+00:18:31,162 --> 00:18:36,428
+know this derivation in the new grammar
+exists by the inductive hypothesis. We
+
+202
+00:18:36,428 --> 00:18:41,626
+also need to show part two, if W is
+derived from A in the new grammar then it
+
+203
+00:18:41,626 --> 00:18:48,857
+is non-empty and also derived in the old.
+We're going to skip this part. So we're
+
+204
+00:18:48,857 --> 00:18:53,349
+now ready for new simplification of
+grammars the eliminations of unit
+
+205
+00:18:53,349 --> 00:19:02,229
+productions. A unit production is one
+whose body is a single variable. We can
+
+206
+00:19:02,229 --> 00:19:08,070
+eliminate all such productions. The, the
+idea is to discover using a discovery
+
+207
+00:19:08,070 --> 00:19:13,689
+algorithm, all pairs of variables AB. Such
+that A derives B by a sequence of unit
+
+208
+00:19:13,689 --> 00:19:19,238
+productions. Eventually, a sequence of
+unit productions must end with the use of
+
+209
+00:19:19,238 --> 00:19:24,365
+some other kind of production. So we can
+collapse the steps that use unit
+
+210
+00:19:24,365 --> 00:19:29,914
+productions into the next one that does
+not use a unit production. That is if B
+
+211
+00:19:29,914 --> 00:19:35,813
+goes to alpha is a non-unit production and
+A derives alpha by unit productions, then
+
+212
+00:19:35,813 --> 00:19:42,928
+we'll add A goes to alpha. Finally, we
+drop all unit productions. At this point
+
+213
+00:19:42,928 --> 00:19:48,890
+we do not need the unit productions and
+can drop them from the grammar. Here's the
+
+214
+00:19:48,890 --> 00:19:54,707
+algorithm that discover the pairs of
+variables AB such that A derives B by unit
+
+215
+00:19:54,707 --> 00:20:01,237
+productions. For the basis, surely A
+derives A by unit productions only. This
+
+216
+00:20:01,237 --> 00:20:07,107
+is a sequence of zero steps. For the
+induction, suppose we already discover
+
+217
+00:20:07,107 --> 00:20:13,533
+that A derives B by unit productions, then
+if B goes to C is a unit production, we
+
+218
+00:20:13,533 --> 00:20:20,102
+may add the pair AC. There are two proofs
+that we need but we're not going to do
+
+219
+00:20:20,102 --> 00:20:25,756
+them here. First, an induction on the
+number of rounds in the discovery process,
+
+220
+00:20:25,756 --> 00:20:31,009
+let's just show that the pairs we find are
+valid. That is, they really are pairs AB
+
+221
+00:20:31,009 --> 00:20:36,832
+such that A derives B by unit productions.
+Then conversely we can show by an
+
+222
+00:20:36,832 --> 00:20:41,602
+induction on the number of steps of a
+derivation from A to B, using unit
+
+223
+00:20:41,602 --> 00:20:47,835
+productions, that we will in fact discover
+the pair AB. Another proof that we're
+
+224
+00:20:47,835 --> 00:20:52,940
+going to skip is the proof that in new
+grammar has the same language as the old.
+
+225
+00:20:52,940 --> 00:20:57,390
+Again, we have to prove something more
+general, that A derives W in the new
+
+226
+00:20:57,390 --> 00:21:02,202
+grammar if and only if it does so in the
+old grammar. Each production of the new
+
+227
+00:21:02,202 --> 00:21:07,074
+grammar simulates one or more steps of the
+derivation of the old grammar. That is,
+
+228
+00:21:07,074 --> 00:21:11,826
+some number of unit productions, perhaps
+zero, followed by a non-unit production.
+
+229
+00:21:11,826 --> 00:21:16,818
+Conversely, every use of a production in
+the new grammar can be replaced by zero or
+
+230
+00:21:16,818 --> 00:21:21,552
+more unit productions followed by a
+non-unit production in the old grammar. We
+
+231
+00:21:21,552 --> 00:21:27,775
+can now combine the three simplifications
+to make a strong statement about grammars.
+
+232
+00:21:27,775 --> 00:21:33,332
+If L is a context-free language, then L
+minus epsilon has a grammar with no
+
+233
+00:21:33,332 --> 00:21:39,101
+useless symbols, no epsilon productions
+and no unit productions. Another way to
+
+234
+00:21:39,101 --> 00:21:44,901
+put it is that L minus epsilon has a
+grammar in which every production body is
+
+235
+00:21:44,901 --> 00:21:52,462
+either a single terminal or has length at
+least two. You plot the constructions just
+
+236
+00:21:52,462 --> 00:21:57,868
+learned, but we have to be careful about
+the order. You must start by eliminating
+
+237
+00:21:57,868 --> 00:22:06,459
+epsilon productions. We have to do this
+step first because eliminating epsilon
+
+238
+00:22:06,459 --> 00:22:12,252
+productions can produce unit productions
+that weren't there before and as we saw in
+
+239
+00:22:12,252 --> 00:22:17,700
+an example, it can create useless symbols
+that were not useless before. That can
+
+240
+00:22:17,700 --> 00:22:23,079
+only occur if the production was only used
+to derive the empty string, however.
+
+241
+00:22:23,079 --> 00:22:29,057
+Second, eliminate the unit productions.
+Third, eliminate variables that derive no
+
+242
+00:22:29,057 --> 00:22:34,092
+terminal strings. We explained earlier why
+this step must precede the next step in
+
+243
+00:22:34,092 --> 00:22:38,759
+our quest to eliminate all useless
+symbols. So finally we do the fourth step
+
+244
+00:22:38,759 --> 00:22:45,042
+of eliminating all the unreachable
+symbols. We've almost got our grammars
+
+245
+00:22:45,042 --> 00:22:50,587
+into Chomsky Normal Form or CNF. Such a
+grammar has only two kinds of production
+
+246
+00:22:50,587 --> 00:22:56,083
+bodies: single terminals or two variables.
+We're now going to give the construction
+
+247
+00:22:56,083 --> 00:23:01,110
+of the CNF grammar for L minus epsilon,
+where L is any context-free grammar.
+
+248
+00:23:01,110 --> 00:23:05,328
+Incidentally, one important use of putting
+grammars in CNF is it gives us a
+
+249
+00:23:05,328 --> 00:23:10,053
+relatively efficient algorithm for testing
+membership in a string of a context-free
+
+250
+00:23:10,053 --> 00:23:14,609
+language. One might imagine that it was
+easy to make such a test while looking at
+
+251
+00:23:14,609 --> 00:23:18,940
+all derivations of a certain limited
+length. But with epsilon productions and
+
+252
+00:23:18,940 --> 00:23:23,665
+unit productions in the grammar, it is not
+obvious how long the derivation of even a
+
+253
+00:23:23,665 --> 00:23:28,350
+short string of terminals has to be.
+Moreover even if we can bound the light
+
+254
+00:23:28,350 --> 00:23:33,166
+for the derivation as we can Would still
+be faced with an algorithm that took an
+
+255
+00:23:33,166 --> 00:23:37,719
+amount of time that is exponential in the
+length of the terminal string. Rather by
+
+256
+00:23:37,719 --> 00:23:41,994
+putting the grammar in CNF we can make
+this test and at most, we can make the
+
+257
+00:23:41,994 --> 00:23:49,596
+length of the string. Our first step is to
+the cleaning we just described. The result
+
+258
+00:23:49,596 --> 00:23:55,591
+is the grammar no longer the empty string
+even if the old one did. But otherwise the
+
+259
+00:23:55,591 --> 00:24:01,586
+languages are the same. But all production
+bodies are either single terminal or have
+
+260
+00:24:01,586 --> 00:24:07,367
+length at least two. Our second step is to
+turn those bodies that aren't a single
+
+261
+00:24:07,367 --> 00:24:12,934
+terminal into bodies into all variables.
+The trick is simple, for each terminal
+
+262
+00:24:12,934 --> 00:24:18,981
+little A, create a new variable that we'll
+call A sub A. To that. The job of this
+
+263
+00:24:18,981 --> 00:24:25,127
+variable is just to generate the terminal
+little A. So replace A in all bodies of
+
+264
+00:24:25,127 --> 00:24:31,349
+length two or more by A sub A and add the
+production A sub A goes to A. That is, of
+
+265
+00:24:31,349 --> 00:24:38,811
+course, that. Here's an example involving
+the production A goes to B little CB
+
+266
+00:24:38,811 --> 00:24:47,287
+little E C and D are terminals so we must
+have created variables A sub C and A sub E
+
+267
+00:24:47,287 --> 00:24:59,011
+with their productions A sub C and A sub E
+goes to E. Then we can replace A goes to
+
+268
+00:24:59,011 --> 00:25:10,796
+BCDE by A goes to B A sub C D A sub E. Now
+all production bodies that aren't a single
+
+269
+00:25:10,796 --> 00:25:16,081
+terminal are strings of two or more
+variables. If exactly two that's great
+
+270
+00:25:16,081 --> 00:25:22,009
+because that's what CNF requires. But if a
+body consists of three or more terminals,
+
+271
+00:25:22,009 --> 00:25:28,240
+we have to break the body into pieces into
+variables that appear nowhere else. An
+
+272
+00:25:28,240 --> 00:25:35,699
+example should make the idea clear. If we
+have a production AB goes to BCDE, Then we
+
+273
+00:25:35,699 --> 00:25:41,157
+need two new variables say F and G and
+they are used only for this production.
+
+274
+00:25:41,157 --> 00:25:46,755
+They may not appear in the new grammar
+except as we describe here. In general if
+
+275
+00:25:46,755 --> 00:25:52,493
+the body consists of N variables, we need
+N minus two new variables. The job of the
+
+276
+00:25:52,493 --> 00:25:58,161
+first new variable F is to generate the
+whole body except for the first symbol, B
+
+277
+00:25:58,161 --> 00:26:04,965
+in this case. That is we'd replace this A
+production by A goes to BF. Now F needs to
+
+278
+00:26:04,965 --> 00:26:14,016
+derive CDE that's the rest of the body.
+But that's too long so we use G to help. G
+
+279
+00:26:14,016 --> 00:26:23,369
+derives only BE, that's this production,
+using the production G goes to DE and the
+
+280
+00:26:23,369 --> 00:26:33,181
+production for F becomes F goes to CG Plus
+we've replaced A goes to BCDE by the three
+
+281
+00:26:33,181 --> 00:26:40,531
+productions that meet the CNF requirement.
+A goes to BF, F goes to CG and G goes to
+
+282
+00:26:40,531 --> 00:26:45,864
+DE. These are the three productions can
+simulate the effect of the original
+
+283
+00:26:45,864 --> 00:26:50,562
+production although they take three steps
+to do so. Thus, making this change surely
+
+284
+00:26:50,562 --> 00:26:55,089
+allows the new grammar to generate
+anything the old one did. But the new
+
+285
+00:26:55,089 --> 00:27:00,827
+grammar doesn't generate anything the old
+one didn't, so the languages are the same.
+
+286
+00:27:00,827 --> 00:27:06,357
+The reason is that once we choose to
+replace A by BF we are forced to replace F
+
+287
+00:27:06,357 --> 00:27:11,956
+by CG and then G by DE because these two
+variables have only one production. Thus
+
+288
+00:27:11,956 --> 00:27:17,763
+using A goes to BF in the new grammar is
+[inaudible] to using A goes to BCDE in the
+
+289
+00:27:17,763 --> 00:27:22,106
+old We thus have an argument why the
+transformation from clean grammars from
+
+290
+00:27:22,106 --> 00:27:26,396
+clean grammars to CNF grammars did not
+change the language. You can do formal
+
+291
+00:27:26,396 --> 00:27:30,853
+inductions on the length of derivations in
+these grammars but I hope these less
+
+292
+00:27:30,853 --> 00:27:32,636
+formal arguments are convincing.

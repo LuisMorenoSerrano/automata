@@ -1,0 +1,599 @@
+1
+00:00:00,000 --> 00:00:04,203
+Today we begin with an informal
+introduction to finite automata. I'll
+
+2
+00:00:04,203 --> 00:00:09,138
+officer some brief remarks about their
+uses, and then move to an extended example
+
+3
+00:00:09,138 --> 00:00:14,194
+of an automaton that describes how a game
+of tennis is scored. The finite automaton
+
+4
+00:00:14,194 --> 00:00:18,763
+is a mathematical model, but fortunately,
+it is a model that should be quite
+
+5
+00:00:18,763 --> 00:00:23,780
+familiar. You can think of it either as a
+graph or as a table. The finite automaton
+
+6
+00:00:23,780 --> 00:00:28,733
+is simple because it stores only a finite
+amount of information. That can be bad
+
+7
+00:00:28,733 --> 00:00:33,933
+because in many applications there is no
+limit on the amount of information we need
+
+8
+00:00:33,933 --> 00:00:38,948
+to remember about what has happened in the
+past. When that is the case, the finite
+
+9
+00:00:38,948 --> 00:00:43,725
+automaton is not a useful model. But the
+finiteness of memory is great when the
+
+10
+00:00:43,725 --> 00:00:48,544
+model can be used because we can do a
+number of things with finite automata that
+
+11
+00:00:48,544 --> 00:00:53,541
+we cannot do with programs in general. For
+example given a program, you cannot really
+
+12
+00:00:53,541 --> 00:00:58,240
+tell anything about it, what it does or
+whether there is a shorter program that
+
+13
+00:00:58,240 --> 00:01:03,178
+does the same thing. However, you can tell
+whether two automata do the same thing or
+
+14
+00:01:03,178 --> 00:01:08,507
+whether there is a smaller automata that
+does the same as a given automata. You
+
+15
+00:01:08,507 --> 00:01:14,432
+could also tell whether a automaton does
+anything at all. That ability lets us tell
+
+16
+00:01:14,432 --> 00:01:19,000
+for example whether there are input
+sequences that cause automaton to get to
+
+17
+00:01:19,000 --> 00:01:23,474
+an error state, Which in turn lets us
+check whether protocols or other simple
+
+18
+00:01:23,474 --> 00:01:27,925
+systems have flaws. A finite automaton is
+built around a finite collection of
+
+19
+00:01:27,925 --> 00:01:32,492
+states. Each state has a name and that
+name represents what is remembered about
+
+20
+00:01:32,492 --> 00:01:37,117
+its history. States change in response to
+inputs. Inputs are either characters, if
+
+21
+00:01:37,117 --> 00:01:41,337
+we are doing something like processing
+text, or events, if we are modeling
+
+22
+00:01:41,337 --> 00:01:46,228
+something like a communication protocol.
+The rules that give the new state for each
+
+23
+00:01:46,228 --> 00:01:50,966
+current state an input are called the
+transitions. The [inaudible] automaton is
+
+24
+00:01:50,966 --> 00:01:55,344
+useful in a number of computing
+applications. We mentioned the design and
+
+25
+00:01:55,344 --> 00:02:00,262
+verification of communication protocols in
+digital circuits, and together with the
+
+26
+00:02:00,262 --> 00:02:04,580
+related formalism called regular
+expressions they are important in text
+
+27
+00:02:04,580 --> 00:02:09,695
+searching algorithms. They are essential
+for the portion of a compiler that breaks
+
+28
+00:02:09,695 --> 00:02:14,686
+the input into tokens, identifiers, key
+words like if and so on. You find automata
+
+29
+00:02:14,687 --> 00:02:19,553
+in regular expressions and many other
+applications as well, typically where a
+
+30
+00:02:19,553 --> 00:02:24,609
+simple language is needed to describe
+patterns that are sequences of symbols or
+
+31
+00:02:24,609 --> 00:02:29,846
+events of some sort. To see the power and
+also the limitations of a finite automaton
+
+32
+00:02:29,854 --> 00:02:35,100
+we shall take up an example scoring a game
+of tennis. If you don't play tennis, it's
+
+33
+00:02:35,100 --> 00:02:40,598
+almost like ping pong except you're really
+tiny and you stand on the table. Depending
+
+34
+00:02:40,598 --> 00:02:46,440
+on which page comes first in response to
+the search query, you'll find it was
+
+35
+00:02:46,440 --> 00:02:52,888
+invented in the twelfth century or in 1879
+by people who evidently had too much time
+
+36
+00:02:52,888 --> 00:02:58,654
+on their hands. The scoring system is
+arcane with matches consisting of sets
+
+37
+00:02:58,654 --> 00:03:04,951
+which consist of games. Games consist of
+points where one player or the other wins
+
+38
+00:03:04,951 --> 00:03:11,096
+by causing the other player to hit the
+ball off court or into the net. We'll talk
+
+39
+00:03:11,096 --> 00:03:16,838
+about scoring a game. One player is server
+throughout the game. To win the game you
+
+40
+00:03:16,838 --> 00:03:22,278
+must have at least four points. But you
+also must win by at least two points. The
+
+41
+00:03:22,278 --> 00:03:28,058
+states we are going to use for the scoring
+automaton represent the numbers of points
+
+42
+00:03:28,058 --> 00:03:33,226
+won by each player, and they have strange
+names, which we'll see as we go. The
+
+43
+00:03:33,226 --> 00:03:38,870
+inputs are events in which one player wins
+a point. S for the server wins and O for
+
+44
+00:03:38,870 --> 00:03:43,902
+the opponent wins. It is common to
+represent a finite automaton by a graph
+
+45
+00:03:43,902 --> 00:03:49,439
+with nodes for states and arrows labeled.
+[inaudible] by the input for transitions.
+
+46
+00:03:49,439 --> 00:03:54,938
+Here's the first state of the automaton
+that scores tennis games. The name of this
+
+47
+00:03:54,938 --> 00:04:00,437
+state is love. You may ask what's love got
+to do, got to do with it. But that's what
+
+48
+00:04:00,437 --> 00:04:05,802
+zero is called in tennis. The state love
+represents the history in which nothing
+
+49
+00:04:05,802 --> 00:04:11,502
+has happened. And we indicate that history
+begins with this state by an arrow labeled
+
+50
+00:04:11,502 --> 00:04:16,666
+start. The first point will be won by one
+of the two players. So there are two
+
+51
+00:04:16,666 --> 00:04:21,804
+transitions out of love, One labeled S,
+the other O. You might [inaudible] think
+
+52
+00:04:21,804 --> 00:04:26,883
+the names of the states would be 1-0, and
+0-1, 'cause the server's score always goes
+
+53
+00:04:26,883 --> 00:04:31,713
+first, but they're not. In tennis, there
+is a fiction that you score fifteen for
+
+54
+00:04:31,713 --> 00:04:36,606
+winning a point. And zero isn't zero, it's
+love. The next point can lead to three
+
+55
+00:04:36,606 --> 00:04:41,684
+states. Two where one player has won both
+points, and one where they're tied at one
+
+56
+00:04:41,684 --> 00:04:46,205
+each. Here are the states with their
+names. There is something interesting
+
+57
+00:04:46,205 --> 00:04:50,788
+about the fifteen all state. It has
+forgotten how we got there. We know the
+
+58
+00:04:50,788 --> 00:04:55,913
+sequence of inputs was either SO, or OS,
+but we don't know which, Doesn't matter of
+
+59
+00:04:55,913 --> 00:05:01,149
+course, that's the good thing about
+finding Andromeda. They only remember what
+
+60
+00:05:01,149 --> 00:05:06,657
+must be remembered. In state fifteen all,
+the question of who won the first of the
+
+61
+00:05:06,657 --> 00:05:11,960
+two points can't have any effect on the
+outcome. After another point, there are
+
+62
+00:05:11,960 --> 00:05:17,672
+four new states the game could be in. They
+have the expected names, except people are
+
+63
+00:05:17,672 --> 00:05:23,248
+too lazy to say 45 so they just say 40.
+Now let's look at the transitions from the
+
+64
+00:05:23,248 --> 00:05:28,424
+state 40 love. The server is well ahead
+and can win on the next point. If the
+
+65
+00:05:28,424 --> 00:05:33,475
+server wins, we'll go to a state
+indicating that win. The game is over, and
+
+66
+00:05:33,475 --> 00:05:38,941
+the automaton has no further moves. We
+indicate this output of the automaton by
+
+67
+00:05:38,941 --> 00:05:44,408
+calling the state a final state. And we
+indicate it as final by a double circle.
+
+68
+00:05:44,408 --> 00:05:49,735
+There's another state reachable from the
+[inaudible] of 40, if the next input
+
+69
+00:05:49,735 --> 00:05:55,271
+indicates the opponent won the fourth
+point. There are three other new states as
+
+70
+00:05:55,271 --> 00:06:00,756
+well, called 40, fifteen, 30 all and 1540.
+Which indicates that four points have been
+
+71
+00:06:00,756 --> 00:06:06,040
+played, with 3,2, or one of these points
+won by the server. From 40-15 state the
+
+72
+00:06:06,040 --> 00:06:12,173
+server wins the point. We go to the server
+one state. But if the opponent wins the
+
+73
+00:06:12,173 --> 00:06:18,610
+point we go to a new state called 40-30. A
+similar thing happens in 15-40 and from 30
+
+74
+00:06:18,610 --> 00:06:24,743
+all we can go either to the 40-30 or the
+30-40 state. Now, let's look at the state
+
+75
+00:06:24,743 --> 00:06:30,877
+30-40. If the server wins the next point,
+they've won the game but if the opponent
+
+76
+00:06:30,877 --> 00:06:36,859
+wins then the game is tied. The name for
+this state is deuce. The deuce state is
+
+77
+00:06:36,859 --> 00:06:42,413
+quite interesting, It Remembers that the
+game is tied, but it remembers neither the
+
+78
+00:06:42,413 --> 00:06:47,860
+sequence of wins and losses of points, nor
+even how many points have been played and
+
+79
+00:06:47,870 --> 00:06:53,198
+the 30,40 state it happens similarly. Next
+consider what happens in deice, you have
+
+80
+00:06:53,198 --> 00:06:58,461
+to win by two points or it is impossible
+for either player to win immediately. If
+
+81
+00:06:58,461 --> 00:07:03,788
+the server wins the next point, they are
+ahead by one point, although we don't know
+
+82
+00:07:03,788 --> 00:07:09,116
+how many points in total have been played.
+The strange thing for this state is add
+
+83
+00:07:09,116 --> 00:07:14,150
+in, or advantage in, in refers to the
+server. Symmetrically if the opponent wins
+
+84
+00:07:14,150 --> 00:07:19,207
+the in state deuce we go to a state add
+out, the out refers to the opponent. But
+
+85
+00:07:19,207 --> 00:07:24,272
+in state add in if the server wins the
+next point they win the game. But if the
+
+86
+00:07:24,272 --> 00:07:29,133
+opponent wins you're back to deuce.
+Likewise, from add out, a server win puts
+
+87
+00:07:29,133 --> 00:07:34,324
+you back in deuce, but an opponent win
+gives the opponent the game. We can now
+
+88
+00:07:34,324 --> 00:07:40,891
+look at the entire transition diagram for
+the finite automaton. While most of it
+
+89
+00:07:40,891 --> 00:07:47,209
+just allows flow away from the start
+state, the loops involving deuce add in
+
+90
+00:07:47,209 --> 00:07:53,943
+and add out, that is these, they allow for
+cycles and for an infinite number of
+
+91
+00:07:53,943 --> 00:08:00,676
+possible strings of S's and O's to lead to
+one of the final states. The job of an
+
+92
+00:08:00,676 --> 00:08:07,410
+automaton is to process strings of input
+symbols or input strings. We always begin.
+
+93
+00:08:07,410 --> 00:08:13,224
+The start state, and we read each input
+symbol in order. For each input symbol we
+
+94
+00:08:13,224 --> 00:08:19,111
+follow the transition from the state we
+are in to discover what the new state is.
+
+95
+00:08:19,111 --> 00:08:24,925
+We accept the string if we wind up in a
+final state after processing the entire
+
+96
+00:08:24,925 --> 00:08:31,019
+input. Here is an example. Here is our
+input string. It represents a game in
+
+97
+00:08:31,019 --> 00:08:38,090
+which the server and opponent alternate
+winning points until the very end When the
+
+98
+00:08:38,090 --> 00:08:45,655
+server wins two in a row. We'll mark the
+current state by the star, and initially
+
+99
+00:08:45,655 --> 00:08:51,163
+the current state is the star state,
+that's where [inaudible] find in a time of
+
+100
+00:08:51,163 --> 00:08:58,445
+the start out. The arrow indicates which
+input we are about to process. So, here we
+
+101
+00:08:58,445 --> 00:09:05,639
+are about to process the first event were
+the server wins the first point. We're
+
+102
+00:09:05,639 --> 00:09:12,744
+going to follow the transition of the
+state love, labeled S. Here we've made the
+
+103
+00:09:12,744 --> 00:09:20,704
+first transition. Next input is O and
+we're in state 15-love. The transition
+
+104
+00:09:20,704 --> 00:09:27,114
+form that state on O is the state fifteen
+all. In state fifteen all we see another S
+
+105
+00:09:27,114 --> 00:09:35,566
+on the input so we go to state 30 fifteen.
+An O takes us to state 30 all. Then on S
+
+106
+00:09:35,566 --> 00:09:46,063
+we go to state 40 30. From there we go on
+O to deuce And from deuce on S to add in
+
+107
+00:09:46,063 --> 00:09:54,398
+From there on O back to deuce. And another
+cycle on S and O between add in and deuce.
+
+108
+00:09:54,398 --> 00:10:01,590
+Now come the first of the two messes. This
+S takes us to add in again, but the second
+
+109
+00:10:01,590 --> 00:10:08,348
+S takes us to the server win state. Good
+going server. Now let's get a bit more
+
+110
+00:10:08,348 --> 00:10:15,540
+formal. The job of a finite automaton is
+to process strings of inputs and accept or
+
+111
+00:10:15,540 --> 00:10:21,685
+reject them. It accepts the string if it
+leads from the start state to a final
+
+112
+00:10:21,685 --> 00:10:28,381
+state. Accepting state is a pseudonym for
+final state. A language is simply a set of
+
+113
+00:10:28,381 --> 00:10:34,833
+strings and the formalism used for
+[inaudible]. The language accepted by an
+
+114
+00:10:34,833 --> 00:10:41,012
+automaton, A is denoted L of A. In our
+class example we called the two states
+
+115
+00:10:41,012 --> 00:10:46,118
+where one of the players wins the final
+state. In that case the language of the
+
+116
+00:10:46,118 --> 00:10:51,547
+[inaudible] is a set of strings of S's and
+O's that end the game no matter who wins.
+
+117
+00:10:51,547 --> 00:10:56,717
+We can change the final states, say by
+making only the server win state be final.
+
+118
+00:10:56,717 --> 00:11:01,952
+Then the automaton would have a different
+language. The set of strings of S's and
+
+119
+00:11:01,952 --> 00:11:06,864
+O's that lead to a automaton by the
+server. Or we can make only the opponent
+
+120
+00:11:06,864 --> 00:11:11,582
+wins be final and have the language of
+ways the opponent is going to win.

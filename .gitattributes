@@ -1,0 +1,22 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Explicitly declare text files you want to always be normalized and converted to native line endings on checkout.
+*.tex text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.gv text eol=lf
+*.java text eol=lf
+*.py text eol=lf
+*.srt text eol=lf
+*.ppt binary
+*.pdf binary
+*.ps binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.svg binary
+*.jar binary
+*.jff binary
+*.zip binary
+*.mp4 binary

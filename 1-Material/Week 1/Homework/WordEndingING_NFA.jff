@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="nothing">
+			<x>135.0</x>
+			<y>151.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="Saw i">
+			<x>234.0</x>
+			<y>151.0</y>
+		</state>
+		<state id="2" name="Saw in">
+			<x>336.0</x>
+			<y>151.0</y>
+		</state>
+		<state id="3" name="Saw ing">
+			<x>435.0</x>
+			<y>151.0</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>i</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>[a-z]</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>3</to>
+			<read>g</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>n</read>
+		</transition>
+	</automaton>
+</structure>

@@ -1,0 +1,526 @@
+1
+00:00:00,430 --> 00:00:01,740
+Hello everyone.
+
+2
+00:00:01,740 --> 00:00:06,040
+I am the teaching assistant for
+this course.
+
+3
+00:00:06,040 --> 00:00:08,620
+Today I will host
+a second problem session.
+
+4
+00:00:09,670 --> 00:00:14,940
+We will discuss several topics,
+which cause confusion, in some students.
+
+5
+00:00:14,940 --> 00:00:18,870
+And this will include Kleene Star and
+paths in the DFA.
+
+6
+00:00:19,970 --> 00:00:23,510
+Then, we will show the solution for
+first challenge problem.
+
+7
+00:00:24,860 --> 00:00:26,560
+Let's begin with Kleene Star.
+
+8
+00:00:27,870 --> 00:00:31,150
+Kleene Star is an operation
+on regular expressions.
+
+9
+00:00:32,790 --> 00:00:39,439
+For example, we can have one star, where
+one is a regular expression of length one.
+
+10
+00:00:41,060 --> 00:00:44,850
+However, there is a common
+misconception that one star is
+
+11
+00:00:44,850 --> 00:00:46,350
+an infinite long string of ones.
+
+12
+00:00:47,430 --> 00:00:48,800
+This is not the case.
+
+13
+00:00:50,340 --> 00:00:55,787
+In fact, one star is still a regular
+expression who's language,
+
+14
+00:00:55,787 --> 00:01:00,789
+L(1*) is the set of strings of zero or
+more ones.
+
+15
+00:01:02,870 --> 00:01:08,290
+Although, this set is infinite,
+each element in it has finite length.
+
+16
+00:01:09,690 --> 00:01:14,570
+This is similar to the set of integers,
+where the set is infinite, but
+
+17
+00:01:14,570 --> 00:01:16,860
+each element it contains is finite.
+
+18
+00:01:19,260 --> 00:01:21,909
+Now we're coming to
+the topic of infiniteness.
+
+19
+00:01:23,220 --> 00:01:28,850
+As we know, infinite objects
+are important in mathematics,
+
+20
+00:01:28,850 --> 00:01:34,360
+like the set of integers or a line that
+contains an infinite number of points.
+
+21
+00:01:35,640 --> 00:01:41,419
+Yet, in a computational model, a computer
+can never get an infinite input,
+
+22
+00:01:42,630 --> 00:01:46,400
+unless, you can represent
+it in finite form.
+
+23
+00:01:48,280 --> 00:01:52,300
+For example,
+we can represent a regular language
+
+24
+00:01:52,300 --> 00:01:55,560
+with a regular expression
+which has finite length.
+
+25
+00:01:57,480 --> 00:02:01,980
+We can also store three numbers
+as parameters for a line.
+
+26
+00:02:01,980 --> 00:02:03,260
+In such cases,
+
+27
+00:02:03,260 --> 00:02:07,460
+we extract important information
+that can represent the whole set.
+
+28
+00:02:08,620 --> 00:02:13,570
+This concept is a bit like sufficient
+statistics, in case you have heard of it.
+
+29
+00:02:16,520 --> 00:02:20,809
+Now, we will take a minute to discuss
+a fallacy we found in the forum.
+
+30
+00:02:22,580 --> 00:02:28,057
+In the thread, it talks about a DFA
+that accepts all strings of 0's and
+
+31
+00:02:28,057 --> 00:02:31,165
+1's, except those whose
+last character is 1.
+
+32
+00:02:32,700 --> 00:02:35,745
+Then a student asks,
+what about the string 1?
+
+33
+00:02:38,120 --> 00:02:42,730
+Basically sometimes, we fall into
+the fallacy that you cannot have
+
+34
+00:02:42,730 --> 00:02:47,480
+a last character unless you have
+other characters, this is not true.
+
+35
+00:02:49,130 --> 00:02:54,830
+In fact, if we resort to strict
+mathematics, we will define that for
+
+36
+00:02:54,830 --> 00:02:59,630
+n greater than or equal to 1,
+the last character of any string a 1,
+
+37
+00:02:59,630 --> 00:03:02,730
+a 2 through a n, is just a n, period.
+
+38
+00:03:04,450 --> 00:03:07,261
+Thus coming back to the question.
+
+39
+00:03:07,261 --> 00:03:14,430
+The string 1is not accepted by this DFA,
+because the last character is 1.
+
+40
+00:03:14,430 --> 00:03:16,260
+Another thing worth mentioning,
+
+41
+00:03:16,260 --> 00:03:21,200
+is that the anti-string
+epsilon has no last character.
+
+42
+00:03:21,200 --> 00:03:25,800
+Thus the statement is last
+character is 1 is false.
+
+43
+00:03:25,800 --> 00:03:29,480
+So epsilon is accepted by the DFA.
+
+44
+00:03:29,480 --> 00:03:33,930
+We will now start to discuss
+the conversion from a DFA into
+
+45
+00:03:33,930 --> 00:03:34,950
+a regular expression.
+
+46
+00:03:36,610 --> 00:03:38,080
+Firstly, let's have a review,
+
+47
+00:03:38,080 --> 00:03:43,319
+In the conversion, we introduced
+the notion of k-path induction.
+
+48
+00:03:44,520 --> 00:03:48,110
+Where Rijk is the regular expression for
+
+49
+00:03:48,110 --> 00:03:52,040
+the set of labels of k-paths
+from state i to state j.
+
+50
+00:03:53,310 --> 00:03:55,560
+This means that starting from i,
+
+51
+00:03:55,560 --> 00:04:02,050
+if the DFA receives any string from Rijk,
+it will go to state j.
+
+52
+00:04:02,050 --> 00:04:07,133
+And we'll not pass any node,
+with label greater than k.
+
+53
+00:04:07,133 --> 00:04:10,460
+And Rijk describes all such strings.
+
+54
+00:04:12,490 --> 00:04:17,825
+In the lecture, we gave a way of
+computing Rijk, which is either
+
+55
+00:04:17,825 --> 00:04:23,150
+via not going through state k, or
+going through k one or more times.
+
+56
+00:04:24,200 --> 00:04:25,816
+This give us a formula.
+
+57
+00:04:25,816 --> 00:04:31,250
+R ij k, is R ij
+
+58
+00:04:31,250 --> 00:04:39,680
+k-1 or R ik k-1.
+
+59
+00:04:39,680 --> 00:04:42,080
+R kk k-1*.
+
+60
+00:04:42,080 --> 00:04:44,790
+And Rkj, k-1.
+
+61
+00:04:44,790 --> 00:04:46,860
+Now, let's take a closer look.
+
+62
+00:04:48,710 --> 00:04:55,390
+In the illustration,
+we can see that Rik, k-1,
+
+63
+00:04:55,390 --> 00:05:02,769
+corresponds to the part from i,
+to the first encounter of k.
+
+64
+00:05:04,210 --> 00:05:13,400
+Then all parts between k can
+be described by Rkk, k-1.
+
+65
+00:05:13,400 --> 00:05:21,490
+As we do not know how many times the pad
+will go through k, we use Rkk, k-1*.
+
+66
+00:05:21,490 --> 00:05:25,250
+In the end, we have Rkj, k-1.
+
+67
+00:05:25,250 --> 00:05:30,080
+Which corresponds to the label of path
+from the last encounter of k to j.
+
+68
+00:05:31,870 --> 00:05:37,200
+Here we point out that the labels of
+the path from the first encounter
+
+69
+00:05:37,200 --> 00:05:42,058
+of k to the last can also
+be represented by Rkk k.
+
+70
+00:05:43,410 --> 00:05:47,720
+Because it is just a path from
+k to k going through now with,
+
+71
+00:05:47,720 --> 00:05:49,690
+with labels not greater than k.
+
+72
+00:05:50,970 --> 00:05:55,490
+And in each cases, both Rkk, k-1 star,
+
+73
+00:05:55,490 --> 00:05:59,230
+and Rkk, k contain epsilon,
+the empty string.
+
+74
+00:06:00,980 --> 00:06:04,025
+In spite of the equivalence, we pick Rkk,
+
+75
+00:06:04,025 --> 00:06:09,780
+k-1* because this will give us a formula
+where quantities with a higher
+
+76
+00:06:09,780 --> 00:06:15,670
+super script will always only depend
+on quantities with lower super script.
+
+77
+00:06:15,670 --> 00:06:19,200
+Which makes the implementation and
+understanding much easier.
+
+78
+00:06:20,230 --> 00:06:24,622
+Lastly, we will show our solution
+to the first challenge problem.
+
+79
+00:06:24,622 --> 00:06:30,192
+The problem says that L is a language
+
+80
+00:06:30,192 --> 00:06:34,840
+with alphabet 0, 1 and 2.
+
+81
+00:06:34,840 --> 00:06:39,762
+L contains no strings that
+have three consecutive 0's,
+
+82
+00:06:39,762 --> 00:06:44,388
+three consecutive 1's or
+three consecutive 2's.
+
+83
+00:06:44,388 --> 00:06:49,400
+For example,
+the string 11000220 is not in L.
+
+84
+00:06:49,400 --> 00:06:52,165
+Because it contains three consecutive 0's.
+
+85
+00:06:54,290 --> 00:06:59,810
+The task is to prove that L is regular and
+then give a DFA for L.
+
+86
+00:07:02,960 --> 00:07:04,550
+Firstly, we can prove that,
+
+87
+00:07:05,750 --> 00:07:10,810
+the complement of L has a regular
+expression, which is in this form.
+
+88
+00:07:12,240 --> 00:07:17,418
+We have three consecutive 0's,
+or 1's, or 2's,
+
+89
+00:07:17,418 --> 00:07:23,270
+with any number of 0's, 1's,
+and 2's before and after.
+
+90
+00:07:24,450 --> 00:07:28,840
+This record expression exactly
+defines all strings that do
+
+91
+00:07:28,840 --> 00:07:33,060
+contain three consecutive 0's,
+or 1's, or 2's.
+
+92
+00:07:35,000 --> 00:07:39,190
+Additionally, we have the nice
+property that regular languages.
+
+93
+00:07:39,190 --> 00:07:41,200
+Are closed under complement.
+
+94
+00:07:42,390 --> 00:07:46,530
+So it follows that l
+the complement of the language of
+
+95
+00:07:46,530 --> 00:07:49,490
+this regular expression is regular.
+
+96
+00:07:49,490 --> 00:07:55,160
+To construct a DFA for L,
+it turns out that we can directly do it,
+
+97
+00:07:55,160 --> 00:07:57,479
+without the trick of union or complement.
+
+98
+00:07:59,570 --> 00:08:04,620
+We define the state to represent the run
+of the same symbol that appears at
+
+99
+00:08:04,620 --> 00:08:05,810
+the end of the string.
+
+100
+00:08:07,500 --> 00:08:12,710
+Specifically, we will have
+start state S which we
+
+101
+00:08:12,710 --> 00:08:19,173
+enter only initially when the input
+stream so far is epsilon.
+
+102
+00:08:19,173 --> 00:08:27,060
+Then we have state a 0, a 00, a 1, a 11,
+a 2, and a 22, and a dead state D.
+
+103
+00:08:28,110 --> 00:08:33,545
+The intent is that if the current string
+redding contains any three consecutive
+
+104
+00:08:33,545 --> 00:08:38,600
+0's, or 1's, or 2's,
+the DFA will fall into D and stay there.
+
+105
+00:08:40,580 --> 00:08:44,590
+Otherwise, say the string
+has ending 012011.
+
+106
+00:08:44,590 --> 00:08:47,820
+The DFA should go to state a11
+
+107
+00:08:48,990 --> 00:08:52,900
+because it denotes that the string
+has two ones at the end.
+
+108
+00:08:56,630 --> 00:09:01,330
+Here is the final transition table for
+the DFA of L.
+
+109
+00:09:01,330 --> 00:09:07,460
+Note that whenever we already have
+two 0's, which is described by A00,
+
+110
+00:09:07,460 --> 00:09:14,720
+an addition of 0 will kick
+the DFA into the depth state D.
+
+111
+00:09:16,720 --> 00:09:21,910
+But character 1 or
+2 will shift the state to a1 or a2.
+
+112
+00:09:23,880 --> 00:09:29,365
+As now the longest run of symbols at
+the end is a single 1 or a single 2.
+

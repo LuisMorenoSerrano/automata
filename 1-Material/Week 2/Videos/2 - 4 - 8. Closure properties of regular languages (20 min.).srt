@@ -1,0 +1,958 @@
+1
+00:00:00,000 --> 00:00:04,891
+Today's topic is closure properties for
+the regular languages. We should recall
+
+2
+00:00:04,891 --> 00:00:09,782
+that a closure property is a certain
+operation on languages that says, when the
+
+3
+00:00:09,782 --> 00:00:14,983
+arguments are languages in the class, then
+so is the result. You can see on the title
+
+4
+00:00:14,983 --> 00:00:20,184
+slide the list of closure properties for
+the regular languages that we are going to
+
+5
+00:00:20,184 --> 00:00:26,717
+discuss. Our first closure property will
+be Union. That is if L and M are regular
+
+6
+00:00:26,717 --> 00:00:33,069
+languages, so is L Union M. To prove this
+fact we use the regular expressions, say
+
+7
+00:00:33,069 --> 00:00:38,945
+RNS, who's languages are L and M,
+respectively. We know L and M have regular
+
+8
+00:00:38,945 --> 00:00:45,060
+expressions because they're assumed to be
+regular languages. Then R+S is also a
+
+9
+00:00:45,060 --> 00:00:51,474
+regular expression, and we know its
+language is the union of L and M. The same
+
+10
+00:00:51,474 --> 00:01:00,829
+idea works for concatenation and closure.
+Remember to draw parentheses around R and
+
+11
+00:01:00,829 --> 00:01:08,720
+S if they are needed, like this. For
+example, if R is zero+1, and S is zero.
+
+12
+00:01:09,160 --> 00:01:15,753
+And you need to write the expression with
+parentheses around the zero+1. Otherwise,
+
+13
+00:01:15,753 --> 00:01:21,869
+you'll get the wrong language. You don't
+need the parentheses around the zero.
+
+14
+00:01:21,869 --> 00:01:29,284
+Regular languages are also closed under
+intersection. For intersection we can't
+
+15
+00:01:29,284 --> 00:01:34,585
+use regular expressions very easily, but
+the DFA is perfect for proving closure
+
+16
+00:01:34,585 --> 00:01:41,263
+under intersection. So we take DFAs A and
+B for the two languages whose intersection
+
+17
+00:01:41,263 --> 00:01:46,469
+we want. And we construct the product
+automaton. The final states in the product
+
+18
+00:01:46,469 --> 00:01:51,873
+are those states that are final in both of
+the given [inaudible]. Thus, the product
+
+19
+00:01:51,873 --> 00:01:57,079
+accepts an input string if and only if
+both of the original [inaudible] do. And
+
+20
+00:01:57,079 --> 00:02:01,626
+that's exactly what we want for
+intersecting the languages. Here's an
+
+21
+00:02:01,626 --> 00:02:06,305
+example based on the same product
+automaton we used last time. The only
+
+22
+00:02:06,305 --> 00:02:12,630
+final state in the product is BC. That's
+this, of course. Because B and C are the
+
+23
+00:02:12,630 --> 00:02:19,106
+only final states of their automata. B and
+C are there. Here's an example of how
+
+24
+00:02:19,106 --> 00:02:25,172
+closure properties prove useful. Okay,
+remember we proved, using the pumping
+
+25
+00:02:25,172 --> 00:02:31,648
+[inaudible], that L1, the set of strings
+of 0s followed by an equal number of 1s,
+
+26
+00:02:31,648 --> 00:02:38,880
+is not a regular language. L two. The set
+of all strings with an equal number of
+
+27
+00:02:38,880 --> 00:02:44,832
+zero as in one. Isn't regular either.
+However, supposed l two were in fact
+
+28
+00:02:44,832 --> 00:02:51,692
+regular. Then since regular languages are
+close under intersection. The intersection
+
+29
+00:02:51,692 --> 00:02:58,718
+of l two with the language of the regular
+expression zero star one star will also be
+
+30
+00:02:58,718 --> 00:03:04,112
+regular. Now the language of zero star one
+star are is all strings with any number of
+
+31
+00:03:04,112 --> 00:03:09,152
+zero is followed by any number of one. But
+what is the intersection of [inaudible]
+
+32
+00:03:09,152 --> 00:03:14,130
+this language. Is [inaudible] one. Because
+[inaudible] force is the number of zero
+
+33
+00:03:14,130 --> 00:03:18,678
+and one is to be equaled. While the
+language of zero star one star, ifs for
+
+34
+00:03:18,678 --> 00:03:23,349
+all 0s to precede all the 1s. Set
+differences in other operation under which
+
+35
+00:03:23,349 --> 00:03:29,245
+languages are closed. The difference of
+languages l and m, written l minus m, is
+
+36
+00:03:29,245 --> 00:03:36,170
+the set of strings in l that are not in m.
+For the proof of closure under difference
+
+37
+00:03:36,170 --> 00:03:42,742
+start with the [inaudible] A and B for
+languages L and M respectively. Construct
+
+38
+00:03:42,742 --> 00:03:49,716
+C, the product automaton for A and B. Make
+the final states of C be the pairs where
+
+39
+00:03:49,716 --> 00:03:55,577
+the state from A is final and the state
+from B is not. Then C accepts an input
+
+40
+00:03:55,577 --> 00:04:01,063
+string from W if and only if A accepts W
+but B does not. That W is in the
+
+41
+00:04:01,063 --> 00:04:07,075
+difference of their languages. Here's our
+favorite Autotonic end. This time BD is
+
+42
+00:04:07,075 --> 00:04:13,007
+the only final state. Because B is the
+only final state of the orange atomaton
+
+43
+00:04:13,011 --> 00:04:18,789
+and D is the only non-final state of the
+purple atomaton. Notice that the final
+
+44
+00:04:18,789 --> 00:04:23,952
+state BD is not reachable from the star at
+stake. So this version of the product,
+
+45
+00:04:23,952 --> 00:04:29,115
+[inaudible] the empty language. That's
+exactly as it should be. Because the first
+
+46
+00:04:29,115 --> 00:04:34,342
+[inaudible], the orange one accepts the
+subset of what the second [inaudible]. The
+
+47
+00:04:34,342 --> 00:04:39,375
+purple one accepts. That is the first
+[inaudible] accepts all strings that end
+
+48
+00:04:39,375 --> 00:04:44,474
+in the odd number of ones. The second
+accept all strings that end with at least
+
+49
+00:04:44,474 --> 00:04:49,317
+one, one plus the empty string. Okay,
+let's start from here. The compliment of a
+
+50
+00:04:49,317 --> 00:04:54,327
+language is defined with respect to some
+alphabet sigma. Sigma has to include all
+
+51
+00:04:54,327 --> 00:04:58,966
+the symbols from the alphabet or the
+language L. But may also include other
+
+52
+00:04:58,966 --> 00:05:03,977
+symbols that don't appear in L. Then the
+compliment of L is all strings and sigma
+
+53
+00:05:03,977 --> 00:05:09,624
+star that are not in L. Since sigma star
+is surely a regular language and we know
+
+54
+00:05:09,624 --> 00:05:14,493
+that regular languages are closed in the
+complementation we immediately know that
+
+55
+00:05:14,493 --> 00:05:19,375
+the compliment of any regular language is
+also regular. Now we should look at the
+
+56
+00:05:19,375 --> 00:05:24,034
+operation on reverse side. Recall one of
+our earliest examples of a regular
+
+57
+00:05:24,034 --> 00:05:29,065
+language is was the language of binary
+strings. That when interpreted as integers
+
+58
+00:05:29,065 --> 00:05:33,476
+and binary were divisible by 23. We
+commented then that the language of
+
+59
+00:05:33,476 --> 00:05:38,135
+[inaudible] strings that when reversed
+would be divisible by 23. Was also a
+
+60
+00:05:38,135 --> 00:05:42,546
+regular language. We also said that
+constructing a [inaudible] for that
+
+61
+00:05:42,546 --> 00:05:47,640
+language is tricky. So here's the tricky
+construction. Which really isn't so tricky
+
+62
+00:05:47,640 --> 00:05:53,816
+now that we have mechanisms like regular
+expressions to work with. First, the
+
+63
+00:05:53,816 --> 00:05:59,411
+notation we use for reversal is
+superscript R. That is L super R means the
+
+64
+00:05:59,411 --> 00:06:04,737
+reversal of language L. This language
+consists of the reversals of all the
+
+65
+00:06:04,737 --> 00:06:10,944
+strings in L, here's a simple example. L
+has three strings. Zero, 0-1, and 1-0,
+
+66
+00:06:10,944 --> 00:06:18,542
+okay? And L reversed is the reversal of
+each of these strings. Zero reversed is
+
+67
+00:06:18,542 --> 00:06:26,238
+still zero, while 0-1 reversed is 1-0, and
+1-0-0 reversed is 0-0-1. So L reversed
+
+68
+00:06:26,238 --> 00:06:34,128
+consists of 0-1-0 and 0-0-1. To begin the
+proof that regular languages are closed
+
+69
+00:06:34,128 --> 00:06:39,512
+under reversal. We start with a regular
+expression for a regular language L. We'll
+
+70
+00:06:39,512 --> 00:06:44,208
+show by an induction on the number of
+operators in the regular expression that
+
+71
+00:06:44,208 --> 00:06:49,224
+there is a regular expression for the
+reverse of L. The basis is expressions
+
+72
+00:06:49,224 --> 00:06:54,483
+that are either single symbols, the empty
+string, or the empty set. These are the
+
+73
+00:06:54,483 --> 00:06:59,475
+only expressions with zero occurrences of
+operators. In all these cases, the
+
+74
+00:06:59,475 --> 00:07:04,801
+expression doesn't change. That is, the
+reversal of a string of length one is the
+
+75
+00:07:04,801 --> 00:07:09,439
+same string. The reversal of the empty
+string is still the empty string. And if
+
+76
+00:07:09,439 --> 00:07:13,976
+you reverse all strings in the empty set,
+the set is still empty. The induction
+
+77
+00:07:13,976 --> 00:07:18,106
+consists of the three operators for
+regular expressions. For union, it is
+
+78
+00:07:18,106 --> 00:07:24,455
+easy. You just reverse the expressions for
+the two parts of the union. [inaudible] is
+
+79
+00:07:24,455 --> 00:07:33,651
+a little trickier. To reverse the string
+WX, where X, W comes from F, say, and X
+
+80
+00:07:33,651 --> 00:07:43,940
+comes from G. You need to reverse W and
+reverse X. But then you need to flip the
+
+81
+00:07:43,940 --> 00:07:54,985
+order of the reverse strings. That is X
+reversed comes before W reversed. For
+
+82
+00:07:54,985 --> 00:08:07,942
+example, if W is, 011, that's W, and X is
+01. Then, okay, the W reversed is one, one
+
+83
+00:08:07,942 --> 00:08:19,375
+zero and X reversed is X0 but the x has to
+come first so the reverse of 001101 is in
+
+84
+00:08:19,375 --> 00:08:30,136
+fact 10110. And for the star, we reverse
+the expression F that is starred. That is
+
+85
+00:08:30,136 --> 00:08:36,444
+this guy, here. So, it now produces the
+reverses of all the strings that F
+
+86
+00:08:36,444 --> 00:08:41,261
+produces. We then star the reversed
+expression to get concatenations of any
+
+87
+00:08:41,261 --> 00:08:45,756
+number of the reverse strings in any
+order. Let's reverse this regular
+
+88
+00:08:45,756 --> 00:08:51,022
+expression. It's language is all strings
+of zeros and ones, such that the first bit
+
+89
+00:08:51,022 --> 00:08:56,224
+never again appears. That is, the strings
+are either a zero followed by any number
+
+90
+00:08:56,224 --> 00:09:02,326
+of ones, that's this part. Or one followed
+by a number of zeroes. That's that. The
+
+91
+00:09:02,326 --> 00:09:09,479
+outermost operator of this expression is
+the plus. And the way we reverse a sum of
+
+92
+00:09:09,479 --> 00:09:15,925
+two expressions is to reverse each
+expression separately. That is, the
+
+93
+00:09:15,925 --> 00:09:23,678
+reverse of this whole expression is the
+reverse of the two parts. Separately. Now
+
+94
+00:09:23,678 --> 00:09:30,685
+let's look at one of the expressions
+01-star. We have, let's look at this. We
+
+95
+00:09:30,685 --> 00:09:39,292
+have to reverse it. So the way we reverse
+a concatenation is to reverse each of the
+
+96
+00:09:39,292 --> 00:09:45,990
+component expressions and put them in
+reverse order. So zero one star, it's
+
+97
+00:09:45,990 --> 00:09:53,215
+reverse is one star reversed followed by
+zero reversed. The other expression. One,
+
+98
+00:09:53,215 --> 00:09:59,773
+zero star which must be reversed is
+handled the same way. It's zero star and
+
+99
+00:09:59,773 --> 00:10:06,419
+we have to reverse that followed by one
+which we must reverse. The basis rule
+
+100
+00:10:06,419 --> 00:10:13,495
+tells us that the reversal of zero is zero
+and the reversal of one is one. That is
+
+101
+00:10:13,495 --> 00:10:20,485
+the reversal of this zero is just that
+zero and the reversal of one is just that
+
+102
+00:10:20,485 --> 00:10:28,729
+one. Also, the reversal of one star, Is
+the star of the reversal of one. That's
+
+103
+00:10:28,729 --> 00:10:42,250
+that. And similarly the reversal of zero
+star is star of zero reversed. Finally.
+
+104
+00:10:42,250 --> 00:10:50,688
+The reversal of one again, that's this,
+is. Just one so we get one star zero and
+
+105
+00:10:50,688 --> 00:10:58,718
+the reversal of zero again is just zero
+and we get that now we have no reversals
+
+106
+00:10:58,718 --> 00:11:04,185
+left and we are done. The resulting
+expression is like you would expect, it's
+
+107
+00:11:04,185 --> 00:11:09,110
+language like the binary strings with the
+last symbol does not appear elsewhere.
+
+108
+00:11:09,110 --> 00:11:14,500
+Metamorphosis are transformations on
+symbols that replace each symbol by a
+
+109
+00:11:14,500 --> 00:11:20,048
+string that may be empty another symbol on
+a long string. When a given homomorphism
+
+110
+00:11:20,048 --> 00:11:24,830
+is applied to all the string of a regular
+language, the result is a regular
+
+111
+00:11:24,830 --> 00:11:29,485
+language, as we shall see. Here's an
+example of a homomorphism, one that we
+
+112
+00:11:29,485 --> 00:11:34,715
+shall use repeatedly in the discussion.
+This homomorphism H replaces every zero by
+
+113
+00:11:34,715 --> 00:11:39,374
+the string AB, and replaces every one by
+the empty string. You apply any
+
+114
+00:11:39,374 --> 00:11:45,518
+homomorphism to a string by applying the
+homomorphism to every symbol of the string
+
+115
+00:11:45,518 --> 00:11:51,370
+in order and concatenating the results.
+For example, if we apply our homomorphism
+
+116
+00:11:51,370 --> 00:11:57,677
+H to the string 01010. Each of the 0's
+gets replaced by ab, and the 1's
+
+117
+00:11:57,677 --> 00:12:04,813
+effectively disappear. Because they are
+replaced by the empty string. That is this
+
+118
+00:12:04,813 --> 00:12:11,316
+zero becomes that AB. This zero becomes
+that AB. That zero becomes that AB. And
+
+119
+00:12:11,316 --> 00:12:17,988
+the ones that are replaced by epsilons
+that sort of go in the middle there but
+
+120
+00:12:17,988 --> 00:12:24,830
+you don't see them of course because they
+are empty. Thus, each of 01010 is ABABAB.
+
+121
+00:12:24,830 --> 00:12:29,745
+We claim that if you take a regular
+language L and apply a homomorphism H then
+
+122
+00:12:29,745 --> 00:12:34,662
+the result is also a regular language.
+Note that the result of applying H to the
+
+123
+00:12:34,662 --> 00:12:39,707
+language L is the result of strings that
+you get by applying H to all strings in L.
+
+124
+00:12:39,707 --> 00:12:44,752
+I'm not going to give you a formal proof,
+but the big idea is that you start with a
+
+125
+00:12:44,752 --> 00:12:49,189
+regular expression for L, and you apply H
+to every symbol in that regular
+
+126
+00:12:49,189 --> 00:12:54,112
+expression. The result will be a regular
+expression for L. Here's a simple example.
+
+127
+00:12:54,112 --> 00:12:58,792
+H is the homomorphism we've been using as
+an example right along. L is also a
+
+128
+00:12:58,792 --> 00:13:03,532
+language who's regular expression is E
+which we saw before in connection with
+
+129
+00:13:03,532 --> 00:13:11,593
+reversal. We compute an expression. For H
+or L by replacing each occurrence of zero
+
+130
+00:13:11,593 --> 00:13:17,663
+in E by AB and each occurrence of one by
+the, the empty string. The resulting
+
+131
+00:13:17,663 --> 00:13:25,320
+expression is this one. Okay, that is this
+zero got replaced by AB. >> This one got
+
+132
+00:13:25,320 --> 00:13:31,884
+replaced by the empty string. That one got
+replaced by the empty string. And the Zero
+
+133
+00:13:31,884 --> 00:13:37,901
+got replaced by AD. >> By the way here is
+a good example of where you have to
+
+134
+00:13:37,901 --> 00:13:44,308
+introduce parenthesis since 0-star does
+not need parenthesis but AD star, where if
+
+135
+00:13:44,308 --> 00:13:50,560
+I just wrote this.... [noise] would be
+wrongly interpreted by an A followed by a.
+
+136
+00:13:50,560 --> 00:13:57,849
+Any number of b's. Rather what we mean is
+any number of unit. A b's. We can simplify
+
+137
+00:13:57,849 --> 00:14:04,516
+this expression considerably. First
+[inaudible] star is any number of empty
+
+138
+00:14:04,516 --> 00:14:11,805
+strings. So we can replace a b [inaudible]
+star. That's this by just ab [inaudible].
+
+139
+00:14:11,805 --> 00:14:18,473
+Remember that the empty string is the
+identity under [inaudible]. So we can
+
+140
+00:14:18,473 --> 00:14:28,962
+remove the [inaudible] to give it just. Ab
+plus AB star. Cuz these guys go away. >>
+
+141
+00:14:28,962 --> 00:14:37,968
+Leaving us just that. >> Hm. >> But, the
+language of ab is just one occurrence of
+
+142
+00:14:37,968 --> 00:14:45,010
+ab. While the language of AB star is any
+number of occurrences of AB, including
+
+143
+00:14:45,278 --> 00:14:52,238
+exactly one concurrence. Thus, we can just
+drop the term AB. Here, and we are left
+
+144
+00:14:52,238 --> 00:14:59,267
+with just a b star. That's the simplified
+expression. We can also define the inverse
+
+145
+00:14:59,267 --> 00:15:05,850
+homomorphism of a language or a string. >>
+We do note inverse homeomorphisms by a
+
+146
+00:15:05,850 --> 00:15:12,036
+super script minus one. That's this
+notation. >> Yeah. The result of applying
+
+147
+00:15:12,036 --> 00:15:18,999
+the inverse of the homomorphism H to a
+language L is the set of strings W. Such
+
+148
+00:15:18,999 --> 00:15:26,049
+as that when you apply H in the forward
+direction to W, you get a string in L. So,
+
+149
+00:15:26,049 --> 00:15:32,923
+here is the language L. These are all the
+strings in the language L, okay? And H,
+
+150
+00:15:32,923 --> 00:15:39,709
+I-, will be represented by a downward
+motion. So any string that goes anywhere
+
+151
+00:15:39,709 --> 00:15:48,089
+in L. When you apply H, these are all an H
+inverse of L. And any string that misses L
+
+152
+00:15:48,089 --> 00:15:55,927
+when you apply H, that's not an H inverse
+of L. Here's an example. Let H be the
+
+153
+00:15:55,927 --> 00:16:04,071
+homomorphism of our running example. L is
+the language with two strings, ABAB, and
+
+154
+00:16:04,071 --> 00:16:12,226
+BABA. That's that right there. Then aging
+[inaudible] is the language of strings
+
+155
+00:16:12,226 --> 00:16:18,840
+that have two zeros and any number of ones
+interspersed. Here's a regular expression
+
+156
+00:16:18,840 --> 00:16:27,564
+for this language. To see why, let's look
+at the two strings in L. Abab, and BABA. A
+
+157
+00:16:27,564 --> 00:16:43,045
+string like 1101101 maps to ABAB. The 1s
+disappear as they go to empty string. And
+
+158
+00:16:43,045 --> 00:16:49,775
+third zero goes to that AB. The second
+zero goes to that AB. But nothing can go
+
+159
+00:16:49,775 --> 00:16:56,763
+to BABA because a zero would cover, has to
+cover that AB in the middle. That's the
+
+160
+00:16:56,763 --> 00:17:03,666
+only way you can map a zero. Now you've
+got to be able to map something to the B,
+
+161
+00:17:03,666 --> 00:17:10,741
+but the only way you can do that is if you
+have a zero, but that would then map to
+
+162
+00:17:10,741 --> 00:17:16,451
+AB. And similarly, this A, there's no way
+to map to that A without mapping to
+
+163
+00:17:16,451 --> 00:17:21,715
+another B which doesn't exist. While for
+forward homomorphism, the regular
+
+164
+00:17:21,715 --> 00:17:27,411
+expression representation was dandy. To
+show that the inverse homomorphism of a
+
+165
+00:17:27,411 --> 00:17:32,963
+regular language is regular, is best done
+with DFAs, okay. Start with the DFA, A,
+
+166
+00:17:32,963 --> 00:17:38,867
+for L, and construct a DFAB for H inverse
+of L. B has almost everything the same as
+
+167
+00:17:38,867 --> 00:17:44,618
+A, the same state, same start state, the
+same final state. The input alphabet for B
+
+168
+00:17:44,618 --> 00:17:49,937
+is the appropriate input alphabet, that is
+the set of symbols to which the
+
+169
+00:17:49,937 --> 00:17:55,759
+homeomorphism H applies. We then fix up
+the transition function for B to reflect
+
+170
+00:17:55,759 --> 00:18:01,006
+both the new set of input symbols and the
+effect on those symbols of the
+
+171
+00:18:01,006 --> 00:18:07,100
+homeomorphism. Suppose B is in state Q.
+And the input symbol is A we apply H to A
+
+172
+00:18:07,100 --> 00:18:13,523
+and we see where the automaton capital A
+would go on that sequence of inputs H of
+
+173
+00:18:13,523 --> 00:18:22,484
+A. That is doubt the B of Q and A. Is
+Delta A, that is the, transition function
+
+174
+00:18:22,484 --> 00:18:29,947
+for the automaton A, starting to stay Q,
+but reading. Sequence H of A. Note that H
+
+175
+00:18:29,947 --> 00:18:35,749
+of A could be the empty string or some
+long string of symbols, so this is really
+
+176
+00:18:35,749 --> 00:18:41,558
+the extended delta, but that's okay. We
+know what that is. Here's an example of
+
+177
+00:18:41,558 --> 00:18:47,636
+[inaudible]. And we'll use the same
+[inaudible] in playing with all along.
+
+178
+00:18:47,636 --> 00:18:54,380
+Since h of one is the empty string. Each
+state of the [inaudible] for the inverse
+
+179
+00:18:54,380 --> 00:19:01,291
+[inaudible] will transition to itself on
+one. That's what these transitions are for
+
+180
+00:19:01,291 --> 00:19:07,868
+example. Are suggesting. For transitions
+on zero we need to figure out where the
+
+181
+00:19:07,868 --> 00:19:14,825
+original [inaudible] goes on a d. For
+example starting on [inaudible] a. And
+
+182
+00:19:14,825 --> 00:19:28,861
+following the path labeled AB. You wind up
+in state C. That explains why. And the
+
+183
+00:19:28,861 --> 00:19:37,732
+transition from A on zero goes to C.
+Similarly starting at B and following the
+
+184
+00:19:37,732 --> 00:19:44,820
+path labeled AB. It's that, you also get
+to see and the same thing is true if you
+
+185
+00:19:44,820 --> 00:19:50,513
+start from C, A and then B. We're not
+going to do the complete proof that
+
+186
+00:19:50,513 --> 00:19:57,076
+regular language is closed under inverse
+homomorphism. The heart of the proof is an
+
+187
+00:19:57,076 --> 00:20:03,797
+induction on the length of W that W takes
+atomaton B from the starred state to state
+
+188
+00:20:03,797 --> 00:20:10,281
+P if and only if the string H of W takes
+atomaton A from the starred state to the
+
+189
+00:20:10,281 --> 00:20:16,646
+same state P. That's this equation. Now B
+accepts W and A accepts H of W if and only
+
+190
+00:20:16,646 --> 00:20:22,573
+if B is a final state. That is, W is in
+the language which of B if and only if H
+
+191
+00:20:22,573 --> 00:20:28,426
+of W is in the language of A, which is the
+same thing as saying B accepts each
+
+192
+00:20:28,426 --> 00:20:30,602
+inverse of the language of A.

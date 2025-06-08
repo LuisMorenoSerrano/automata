@@ -1,0 +1,1641 @@
+1
+00:00:02,218 --> 00:00:05,870
+Today, I'm going to make a few comments
+that I hope you will find interesting.
+
+2
+00:00:06,890 --> 00:00:09,010
+I'll start with one of
+the challenge problems,
+
+3
+00:00:09,010 --> 00:00:12,080
+because I think the construction
+is interesting.
+
+4
+00:00:12,080 --> 00:00:14,220
+But unlike the hint I gave,
+
+5
+00:00:14,220 --> 00:00:16,830
+this construction uses
+a non-deterministic automaton.
+
+6
+00:00:19,770 --> 00:00:22,610
+I'm then going to address a question
+that came up in one of the early
+
+7
+00:00:22,610 --> 00:00:26,680
+discussion threads, but
+that really wasn't appropriate until now.
+
+8
+00:00:26,680 --> 00:00:31,840
+It concerns whether there are things that
+can do what a Turing Machine cannot do.
+
+9
+00:00:31,840 --> 00:00:34,740
+And finally, there have been
+several threads doubting one or
+
+10
+00:00:34,740 --> 00:00:37,760
+another form of proof that
+I have used in class.
+
+11
+00:00:37,760 --> 00:00:41,090
+These doubts are much more
+reasonable than some might imagine.
+
+12
+00:00:41,090 --> 00:00:43,870
+And so I'm going to try to sort
+out what needs to be assumed and
+
+13
+00:00:43,870 --> 00:00:44,880
+what needs to be proved.
+
+14
+00:00:45,890 --> 00:00:49,210
+I'm also going to touch on what it
+really means to offer a proof, and
+
+15
+00:00:49,210 --> 00:00:50,930
+have that proof believed.
+
+16
+00:00:50,930 --> 00:00:54,190
+And I definitely don't mean,
+the instructor is always right.
+
+17
+00:00:55,410 --> 00:01:01,830
+Recall that half of language L is the set
+of first halves of the strings in L.
+
+18
+00:01:01,830 --> 00:01:09,740
+So if L, is, the two strings,
+say, 0110 and 010,
+
+19
+00:01:09,740 --> 00:01:17,979
+then half of L,
+is just the set containing 01.
+
+20
+00:01:19,860 --> 00:01:28,700
+The reason is, that for this string,
+0110, the first half is the 01, and
+
+21
+00:01:28,700 --> 00:01:33,950
+for the other string, 010,
+it's a odd length so it has no first half.
+
+22
+00:01:34,970 --> 00:01:39,224
+We want to prove that if L is regular,
+then so is Half of L.
+
+23
+00:01:39,224 --> 00:01:43,710
+And we're going to start with
+a DFA called A for L, and
+
+24
+00:01:43,710 --> 00:01:51,200
+we're going to construct an epsilon NFA
+called B whose language is Half of L.
+
+25
+00:01:51,200 --> 00:01:53,060
+So here's how we're going
+to construct B from A.
+
+26
+00:01:54,160 --> 00:01:57,800
+First, the states of B
+are pairs of states of A,
+
+27
+00:01:57,800 --> 00:02:03,020
+plus an additional state s0
+which is the start state of B.
+
+28
+00:02:03,020 --> 00:02:07,420
+B starts out, in s0,
+makes one epsilon transition, and
+
+29
+00:02:07,420 --> 00:02:09,260
+from then on never returns to s0.
+
+30
+00:02:10,750 --> 00:02:15,958
+And after that, B will always be in
+a state that is a pair p,q of A states.
+
+31
+00:02:15,958 --> 00:02:19,850
+And furthermore,
+it will make no more epsilon transitions.
+
+32
+00:02:19,850 --> 00:02:21,270
+Here's what we intend to be true,
+
+33
+00:02:21,270 --> 00:02:26,920
+whenever B can be in state p,q
+after reading the input w.
+
+34
+00:02:26,920 --> 00:02:31,670
+Now, remember, B is non-deterministic, so
+it can be in many such states as once.
+
+35
+00:02:33,010 --> 00:02:35,870
+But first of all,
+the first state of the pair,
+
+36
+00:02:35,870 --> 00:02:41,020
+p, is the state that A enters,
+after reading input W.
+
+37
+00:02:41,020 --> 00:02:44,000
+So, although B can be in several
+different states after reading W,
+
+38
+00:02:44,000 --> 00:02:47,120
+they all have the same first component.
+
+39
+00:02:47,120 --> 00:02:50,990
+And B simulates A using the first
+component of A's state.
+
+40
+00:02:50,990 --> 00:02:52,640
+The second component, q,
+
+41
+00:02:52,640 --> 00:02:57,440
+is a state such that A can go from that
+state q to an accepting state of A.
+
+42
+00:02:57,440 --> 00:03:01,878
+While reading some input x,
+whose length is the same as that of w.
+
+43
+00:03:01,878 --> 00:03:06,800
+B will be in all states p,q such that
+q satisfies the condition I just said.
+
+44
+00:03:06,800 --> 00:03:08,480
+It can get to a final state of A and
+
+45
+00:03:08,480 --> 00:03:13,030
+some input whose length, is the same as
+that of the input that B has read so far.
+
+46
+00:03:14,530 --> 00:03:17,780
+Notice that B doesn't know how
+long an input string it has read,
+
+47
+00:03:17,780 --> 00:03:19,201
+finite automata can't count.
+
+48
+00:03:20,490 --> 00:03:23,130
+But, we'll work out
+the transitions of B so
+
+49
+00:03:23,130 --> 00:03:27,720
+that what we want to be true about
+the second component will indeed be true.
+
+50
+00:03:27,720 --> 00:03:31,100
+The accepting states of B are those
+pairs that have the same state in
+
+51
+00:03:31,100 --> 00:03:32,100
+both components.
+
+52
+00:03:34,200 --> 00:03:40,638
+The reason this choice makes sense,
+is that if B is in a state, say, q,q,
+
+53
+00:03:40,638 --> 00:03:47,305
+then B has read some input w that takes
+the DFA A from its start state to state q.
+
+54
+00:03:47,305 --> 00:03:50,367
+And there's also some input x,
+of the same length as w,
+
+55
+00:03:50,367 --> 00:03:53,620
+that takes A from the state
+q to an accepting state.
+
+56
+00:03:53,620 --> 00:03:56,774
+Thus, if B is in state
+q,q after reading w,
+
+57
+00:03:56,774 --> 00:04:01,484
+that means there is some w x in L
+where w and x are of the same length.
+
+58
+00:04:01,484 --> 00:04:04,800
+That in turn means that w is in Half of L.
+
+59
+00:04:04,800 --> 00:04:07,270
+Now let's design the transitions of B.
+
+60
+00:04:07,270 --> 00:04:08,930
+From its initial state s0,
+
+61
+00:04:08,930 --> 00:04:13,030
+B goes on epsilon to all pairs of
+A states where the first state is
+
+62
+00:04:13,030 --> 00:04:18,490
+the start state of A, and the second
+is one of the accepting states of A.
+
+63
+00:04:18,490 --> 00:04:20,730
+As we shall see, B never returns to s0.
+
+64
+00:04:22,920 --> 00:04:27,390
+And this first move guarantees, that
+the empty string is handled correctly.
+
+65
+00:04:27,390 --> 00:04:33,210
+B accepts the empty string if and only if
+q0, the start state of A, is accepting.
+
+66
+00:04:33,210 --> 00:04:36,729
+But that means A accepts epsilon,
+and half of epsilon is epsilon.
+
+67
+00:04:37,820 --> 00:04:42,200
+Thus, B accepts epsilon if and
+only if epsilon is in Half of L.
+
+68
+00:04:42,200 --> 00:04:44,560
+Now we need to design
+the transitions of B, so that,
+
+69
+00:04:44,560 --> 00:04:49,300
+after the initial epsilon move, it is only
+in the states we said it should be in,
+
+70
+00:04:49,300 --> 00:04:53,310
+given the interpretation we
+put on a pair of A states p,q.
+
+71
+00:04:53,310 --> 00:04:58,890
+So the transition from state p,q of B,
+on an input symbol a,
+
+72
+00:04:58,890 --> 00:05:02,760
+will be to those pairs of states
+r,s that satisfy two conditions.
+
+73
+00:05:04,800 --> 00:05:09,600
+First, as we wanted, the first component
+of B's state just tracks A's state.
+
+74
+00:05:09,600 --> 00:05:15,660
+That is, r is where DFA A goes on input a,
+when it is in state p.
+
+75
+00:05:15,660 --> 00:05:18,270
+The second condition concerns
+the second component.
+
+76
+00:05:18,270 --> 00:05:23,970
+There must be some input symbol b,
+such that A goes from s to q on input b.
+
+77
+00:05:25,580 --> 00:05:28,430
+Notice the transition is from
+the new second component to
+
+78
+00:05:28,430 --> 00:05:30,310
+the old second component, so
+
+79
+00:05:30,310 --> 00:05:34,740
+the new second component has a path to
+acceptance that is one longer than before.
+
+80
+00:05:35,760 --> 00:05:41,410
+Thus, if x takes A to state p,
+then x a takes A to state r.
+
+81
+00:05:43,820 --> 00:05:47,964
+That's this, we could prove by
+simple induction on the length of w,
+
+82
+00:05:47,964 --> 00:05:50,393
+that the first component of B's state,
+
+83
+00:05:50,393 --> 00:05:54,267
+after reading w is always the state
+A would be in after reading w.
+
+84
+00:05:54,267 --> 00:05:55,730
+But we won't do the proof.
+
+85
+00:05:56,750 --> 00:05:59,460
+We can also prove by induction
+on the length of the input that
+
+86
+00:05:59,460 --> 00:06:03,025
+the second component of B's state,
+can be all and only the states of A,
+
+87
+00:06:03,025 --> 00:06:08,460
+that reach an accepting state by following
+a path whose length is exactly the same,
+
+88
+00:06:08,460 --> 00:06:11,250
+as the length of the input b has read so
+far.
+
+89
+00:06:11,250 --> 00:06:14,320
+As I said, we're not going to
+do the inductive proof that this
+
+90
+00:06:14,320 --> 00:06:16,812
+construction works, but
+I'll set it up for you.
+
+91
+00:06:16,812 --> 00:06:21,871
+Okay, the inductive hypothesis
+which we prove by induction on
+
+92
+00:06:21,871 --> 00:06:27,692
+the length of input w, is that B goes
+on input w from one of its states q0,
+
+93
+00:06:27,692 --> 00:06:33,321
+f where q0 is the start state of A and
+f is one of A's accepting states,
+
+94
+00:06:33,321 --> 00:06:38,665
+to all those states p,q such that,
+A goes from q0 to p on input w and
+
+95
+00:06:38,665 --> 00:06:43,750
+A also goes from q to f on some input
+x of length equal to that of w.
+
+96
+00:06:43,750 --> 00:06:47,240
+Once we have the inductive proof, we
+have only to observe how B makes epsilon
+
+97
+00:06:47,240 --> 00:06:51,970
+transitions from its own start state
+to each of the states q0, f, and that
+
+98
+00:06:51,970 --> 00:06:56,920
+B's accepting states are the ones, with
+the same state of A for both components.
+
+99
+00:06:56,920 --> 00:07:01,850
+Here's a little example, I'm not going
+to go over every transition of B,
+
+100
+00:07:01,850 --> 00:07:05,180
+on the right, but I invite you to pause
+the video and study it if you like.
+
+101
+00:07:06,940 --> 00:07:11,490
+First, A is this two state,
+DFA on the left in orange, and
+
+102
+00:07:11,490 --> 00:07:14,790
+B is the epsilon NFA in
+purple on the right.
+
+103
+00:07:14,790 --> 00:07:17,126
+From the initial state, s0 of B,
+
+104
+00:07:17,126 --> 00:07:22,535
+there's only one epsilon transition,
+since A has only one accepting state p.
+
+105
+00:07:22,535 --> 00:07:27,252
+This epsilon transition,
+here, goes to the state q,p,
+
+106
+00:07:27,252 --> 00:07:32,080
+because q is the start state of A and
+p is an accepting state.
+
+107
+00:07:33,400 --> 00:07:38,020
+Notice that because A has
+only one accepting state,
+
+108
+00:07:38,020 --> 00:07:45,275
+we could have dropped state s0, and
+simply made q,p be the start state of B.
+
+109
+00:07:45,275 --> 00:07:51,042
+[SOUND] Now let's consider
+where q,p goes on input zero.
+
+110
+00:07:51,042 --> 00:07:53,744
+Since A goes from q to p on input zero,
+
+111
+00:07:53,744 --> 00:07:58,350
+that says the first component
+of the new state must be p.
+
+112
+00:07:58,350 --> 00:08:03,660
+But we also have to look a the second
+state of q,p, namely p, and ask,
+
+113
+00:08:03,660 --> 00:08:10,050
+from what states of A, are there
+transitions, to p on any input symbol.
+
+114
+00:08:11,440 --> 00:08:17,796
+We see there are transitions to p on,
+
+115
+00:08:17,796 --> 00:08:23,331
+from both p, which is this, and
+
+116
+00:08:23,331 --> 00:08:29,072
+from q, that's that, thus q,p
+
+117
+00:08:29,072 --> 00:08:36,580
+goes to p,p and to p,q on input zero.
+
+118
+00:08:36,580 --> 00:08:38,800
+That's these two transitions here.
+
+119
+00:08:38,800 --> 00:08:44,070
+Next, let's see where
+p,q goes on input zero.
+
+120
+00:08:44,070 --> 00:08:49,410
+First we consult A and
+we see that on input zero, A takes p to p,
+
+121
+00:08:49,410 --> 00:08:55,330
+that's this, so the first component
+of the new state must be p.
+
+122
+00:08:55,330 --> 00:09:01,077
+Then we ask, from what states
+of A are there transitions to q?
+
+123
+00:09:01,077 --> 00:09:07,660
+Here we see the only transition,
+to q in A is, this one from p.
+
+124
+00:09:07,660 --> 00:09:12,110
+As a result, the second component
+can only be p in the new state.
+
+125
+00:09:12,110 --> 00:09:20,970
+Thus, the only transition of B from state
+p,q on input zero is this, is to p, p.
+
+126
+00:09:22,040 --> 00:09:25,270
+We'll leave the rest of the transitions
+to you, but notice that the,
+
+127
+00:09:25,270 --> 00:09:30,601
+the two accepting states of B are p,p and
+q,q.
+
+128
+00:09:32,020 --> 00:09:35,390
+Those with identical states
+in the two components.
+
+129
+00:09:35,390 --> 00:09:36,900
+Now that we know about Turing Machines,
+
+130
+00:09:38,050 --> 00:09:42,140
+we can address a question that I recall
+from one of the first posts on the forum.
+
+131
+00:09:42,140 --> 00:09:46,670
+The questioner was evidently impressed
+by something called aspect systems.
+
+132
+00:09:46,670 --> 00:09:49,560
+I think I remember reading
+about them a generation ago.
+
+133
+00:09:49,560 --> 00:09:53,068
+They were supposed to the next big thing
+after object-oriented programming.
+
+134
+00:09:54,420 --> 00:09:55,400
+I guess they weren't.
+
+135
+00:09:55,400 --> 00:09:57,820
+But it doesn't matter what they are.
+
+136
+00:09:57,820 --> 00:10:00,610
+Because, presumably,
+they are some software system,
+
+137
+00:10:00,610 --> 00:10:03,420
+which means they are ultimately
+executed on a computer.
+
+138
+00:10:04,430 --> 00:10:07,450
+And as we saw,
+a Turing Machine can simulate a computer.
+
+139
+00:10:07,450 --> 00:10:11,200
+We really only dived into the matter
+of how the storage units of
+
+140
+00:10:11,200 --> 00:10:13,980
+a computer are simulated,
+but the rest is easy.
+
+141
+00:10:13,980 --> 00:10:16,460
+The arithmetic units,
+the control logic, and such.
+
+142
+00:10:17,590 --> 00:10:22,350
+The bottom line, no programming system
+can do what a Turing Machine cannot.
+
+143
+00:10:22,350 --> 00:10:25,030
+Real programming systems
+can do things much faster,
+
+144
+00:10:25,030 --> 00:10:28,570
+because the Turing Machine is designed
+to be the simplest possible device that
+
+145
+00:10:28,570 --> 00:10:33,060
+computes, but it's only a matter
+of speed and not of capability.
+
+146
+00:10:33,060 --> 00:10:36,524
+But another attack on the use of
+the Turing Machine as the definition of
+
+147
+00:10:36,524 --> 00:10:40,180
+what can be done by a computer comes
+from a entirely different direction.
+
+148
+00:10:41,400 --> 00:10:42,734
+There are those who think,
+
+149
+00:10:42,734 --> 00:10:46,504
+we'll be eventually be able to build
+computers that use quantum physics to do
+
+150
+00:10:46,504 --> 00:10:49,870
+things that appear impossible in
+the world of Newtonian mechanics.
+
+151
+00:10:51,100 --> 00:10:54,670
+In particular, these hypothetical
+devices behave something like
+
+152
+00:10:54,670 --> 00:10:59,340
+nondeterministic automata,
+always appearing to guess right.
+
+153
+00:10:59,340 --> 00:11:02,810
+One of the most interesting
+conclusions is Shor's algorithm for
+
+154
+00:11:02,810 --> 00:11:07,890
+factoring numbers in polynomial time
+on a hypothetical, quantum computer,
+
+155
+00:11:07,890 --> 00:11:11,360
+which is something we doubt can be
+done on a conventional computer.
+
+156
+00:11:11,360 --> 00:11:14,560
+There have been some interesting
+experiments in which particles are somehow
+
+157
+00:11:14,560 --> 00:11:16,940
+linked by their spins and
+carried far apart.
+
+158
+00:11:16,940 --> 00:11:20,630
+A change in one manifests itself
+as a change in the other,
+
+159
+00:11:20,630 --> 00:11:25,340
+allowing communication over vast
+distances without any perceptible link.
+
+160
+00:11:25,340 --> 00:11:29,469
+That means, for example, you could not
+eavesdrop on the communication, so
+
+161
+00:11:29,469 --> 00:11:33,870
+it is more secure,
+than conventional Newtonian communication.
+
+162
+00:11:33,870 --> 00:11:38,350
+I really don't believe there will
+ever be practical, quantum computers.
+
+163
+00:11:38,350 --> 00:11:43,110
+The problem, is that a physical device
+that is needed to represent a single bit
+
+164
+00:11:43,110 --> 00:11:50,773
+in a quantum computer,
+called a q-bit, is huge.
+
+165
+00:11:52,030 --> 00:11:56,510
+I've heard it has to be roughly the size
+of a refrigerator in order to isolate it
+
+166
+00:11:56,510 --> 00:11:58,250
+from other q-bits adequately.
+
+167
+00:11:59,260 --> 00:12:02,760
+But even if we can make really tiny
+q-bits, we are still faced with the fact
+
+168
+00:12:02,760 --> 00:12:06,950
+that a nondeterministic Turing machine is
+no more powerful than a deterministic one.
+
+169
+00:12:06,950 --> 00:12:11,090
+You should have seen that
+video explaining why by now.
+
+170
+00:12:11,090 --> 00:12:14,720
+To be fair, proponents of quantum
+computing claim that while they may
+
+171
+00:12:14,720 --> 00:12:18,490
+not be able to solve anything that
+a conventional computer can not.
+
+172
+00:12:18,490 --> 00:12:20,410
+They can do certain things faster.
+
+173
+00:12:20,410 --> 00:12:24,950
+The one big example they point to is
+Shore's algorithm for factoring numbers.
+
+174
+00:12:24,950 --> 00:12:27,650
+It looks to me like this case is
+the exception rather than the rule.
+
+175
+00:12:27,650 --> 00:12:30,900
+Rule and
+the advantages of a quantum computer,
+
+176
+00:12:30,900 --> 00:12:34,190
+if we can ever build one of
+useful capacity, is small.
+
+177
+00:12:34,190 --> 00:12:38,400
+There are a number of questions,
+about the mysteries of proofs and
+
+178
+00:12:38,400 --> 00:12:43,340
+the logical rules one can use, and
+a number of these questions arose in
+
+179
+00:12:43,340 --> 00:12:47,920
+the thread about why I claim that one
+stack as in a push down tom a ton.
+
+180
+00:12:47,920 --> 00:12:49,860
+Could not simulate two such stacks.
+
+181
+00:12:51,690 --> 00:12:53,350
+I didn't prove that point.
+
+182
+00:12:53,350 --> 00:12:55,570
+And, in fact,
+it is more than a little vague.
+
+183
+00:12:55,570 --> 00:12:58,940
+What does it mean for
+one stack to simulate two stacks?
+
+184
+00:12:58,940 --> 00:13:02,520
+If you make a reasonable attempt to
+combine the action of two stacks into one,
+
+185
+00:13:02,520 --> 00:13:07,100
+you will find you're okay as long as the
+two stacks push and pop at the same time.
+
+186
+00:13:07,100 --> 00:13:11,030
+Then you can keep in one stack,
+symbols that represent pairs of symbols.
+
+187
+00:13:11,030 --> 00:13:13,870
+One from each of the stacks
+you're simulating.
+
+188
+00:13:13,870 --> 00:13:15,770
+But two stacks need not push and
+
+189
+00:13:15,770 --> 00:13:19,490
+pop at the same time, and when one pushes
+while the other pops, you get stuck.
+
+190
+00:13:20,800 --> 00:13:24,550
+There's no sensible thing to do
+that will represent both moves.
+
+191
+00:13:24,550 --> 00:13:28,160
+Well if the difference between the lengths
+of the two stacks is two, or any.
+
+192
+00:13:28,160 --> 00:13:29,100
+Constant.
+
+193
+00:13:29,100 --> 00:13:32,880
+Then you can remember the top symbols
+of the longer stack in the state and
+
+194
+00:13:32,880 --> 00:13:36,140
+only keep the shorter stack on the bottom
+portion of the longer stack on
+
+195
+00:13:36,140 --> 00:13:38,450
+the single stack you're trying to use.
+
+196
+00:13:38,450 --> 00:13:42,740
+But that's not good enough because as
+time goes on there may be no limit on
+
+197
+00:13:42,740 --> 00:13:46,490
+the difference between the lengths of
+the two stacks you're trying to simulate.
+
+198
+00:13:46,490 --> 00:13:50,300
+But the failure to prove something
+is not proof that it can't be done.
+
+199
+00:13:50,300 --> 00:13:53,070
+So the first thing I need to do
+is give a precise definition of
+
+200
+00:13:53,070 --> 00:13:57,410
+what would be considered a successful
+simulation of two stacks by one.
+
+201
+00:13:57,410 --> 00:14:01,430
+I propose that as a minimum, if I had such
+a construction, I would be able to use it
+
+202
+00:14:01,430 --> 00:14:06,290
+to design one PDA P that could simulate
+two others between, P1 and P2.
+
+203
+00:14:06,290 --> 00:14:10,900
+And in particular,
+to accept if any only if both accept it.
+
+204
+00:14:10,900 --> 00:14:14,220
+That is I would have a PDA
+construction that showed CFLs were
+
+205
+00:14:14,220 --> 00:14:15,860
+closed under intersection.
+
+206
+00:14:15,860 --> 00:14:19,020
+But we already know that CFLs
+are not closed under intersection.
+
+207
+00:14:20,360 --> 00:14:23,940
+So, let's assume that a construction
+to build p from P1 and
+
+208
+00:14:23,940 --> 00:14:26,980
+P2 as on the previous slide exists.
+
+209
+00:14:26,980 --> 00:14:30,200
+Then in particular I could apply
+the construction to PDAs that
+
+210
+00:14:30,200 --> 00:14:33,495
+accept the two context three languages
+that we showed in the lecture.
+
+211
+00:14:33,495 --> 00:14:36,700
+Have a non-context free intersection.
+
+212
+00:14:36,700 --> 00:14:41,790
+That is that P1's language with a set
+of strings of zero was followed by one,
+
+213
+00:14:41,790 --> 00:14:46,210
+was followed by twos, such that the
+numbers of zeros and ones are the same.
+
+214
+00:14:47,540 --> 00:14:50,750
+That P2's language would be
+the same except the constraint is
+
+215
+00:14:50,750 --> 00:14:53,510
+that the numbers of ones and
+twos are the same.
+
+216
+00:14:53,510 --> 00:14:57,560
+Let P be a PDA accepting
+the intersection of these languages.
+
+217
+00:14:57,560 --> 00:15:01,050
+The language of P is the set
+of zeros followed by
+
+218
+00:15:01,050 --> 00:15:04,500
+an equal number of 1's followed
+by an equal number of 2's.
+
+219
+00:15:04,500 --> 00:15:08,600
+Since we assume we can construct
+P from P1 and P2, P exists and
+
+220
+00:15:08,600 --> 00:15:12,000
+therefore it's language is
+context free as we know.
+
+221
+00:15:12,000 --> 00:15:14,390
+Are all languages accepted by PDAs.
+
+222
+00:15:15,650 --> 00:15:18,060
+But we know this language
+is not context-free.
+
+223
+00:15:18,060 --> 00:15:22,270
+We have reached a false conclusion so
+we know that our assumptions are wrong.
+
+224
+00:15:22,270 --> 00:15:24,340
+We have made only one assumption.
+
+225
+00:15:24,340 --> 00:15:27,680
+That P can be constructed from P1 and P2.
+
+226
+00:15:27,680 --> 00:15:30,070
+Since we drew a false
+conclusion from our assumption.
+
+227
+00:15:30,070 --> 00:15:35,020
+Assumption, that assumption must be false,
+that is we have proved that there is
+
+228
+00:15:35,020 --> 00:15:39,150
+no way to simulate two stacks by one in
+a manner that is sufficient for us to
+
+229
+00:15:39,150 --> 00:15:44,300
+figure out whether the PDA is using these
+two stacks, both accept a given input.
+
+230
+00:15:45,590 --> 00:15:48,330
+We might be able to simulate
+hem in some weaker sense but
+
+231
+00:15:48,330 --> 00:15:50,810
+that sense would have
+to be very weak indeed.
+
+232
+00:15:50,810 --> 00:15:54,390
+And I would not want to think of it as
+a true simulation, since I couldn't tell
+
+233
+00:15:54,390 --> 00:15:59,940
+from the one stack what both of
+the quote simulated stacks were doing.
+
+234
+00:15:59,940 --> 00:16:03,090
+This proof used a number of
+logical tools that are sound but
+
+235
+00:16:03,090 --> 00:16:04,760
+which we might be tempted to question.
+
+236
+00:16:06,280 --> 00:16:10,070
+First, we use proof by contradiction,
+that is,.
+
+237
+00:16:10,070 --> 00:16:14,340
+You, if we assume some statement S,
+and we use correct logic and
+
+238
+00:16:14,340 --> 00:16:18,570
+true statements to derive something false,
+then the statement S itself is false.
+
+239
+00:16:19,660 --> 00:16:23,300
+Here S was,
+you can simulate two stacks with one,
+
+240
+00:16:23,300 --> 00:16:26,530
+in the formal sense of being able
+to compute the intersection.
+
+241
+00:16:26,530 --> 00:16:29,360
+This is a generally accepted
+form of logical reasoning, and
+
+242
+00:16:29,360 --> 00:16:31,166
+I don't want to suggest
+that we should doubt it.
+
+243
+00:16:32,200 --> 00:16:35,028
+Proof by contradiction appears
+to work in the real world.
+
+244
+00:16:35,028 --> 00:16:39,070
+However it doesn;t really follow
+from anymore basic principles.
+
+245
+00:16:39,070 --> 00:16:43,210
+You need to take it or something
+equivalent to it as an axiom of logic.
+
+246
+00:16:43,210 --> 00:16:46,170
+If you try to prove that
+proof by contradiction works.
+
+247
+00:16:46,170 --> 00:16:47,960
+You will have to start
+with something like.
+
+248
+00:16:49,060 --> 00:16:52,390
+well assume the rule doesn't hold that is.
+
+249
+00:16:52,390 --> 00:16:56,900
+You need to assume proof by contradiction
+works in order to prove that it works.
+
+250
+00:16:56,900 --> 00:16:59,720
+An amusing sidelight is
+that proof by induction,
+
+251
+00:16:59,720 --> 00:17:04,100
+another staple of this course, is also
+something that needs to be assumed.
+
+252
+00:17:04,100 --> 00:17:07,390
+If you try to prove that
+proof by induction works,
+
+253
+00:17:07,390 --> 00:17:10,470
+you wind either using
+a proof by induction or
+
+254
+00:17:10,470 --> 00:17:13,870
+what is equivalent,
+a proof by least counter example.
+
+255
+00:17:13,870 --> 00:17:17,320
+That is, you say that if
+you can prove the basis and
+
+256
+00:17:17,320 --> 00:17:22,500
+induction step of some statement,
+say S of I, and
+
+257
+00:17:22,500 --> 00:17:27,010
+yet S is not true for all I, then consider
+the least I for which it is false.
+
+258
+00:17:28,190 --> 00:17:31,970
+S of I can't be the basis
+because you proved that.
+
+259
+00:17:31,970 --> 00:17:34,350
+And if S, if I is not the basis.
+
+260
+00:17:34,350 --> 00:17:40,560
+This, then you know it is true for i minus
+one and you prove the inductive steps.
+
+261
+00:17:40,560 --> 00:17:45,490
+That is, you know S of i minus one is
+true and you prove the inductive step,
+
+262
+00:17:45,490 --> 00:17:50,400
+which implies in particular that S
+of i minus one applies to S of i.
+
+263
+00:17:50,400 --> 00:17:55,370
+So again, S of i could not be false.
+
+264
+00:17:55,370 --> 00:17:58,870
+But the idea of least counter example
+is equivalent to proof by induction.
+
+265
+00:18:00,740 --> 00:18:02,540
+And it is an assumption.
+
+266
+00:18:02,540 --> 00:18:05,720
+There does not have to be
+a least counter example.
+
+267
+00:18:05,720 --> 00:18:11,440
+For example, consider the statement about
+real numbers, is not greater than zero.
+
+268
+00:18:11,440 --> 00:18:15,970
+There's no least counter example because
+if x is a counter example, that is,
+
+269
+00:18:15,970 --> 00:18:17,760
+x is greater than zero.
+
+270
+00:18:17,760 --> 00:18:20,790
+Then X over two is
+a smaller counter example.
+
+271
+00:18:20,790 --> 00:18:23,290
+It is smaller than X but
+also greater than zero.
+
+272
+00:18:24,940 --> 00:18:28,840
+Of course, we never suppose that
+induction works for real numbers.
+
+273
+00:18:28,840 --> 00:18:29,350
+It doesn't.
+
+274
+00:18:29,350 --> 00:18:33,710
+Er, it only works for
+things like intergers, trees and
+
+275
+00:18:33,710 --> 00:18:36,329
+other discreet things that
+can be ordered like integer.
+
+276
+00:18:37,610 --> 00:18:42,260
+For these domains, inductive proofs
+appear to reflect how the world works.
+
+277
+00:18:42,260 --> 00:18:46,420
+So we're okay assuming inductive
+proofs are valid in those domains.
+
+278
+00:18:46,420 --> 00:18:48,150
+But there's a more worrisome point and
+
+279
+00:18:48,150 --> 00:18:51,260
+the fact that we have to
+accept some axioms of logic.
+
+280
+00:18:52,340 --> 00:18:55,010
+When I derive something false,
+I immediately pointed my
+
+281
+00:18:55,010 --> 00:18:58,349
+finger at the assumption you can
+simulate two stacks with one.
+
+282
+00:18:59,370 --> 00:19:01,130
+This reasoning is important.
+
+283
+00:19:01,130 --> 00:19:02,050
+We use it heavily,
+
+284
+00:19:02,050 --> 00:19:06,100
+especially when we justify the idea of
+reductions from one problem to another.
+
+285
+00:19:07,240 --> 00:19:10,800
+Definitely I never proved that
+assumption about two stacks, so
+
+286
+00:19:10,800 --> 00:19:12,740
+it might be the cause
+of a false conclusion.
+
+287
+00:19:16,150 --> 00:19:19,940
+But could there be any other
+assumptions that I used without proof.
+
+288
+00:19:19,940 --> 00:19:23,880
+And could one of those be the cause
+of the false conclusion instead?
+
+289
+00:19:23,880 --> 00:19:24,960
+I don't think so.
+
+290
+00:19:24,960 --> 00:19:29,050
+I believe everything I used was either
+proved or I could prove it if challenged.
+
+291
+00:19:29,050 --> 00:19:30,300
+But I could be wrong couldn't I?
+
+292
+00:19:32,690 --> 00:19:33,890
+No proof is complete and
+
+293
+00:19:33,890 --> 00:19:37,439
+undisputable unless it is written
+in a very very formal system.
+
+294
+00:19:38,910 --> 00:19:43,070
+But interesting proof such as my claim
+about two stacks being better than one,
+
+295
+00:19:43,070 --> 00:19:45,970
+are just too complicated
+to be written that way.
+
+296
+00:19:45,970 --> 00:19:49,440
+In practice mathematical proofs
+are accepted by a community using
+
+297
+00:19:49,440 --> 00:19:51,690
+a social process.
+
+298
+00:19:51,690 --> 00:19:55,730
+That is interested people look at
+the proof and if they doubt one or another
+
+299
+00:19:55,730 --> 00:20:00,780
+point they can challenge it and drill down
+into the details of why the point is true.
+
+300
+00:20:00,780 --> 00:20:02,060
+Either they will be convinced or
+
+301
+00:20:02,060 --> 00:20:05,350
+the person who claimed it was
+true will withdraw the claim.
+
+302
+00:20:05,350 --> 00:20:08,140
+That's how mathematics
+arrives at the truth.
+
+303
+00:20:08,140 --> 00:20:11,190
+I'm going to conclude a discussion
+of something that has nothing to
+
+304
+00:20:11,190 --> 00:20:15,490
+do with atometer theory per say but
+rather applies our understanding of what
+
+305
+00:20:15,490 --> 00:20:19,250
+makes a proof believable to the question
+of whether we can prove programs correct.
+
+306
+00:20:21,670 --> 00:20:25,080
+Theer was a paper written on this subject
+about 40 years ago by three computer
+
+307
+00:20:25,080 --> 00:20:30,560
+scientists of serious note, Alan Perlis
+was the first winner of the Turing award,
+
+308
+00:20:30,560 --> 00:20:35,120
+Rich DeMillo later became chief
+technical officer at Hewlett Packard and
+
+309
+00:20:35,120 --> 00:20:37,450
+was also dean of computer
+science at Georgia Tech.
+
+310
+00:20:38,490 --> 00:20:42,600
+Dick Lipton was the guy that
+replaced my in Princeton in 1979.
+
+311
+00:20:43,880 --> 00:20:46,250
+He also has a number of
+important ideas to his credit.
+
+312
+00:20:46,250 --> 00:20:48,380
+Including the one I
+want to talk about now.
+
+313
+00:20:49,850 --> 00:20:54,120
+If papers started by making the points
+I just made, that you can only believe
+
+314
+00:20:54,120 --> 00:20:57,020
+a proof if good mathematicians
+have looked at it critically and
+
+315
+00:20:57,020 --> 00:21:00,610
+attempted to challenge any
+questionable points in the reasoning.
+
+316
+00:21:00,610 --> 00:21:03,860
+In fact the title of the paper is,
+Social Processes and
+
+317
+00:21:03,860 --> 00:21:05,370
+Proofs of Theorems in Programs.
+
+318
+00:21:07,300 --> 00:21:09,560
+They then went on to draw
+a significant conclusion.
+
+319
+00:21:10,590 --> 00:21:15,180
+Proofs of correctness of a program need
+to be subjected to the same scrutiny, or
+
+320
+00:21:15,180 --> 00:21:16,280
+they can't be believed.
+
+321
+00:21:17,510 --> 00:21:20,100
+But proofs of program
+correctness are boring, and
+
+322
+00:21:20,100 --> 00:21:22,270
+no one is going to
+participate in the social.
+
+323
+00:21:22,270 --> 00:21:23,870
+Process needed.
+
+324
+00:21:23,870 --> 00:21:27,230
+Thus they argued it was not realistic
+to suppose that programs of
+
+325
+00:21:27,230 --> 00:21:30,010
+any significance would
+ever be proved correct.
+
+326
+00:21:30,010 --> 00:21:33,550
+Interestingly, that reasoning
+has pretty much held up.
+
+327
+00:21:33,550 --> 00:21:37,100
+40 years later, we still write code
+hope it works, fix it if it doesn't, and
+
+328
+00:21:37,100 --> 00:21:39,500
+do not suppose that we can
+prove it correct formally.
+
+329
+00:21:40,870 --> 00:21:42,700
+There are a few exceptions.
+
+330
+00:21:42,700 --> 00:21:45,770
+First there has been much more progress
+than the three authors might have
+
+331
+00:21:45,770 --> 00:21:48,390
+expected in automated theorem proving.
+
+332
+00:21:48,390 --> 00:21:52,470
+Computers don't get bored so to the extent
+that we could get them to do the checking,
+
+333
+00:21:52,470 --> 00:21:55,190
+we can avoid the social process problem.
+
+334
+00:21:55,190 --> 00:21:57,630
+A second, oddly,
+is that if you pay people enough,
+
+335
+00:21:57,630 --> 00:22:00,560
+they will do the checking
+even if they do get bored.
+
+336
+00:22:00,560 --> 00:22:02,970
+So there have been a few
+instances where a lot of money and
+
+337
+00:22:02,970 --> 00:22:04,460
+time was spent doing a proof of.
+
+338
+00:22:04,460 --> 00:22:06,790
+Correctness for
+a non trivial piece of software.
+
+339
+00:22:08,530 --> 00:22:11,770
+With that thought I'll leave you folks to
+finish up the study of touring machines.
+
+340
+00:22:11,770 --> 00:22:15,430
+And then will go on in week six to
+the matter of NP completeness and
+
+341
+00:22:15,430 --> 00:22:16,600
+intractable problems.
+

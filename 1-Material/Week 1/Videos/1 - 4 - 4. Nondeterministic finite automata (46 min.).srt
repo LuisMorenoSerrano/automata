@@ -1,0 +1,1968 @@
+1
+00:00:01,460 --> 00:00:07,527
+Today we introduce the non deterministic
+finite automata. We're going to
+
+2
+00:00:07,527 --> 00:00:13,750
+use the subset construction to show that
+every language that can be recognized by
+
+3
+00:00:13,750 --> 00:00:19,899
+any non deterministic finite optimata is
+still a regular language, in that it can
+
+4
+00:00:19,899 --> 00:00:25,902
+be also be recognized deterministic finite
+automata. We're, then, going to add
+
+5
+00:00:25,902 --> 00:00:31,465
+something to the non deterministic
+automata called epsilon transitions that
+
+6
+00:00:31,465 --> 00:00:37,809
+allow, sort of spontaneous jumps from
+state to state and we will, in fact, show
+
+7
+00:00:37,809 --> 00:00:44,846
+that these automata, even though
+they look more powerful, also can
+
+8
+00:00:44,846 --> 00:00:52,539
+recognize only the, the regular languages.
+A non deterministic automaton has the
+
+9
+00:00:52,539 --> 00:00:59,951
+ability to be in several states at once. A
+transition in a non deterministic
+
+10
+00:00:59,951 --> 00:01:07,944
+automaton is from some state, say Q, on an
+input of, say, A. It can go to...several
+
+11
+00:01:07,944 --> 00:01:14,870
+different states, so we can have several
+transitions all labeled A. And this is the
+
+12
+00:01:14,870 --> 00:01:21,585
+thing that allows the automaton to, in a
+sense, guess, to be non-deterministic. It
+
+13
+00:01:21,585 --> 00:01:28,470
+can go from state Q to, really any of
+these states. And therefore, it actually
+
+14
+00:01:28,470 --> 00:01:36,533
+goes to all of those states at once. Okay.
+Likely a DFA, a Non-Deterministic Finite
+
+15
+00:01:36,533 --> 00:01:45,650
+Automaton, or NFA as we we'll call it, has
+one start state, where computation begins.
+
+16
+00:01:45,650 --> 00:01:50,637
+The NFA can have any number of final
+states and an input is accepted of any
+
+17
+00:01:50,637 --> 00:01:55,952
+sequence of choices, leads from the start
+state to some final state. The intuition
+
+18
+00:01:55,952 --> 00:02:01,399
+is that the NFA is allowed to guess which
+way to go, but it is able to always guess
+
+19
+00:02:01,399 --> 00:02:06,714
+right since all the guesses are followed
+in parallel and the NFA gets credit for
+
+20
+00:02:06,714 --> 00:02:12,292
+the right guesses no matter how many wrong
+guesses it also makes. In our example of a
+
+21
+00:02:12,292 --> 00:02:17,487
+nondeterministic finite atomaton the
+states are squares of a chess board. In
+
+22
+00:02:17,487 --> 00:02:23,391
+general, you can occupy several different
+squares at a time. In a red move, which we
+
+23
+00:02:23,391 --> 00:02:29,840
+represent by the input symbol "r". You get
+to move to any adjacent red square. So in
+
+24
+00:02:29,840 --> 00:02:36,126
+effect, you replicate yourself and move to
+all of them. Similarly if the input is B
+
+25
+00:02:36,126 --> 00:02:41,872
+you can move to any adjacent black square,
+so in effect you move to all the black
+
+26
+00:02:41,872 --> 00:02:47,055
+squares. The question we ask is whether
+the given sequence of R and B inputs can
+
+27
+00:02:47,055 --> 00:02:52,376
+get you from the start state, which will
+be the upper left corner, to the one final
+
+28
+00:02:52,376 --> 00:02:57,504
+state, which is the lower right hand
+corner. The answer is yes. If any sequence
+
+29
+00:02:57,504 --> 00:03:02,569
+of choices we'll get, with each input,
+leads us from the upper left to the lower
+
+30
+00:03:02,569 --> 00:03:07,633
+right. It is not necessarily that all such
+choices do. And, in general, there will
+
+31
+00:03:07,633 --> 00:03:12,511
+always be some choices that lead us
+astray. Okay. So here's our example. The
+
+32
+00:03:12,511 --> 00:03:18,192
+chess board will be rather tiny. It's only
+three by three instead of eight by eight.
+
+33
+00:03:18,398 --> 00:03:29,372
+But the ideas are all the same. Okay, now,
+using the, moves which, I have summarized,
+
+34
+00:03:29,743 --> 00:03:40,255
+in a, uh... a transition table, but which
+follow the intuition that I, that I gave
+
+35
+00:03:40,255 --> 00:03:46,943
+you, we're going to examine the sequence
+of inputs RBB. That is one red move
+
+36
+00:03:46,943 --> 00:03:53,797
+followed by two black moves. We'll start
+in the start state, state one only. So, so
+
+37
+00:03:53,797 --> 00:04:01,212
+we're gonna show state one there. Now we
+get an R input so we can move to any of
+
+38
+00:04:01,212 --> 00:04:08,963
+the red squares adjacent to square one or
+in terms of the transition table, here's
+
+39
+00:04:08,963 --> 00:04:16,336
+the row for state one. We look under R and
+we find states two and four are the
+
+40
+00:04:16,336 --> 00:04:24,004
+possible moves. Okay, notice that adjacent
+really means one king move so that, from
+
+41
+00:04:24,004 --> 00:04:31,565
+state one, let's say you can get to two,
+four, or five. Obviously, only two and
+
+42
+00:04:31,565 --> 00:04:39,610
+four on a red move, and only five on a
+black move. Okay, so, after reading the R,
+
+43
+00:04:39,610 --> 00:04:48,265
+we go from states one, state one, to states
+two and four. Okay, so now we are in
+
+44
+00:04:48,265 --> 00:04:56,178
+states two and four and b comes in so what
+do we do? Well from state two, we can go
+
+45
+00:04:56,178 --> 00:05:01,493
+to one, three, or five. You can figure
+that out either by noticing that one,
+
+46
+00:05:01,493 --> 00:05:07,536
+three, and five are the adjacent, black
+squares. Or you can just look it up on the
+
+47
+00:05:07,536 --> 00:05:13,580
+table here, here in row two, the black,
+moves are, are, are one, three, and five.
+
+48
+00:05:14,680 --> 00:05:21,446
+Now how about state four? Well, from four
+you can go to, to one, five or seven on a
+
+49
+00:05:21,446 --> 00:05:27,642
+black move. Some of those states are
+already listed. But, the point is that
+
+50
+00:05:27,642 --> 00:05:35,283
+between two and four the state should be
+up to a one, three, five and seven. Now,
+
+51
+00:05:35,283 --> 00:05:42,914
+that's all for the... the first B. Now the
+second B comes in. And, from one you can
+
+52
+00:05:42,914 --> 00:05:49,728
+only go to five. From three, same thing.
+You can only to five. On a, on a black
+
+53
+00:05:49,728 --> 00:05:56,905
+move. Now from five you can go to a lot of
+states. You can go to one, three, seven, and
+
+54
+00:05:56,905 --> 00:06:08,180
+nine. And from seven you then only go to
+five. After reading the BB, sorry, RBB,
+
+55
+00:06:08,720 --> 00:06:17,062
+you are in, in fact, all the odd numbered
+states or actually all the black, the black
+
+56
+00:06:17,062 --> 00:06:24,342
+squares Since, nine is, is the, accepting
+state, we say that RBB is accepted by this
+
+57
+00:06:24,342 --> 00:06:30,024
+automaton. The fact that it's also in
+states five, one, three, and seven, are
+
+58
+00:06:30,024 --> 00:06:35,941
+not relevant to the question of whether
+it's accepted or not. Here the components
+
+59
+00:06:35,941 --> 00:06:41,359
+of an NFA, they look exactly the same as
+for the DFA and will typically use the
+
+60
+00:06:41,359 --> 00:06:46,297
+same letters to represent them. The big
+difference is in the type of the
+
+61
+00:06:46,297 --> 00:06:51,784
+transition function and we will see that
+on the next slide. For the NFA delta of
+
+62
+00:06:51,784 --> 00:06:56,859
+state two and input A is now a set of
+states, possibly empty rather than a
+
+63
+00:06:56,859 --> 00:07:02,708
+single state as it was for the DFA. The
+extension of delta to strings is a bit
+
+64
+00:07:02,708 --> 00:07:08,884
+more complex. The basis is still easy.
+Delta of Q and the empty string is just
+
+65
+00:07:08,884 --> 00:07:15,701
+the set containing Q, since the only state
+you can reach on no input is the state you
+
+66
+00:07:15,701 --> 00:07:21,635
+are in. For the induction, suppose we
+start in state Q, and we read string W
+
+67
+00:07:21,635 --> 00:07:29,783
+followed by symbol A. We first compute
+delta(q, w), the set of states you get from
+
+68
+00:07:29,783 --> 00:07:42,820
+Q by following W. So let's, from Q, let's
+say following paths, labeled W, we might
+
+69
+00:07:42,820 --> 00:07:50,970
+get to states P1, P2, and so on. Okay,
+then, for each of these states, say, P1
+
+70
+00:07:50,970 --> 00:07:58,731
+and P2 and so on, we're going to use the
+given delta function, to find the set of
+
+71
+00:07:58,731 --> 00:08:05,680
+states they each get to on A. So let's
+say P1 might go to these two states, I
+
+72
+00:08:05,680 --> 00:08:11,242
+don't know their names. P2 might also go
+to that one, and several others, and so
+
+73
+00:08:11,242 --> 00:08:19,669
+on. You find all the states you can get
+to, but always on transition labeled A.
+
+74
+00:08:19,669 --> 00:08:29,443
+And, the resulting union, this set, is
+delta of Q and WA. Okay. The language of,
+
+75
+00:08:29,458 --> 00:08:36,647
+of nondeterministic automaton is simply
+the set of strings that it accepts, that is,
+
+76
+00:08:36,647 --> 00:08:43,211
+the set of strings W, such that when you
+compute delta of Q, Q naught and W,
+
+77
+00:08:43,211 --> 00:08:49,821
+that Q naught is of course the start state,
+when you compute delta of Q naught and W you
+
+78
+00:08:49,821 --> 00:08:55,829
+have a set that contains at least one
+final state. Okay, the language of the,
+
+79
+00:08:55,829 --> 00:09:01,390
+non deterministic automaton that we
+designed to represent moves on a
+
+80
+00:09:01,390 --> 00:09:06,426
+chessboard is actually quite tricky to
+describe. For strings consisting only of
+
+81
+00:09:06,426 --> 00:09:15,760
+Bs, it's easy. You start in, the, only in
+the state one. And on the next move, with
+
+82
+00:09:15,760 --> 00:09:22,117
+B, you only go to state five. So you're
+only in the set containing five. Another
+
+83
+00:09:22,117 --> 00:09:29,589
+B. If you'll notice will take you from
+five to 1-3-7-9, so now after the second B
+
+84
+00:09:29,589 --> 00:09:36,881
+you're in 1-3-7 and nine only. The next B,
+well. Each of 1-3-7-9 only go to, only
+
+85
+00:09:36,881 --> 00:09:43,702
+have b as an adjacent black square. 
+Their other adjacent squares are red.
+
+86
+00:09:43,702 --> 00:09:51,331
+So after 1-3-7-9 you are now
+in just the set of 5. And from 5 you
+
+87
+00:09:51,331 --> 00:09:58,331
+go to 1-3-7-9, and so on. As a result, you
+accept all the even length non-empty
+
+88
+00:09:58,331 --> 00:10:05,375
+strings. That is BB, BBBB,
+six B's, eight B's, and so on. And you
+
+89
+00:10:05,375 --> 00:10:12,910
+don't accept strings B. Or BBB,
+and, and so on. The odd length strings.
+
+90
+00:10:12,910 --> 00:10:17,539
+It's less clear what happens when there
+are R's in the input. Obviously an
+
+91
+00:10:17,539 --> 00:10:22,344
+acceptance stream must end in B because
+only state 9 is accepting and you only
+
+92
+00:10:22,344 --> 00:10:27,150
+get there in a B move. But I'll leave it
+to you to figure out exactly what strings
+
+93
+00:10:27,150 --> 00:10:34,989
+with one or more R's are accepted. Okay.
+In a sense, a DFA is an NFA that just
+
+94
+00:10:34,989 --> 00:10:42,207
+doesn't have any non-determinism. Formally
+given a DFA with a transition function
+
+95
+00:10:42,207 --> 00:10:48,073
+which we'll call delta sub D you can
+create and NFA with the same states and
+
+96
+00:10:48,073 --> 00:10:53,298
+inputs as the DFA, and the same start and
+final states. The only thing different
+
+97
+00:10:53,298 --> 00:10:58,523
+about the NFA is that the form of its
+transition function is what it has to be
+
+98
+00:10:58,523 --> 00:11:03,814
+for an NFA. It gives you a set of states,
+rather than a single state. But that set
+
+99
+00:11:03,814 --> 00:11:09,724
+of states in Delta N, will be exactly. The
+one state that delta D gives you for a
+
+100
+00:11:09,724 --> 00:11:15,645
+given, Q and, and input A. As a result,
+the NFA, after reading some sequence of
+
+101
+00:11:15,645 --> 00:11:21,794
+inputs, is in the set of states that's
+always a singleton. It always contains only
+
+102
+00:11:21,794 --> 00:11:28,586
+the one state that the DFA is in. Okay.
+So that says any language accepted by DFA
+
+103
+00:11:28,586 --> 00:11:35,974
+can be accepted by some NFA and in fact
+the NFA really looks the same as the DFA,
+
+104
+00:11:35,974 --> 00:11:44,062
+and, and it almost is the DFA. Okay
+surprisingly, for any NFA, there's a DFA
+
+105
+00:11:44,062 --> 00:11:49,682
+that accepts exactly the same language.
+And the proof is called the subset
+
+106
+00:11:49,682 --> 00:11:55,302
+construction. And, and this construction
+was the thing that, as a graduate student
+
+107
+00:11:55,302 --> 00:12:01,063
+convinced me that there was something to
+computer science theory. It had only been
+
+108
+00:12:01,063 --> 00:12:04,770
+discovered five years before, and it
+boggled my mind to see a construction
+
+109
+00:12:04,770 --> 00:12:09,298
+that, while it could be described easily,
+resulted in something that could not be
+
+110
+00:12:09,298 --> 00:12:19,304
+grasped. The problem...is that the
+number of states of the DFA that you get
+
+111
+00:12:19,304 --> 00:12:24,203
+from a NFA can be a, have a... the number can
+be exponential in the number of NFA
+
+112
+00:12:24,203 --> 00:12:30,843
+states. Now if the NFA has three states,
+the DFA can have eight states. That's not
+
+113
+00:12:30,843 --> 00:12:37,020
+a big deal. I can visualize an eight state
+automaton. But if the NFA has ten states,
+
+114
+00:12:37,020 --> 00:12:41,963
+the DFA could have a thousand states, and
+that's already becoming quite hard to
+
+115
+00:12:41,963 --> 00:12:47,345
+imagine. And if the NFA has twenty states,
+which is still something we can visualize,
+
+116
+00:12:47,345 --> 00:12:52,351
+the DFA can have a million states, and
+we're completely lost, even though we know
+
+117
+00:12:52,351 --> 00:12:59,728
+the DFA exists. Oh. And by the way, the
+situation is not, nearly as bad in prac,
+
+118
+00:12:59,728 --> 00:13:08,041
+in, in practice as it looks in theory.
+Many of the non deterministic automata
+
+119
+00:13:08,041 --> 00:13:14,406
+that you construct in things like
+compiler design, when you convert them to
+
+120
+00:13:14,406 --> 00:13:22,183
+DFA the number of states is not, doesn't
+really grow much at all, if at all. In
+
+121
+00:13:22,183 --> 00:13:29,299
+fact the chess NFA we just introduced
+actually has an equivalent DFA with fewer
+
+122
+00:13:29,299 --> 00:13:34,933
+states as we shall soon see. So, let's
+start with a typical NFA. It has the
+
+123
+00:13:34,933 --> 00:13:40,032
+conventional names for the components,
+although we'll use delta N for its
+
+124
+00:13:40,032 --> 00:13:45,824
+transition function to distinguish it from
+delta D, which will be the, transition,
+
+125
+00:13:45,824 --> 00:13:55,706
+function for the, equivalent DFA that
+we're going to construct. Now, in the,
+
+126
+00:13:55,706 --> 00:14:02,685
+DFA, states are... represented by two to the
+Q, which is... Two to the Q is a
+
+127
+00:14:02,685 --> 00:14:11,120
+mathematical notation for the power set of
+Q , that is the set of all subsets of Q.
+
+128
+00:14:11,120 --> 00:14:16,621
+'Kay. Notice that if a set Q has N
+elements, then it, its power set has two
+
+129
+00:14:16,621 --> 00:14:22,556
+of the N elements, so the notation sort of
+makes sense, okay. So the important point
+
+130
+00:14:22,556 --> 00:14:29,756
+to remember is that the DFA states are
+actually sets of states of the NFA. And
+
+131
+00:14:29,756 --> 00:14:34,634
+there can be an exponential number of them
+compared with the number of states in the
+
+132
+00:14:34,634 --> 00:14:40,725
+and, the inputs of the DFA are the same as
+the inputs of the NFA. That's the set
+
+133
+00:14:40,725 --> 00:14:48,728
+sigma. The start state of the DFA is the
+set containing the start state of the NFA.
+
+134
+00:14:48,728 --> 00:14:55,447
+Remember that the states of the
+deterministic automaton are sets of states
+
+135
+00:14:55,447 --> 00:15:02,614
+in the non-deterministic automaton. Thus
+the start state, which is a single state
+
+136
+00:15:02,614 --> 00:15:09,781
+of the DFA, is written as a set of states in
+the NFA. Of course, the set contains only
+
+137
+00:15:09,781 --> 00:15:16,723
+the start state of the NFA. Okay, then the
+final states of the DFA are all those
+
+138
+00:15:16,723 --> 00:15:23,130
+states that, uh, they're thought of as sets
+of states in the NFA, contain a member of
+
+139
+00:15:23,130 --> 00:15:30,959
+F. Remember F is the set of the final
+states for the NFA. Just to make sure we
+
+140
+00:15:30,959 --> 00:15:37,035
+understand what's going on, the DFA states
+have names that looks like sets of states.
+
+141
+00:15:37,035 --> 00:15:43,781
+However, they are single objects. Okay, an
+analogy that might, be useful to make is
+
+142
+00:15:43,781 --> 00:15:50,906
+with a class of object in a language like
+Java or C++, whose values happen to be set
+
+143
+00:15:50,906 --> 00:15:57,250
+of objects from some other class. Okay,
+the transition function, delta D is
+
+144
+00:15:57,250 --> 00:16:04,201
+defined by, delta D applied to, now, and
+this is not a set of, this is a set of NFA
+
+145
+00:16:04,201 --> 00:16:13,211
+states, but it's a, this is a single state
+of the DFA. And input A. Is the union over
+
+146
+00:16:13,211 --> 00:16:24,726
+all, well all the states Q.1 through Q.K.
+Of. What you get when you take the delta N
+
+147
+00:16:24,726 --> 00:16:32,059
+as the transition function of the non
+deterministic automaton, and apply it to
+
+148
+00:16:32,059 --> 00:16:39,580
+that QI and, A. So you have P is Q1, P is
+Q2. And, you see where you get to 1A.
+
+149
+00:16:39,980 --> 00:16:53,459
+[sound] And like that. And so on. And this
+set of NFA states is the name of the DFA
+
+150
+00:16:53,459 --> 00:17:03,037
+state that you get to when you go from
+this state of the DFA on input A. To the
+
+151
+00:17:03,037 --> 00:17:09,909
+next state of the DFA. Okay. We're going
+to as an example of the subset
+
+152
+00:17:09,909 --> 00:17:18,155
+construction do a lazy construction of DFA
+sta tes. That's generally much better than
+
+153
+00:17:18,155 --> 00:17:27,669
+assuming we need all the subsets of NFA
+states. Okay, we gotta start Of course we
+
+154
+00:17:27,669 --> 00:17:32,985
+know we need the set containing the
+initial states. We surely need as one of
+
+155
+00:17:32,985 --> 00:17:38,510
+the DFA states, the set containing one,
+cause that's, that's the initial state of
+
+156
+00:17:38,510 --> 00:17:45,918
+the NFA. But we're only going to create
+rows for states when we, when we are sure
+
+157
+00:17:45,918 --> 00:17:51,748
+that we need them. Okay, so, obviously, we
+need the starred state of the, DFA, which
+
+158
+00:17:51,748 --> 00:17:57,719
+is the set containing one. So we'll begin
+the construction with a row for the set
+
+159
+00:17:57,719 --> 00:18:03,406
+containing, the set containing one. Now,
+from the NFA table, which I've outlined
+
+160
+00:18:03,406 --> 00:18:09,794
+here in red. We know that on R, one goes
+to 2-4, and, and on B, it goes to five.
+
+161
+00:18:09,794 --> 00:18:15,525
+And since this set is a singleton, that's
+all we need to know. So we know
+
+162
+00:18:15,525 --> 00:18:21,734
+immediately that, in the DFA, the set
+containing one goes to the set containing
+
+163
+00:18:21,734 --> 00:18:28,274
+2-4 on R, and set containing five on B.
+Now, I've put, these two sets, made rows
+
+164
+00:18:28,274 --> 00:18:34,463
+for them in the table. I haven't filled
+out the rows, yet. But we know that we're
+
+165
+00:18:34,463 --> 00:18:40,803
+gonna have to, because they obviously are
+states that you can reach from the starred
+
+166
+00:18:40,803 --> 00:18:46,917
+state of the DFA. Okay, here, we've filled
+out the row for the DFA state whose name
+
+167
+00:18:46,917 --> 00:18:54,955
+is the set containing 2-4. Okay. Well on
+input R, we'd look at the, uh, and again
+
+168
+00:18:54,955 --> 00:19:02,474
+this is the NFA table, we look at the
+things marked in red. That is, on two, so
+
+169
+00:19:02,474 --> 00:19:09,994
+from two on input R you go to four and
+six, and from state four, on input R, you go
+
+170
+00:19:09,994 --> 00:19:17,996
+to two and eight, so from the set containing
+2,4 on R you go to 2,4,6,8 and this is a
+
+171
+00:19:17,996 --> 00:19:24,736
+single state of the DFA. And, since I
+haven't encountered the state before, I
+
+172
+00:19:24,736 --> 00:19:31,294
+now create a row for it. Reminding me that
+I'm gonna have to figure out what its
+
+173
+00:19:31,294 --> 00:19:37,664
+transitions are, sometime in the future.
+Let's see, and from state 24 on input B,
+
+174
+00:19:37,664 --> 00:19:43,882
+you just look at, where the NFA goes on
+those two states, and you take the union
+
+175
+00:19:43,882 --> 00:19:49,797
+of 1-3-5 and 1-5-7, that's 1-3-5-7. And that's in
+there, and I also put it here, cause I'm
+
+176
+00:19:49,797 --> 00:19:55,779
+gonna have to figure out its row in a
+minute. Now we fill out the row for 5.
+
+177
+00:19:55,779 --> 00:20:02,085
+And that's fairly easy. You just look at
+the row for 5 on the NFA table. And
+
+178
+00:20:02,085 --> 00:20:08,780
+you enter the, the states right there. 
+2-4-6-8, we've seen already. So we
+
+179
+00:20:08,780 --> 00:20:14,930
+don't have to create a row for it. 
+1-3-7-9 has not been created. So
+
+180
+00:20:14,930 --> 00:20:20,823
+we will create it now. And I've always
+started because notice, that is the a, a
+
+181
+00:20:20,823 --> 00:20:28,317
+final state of the DFA. It has the final
+state of the NFA state 9. Okay, now for
+
+182
+00:20:28,317 --> 00:20:36,161
+2-4-6-8. Again, I've in the
+NFA table, I've put in red, the relevant
+
+183
+00:20:36,161 --> 00:20:43,251
+rows. For R, I just take the union. I've
+got 4-6, 2-8, 2-8, 4-6. So the union is
+
+184
+00:20:43,251 --> 00:20:50,618
+2-4-6-8. That's a state I've seen already,
+not interesting. On B, I've got 1-3-5,
+
+185
+00:20:50,618 --> 00:20:57,011
+I've got 1-5-7. Got 3-5-9, 5-7-9. The union
+of that is 1-3-5-7-9. Got a new state, so
+
+186
+00:20:57,011 --> 00:21:03,202
+I add it to the list of rows that I need
+to construct. And by the way it's also a
+
+187
+00:21:03,202 --> 00:21:11,239
+final state, because it contains 9.
+Okay. Here's the row for 1-3-5-7. Again,
+
+188
+00:21:11,239 --> 00:21:21,100
+same process. You again get 2-4-6-8, on R.
+And you get 1-3-5-7-9, on B., and these are
+
+189
+00:21:21,100 --> 00:21:29,076
+both states you've seen, so we add no new
+rows, for 3-7-9. Oh, we just compute it's
+
+190
+00:21:29,076 --> 00:21:35,421
+entries. Perhaps the only interesting
+thing is that on a B, all of 1, 3,
+
+191
+00:21:35,421 --> 00:21:42,336
+7 and 9 go to only, only 5 on B
+so what you get is a set containing
+
+192
+00:21:42,336 --> 00:21:48,681
+only 5. That is a state that we've seen
+before, as, of course is 2-4-6-8.
+
+193
+00:21:48,681 --> 00:21:56,028
+So we don't have to add any new
+states, and, finally, 1-3-5-7-9
+
+194
+00:21:56,028 --> 00:22:01,186
+also yields no new states, and,
+so, we now have completed. The entire
+
+195
+00:22:01,186 --> 00:22:07,963
+transition table for the DFA. Notice it
+only has seven states, while the NFA
+
+196
+00:22:07,963 --> 00:22:14,555
+had nine. So it actually shrunk the number
+of states. Again, you have to be rather
+
+197
+00:22:14,555 --> 00:22:20,721
+lucky to do that, but it does happen.
+We're going to prove that the NFA and the
+
+198
+00:22:20,721 --> 00:22:25,901
+DFA reconstruct, but the subset
+construction are equivalent. That is they
+
+199
+00:22:25,901 --> 00:22:32,919
+define the same language. You must thus
+show that if one accepts a string W if and
+
+200
+00:22:32,919 --> 00:22:40,337
+only if the other does. That is the two
+languages are each contained in the other
+
+201
+00:22:40,337 --> 00:22:47,571
+and therefore they are the same. Now
+notice that delta N is a set of NFA states
+
+202
+00:22:47,571 --> 00:22:54,318
+Delta D on the other hand is a single
+state, but its name is a set of NFA
+
+203
+00:22:54,318 --> 00:23:03,098
+states. So it is quite reasonable, at
+least or it's a, a, an interesting pun to
+
+204
+00:23:03,098 --> 00:23:11,130
+argue that this as a set, as a single
+state, is the same as that, as a set of
+
+205
+00:23:11,130 --> 00:23:20,693
+states. For the basis, let W be the empty
+string. Then, delta N of Q zero, and empty
+
+206
+00:23:20,693 --> 00:23:28,279
+string is the set containing Q zero, by
+the basis rule for extending the delta for
+
+207
+00:23:28,279 --> 00:23:36,143
+non deterministic automata. And delta D
+of the set containing Q zero and the empty
+
+208
+00:23:36,143 --> 00:23:43,174
+string is the set containing Q zero again
+by these extended delta rule for
+
+209
+00:23:43,174 --> 00:23:51,245
+deterministic automata. For the
+inductive step, we'll assume the inductive
+
+210
+00:23:51,245 --> 00:23:57,174
+hypothesis that the states of the DFA,
+that the DFA and the NFA get to on stream
+
+211
+00:23:57,174 --> 00:24:02,437
+W are the same sets for all streams
+shorter than W. And we'll prove the
+
+212
+00:24:02,437 --> 00:24:08,218
+statement for W itself. Okay, W is of
+length at least one, so we can write it as
+
+213
+00:24:08,218 --> 00:24:14,369
+string X followed by symbol A. And we can
+assume the inductive hypothesis holds for
+
+214
+00:24:14,369 --> 00:24:24,810
+X, because it is clearly shorter than W.
+That is, we're going to assume that delta
+
+215
+00:24:24,810 --> 00:24:32,291
+N of Q zero and X is delta D of set
+containing Q zero and X. And we'll call
+
+216
+00:24:32,291 --> 00:24:40,671
+that set S. Let T be the set of states the
+NFA can get to by starting in state S, and
+
+217
+00:24:40,671 --> 00:24:49,011
+following a transition on A. So that is,
+we have. >> Let us say, there's a set S of
+
+218
+00:24:49,011 --> 00:24:56,944
+states and coming out of various of these
+states are transitions on A. >> Okay, by
+
+219
+00:24:56,944 --> 00:25:05,366
+the rules of the extended delta for NFA's
+the set T of all the states that you get
+
+220
+00:25:05,366 --> 00:25:17,176
+to. Is delta N. Of Q. Zero and W. By the
+subset construction. We also know the
+
+221
+00:25:17,176 --> 00:25:24,201
+delta D of S and A, is T. Thus, delta N of
+Q zero and W, and delta D of Q zero and
+
+222
+00:25:24,201 --> 00:25:31,573
+W are both T. The latter of course is
+by the, the extension rule for, for
+
+223
+00:25:31,573 --> 00:25:38,425
+deterministic automa... Deterministic
+automata. That is how you compute the
+
+224
+00:25:38,425 --> 00:25:45,209
+extended delta. So we have therefore
+proved the inductive step. Okay, we are
+
+225
+00:25:45,209 --> 00:25:50,341
+now going to an additional ability to
+NFAs. The ability to make a spontaneous
+
+226
+00:25:50,341 --> 00:25:55,606
+transition on epsilon. That is, without
+using any input. We just saw that the NFA,
+
+227
+00:25:55,606 --> 00:26:00,871
+while it can be a convenience in designing
+automata, still accepts only regular
+
+228
+00:26:00,871 --> 00:26:06,335
+languages. The same is true for the new
+model, which we'll call epsilon NFAs. But
+
+229
+00:26:06,335 --> 00:26:11,334
+they can be a real convenience in
+constructing automata. And yet they still
+
+230
+00:26:11,334 --> 00:26:17,692
+accept only the regular languages. Here's
+an example of an epsilon NFA. The
+
+231
+00:26:17,692 --> 00:26:23,397
+transition diagram has some arcs labeled
+epsilon, and we can follow any such arc
+
+232
+00:26:23,397 --> 00:26:29,458
+without adding to the sequence of inputs
+that the automaton has processed. That is,
+
+233
+00:26:29,458 --> 00:26:34,806
+epsilon is invisible as far as input
+strings are concerned. We also see the
+
+234
+00:26:34,806 --> 00:26:39,941
+transition table for this automaton.
+Notice it has a separate column for
+
+235
+00:26:39,941 --> 00:26:45,218
+epsilon. But epsilon is not an input
+symbol, it's not a member of the input
+
+236
+00:26:45,218 --> 00:26:53,300
+alphabet. For example, from the start state
+A, let's look at A, there is only one
+
+237
+00:26:53,300 --> 00:27:00,590
+transition on zero to E, and that's why,
+you have a set containing E over here.
+
+238
+00:27:00,590 --> 00:27:08,420
+There's only one transition that's to B
+on input 1. So that's why you have a set
+
+239
+00:27:08,420 --> 00:27:15,440
+containing B there, and there are no
+transitions out on, on the empty string.
+
+240
+00:27:16,100 --> 00:27:23,822
+So we have, the empty set symbol, is,
+represents the transitions from A on, in,
+
+241
+00:27:23,822 --> 00:27:31,640
+on, on epsilons, it's not an input. It's,
+it represents spontaneous, transitions.
+
+242
+00:27:32,620 --> 00:27:39,720
+Let's look at, E now. On zero, there's a
+transition to F, and only to F. So you get
+
+243
+00:27:39,720 --> 00:27:46,474
+the set containing F. There... There are no
+transitions at all from E on a 1, so
+
+244
+00:27:46,474 --> 00:27:55,231
+you get the empty set. And on epsilon you
+have transitions to both B And C, so
+
+245
+00:27:55,231 --> 00:28:05,650
+that you have the set containing BC. At that
+ entry. Okay. Notice that if we were
+
+246
+00:28:05,650 --> 00:28:16,128
+in state E, and the input is 1, then we
+can spontaneously go to B on epsilon. And
+
+247
+00:28:16,128 --> 00:28:27,250
+then, on the 1, wind up in C. Okay. We
+can also go spontaneously from E to C on
+
+248
+00:28:27,250 --> 00:28:39,435
+epsilon, and wind up on D in input 1.
+Okay. Now to do the conversion of epsilon
+
+249
+00:28:39,435 --> 00:28:46,131
+NFAs to regular or ordinary NFAs we need
+to have the notion of the closure. The
+
+250
+00:28:46,131 --> 00:28:53,166
+closure of a state Q, which we're going to
+write to CL of Q, is the set of states we
+
+251
+00:28:53,166 --> 00:28:59,862
+can get to starting in Q and following
+only epsilon transitions. So for example,
+
+252
+00:28:59,862 --> 00:29:06,134
+from A you can get nowhere else on
+epsilon, right? If you're here there are
+
+253
+00:29:06,134 --> 00:29:12,708
+no epsilon transitions out. As a result.
+The closure of A is just the set
+
+254
+00:29:12,708 --> 00:29:18,448
+containing A. Of course, you can, you're
+in A to begin with, so you can stay in A.
+
+255
+00:29:18,448 --> 00:29:24,482
+So closure of this state always contains
+at least itself. Closure of E is trickier.
+
+256
+00:29:24,482 --> 00:29:31,392
+Okay, we start in E, surely we can reach
+E. Then there are epsilon transitions from E
+
+257
+00:29:31,392 --> 00:29:38,025
+to B and C. So, we can, surely get to B
+and C. But now we have to see where we can
+
+258
+00:29:38,025 --> 00:29:44,009
+get to from B and C. Well, C doesn't have any
+epsilon transitions out, so we can't get
+
+259
+00:29:44,009 --> 00:29:51,529
+any, anywhere else, but B also has a
+transition on epsilon to D. D has nowhere
+
+260
+00:29:51,529 --> 00:29:59,734
+else to go on epsilon. So, the conclusion
+is that the conclos.. the closure of e
+
+261
+00:29:59,734 --> 00:30:06,023
+on, is, All of B, C, D, and E. Okay, and
+that's what we've written here. Then we
+
+262
+00:30:06,023 --> 00:30:12,194
+also are going to need to apply the
+closure operator to sets of states and,
+
+263
+00:30:12,441 --> 00:30:18,694
+the definition is quite simple. The
+closure of the set of states is just the
+
+264
+00:30:18,694 --> 00:30:29,455
+union of the closures of each of those
+states. Now. We need to describe the
+
+265
+00:30:29,455 --> 00:30:36,262
+operation of a, an epsilon NFA by
+defining the extended delta. And again,
+
+266
+00:30:36,262 --> 00:30:42,047
+it's intended to tell us about where we
+can get from a given state, following a
+
+267
+00:30:42,047 --> 00:30:47,467
+path labeled by a certain string W.
+However epsilon, the empty string, is
+
+268
+00:30:47,467 --> 00:30:53,399
+invisible along paths. So, W only involves
+the real input symbols of the automaton.
+
+269
+00:30:53,399 --> 00:30:59,185
+And as a result, we follow paths that are
+labeled by real symbols of W, but with
+
+270
+00:30:59,185 --> 00:31:07,969
+arcs labeled epsilon interspersed
+as much as we like. So. For the epsilon
+
+271
+00:31:07,969 --> 00:31:14,296
+NFA, delta had of QA, is not the same as
+delta of Q and A, because delta of Q and A
+
+272
+00:31:14,296 --> 00:31:20,545
+does not include any epsilon transitions.
+So we're gonna keep the hats on the
+
+273
+00:31:20,545 --> 00:31:27,028
+extended delta when we need them. Okay. So
+for the basis, delta had Q with epsilon is
+
+274
+00:31:27,028 --> 00:31:33,667
+the closure of the state Q, so it's not
+just Q if you can reach anywhere from Q on
+
+275
+00:31:33,667 --> 00:31:39,760
+epsilon then that's included in the
+closure and therefore in the delta hat.
+
+276
+00:31:39,760 --> 00:31:47,112
+For the induction, suppose the input is
+string X followed by symbol A. Start by
+
+277
+00:31:47,112 --> 00:31:55,938
+figuring out what delta had of Q, O, and X
+is. Say it is a set of states S. Okay, for
+
+278
+00:31:55,938 --> 00:32:06,430
+example let's suppose that X is BC. And we
+might start from Q zero, and we'll follow
+
+279
+00:32:06,430 --> 00:32:15,628
+paths labeled epsilon, and then a B. And
+then maybe more epsilon, possibly
+
+280
+00:32:15,628 --> 00:32:27,650
+none. To state what we follow a, a C, and
+then maybe more epsilons. Suppose this
+
+281
+00:32:27,650 --> 00:32:35,860
+takes us to a set of states S. To compute
+delta hat of Q and X followed by A, we
+
+282
+00:32:35,860 --> 00:32:43,862
+look at all the states in S. We find all
+the A transitions, no epsilons now. We
+
+283
+00:32:43,862 --> 00:32:52,176
+then have to take the closure of these
+states, that is, we follow all the epsilon
+
+284
+00:32:52,176 --> 00:33:08,070
+paths. [sound]. And finally get to the
+state that is, that is, this side, this
+
+285
+00:33:08,070 --> 00:33:14,833
+set of states is the, is delta hat of Q
+and XA. Here's an, here is an example.
+
+286
+00:33:15,103 --> 00:33:22,047
+This is the automaton that we've been
+playing with. And say delta hat of A in
+
+287
+00:33:22,047 --> 00:33:29,621
+epsilon is the closure of A. That's, the
+basis rule. And that's just set containing
+
+288
+00:33:29,621 --> 00:33:42,500
+A, because A doesn't get your anywhere on
+epsilon. Now, I'd say the delta hat of A
+
+289
+00:33:42,500 --> 00:33:51,082
+and zero is the closure of E, which is, B,
+C, D, and E as we discussed earlier. Why
+
+290
+00:33:51,082 --> 00:33:59,028
+closure of E? Because when we already
+determined that the closure of A is A,
+
+291
+00:33:59,028 --> 00:34:05,855
+and, on zero. The only place you can get
+to from A on a zero, on, on a zero is E,
+
+292
+00:34:05,855 --> 00:34:17,229
+so we have to close E. Now, delta hat of
+A. And the string zero one. I claim is
+
+293
+00:34:17,229 --> 00:34:23,787
+closure of C and D, which is actually is
+just C and D. Why is it closure of CD?
+
+294
+00:34:23,787 --> 00:34:30,028
+Well look. We already know that delta hat
+of A and zero is the set containing B, C,
+
+295
+00:34:30,028 --> 00:34:38,711
+D, and E. Okay. So we're, so here, here,
+here and here. Now on a one, where can I
+
+296
+00:34:38,711 --> 00:34:45,339
+go from any of those states. Well from E
+no place, from D no pace, from B to C and
+
+297
+00:34:45,339 --> 00:34:52,132
+from C to D. So the only place that you
+can get to from B C D and E on a one are C
+
+298
+00:34:52,132 --> 00:34:58,375
+and D. So that's why we start with C and
+D. We take the closure now neither C nor D
+
+299
+00:34:58,375 --> 00:35:05,720
+have any epsilon transition out. So we
+conclude that Delta hat of A and 01 is the set
+
+300
+00:35:05,720 --> 00:35:12,865
+containing C,D. What that means is, if you
+look at. Starting at A, all the paths
+
+301
+00:35:12,865 --> 00:35:21,543
+labeled 01, with as many epsilons as you
+wish thrown in the middle those paths lead
+
+302
+00:35:21,543 --> 00:35:39,840
+you only to C and D. That is, there's this.. 
+There's this...and there is this.
+
+303
+00:35:40,440 --> 00:35:47,182
+Okay. And that's it. Okay. Finally, the
+language of an epsilon NFA is defined in the
+
+304
+00:35:47,182 --> 00:35:52,441
+expected way. For any string W, you
+compute the extended delta of the starred
+
+305
+00:35:52,441 --> 00:35:57,769
+state, and that's string W. And if you
+see, you see if any of the resulting set
+
+306
+00:35:57,769 --> 00:36:03,683
+of states is a final state, except W, if
+so, and if not, then not. We now want to
+
+307
+00:36:03,683 --> 00:36:09,003
+show that the NFA and epsilon NFA models
+yield the same languages. The regular
+
+308
+00:36:09,003 --> 00:36:14,596
+languages of course. One direction is easy
+since an ordinary NFA is an epsilon NFA
+
+309
+00:36:14,596 --> 00:36:20,053
+which that happens to have no transitions
+on epsilon. But proving that for every
+
+310
+00:36:20,053 --> 00:36:25,851
+epsilon NFA, there's an ordinary NFA that
+accepts the same language we're going to
+
+311
+00:36:25,851 --> 00:36:30,762
+have to get rid of the epsilon
+transitions, we do that by combining them
+
+312
+00:36:30,762 --> 00:36:35,688
+with the next transition on a real
+input. If you're following the text you
+
+313
+00:36:35,688 --> 00:36:39,971
+should notice that this construction is
+somewhat different from the one in the
+
+314
+00:36:39,971 --> 00:36:44,091
+text, but both constructions work. Here
+we'll have to change the set of final
+
+315
+00:36:44,091 --> 00:36:48,536
+states while the one in the book doesn't,
+but this construction is I believe, a bit
+
+316
+00:36:48,536 --> 00:36:54,854
+simpler. This is a picture of how we are
+iron out the epsilon transitions. We
+
+317
+00:36:54,854 --> 00:37:02,000
+start from the state, here, and we follow
+all the epsilons we can using the closure
+
+318
+00:37:02,000 --> 00:37:08,726
+operator. And I'm sorta imagining that the
+yellow area represents paths that are
+
+319
+00:37:08,726 --> 00:37:15,896
+labeled only by epsilons. We then follow
+all the transitions from any of the states
+
+320
+00:37:15,896 --> 00:37:22,888
+we reach on a real input symbol A. The
+ordinary NFA is able to get to on input A
+
+321
+00:37:22,888 --> 00:37:30,088
+any of the states that can be reached
+using these transitions of the epsilon NFA
+
+322
+00:37:30,088 --> 00:37:37,466
+on input A, that is, the ordinary NFA will
+have a transition from here to each of
+
+323
+00:37:37,466 --> 00:37:44,768
+these states on input A. Now, since we
+don't close the states after transition on
+
+324
+00:37:44,768 --> 00:37:50,499
+A, we have to make additional final
+states. Those that can reach a final state
+
+325
+00:37:50,499 --> 00:37:56,529
+on epsilons only. So, for example, if this
+state might not be final, but it might be
+
+326
+00:37:56,529 --> 00:38:01,586
+able to reach by epsilons, some final
+state. If so, that there is the final
+
+327
+00:38:01,586 --> 00:38:06,659
+state of the epsilon NFA, but in the,
+the ordinary NFA we're constructing, we're
+
+328
+00:38:06,659 --> 00:38:11,547
+gonna make this state be final because
+in effect, it has the power
+
+329
+00:38:11,547 --> 00:38:16,559
+of the final state in the epsilon NFA.
+Whenever you get there, epsilons will
+
+330
+00:38:16,559 --> 00:38:21,571
+take you to the final state. So you
+know that whatever got you here, will be
+
+331
+00:38:21,571 --> 00:38:26,645
+accepted by the epsilon nfa. So you
+want the ordinary NFA to accept it
+
+332
+00:38:26,645 --> 00:38:33,370
+as well. We're gonna start with an epsilon
+NFA that has the usual components, Q for
+
+333
+00:38:33,370 --> 00:38:39,378
+states, sigma for inputs and so on. But
+we'll use, delta E for its transition
+
+334
+00:38:39,378 --> 00:38:45,089
+function. Okay, and we're gonna construct
+an ordinary NFA with the same set of
+
+335
+00:38:45,089 --> 00:38:51,170
+states, the same input symbols, same start
+state. A different set of final states,
+
+336
+00:38:51,170 --> 00:38:56,935
+perhaps, F prime, and its transition
+function will be called delta N. Okay.
+
+337
+00:38:56,935 --> 00:39:04,729
+Now, the way we compute delta N of Q and A
+is as follows. We want to start at state
+
+338
+00:39:04,729 --> 00:39:12,838
+Q. We're going to close Q. That is by
+following epsilon paths, to get to some
+
+339
+00:39:12,838 --> 00:39:22,460
+set of states S. Okay. Delta N. Of Q. And
+A. Take all the states in S. We find all
+
+340
+00:39:22,460 --> 00:39:34,613
+their transitions on A. And. This, this is
+the set of states that is delta sub N of
+
+341
+00:39:34,613 --> 00:39:42,320
+Q and A. That is in the ordinary automaton,
+Q, gets you, on A., anywhere that
+
+342
+00:39:42,320 --> 00:39:49,589
+the epsilon NFA can get you by following
+zero or more epsilons and then an A. Okay.
+
+343
+00:39:49,589 --> 00:39:56,791
+Now, F prime, the set of final states of the
+ordinary NFA, is the set of states Q such
+
+344
+00:39:56,791 --> 00:40:03,728
+that the closure of Q contains the state
+of F. That's the thing that, again that
+
+345
+00:40:03,728 --> 00:40:10,754
+allows you, if there is a epsilon path to
+a final state, then this state gets the,
+
+346
+00:40:10,754 --> 00:40:21,259
+the same accepting power. That wasn't
+needed in the epsilon NFA. Okay, we're
+
+347
+00:40:21,259 --> 00:40:28,045
+not going to prove this, but the idea is
+that the NFA on any input W enters the set
+
+348
+00:40:28,045 --> 00:40:34,668
+of states of the epsilon NFA enters on the
+same input, using epsilons transitions
+
+349
+00:40:34,668 --> 00:40:41,879
+anywhere it likes except at the end after
+reading all the real inputs of W. However,
+
+350
+00:40:41,879 --> 00:40:48,981
+state P in delta N of Q zero and W is a final
+state, if, in the epsilon NFA, B can get to
+
+351
+00:40:48,981 --> 00:40:55,993
+a final state following all the epsilons.
+Okay, thus the fact that the equation
+
+352
+00:40:55,993 --> 00:41:05,803
+holds that is this, this equation here. Is
+enough to say that W is accepted by either
+
+353
+00:41:05,803 --> 00:41:17,099
+both or neither of the automata. That is if
+delta E contains an accepting state, then
+
+354
+00:41:17,099 --> 00:41:25,895
+delta N of Q... of Q zero and W, will
+contain a state, which has also been made
+
+355
+00:41:25,895 --> 00:41:32,384
+accepting, because it can reach on
+epsilons an accepting state of the
+
+356
+00:41:32,384 --> 00:41:38,703
+epsilon NFA. Here's the epsilon NFA we
+used before as an example and the NFA,
+
+357
+00:41:38,703 --> 00:41:45,437
+ordinary NFA that we construct. The
+interesting changes are marked in red So,
+
+358
+00:41:45,437 --> 00:41:52,746
+first of all here are the non-, all of the
+non-trivial closures. That is the closure
+
+359
+00:41:52,746 --> 00:41:59,643
+of well, the closure of B. Because B goes
+to D on epsilon, the closure of B is B and D.
+
+360
+00:41:59,643 --> 00:42:07,665
+And the closure of E, which we
+worked out before is, well... E goes to B
+
+361
+00:42:07,665 --> 00:42:17,731
+and C. B goes to D, so E can go to B,
+C, D, and E. Okay, in the NFA without
+
+362
+00:42:17,731 --> 00:42:25,148
+epsilon transitions, we need to change the
+transition from E on input one. And, the
+
+363
+00:42:25,148 --> 00:42:31,712
+reason is that we first take the closure
+of E, which of course is B, C, D, and E.
+
+364
+00:42:31,712 --> 00:42:38,873
+And then we ask, where can I get to from
+those states on a one? And, if you look at
+
+365
+00:42:38,873 --> 00:42:45,315
+the, the epsilon NFA from B, C, D, and E,
+all you can get to are C and D. Okay, so
+
+366
+00:42:45,315 --> 00:42:52,173
+we put C and D, it becomes the entry there
+where as in the epsilon NFA it was the
+
+367
+00:42:52,173 --> 00:43:02,331
+empty set. Kay, the transition from E on,
+on zero actually doesn't change. The
+
+368
+00:43:02,331 --> 00:43:09,325
+reason is that, that B, C and D have no
+transitions on, on zero. So, the fact that
+
+369
+00:43:09,325 --> 00:43:16,060
+we can get to them on epsilon doesn't
+help us when the input is, is, is a zero.
+
+370
+00:43:18,560 --> 00:43:26,710
+Okay, finally, since the closures of B and
+E include the final state D, they become
+
+371
+00:43:26,710 --> 00:43:33,362
+final states as, as well as D, in the
+ordinary NFA. And that's the entire
+
+372
+00:43:33,362 --> 00:43:42,611
+construction. So, we now have three
+different formalisms for describing
+
+373
+00:43:42,611 --> 00:43:47,546
+languages. The DFA, the NFA, and the
+epsilon NFA. They look progressively more
+
+374
+00:43:47,546 --> 00:43:52,548
+powerful, and in fact, they are more
+powerful in the sense of the things they
+
+375
+00:43:52,548 --> 00:43:57,867
+can do. But, in fact, they give us exactly
+the same class of regular languages. Very
+
+376
+00:43:57,867 --> 00:44:02,825
+soon we're gonna see a fourth formalism
+called regular expressions that look quite
+
+377
+00:44:02,825 --> 00:44:07,852
+different from these. But in fact, also
+gives us exactly the regular languages. So
+
+378
+00:44:07,852 --> 00:44:12,609
+we might be getting the idea that the
+regular languages are quite a natural
+
+379
+00:44:12,609 --> 00:44:17,602
+class of languages, and indeed they are.
+We should notice that the added power of
+
+380
+00:44:17,602 --> 00:44:22,102
+NFAs and epsilon NFAs are quite useful.
+For example we shall talk about designing
+
+381
+00:44:22,102 --> 00:44:26,144
+automata to recognize sets of key words,
+say the reserved words in C or some
+
+382
+00:44:26,144 --> 00:44:30,691
+other programming language. That is an
+important task for building a compiler for
+
+383
+00:44:30,691 --> 00:44:34,753
+the language. We could design a DFA for
+the task, but it is much easier to start
+
+384
+00:44:34,753 --> 00:44:41,758
+with simply DFAs for each keyword and
+stretch the chain of states... Say, for "else" it's
+
+385
+00:44:41,758 --> 00:44:52,164
+just an E, an L, an S, and an E, and of course
+that's a final state. That's how you
+
+386
+00:44:52,164 --> 00:44:59,534
+recognize your keyword "else." Then, we'll
+connect them all with epsilon transitions
+
+387
+00:44:59,534 --> 00:45:03,986
+from a single start state. So, you'll put
+an epsilon here, this becomes the start
+
+388
+00:45:03,986 --> 00:45:09,643
+state. And you'll have epsilon transitions
+to a lot of these chains, for all the
+
+389
+00:45:09,643 --> 00:45:14,275
+keywords, and they of course all end 
+in a final state. And that's all there is to it.
+
+390
+00:45:14,275 --> 00:45:20,748
+You've got an, you've got an epsilon  NFA. 
+And then we're gonna convert them
+
+391
+00:45:20,748 --> 00:45:28,416
+to a deterministic automaton, cause the
+deterministic automaton is necessary
+
+392
+00:45:28,416 --> 00:45:41,791
+for if you want to actually execute an, an
+automaton. That is only a DFA can be
+
+393
+00:45:41,791 --> 00:45:47,152
+implemented. No one, yet, has yet invented
+a non deterministic computer, although I've heard
+
+394
+00:45:47,152 --> 00:45:49,675
+that Intel is working on it.

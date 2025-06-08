@@ -1,0 +1,918 @@
+1
+00:00:00,000 --> 00:00:05,761
+Your about to embark on the study of the
+branch of computer science theory know as
+
+2
+00:00:05,761 --> 00:00:11,176
+automata theory or language theory. We're
+going to follow fairly closely a one
+
+3
+00:00:11,176 --> 00:00:16,730
+quarter course I gave at Stanford a few
+years ago. It's traditional number CS154.
+
+4
+00:00:16,730 --> 00:00:21,567
+This theory plays an important role in
+computer science. I'm aware that many
+
+5
+00:00:21,567 --> 00:00:26,894
+students do see the importance to the
+mathematical approach to CS, the feeling
+
+6
+00:00:26,894 --> 00:00:31,290
+is just let me near a keyboard and let me
+code, It's quite common. In this
+
+7
+00:00:31,290 --> 00:00:35,587
+introductory video I'll try to give some
+reasons why you should learn the material
+
+8
+00:00:35,587 --> 00:00:40,284
+contained in the course. A number of years
+ago Stanford took a survey of its
+
+9
+00:00:40,284 --> 00:00:45,267
+graduates five years after they got their
+undergraduate degrees. What they wanted to
+
+10
+00:00:45,267 --> 00:00:50,132
+find out was whether Stanford was teaching
+stuff that they actually used in their
+
+11
+00:00:50,132 --> 00:00:54,225
+jobs. So computer science graduates
+naturally sided out in conducting
+
+12
+00:00:54,225 --> 00:00:59,068
+programming courses as the one they used
+the most, No surprise here. Next came our
+
+13
+00:00:59,068 --> 00:01:04,032
+sophomore level course, covering basic
+data structures and algorithms and system
+
+14
+00:01:04,032 --> 00:01:09,058
+software, Again no surprise. But after the
+required courses, we found the CS154, the
+
+15
+00:01:09,058 --> 00:01:13,649
+automata course on which this set of
+videos is based was second after the
+
+16
+00:01:13,649 --> 00:01:18,675
+database course. It was cited by three
+times as many as cited the introductory AI
+
+17
+00:01:18,675 --> 00:01:23,390
+course, for example, So I want, in the
+next few minutes, to try to explain what
+
+18
+00:01:23,390 --> 00:01:28,478
+it was about automata theory that impacted
+what our former students were doing in
+
+19
+00:01:28,478 --> 00:01:33,285
+their professional lives. So, let's see
+some of the ideas we are going to learn
+
+20
+00:01:33,285 --> 00:01:38,893
+about in the course and how they appear in
+practice. One very commonly used idea is
+
+21
+00:01:38,893 --> 00:01:43,955
+the regular expression, A simple notation
+for describing many of the patterns that
+
+22
+00:01:43,955 --> 00:01:48,956
+arise naturally in practice. Many pieces
+of software that you might find yourself
+
+23
+00:01:48,956 --> 00:01:53,771
+working on in the future need a simple
+input language to describe patterns. So
+
+24
+00:01:53,771 --> 00:02:00,271
+you might well find yourself implementing
+some form of regular expression. For
+
+25
+00:02:00,271 --> 00:02:05,563
+example, many UNIX text processing
+commands use a variety of regular
+
+26
+00:02:05,563 --> 00:02:11,945
+expressions. This expression describes a
+line of text that has a letter A followed
+
+27
+00:02:11,945 --> 00:02:17,837
+by any number of characters followed by
+the letter B. For a more modern example,
+
+28
+00:02:17,837 --> 00:02:23,684
+the XML document mark-up language invites
+us to describe the structure of documents,
+
+29
+00:02:23,684 --> 00:02:29,259
+by a DTD, or document type definition. The
+DTD language consists of description
+
+30
+00:02:29,259 --> 00:02:34,630
+development, such as the example given
+here. A person element consists of a name
+
+31
+00:02:34,630 --> 00:02:40,069
+element, followed by an address element,
+followed by any number of child elements.
+
+32
+00:02:40,069 --> 00:02:45,372
+Finite automata are another topic we'll
+see early on, They are in fact the way
+
+33
+00:02:45,372 --> 00:02:50,618
+regular expression based languages are
+implemented. They also have been used for
+
+34
+00:02:50,618 --> 00:02:55,217
+decades to model electronic circuits, and
+in particular to help design good
+
+35
+00:02:55,217 --> 00:02:59,694
+circuits. They have also been used to
+model protocols, and we'll give some
+
+36
+00:02:59,694 --> 00:03:04,232
+examples later in this course. Especially
+[inaudible] underlie the body of
+
+37
+00:03:04,232 --> 00:03:09,383
+techniques known as model checking, Which
+has been used to verify the correctness of
+
+38
+00:03:09,383 --> 00:03:14,105
+both communication protocols and large
+electronic circuits. Another important
+
+39
+00:03:14,105 --> 00:03:18,870
+aspect of the course is the context free
+grammar. These are used to put a tree
+
+40
+00:03:18,870 --> 00:03:23,241
+structure on strings, typically text
+strings, according to some recursive
+
+41
+00:03:23,241 --> 00:03:34,832
+rules. They are an essential for
+describing the syntax of programming
+
+42
+00:03:34,839 --> 00:03:35,961
+languages and are a part of every
+compiler. They also play an important role
+
+43
+00:03:35,961 --> 00:03:37,332
+in describing the syntax of natural
+languages and are used in software that
+
+44
+00:03:37,332 --> 00:03:42,900
+does machine translation and other natural
+language processing. And the DTD as we
+
+45
+00:03:42,900 --> 00:03:47,120
+mentioned in connection with regular
+expressions are really context free
+
+46
+00:03:47,120 --> 00:03:52,557
+grammars. It is the single rules of the
+DTD that look like regular expressions. .
+
+47
+00:03:52,564 --> 00:03:56,741
+The topics we just mentioned are
+essentially tools for doing simple but
+
+48
+00:03:56,741 --> 00:04:01,092
+important things but there's a second
+broad theme in this course. There are
+
+49
+00:04:01,092 --> 00:04:05,791
+fundamental limitations on our ability to
+compute. A computer scientist should be
+
+50
+00:04:05,791 --> 00:04:10,026
+aware of these limitations because only
+then can you avoid spending time
+
+51
+00:04:10,026 --> 00:04:15,131
+attempting something that is impossible.
+Mm-hm. One limitation is undecidability
+
+52
+00:04:15,131 --> 00:04:19,657
+there are problems that cannot be solved
+by computation. For example you might
+
+53
+00:04:19,657 --> 00:04:25,120
+imagine you could, could right a compiler
+that would refuse To compile programs that
+
+54
+00:04:25,120 --> 00:04:31,199
+printed out dirty words. Even assuming you
+had a precise definition of what words
+
+55
+00:04:31,199 --> 00:04:36,048
+were dirty. You can't do this. We're going
+to prove that there is no way to tell
+
+56
+00:04:36,048 --> 00:04:40,802
+whether a program will ever print a
+particular word Or even if it will ever
+
+57
+00:04:40,802 --> 00:04:46,242
+print anything at all. And we also need to
+know about the classic problems called
+
+58
+00:04:46,242 --> 00:04:51,079
+intractable. These are colloquially
+problems that we can solve but whose
+
+59
+00:04:51,079 --> 00:04:56,654
+solution takes time that is exponential in
+the input size. These problems generally
+
+60
+00:04:56,654 --> 00:05:01,397
+need To be finessed in some way such as by
+approximating the solution. The reality of
+
+61
+00:05:01,397 --> 00:05:05,914
+the theory of intractability is quite a
+bit different from the colloquial version.
+
+62
+00:05:05,914 --> 00:05:10,376
+But while the undecidable problems have
+been proven not to have any solution, for
+
+63
+00:05:10,376 --> 00:05:14,508
+the attractable problems we have very
+strong evidence that they require an
+
+64
+00:05:14,508 --> 00:05:18,860
+exponential time but no proof. We'll
+explain all this when we get to the theory
+
+65
+00:05:18,860 --> 00:05:23,181
+of NP completeness is the culmination of
+this course. So another thing you will
+
+66
+00:05:23,181 --> 00:05:27,763
+take away fomr this course is the ability
+to navigate the space of problems that you
+
+67
+00:05:27,763 --> 00:05:31,968
+might encounter in a life of creative
+software construction. You will learn to
+
+68
+00:05:31,968 --> 00:05:36,389
+learn how to determine that a problem is
+undecidable, and how to determine that it
+
+69
+00:05:36,389 --> 00:05:40,701
+is intractable. That lets you avoid the
+problem altogether in the first case, and
+
+70
+00:05:40,701 --> 00:05:45,800
+to modify your approach in the second
+case. There's several less concrete
+
+71
+00:05:45,800 --> 00:05:51,156
+benefits to this course. First you will
+improve your skills at proving fact,
+
+72
+00:05:51,156 --> 00:05:56,231
+especially inductive proofs of which we'll
+do several in great detail. Now I'm not
+
+73
+00:05:56,231 --> 00:06:01,059
+one of the people who thinks formal proofs
+of programs will ever be a serious
+
+74
+00:06:01,059 --> 00:06:06,196
+software methodology, but as you construct
+code you should have a sense of why what
+
+75
+00:06:06,196 --> 00:06:11,531
+you're doing works, the way it is suppose
+to. Often the trickiest parts of a program
+
+76
+00:06:11,531 --> 00:06:15,502
+deal with trees, graphs, or other
+recursive structures. Understanding
+
+77
+00:06:15,502 --> 00:06:19,770
+inductive proofs let you at least
+formulate a reason why you think your
+
+78
+00:06:19,770 --> 00:06:24,452
+method works, even if you don't try to dot
+the I's in a formal proof. We're also
+
+79
+00:06:24,452 --> 00:06:29,194
+going to learn about a number of important
+abstractions: finite automata, regular
+
+80
+00:06:29,194 --> 00:06:33,936
+expressions, context-free grammars, and
+varieties of pushdown automata and Turing
+
+81
+00:06:33,936 --> 00:06:39,479
+machines. Some of the essential parts of
+this course are proving equivalences among
+
+82
+00:06:39,479 --> 00:06:44,962
+the models, that is, any example of one
+model can be simulated by some instance of
+
+83
+00:06:44,962 --> 00:06:49,967
+another model. The process of simulation
+across the models is essentially the same
+
+84
+00:06:49,967 --> 00:06:54,680
+as the modern approach to programming and
+layered abstractions where you write
+
+85
+00:06:54,680 --> 00:06:58,558
+programs at one layer, using the
+primitives of the layer below. At
+
+86
+00:06:58,558 --> 00:07:03,137
+Stanford, I found that a number of people
+taking the automata course were not
+
+87
+00:07:03,137 --> 00:07:07,776
+computer scientists at all, but were
+mathematicians [inaudible] by inclination.
+
+88
+00:07:07,776 --> 00:07:12,653
+That's cool. Welcome to those of you out
+there. I probably won't do things quite as
+
+89
+00:07:12,653 --> 00:07:16,875
+formally as you would like, but more
+formally then the typical computer
+
+90
+00:07:16,875 --> 00:07:21,573
+scientist likes. However, be warned that
+some in the past have found the subject
+
+91
+00:07:21,573 --> 00:07:26,391
+sufficiently interesting, that they saw
+the light, and made major contributions to
+
+92
+00:07:26,391 --> 00:07:31,030
+computer software. A case in point is Ken
+Thompson, the fellow who gave us Unix.
+
+93
+00:07:31,030 --> 00:07:35,436
+Before doing Unix, Ken developed an
+interest in regular expressions and saw
+
+94
+00:07:35,436 --> 00:07:40,195
+that they were an important part of the
+text, text editor. He worked out efficient
+
+95
+00:07:40,195 --> 00:07:45,012
+ways to compile regular expressions into
+programs that could process text. And his
+
+96
+00:07:45,012 --> 00:07:49,956
+algorithms are an important part of what
+we teach about the subject today. It
+
+97
+00:07:49,956 --> 00:07:54,862
+should be no surprise that regular
+expressions form an integral part of so
+
+98
+00:07:54,862 --> 00:07:59,769
+many Unix commands, and that these
+commands give more flexibility and power
+
+99
+00:07:59,769 --> 00:08:04,872
+to Unix users than did those of earlier
+operating systems. Another interesting
+
+100
+00:08:04,872 --> 00:08:09,452
+case is Jim Gray. Jim, before his
+mysterious disappearance, gave us many
+
+101
+00:08:09,452 --> 00:08:14,031
+important ideas in the database field,
+including two phase locking for
+
+102
+00:08:14,031 --> 00:08:19,172
+concurrency control for which he won the
+Touring Award. But I knew Jim when he was
+
+103
+00:08:19,172 --> 00:08:23,857
+a student at Berkeley and I was on leave
+there for a brief period. He did a thesis
+
+104
+00:08:23,857 --> 00:08:28,484
+on two way pushed on automata. We're not
+going to talk about them. They turned out
+
+105
+00:08:28,484 --> 00:08:33,055
+to have been back water of the theory and
+I am sure Jim would agree but they're
+
+106
+00:08:33,055 --> 00:08:37,854
+related to ordinary pushed down automata
+which we will talk about in connection to
+
+107
+00:08:37,854 --> 00:08:42,966
+context regrammars. What is interesting is
+that Greg told me quite a bit later that
+
+108
+00:08:42,966 --> 00:08:48,000
+he decided to become a computer scientist
+because automata theory intrigued him.
+
+109
+00:08:48,000 --> 00:08:53,096
+Only later did he switch into database
+systems, and I believe that the experience
+
+110
+00:08:53,096 --> 00:08:58,067
+he got the aloof fumbling with automata
+make him more capable as a designer of
+
+111
+00:08:58,067 --> 00:09:03,289
+several very innovative systems. So here's
+a summary of what will be covered in the
+
+112
+00:09:03,289 --> 00:09:08,260
+course. We'll start off with what I called
+regular languages. A language is just a
+
+113
+00:09:08,260 --> 00:09:12,913
+set of strings, for example the set of
+character strings that are valid java
+
+114
+00:09:12,913 --> 00:09:17,627
+programs. The regular languages are
+exactly those sets of strings that can be
+
+115
+00:09:17,627 --> 00:09:22,427
+des, described by finite [inaudible] or
+regular expressions. This discussion will
+
+116
+00:09:22,427 --> 00:09:27,005
+also introduce the important concept of
+nondetermism. Machines that can magically
+
+117
+00:09:27,005 --> 00:09:31,075
+turn into many machines that each do
+something independently but with a
+
+118
+00:09:31,075 --> 00:09:35,258
+coordinated effect. This model of
+computation is fanciful, to say the least,
+
+119
+00:09:35,258 --> 00:09:39,893
+but we'll see it plays a really important
+role in several places, including design
+
+120
+00:09:39,893 --> 00:09:44,495
+of algorithms and in understanding the
+theory of intractable problems. We're then
+
+121
+00:09:44,495 --> 00:09:49,308
+going to turn to properties of the regular
+languages. These properties include the
+
+122
+00:09:49,308 --> 00:09:54,121
+ability to answer certain questions about
+finite automata and regular expressions
+
+123
+00:09:54,121 --> 00:09:58,582
+that we cannot decide about programs in
+general. An example would be to tell
+
+124
+00:09:58,582 --> 00:10:03,160
+whether a device makes an output in
+response to even one input. You can't tell
+
+125
+00:10:03,160 --> 00:10:07,973
+for programs in general, but you can for
+finite automata. It is distractibility Our
+
+126
+00:10:07,973 --> 00:10:12,610
+ability to understand very simple formula
+sums, like finite automata or regular
+
+127
+00:10:12,610 --> 00:10:17,694
+expressions do, that make them so very
+valuable when they can be used. We're also
+
+128
+00:10:17,694 --> 00:10:22,630
+gonna talk closure properties of regular
+languages for example the union or
+
+129
+00:10:22,630 --> 00:10:27,696
+intersection of two regular languages is
+also a regular language. The next big
+
+130
+00:10:27,696 --> 00:10:33,022
+topic will be context free languages. This
+is a somewhat larger class of languages
+
+131
+00:10:33,022 --> 00:10:38,023
+that the regular languages. And they
+enable us to do things that you can't do
+
+132
+00:10:38,023 --> 00:10:42,821
+with regular languages such as mash
+balance parentheses or XML tags. We'll
+
+133
+00:10:42,821 --> 00:10:47,784
+talk about two ways to describe such
+languages. First by context-free grammars,
+
+134
+00:10:47,784 --> 00:10:52,810
+A recursive system, system for generating
+strings. And then by pushdown automata,
+
+135
+00:10:52,810 --> 00:10:57,469
+Which are, are a generalization of the
+finite automata that we'll use for regular
+
+136
+00:10:57,469 --> 00:11:01,667
+expressions. We'll then repeat our
+examination of decision properties and
+
+137
+00:11:01,667 --> 00:11:06,269
+closure properties for this larger class
+of languages. Many of the things we can
+
+138
+00:11:06,269 --> 00:11:10,698
+tell about regular languages that we
+cannot tell in general, we can also tell
+
+139
+00:11:10,698 --> 00:11:14,897
+about context free languages. But there
+are unfortunately some exceptions.
+
+140
+00:11:14,897 --> 00:11:19,441
+Similarly, many of the operations under
+which regular languages are closed, also
+
+141
+00:11:19,441 --> 00:11:24,294
+yield a context free language when applied
+to context free languages. But again we
+
+142
+00:11:24,294 --> 00:11:29,870
+lose some operations for example context
+free languages that close in reunion but
+
+143
+00:11:29,870 --> 00:11:35,038
+not intersection. Next we take up the
+largest class of languages that we can
+
+144
+00:11:35,038 --> 00:11:40,070
+reasonable say can be dealt with by a
+computer and recursively enumerable
+
+145
+00:11:40,070 --> 00:11:44,452
+languages. We also look at the smaller but
+important subset of the recursively
+
+146
+00:11:44,452 --> 00:11:48,808
+enumerable languages, called the recursive
+languages. These are the languages for
+
+147
+00:11:48,808 --> 00:11:52,619
+which there is an algorithm to tell
+whether or not a string is in the
+
+148
+00:11:52,619 --> 00:11:57,610
+language. We introduce the Turing machine,
+an automaton in the spirit of the first
+
+149
+00:11:57,610 --> 00:12:02,422
+kinds of automata we meet, finite and
+pushdown automata. The Turing machine is,
+
+150
+00:12:02,422 --> 00:12:07,485
+however, much more powerful than either of
+these. In fact, it is as powerful as any
+
+151
+00:12:07,485 --> 00:12:12,422
+model that has ever been thought of to
+answer the question, what can we compute?
+
+152
+00:12:12,422 --> 00:12:17,797
+The payoff of the study of Turing machines
+is that we can answer the question of what
+
+153
+00:12:17,797 --> 00:12:22,985
+can be decided by computation, or what can
+be computed by any means at all. We shall
+
+154
+00:12:22,985 --> 00:12:27,610
+develop tools for showing that certain
+problems cannot be decided. That is
+
+155
+00:12:27,610 --> 00:12:32,547
+answered by computer. The example we
+already mentioned is a program print dirty
+
+156
+00:12:32,547 --> 00:12:37,547
+word should give you an idea of what we
+can achieve. Finally regard to cover the
+
+157
+00:12:37,547 --> 00:12:42,172
+theory of NP completeness, the critical
+question is what can we do with an
+
+158
+00:12:42,172 --> 00:12:47,110
+algorithm that runs in time that is some
+polynomial and a link of the input. It
+
+159
+00:12:47,110 --> 00:12:52,110
+would be lovely if we could distinguish
+between problems as best algorithm took
+
+160
+00:12:52,110 --> 00:12:57,235
+say in cubic time from those that can be
+solved say in squared time. But no theory
+
+161
+00:12:57,235 --> 00:13:02,172
+has ever been devised to be that precise
+for general problems. Although the best
+
+162
+00:13:02,172 --> 00:13:07,012
+running time for some problems is null,
+fortunately we can learn a lot by dividing
+
+163
+00:13:07,012 --> 00:13:11,616
+problems that can be solved in some
+polynomial amount of time from those that
+
+164
+00:13:11,616 --> 00:13:16,516
+apparently require exponential time. We'll
+give you the tools to do this, and Turing
+
+165
+00:13:16,516 --> 00:13:21,356
+machines are the tool you need to build
+this theory as well as the theory of what
+
+166
+00:13:21,356 --> 00:13:25,901
+can be computed at all. This course
+follows the third edition of the textbook
+
+167
+00:13:25,901 --> 00:13:30,564
+I wrote with John Hopcroft and Rajeev
+Motwani. You do not need to buy this book.
+
+168
+00:13:30,564 --> 00:13:35,390
+The homeworks and exams will all be based
+on what you can learn by observing The
+
+169
+00:13:35,390 --> 00:13:40,578
+slides and listening to my commentary on
+the slides. Okay. The following is
+
+170
+00:13:40,578 --> 00:13:46,326
+optional, and depends on what we decide to
+do about, the page references and the
+
+171
+00:13:46,326 --> 00:13:51,514
+hallmarks. You will incidentally find as
+you do the hallmarks that there are
+
+172
+00:13:51,514 --> 00:13:56,701
+explanations when you make a mistake.
+These explanations refer to pages of
+
+173
+00:13:56,701 --> 00:14:02,520
+sections in this book. But you do not need
+the book since the explanations like the
+
+174
+00:14:02,520 --> 00:14:08,479
+course material itself, are designed to be
+self contained without your having to read
+
+175
+00:14:08,479 --> 00:14:13,824
+the book. I ask one thing however, please
+do not download a free copy from a file
+
+176
+00:14:13,824 --> 00:14:19,004
+sharing site, or delete it if you have
+already done so. This book was published
+
+177
+00:14:19,004 --> 00:14:24,449
+by Addison Wesley under a contract that
+dates back to 1967. At that time there was
+
+178
+00:14:24,449 --> 00:14:29,828
+no internet, and it wasn't all that easy
+to produce books. Addison Wesley invested
+
+179
+00:14:29,828 --> 00:14:35,473
+a good deal in the production of this book
+and its predecessors, and they deserve to
+
+180
+00:14:35,473 --> 00:14:40,387
+recover their costs. It is stealing to
+download a copyrighted work without
+
+181
+00:14:40,387 --> 00:14:45,320
+paying. There's no two ways to look at it.
+Admittedly the world has changed, and
+
+182
+00:14:45,320 --> 00:14:50,398
+recently I've started to put books on the
+Web for free download from my own Stanford
+
+183
+00:14:50,398 --> 00:14:54,998
+Webpages. You are welcome to what is
+freely given, but please do not take what
+
+184
+00:14:54,998 --> 00:14:56,313
+is not offered gratis.

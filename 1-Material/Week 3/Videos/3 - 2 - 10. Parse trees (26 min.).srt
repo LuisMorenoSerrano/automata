@@ -1,0 +1,1274 @@
+1
+00:00:00,000 --> 00:00:05,581
+The parse tree is a graph that shows how a
+particular string was derived using some
+
+2
+00:00:05,581 --> 00:00:10,964
+context free grammar. These trees have a
+direct connection to left most and right
+
+3
+00:00:10,964 --> 00:00:15,881
+most derivations which we shall explain
+now. One important use of the tree
+
+4
+00:00:15,881 --> 00:00:21,065
+representation of derivations is it let's
+us express the important concept of
+
+5
+00:00:21,065 --> 00:00:25,783
+ambiguity in grammars. That is,
+unambiguity or the ability for a grammar
+
+6
+00:00:25,783 --> 00:00:32,237
+to provide a unique tree structure for
+every string in its language is vital. For
+
+7
+00:00:32,237 --> 00:00:37,314
+example if a programming line which has
+ambiguity, then there are programs with
+
+8
+00:00:37,314 --> 00:00:42,649
+two or more distinct meanings. The same is
+true of a grammar for an actual language,
+
+9
+00:00:42,649 --> 00:00:47,791
+it would be insufficient to provide an
+intended meaning for all valid sentences
+
+10
+00:00:47,791 --> 00:00:55,141
+of the language. Parse trees for a
+[inaudible] tree are trees whose nodes are
+
+11
+00:00:55,141 --> 00:01:01,360
+each associated with a symbol of G. I'm
+going to draw you a little tree here.
+
+12
+00:01:06,480 --> 00:01:15,192
+Okay. Leaves are always labeled by either
+a terminal or by epsilon, so we might draw
+
+13
+00:01:15,192 --> 00:01:23,800
+for example an A on that one a terminal B
+on that one, and perhaps epsilon on that.
+
+14
+00:01:29,580 --> 00:01:37,372
+Interior nodes are labeled by a variable.
+Here are some examples. The important
+
+15
+00:01:37,372 --> 00:01:43,857
+property that makes a tree a parse tree is
+that there is a production of the grammar
+
+16
+00:01:43,857 --> 00:01:50,114
+with the label of the node in question as
+its head and the labels of its children
+
+17
+00:01:50,114 --> 00:01:59,888
+read left to right as its body. Okay? For
+example, if you look at this parse tree we
+
+18
+00:01:59,888 --> 00:02:07,004
+would infer that A goes to BC is a
+production also B goes to little A, little
+
+19
+00:02:07,004 --> 00:02:15,024
+B is a production and C goes to epsilon is
+a production. The root must be labeled by
+
+20
+00:02:15,024 --> 00:02:21,716
+the start symbol. In our example tree here
+I'm going to have to guess that if this is
+
+21
+00:02:21,716 --> 00:02:29,472
+the root, then "A" is in fact the start
+symbol. Here's a parse tree using the
+
+22
+00:02:29,472 --> 00:02:35,563
+grammar for the balanced parentheses that
+we discussed earlier. Notice how each
+
+23
+00:02:35,563 --> 00:02:42,861
+interior node is labeled by a variable.
+Here, here, here and here. Must be asked
+
+24
+00:02:42,861 --> 00:02:49,393
+because that's the only variable we have.
+Each leaf is labeled by a terminal, either
+
+25
+00:02:49,393 --> 00:02:55,059
+a left or right parenthesis, these are
+here, here, here, here, here and here.
+
+26
+00:02:55,059 --> 00:03:01,433
+Okay, the production of the root is S goes
+to [sound]. You can sort of see that by
+
+27
+00:03:01,433 --> 00:03:11,495
+looking at the root and its two children
+here's another interior node and the
+
+28
+00:03:11,495 --> 00:03:18,212
+labels of its children are left paren as
+right paren and you know that left paren
+
+29
+00:03:18,212 --> 00:03:24,929
+as right paren is another production of
+the grammar that's right here. And here we
+
+30
+00:03:24,929 --> 00:03:31,892
+have an example of a interior node labeled
+S and its children labeled left paren and
+
+31
+00:03:31,892 --> 00:03:38,199
+right paren that corresponds to this
+production body right here. You have the
+
+32
+00:03:38,199 --> 00:03:44,933
+same exact use of that production, here.
+Okay. The yield of the par street is the
+
+33
+00:03:44,933 --> 00:03:51,521
+string of labels and the leaves from the
+left. This order of leaves is the order
+
+34
+00:03:51,521 --> 00:03:58,356
+you visit them in during a pre-order
+traversal, path which would look something
+
+35
+00:03:58,356 --> 00:04:05,447
+like this. That's sort of a, pre order
+transversal path goes around the tree,
+
+36
+00:04:05,705 --> 00:04:12,842
+counter-clockwise. The order in which you
+visit the leaves is the order in which
+
+37
+00:04:12,842 --> 00:04:19,894
+their labels appear in the yield. So here
+the yield is left paren, left paren, right
+
+38
+00:04:19,894 --> 00:04:26,091
+paren, right paren, left paren, right
+paren. That's what we said here. In what
+
+39
+00:04:26,091 --> 00:04:31,438
+follows, we're also going to talk about
+parse trees with a route A that may not be
+
+40
+00:04:31,438 --> 00:04:36,720
+the start symbol. These trees follow all
+the other requirements of the parse tree.
+
+41
+00:04:36,720 --> 00:04:41,741
+The leaves are labeled by terminals or
+epsilon and an interior node with its
+
+42
+00:04:41,741 --> 00:04:50,539
+children form a production of the grammar.
+We're going to show how to convert
+
+43
+00:04:50,539 --> 00:04:55,359
+[inaudible] to leftmost to rightmost
+derivations and vice versa. As is often
+
+44
+00:04:55,359 --> 00:05:00,368
+the case, a [inaudible] made easier by
+proving something more general than what
+
+45
+00:05:00,368 --> 00:05:06,818
+we really need. In this case we'll talk
+about generalized parts tree that can have
+
+46
+00:05:06,818 --> 00:05:11,880
+any root labels, say "A". And we'll talk
+about left most and right most irrevations
+
+47
+00:05:11,880 --> 00:05:17,454
+for many variable "A". We'll prove two
+statements... One is that there is a parse
+
+48
+00:05:17,454 --> 00:05:23,104
+tree with root A and the yield W. And
+there is a left most derivation of W from
+
+49
+00:05:23,104 --> 00:05:28,754
+A [inaudible]. The second statement is the
+converse, that for every left most
+
+50
+00:05:28,754 --> 00:05:34,618
+derivation of W from A there is a general
+bias parse tree with root A and yield W.
+
+51
+00:05:34,618 --> 00:05:40,340
+The matter of right most derivations is
+completely analogous. We will start with
+
+52
+00:05:40,340 --> 00:05:46,276
+point one by showing how to convert parse
+trees to left most derivations. The proof
+
+53
+00:05:46,276 --> 00:05:51,822
+is an induction on the height of the tree.
+The basis is height one. That is a tree
+
+54
+00:05:51,822 --> 00:05:56,646
+consisting of a root label by some
+variable, A, and one or more leaves. They
+
+55
+00:05:56,646 --> 00:06:01,927
+must be a production with head A and body
+being in the labels of the leaves from
+
+56
+00:06:01,927 --> 00:06:08,656
+left to right. That's A one though A N in
+this picture. Then, A derives the yield of
+
+57
+00:06:08,656 --> 00:06:15,071
+the tree by the one step left most
+[inaudible] in which this production is
+
+58
+00:06:15,071 --> 00:06:21,657
+used. For the induction we'll assume
+statement one for height less than H and
+
+59
+00:06:21,657 --> 00:06:27,906
+prove it for H That is, we assume for
+every parse tree with root A and height of
+
+60
+00:06:27,906 --> 00:06:33,998
+up to H minus one there is a leftmost
+derivation of its yield from its root. Now
+
+61
+00:06:33,998 --> 00:06:40,266
+let's look at a parse tree of height H.
+The case H=1 is the basis, so H is at
+
+62
+00:06:40,266 --> 00:06:46,407
+least two. Thus the production used at the
+root has at least one variable on its
+
+63
+00:06:46,407 --> 00:06:52,241
+right side. Say this tree has root A and
+the children of the root labeled X1
+
+64
+00:06:52,241 --> 00:06:58,306
+through Xn. If Xi is variable, then it is
+the root of some sub tree of height at
+
+65
+00:06:58,306 --> 00:07:03,995
+most h minus one and some yield, say Wi.
+If XI is a terminal or epsilon then we
+
+66
+00:07:03,995 --> 00:07:09,524
+imagine XI is a root of a trivial tree,
+not a parse tree, that consists only of a
+
+67
+00:07:09,524 --> 00:07:16,290
+node labeled XI. The yield of this tree is
+just Xi itself, but for consistency we
+
+68
+00:07:16,290 --> 00:07:22,659
+shall refer to Xi as the stream of
+terminals, Wi. The yield of the entire
+
+69
+00:07:22,659 --> 00:07:29,823
+tree is W, which is W1 through Wn. We can
+put together a left most derivation of W
+
+70
+00:07:29,823 --> 00:07:37,076
+from A as follows. Start by applying the
+production at the root, so the second step
+
+71
+00:07:37,076 --> 00:07:44,783
+is X1, X2 up to Xn. That's this. Okay, now
+we need the left most derivation of W one
+
+72
+00:07:44,783 --> 00:07:52,512
+from X one. X one is the terminal that
+equals W one so we're already there. And
+
+73
+00:07:52,512 --> 00:08:01,656
+this step is then really zero step on the
+other hand, if X1 is a variable and we
+
+74
+00:08:01,656 --> 00:08:08,920
+apply the inductive hypothesis, the sub
+tree with root X1 and yield W1 has height
+
+75
+00:08:08,920 --> 00:08:15,827
+at most H minus one, so there is a left
+most derivation at W1 from X1. In that
+
+76
+00:08:15,827 --> 00:08:23,181
+case, this X1 has been replaced now left
+most derivation by W1 and this, goes to
+
+77
+00:08:23,181 --> 00:08:30,427
+star represents all the steps that were
+necessary to replace X1 by W1. Either way
+
+78
+00:08:30,427 --> 00:08:37,466
+we can conclude that there is a left most
+derivation of W1 X2 through Xn, that's
+
+79
+00:08:37,466 --> 00:08:43,701
+this. We can continue arguing this way For
+each XI in turn, either it is a terminal,
+
+80
+00:08:43,701 --> 00:08:48,894
+in which case nothing needs to be done, or
+it's a variable in which case we can
+
+81
+00:08:48,894 --> 00:08:54,020
+perform a leftmost derivation from WI from
+XI. The needed sequence of leftmost
+
+82
+00:08:54,020 --> 00:08:59,278
+derivations is a leftmost derivation of
+the entire yield W. That's W1 through Wn.
+
+83
+00:08:59,475 --> 00:09:04,601
+From A. Now we need to prove the other
+direction. That leftmost derivations can
+
+84
+00:09:04,601 --> 00:09:10,057
+be turned into parse trees. The proof is
+an induction on the number of steps of the
+
+85
+00:09:10,057 --> 00:09:15,811
+derivation. The bases of one step
+derivation. In this derivation a variable
+
+86
+00:09:15,811 --> 00:09:20,538
+A is replaced by a string of terminals,
+perhaps the empty string, using some
+
+87
+00:09:20,538 --> 00:09:25,644
+production for A. If the string is not
+empty then there is a parse tree of height
+
+88
+00:09:25,644 --> 00:09:31,065
+one with A at the root and the sequence of
+terminals in the body as the labels of the
+
+89
+00:09:31,065 --> 00:09:36,623
+children. This and there are the children.
+If the body is epsilon then there's again
+
+90
+00:09:36,623 --> 00:09:42,501
+a porous tree it has A at the root and one
+leaf labeled epsilon so it just sort of
+
+91
+00:09:42,501 --> 00:09:47,584
+looks like this. Now let's do the
+inductive step. We assume that left most
+
+92
+00:09:47,584 --> 00:09:53,041
+derivations of fewer than K steps can be
+turned into parse trees with the proper
+
+93
+00:09:53,041 --> 00:09:57,960
+yield. We will consider a K step
+derivation from string W from variable A
+
+94
+00:10:00,420 --> 00:10:06,581
+The first step of this derivation uses a
+production with head A and body X1 through
+
+95
+00:10:06,581 --> 00:10:12,816
+Xn for some n. Thus the second [inaudible]
+form in this derivation of W is X1 through
+
+96
+00:10:12,816 --> 00:10:18,684
+Xn, that's that. Remember the important
+properties of derivations. That production
+
+97
+00:10:18,684 --> 00:10:24,405
+bodies replace production heads at the
+position where the head is. Thus we can
+
+98
+00:10:24,405 --> 00:10:29,760
+divide W into the concatenation of n
+strings, W1 through Wn, in that order.
+
+99
+00:10:31,240 --> 00:10:38,689
+Where for all I, WI either is XI, if XI is
+a terminal. Or XI derives WI by a leftmost
+
+100
+00:10:38,689 --> 00:10:45,511
+derivation of fewer than K steps. Since
+the whole derivation is leftmost, the
+
+101
+00:10:45,511 --> 00:10:52,781
+derivation WI from XI must happen first.
+Then the derivation of W2 through X2 and
+
+102
+00:10:52,781 --> 00:10:58,842
+so on. So we know that each XI either is
+WI or derives WI in fewer than K steps at
+
+103
+00:10:58,842 --> 00:11:04,220
+the leftmost derivation. So the second
+case, where XI is a variable and the
+
+104
+00:11:04,220 --> 00:11:09,888
+leftmost derivation takes one or more
+steps, the inductive hypothesis tells us
+
+105
+00:11:09,888 --> 00:11:18,172
+that there is a parse tree with root XI
+and yield WI. Plus we can build the parse
+
+106
+00:11:18,172 --> 00:11:25,999
+tree shown... That is this. The root uses
+the first production of the derivation as
+
+107
+00:11:25,999 --> 00:11:34,016
+A goes to X1 through Xn and the Ith child
+either is Wi if Xi is a terminal or it is
+
+108
+00:11:34,016 --> 00:11:41,843
+the root of a parse tree from Xi deriving
+Wi. The yield of this tree is W1 through
+
+109
+00:11:41,843 --> 00:11:49,577
+Wn which is W. Okay, that is, this string
+W is W1 through Wn. All these strings are
+
+110
+00:11:49,577 --> 00:11:57,052
+derived left to right in that order. This
+proves the inductive step and we conclude
+
+111
+00:11:57,052 --> 00:12:03,260
+there is a leftmost derivation of W from
+A. ... And there is a parts true with root
+
+112
+00:12:03,260 --> 00:12:08,136
+"A" and a yield "W". It is also true that
+if there is a right most irrevations of
+
+113
+00:12:08,136 --> 00:12:12,760
+"W" from "A", then there is a parts true
+of root "A" and yield "W" and conversely.
+
+114
+00:12:12,760 --> 00:12:17,763
+But we are not going to prove that part,
+the proofs are essentially the same as
+
+115
+00:12:17,763 --> 00:12:22,450
+what we have seen. And in fact, any
+derivation even the one that isn't left
+
+116
+00:12:22,450 --> 00:12:27,326
+most or right most of a terminal strain
+"W" from variable "A" implies that there
+
+117
+00:12:27,326 --> 00:12:33,094
+is a parts true with root "A" and yield
+"W". The first step of any derivation from
+
+118
+00:12:33,094 --> 00:12:38,519
+A must use a production and replace A from
+some string of terminals and variables.
+
+119
+00:12:38,519 --> 00:12:43,649
+Say, X1 through Xn. If W's the terminal
+string ultimately derived, then we can
+
+120
+00:12:43,649 --> 00:12:49,218
+still break W into W1 through Wn, where
+each WI either is XI or is derived from XI
+
+121
+00:12:49,218 --> 00:12:54,923
+by fewer steps than the whole derivation.
+The only tricky part is that now the steps
+
+122
+00:12:54,923 --> 00:13:00,153
+of the derivation from XI and XJ may be
+intermingled and we have to sort the
+
+123
+00:13:00,153 --> 00:13:05,858
+derivation steps according to which XI is
+descendant as being replaced at that step.
+
+124
+00:13:05,858 --> 00:13:10,952
+We'll leave you to think through the
+details of this construction of parse
+
+125
+00:13:10,952 --> 00:13:15,448
+trees. As we mentioned at the beginning,
+it is important in many applications,
+
+126
+00:13:15,448 --> 00:13:20,353
+including parsing of programming languages
+In a compiler and parsing of natural
+
+127
+00:13:20,353 --> 00:13:25,270
+language sentences that we use a
+context-free grammar that assigns a unique
+
+128
+00:13:25,270 --> 00:13:30,705
+parse tree to each string of the language.
+We say a grammar is ambiguous if there is
+
+129
+00:13:30,705 --> 00:13:35,945
+at least one string in its language that
+has two different parse trees. Otherwise
+
+130
+00:13:35,945 --> 00:13:41,489
+it is unambiguous. The grammar for
+balanced parentheses that we have been
+
+131
+00:13:41,489 --> 00:13:47,700
+using is ambiguous, alas. I'll show you
+two parse trees for this balance string,
+
+132
+00:13:47,700 --> 00:13:53,751
+that is left, right, left, right, left,
+right on the next slide. Notice that each
+
+133
+00:13:53,751 --> 00:14:00,440
+of these trees has the same yield, that is
+three pairs of left and right parentheses.
+
+134
+00:14:01,400 --> 00:14:06,342
+However they're evidently not the same
+tree. The first replaces the first child
+
+135
+00:14:06,342 --> 00:14:11,221
+of the root by [sound]. And the second
+does the same but with the second child.
+
+136
+00:14:11,221 --> 00:14:16,414
+Notice that the two constructions we just
+gave, leftmost derivations from trees and
+
+137
+00:14:16,414 --> 00:14:21,481
+trees from leftmost derivations have the
+property that two different parse trees
+
+138
+00:14:21,481 --> 00:14:26,681
+produce different leftmost derivations and
+conversely The same is true for the
+
+139
+00:14:26,681 --> 00:14:31,200
+analogous transformations between
+rightmost derivations in trees Thus we
+
+140
+00:14:31,200 --> 00:14:35,790
+could also define a grammar to be
+ambiguous if it has a string with two
+
+141
+00:14:35,790 --> 00:14:40,252
+different leftmost derivations or two
+different rightmost derivations.
+
+142
+00:14:40,252 --> 00:14:45,608
+Fortunately just because one grammar for a
+language is ambiguous does not mean that
+
+143
+00:14:45,608 --> 00:14:50,835
+we can't find another grammar for the same
+language that is unambiguous. But as an
+
+144
+00:14:50,835 --> 00:14:55,362
+aside, which we'll get to later, the
+opposite is not true either. That is,
+
+145
+00:14:55,362 --> 00:15:00,080
+there are some ambiguous to which no
+unambiguous equivalent exists. Anyway.
+
+146
+00:15:00,080 --> 00:15:06,050
+Here is a grammar for balanced parenthesis
+that is unambiguous. Variable D, which is
+
+147
+00:15:06,050 --> 00:15:12,203
+the star symbol, generates all balanced
+strain But R, another variable generates
+
+148
+00:15:12,203 --> 00:15:17,931
+all strings that are balanced except for
+having one more right parenthesis than
+
+149
+00:15:17,931 --> 00:15:25,090
+left. By balance in this context I mean
+that no prefix of the string has more
+
+150
+00:15:25,090 --> 00:15:33,023
+right parentheses than left. And examples
+would include, well, a single, right
+
+151
+00:15:33,023 --> 00:15:40,484
+paren. Left, right, right that would be
+generated by R and also something like
+
+152
+00:15:40,484 --> 00:15:48,001
+this: left, left, right, left, right,
+right, right. Here's the unambiguous
+
+153
+00:15:48,001 --> 00:15:52,946
+grammar for balanced parentheses again.
+Suppose we're given a string of
+
+154
+00:15:52,946 --> 00:15:58,030
+parentheses which we'll call the input.
+And we want to find this leftmost
+
+155
+00:15:58,030 --> 00:16:03,462
+derivation or derivations. We claim that
+for every input symbol and for either
+
+156
+00:16:03,462 --> 00:16:09,242
+variable B or R there is only one choice
+of production that could possibly lead to
+
+157
+00:16:09,242 --> 00:16:14,535
+a leftmost derivation of the input. That
+is, no string of parentheses has two
+
+158
+00:16:14,535 --> 00:16:19,480
+distinct leftmost derivations and
+therefore the grammar is unambiguous.
+
+159
+00:16:22,300 --> 00:16:27,074
+Imagine we are constructing the left
+sentential form as we scan the input. As
+
+160
+00:16:27,074 --> 00:16:32,159
+we go, the terminals to the left of the
+left most variable must match the input or
+
+161
+00:16:32,159 --> 00:16:38,543
+we'll never derive that input string of
+terminals. So we can check out input
+
+162
+00:16:38,543 --> 00:16:46,819
+symbols as we match them Notice that the
+only place B can ever appear in a left and
+
+163
+00:16:46,819 --> 00:16:54,415
+central form is at the right end. That is
+because the only production with D in the
+
+164
+00:16:54,415 --> 00:17:01,827
+body, has lead [inaudible] and it also has
+head B that is this B can only go to a
+
+165
+00:17:01,827 --> 00:17:09,423
+string that has a B in it, and the only
+way a B can come, can appear is if it was
+
+166
+00:17:09,423 --> 00:17:18,814
+either the start symbol. Or it was the
+result of replacing this B at the end by
+
+167
+00:17:18,814 --> 00:17:26,529
+the, paren RB in that production. It does
+an easy induction on the number of times
+
+168
+00:17:26,529 --> 00:17:32,346
+this production is applied so that the B
+is still at the right end Now suppose B is
+
+169
+00:17:32,346 --> 00:17:38,480
+the leftmost variable of a left sentential
+form. If there's a left parenthesis as the
+
+170
+00:17:38,480 --> 00:17:43,891
+next unmatched input, and we have to
+expand the B using this production the
+
+171
+00:17:43,891 --> 00:17:49,448
+paren RB. Because if we use epsilon then
+the left sentential form has no more
+
+172
+00:17:49,448 --> 00:17:55,365
+variables and we can never generate the
+unmatched left paren. The only time we can
+
+173
+00:17:55,365 --> 00:18:01,002
+use epsilon to replace B is this
+production. Is when we have matched the
+
+174
+00:18:01,002 --> 00:18:06,840
+entire input and we have found the unique
+left most derivation. If R is the left
+
+175
+00:18:06,840 --> 00:18:12,312
+most variable then the next input symbol
+forces us to use one of the two R
+
+176
+00:18:12,312 --> 00:18:18,317
+productions, that is if the next input
+symbol is right paren You must use R goes
+
+177
+00:18:18,317 --> 00:18:25,069
+to right paren. That's here. And if the
+next input is a left paren you must use R
+
+178
+00:18:25,069 --> 00:18:31,252
+goes to left paren followed by two rights.
+There's never an option on a left
+
+179
+00:18:31,252 --> 00:18:37,909
+sentential form you're deriving can never
+match the input string. Here is an
+
+180
+00:18:37,909 --> 00:18:43,148
+example. Suppose we want to find the
+unique left most derivation for this
+
+181
+00:18:43,148 --> 00:18:48,818
+string of parentheses. That's this string
+right here. We set the string up as an
+
+182
+00:18:48,818 --> 00:18:54,416
+input with a pointer to the next symbol
+that must be matched in the left most
+
+183
+00:18:54,416 --> 00:18:59,943
+derivation. Okay. We start off with the
+left sentential form that is the start
+
+184
+00:18:59,943 --> 00:19:07,255
+symbol B alone. The next input to match is
+the left [inaudible] and we must therefore
+
+185
+00:19:07,255 --> 00:19:17,573
+expand this B, to left [inaudible] RB,
+that is using that production. Here we've
+
+186
+00:19:17,573 --> 00:19:23,563
+made the expansion. The first left paren
+has been removed from the input, since it
+
+187
+00:19:23,563 --> 00:19:29,554
+has been matched. That is it appears to
+the left of the left most variable in the
+
+188
+00:19:29,554 --> 00:19:35,692
+current left [inaudible] form. In essence,
+this left paren is what used to be on the
+
+189
+00:19:35,692 --> 00:19:43,748
+input there. Our next input symbol is
+another left paren and we have to expand
+
+190
+00:19:43,748 --> 00:19:52,233
+an r, the left most variable. That's this
+guy. Our only choice is to use the body
+
+191
+00:19:52,233 --> 00:20:05,520
+"R" goes to left [inaudible] "R", "R"
+[sound]. So we're going to do that. Okay.
+
+192
+00:20:05,520 --> 00:20:11,988
+That's what happened here. The R was
+replaced by paren RR and the second left
+
+193
+00:20:11,988 --> 00:20:18,960
+paren has been matched. It appears to the
+left of the leftmost variable as here. Now
+
+194
+00:20:18,960 --> 00:20:26,016
+next input is a right paren and we must
+expand the leftmost R. The only, choice is
+
+195
+00:20:26,016 --> 00:20:33,492
+the first production. That will enable us
+to match. Now the third input has been
+
+196
+00:20:33,492 --> 00:20:40,164
+matched. We have R to expand. And right
+paren has the next input. So we again use
+
+197
+00:20:40,164 --> 00:20:46,499
+R goes to the right paren. That is we
+expand that R, replacing it by a right
+
+198
+00:20:46,499 --> 00:20:56,648
+paren. That's what's going to happen. On
+the next slide. You have the left paren as
+
+199
+00:20:56,648 --> 00:21:02,320
+the next input and we must expand B, the
+choice is the first production for B
+
+200
+00:21:02,780 --> 00:21:13,163
+[inaudible] now, "R" is the left most
+variable, we are up here now and the next
+
+201
+00:21:13,163 --> 00:21:17,980
+input is the right [inaudible], so we
+replace the "R" of our right [inaudible],
+
+202
+00:21:18,400 --> 00:21:31,127
+[inaudible] using the first production for
+R, that's that and lets see Know there is
+
+203
+00:21:31,127 --> 00:21:37,771
+no more input to match and B must be
+expanded, that's B, the left most
+
+204
+00:21:37,771 --> 00:21:45,744
+variable. The only choice is to use the
+second B production, which is that. And we
+
+205
+00:21:45,744 --> 00:21:51,592
+effectively make the B disappear. And
+we're done. We have a leftmost derivation
+
+206
+00:21:51,592 --> 00:21:56,915
+of the original input, which of course,
+appears as the final step of the
+
+207
+00:21:56,915 --> 00:22:02,902
+derivation. Had we deviated from the
+choices we made at any step the, the
+
+208
+00:22:02,902 --> 00:22:08,785
+result of the left most derivation would
+not have been this input strain of
+
+209
+00:22:08,785 --> 00:22:16,549
+terminals There is a name for grammar such
+as our example where it is always possible
+
+210
+00:22:16,549 --> 00:22:21,804
+to choose unique production to use in a
+leftmost derivation of any string in the
+
+211
+00:22:21,804 --> 00:22:26,863
+language, in the simple manner that we
+illustrated. At each step we looked only
+
+212
+00:22:26,863 --> 00:22:32,442
+at the first unmatched symbol of the input
+and we were able to make the unique choice
+
+213
+00:22:32,442 --> 00:22:37,112
+correctly. Such a grammar is called
+[laugh] of one. Standing for leftmost
+
+214
+00:22:37,112 --> 00:22:42,107
+derivation, that's the first L, left to
+right scan, that's the second L, and one
+
+215
+00:22:42,107 --> 00:22:46,471
+symbol of look ahead. It is normal for a
+programming language to have an
+
+216
+00:22:46,471 --> 00:22:51,120
+[inaudible] of one grammar. Probably as
+this theory became widely understood by
+
+217
+00:22:51,120 --> 00:22:56,122
+designers of programming language as they
+saw the advantages of keeping the language
+
+218
+00:22:56,122 --> 00:23:01,380
+parse-able in this simple way and made
+choices to preserve this ability. In the
+
+219
+00:23:01,380 --> 00:23:06,311
+same argument we gave for our example
+grammar tells us all [inaudible] one
+
+220
+00:23:06,311 --> 00:23:11,374
+grammars are unambiguous. And remember
+unambiguity is vital for a programming
+
+221
+00:23:11,374 --> 00:23:16,108
+language as we must assign a unique
+meaning to any legal program of the
+
+222
+00:23:16,108 --> 00:23:22,032
+language. For balanced parens we found the
+first, simplest grammar that we wrote down
+
+223
+00:23:22,032 --> 00:23:27,259
+was ambiguous but we were able to redesign
+the grammar to make unambiguous. One might
+
+224
+00:23:27,259 --> 00:23:34,636
+hope for an algorithm that would do that
+for any ambiguous grammar But, alas, there
+
+225
+00:23:34,636 --> 00:23:40,695
+can not be such an algorithm. There are
+certain contexts for languages for which
+
+226
+00:23:40,695 --> 00:23:48,113
+every grammar is ambiguous. Such languages
+are called inherently ambiguous. We're not
+
+227
+00:23:48,113 --> 00:23:53,734
+going to get into the proofs of what I
+just said, but I'll give you an example of
+
+228
+00:23:53,734 --> 00:23:59,217
+an inherently ambiguous language. The set
+of strings of the form some number of
+
+229
+00:23:59,217 --> 00:24:04,560
+zeroes followed by some number of ones,
+followed by some numbers of twos. Such
+
+230
+00:24:04,560 --> 00:24:10,459
+that either the numbers of zeroes and ones
+are the same. That would be this condition
+
+231
+00:24:10,459 --> 00:24:16,219
+I equals J. Or the numbers of ones or twos
+are the same. That would be J equals K. Or
+
+232
+00:24:16,219 --> 00:24:21,370
+both, of course. The problem is that any
+grammar for this language must generate at
+
+233
+00:24:21,370 --> 00:24:25,848
+least some of the strings with equal
+numbers of all three symbols in two
+
+234
+00:24:25,848 --> 00:24:30,511
+different ways. In the first derivation,
+or parse tree, the grammar forces the
+
+235
+00:24:30,511 --> 00:24:35,664
+numbers of zeros and ones to be the same
+using the same trick we used to generate a
+
+236
+00:24:35,664 --> 00:24:41,228
+set of strings with the form zero to the
+n, one to the n. The grammar can generate
+
+237
+00:24:41,228 --> 00:24:46,970
+any number of twos to go along but it may
+happen to generate the same number of twos
+
+238
+00:24:46,970 --> 00:24:52,374
+as zeros and ones. The second derivation
+of parse tree makes sure the numbers of
+
+239
+00:24:52,374 --> 00:24:57,508
+ones and twos are the same, but may
+accidentally generate the same number of
+
+240
+00:24:57,508 --> 00:25:02,559
+zeros as well. Here's an example grammar.
+It is ambiguous but that doesn't prove the
+
+241
+00:25:02,559 --> 00:25:06,658
+language is inherently ambiguous. As I
+said, we're not going give that proof,
+
+242
+00:25:06,658 --> 00:25:11,194
+it's very complicated. However you might
+wish to play around with grammars from the
+
+243
+00:25:11,194 --> 00:25:15,784
+same language and see how you are forced
+to do something like this grammar in order
+
+244
+00:25:15,784 --> 00:25:22,119
+to generate exactly the language you want.
+To be easy and be familiar to observe that
+
+245
+00:25:22,119 --> 00:25:27,738
+A will generate all strains with one or
+more zeros followed by exactly the same
+
+246
+00:25:27,738 --> 00:25:33,286
+number of ones. We've seen essential this
+pair of productions, yes, as a complete
+
+247
+00:25:33,286 --> 00:25:39,282
+grammar before and it should also be
+obvious that "B" generates any string of
+
+248
+00:25:39,282 --> 00:25:45,911
+one or more two's and nothing else
+Likewise C generates the strings of one or
+
+249
+00:25:45,911 --> 00:25:55,350
+more zeros. And D generates one or more
+ones followed by exactly the same number
+
+250
+00:25:55,350 --> 00:26:04,496
+of twos. Now, all derivations start with
+"S" and the first production replaces it
+
+251
+00:26:04,496 --> 00:26:11,182
+by either "AB" or CD. If we go with AB,
+then we get strings where the zeros and
+
+252
+00:26:11,182 --> 00:26:17,399
+ones match, while if we go with CD, then
+the ones and twos match. As a result,
+
+253
+00:26:17,399 --> 00:26:23,782
+strings like 012 with the same number of
+each symbol will have two left most
+
+254
+00:26:23,782 --> 00:26:30,247
+derivations. One starting with S goes to
+AB, that's this, and the other starting
+
+255
+00:26:30,247 --> 00:26:38,460
+with S goes to CD. Here are the two
+derivations for zero, one, two.

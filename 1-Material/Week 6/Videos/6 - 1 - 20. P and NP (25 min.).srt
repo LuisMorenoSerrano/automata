@@ -1,0 +1,1454 @@
+1
+00:00:00,000 --> 00:00:04,581
+We now take up the last major topic of
+this coarse. The subject is intractable
+
+2
+00:00:04,581 --> 00:00:09,397
+problems. These problems are decidable but
+co-locally they are said to be problems
+
+3
+00:00:09,397 --> 00:00:14,214
+that take at least exponential time as a
+function of their input size. The reality
+
+4
+00:00:14,214 --> 00:00:18,753
+is a bit different. But there are problems
+which there's an overwhelming amount of
+
+5
+00:00:18,753 --> 00:00:23,045
+empirical evidence that these problems
+take exponential time, although no solid
+
+6
+00:00:23,045 --> 00:00:27,501
+proof of that belief. If a problem does
+take time that is exponential in its input
+
+7
+00:00:27,501 --> 00:00:31,576
+size, then that means it can in practice
+only be solved for small instances.
+
+8
+00:00:31,576 --> 00:00:35,923
+Suppose to be concrete that the time it
+takes to solve an instance of size N is
+
+9
+00:00:35,923 --> 00:00:40,734
+two to the N. And doubling the speed of
+machines makes essentially no difference
+
+10
+00:00:40,734 --> 00:00:45,757
+in how large an instance you can solve. It
+adds one to the size you can solve in a
+
+11
+00:00:45,757 --> 00:00:50,658
+fixed amount of time. Using a thousand
+machines instead of one has the effect of
+
+12
+00:00:50,658 --> 00:00:55,693
+adding ten to the size N. And using a
+million machines, each one thousand times
+
+13
+00:00:55,693 --> 00:01:01,179
+faster than today's machines adds thirty
+to N. You never get to really big sizes of
+
+14
+00:01:01,179 --> 00:01:06,599
+problem instances that you can solve. As a
+result, it is generally accepted that in
+
+15
+00:01:06,599 --> 00:01:11,341
+order to a solution to Problem to be
+considered usable in practice. It has to
+
+16
+00:01:11,341 --> 00:01:16,115
+run in less than exponential time, and in
+particular in polynomial time for some
+
+17
+00:01:16,115 --> 00:01:21,007
+large polynomial. Well an algorithm that
+runs in some large polynomial time, like N
+
+18
+00:01:21,007 --> 00:01:25,542
+to the thousandth power, is no more
+practical than one that runs in time two
+
+19
+00:01:25,542 --> 00:01:30,434
+to the N. You find in practice that if a
+problem has a polynomial algorithm at all,
+
+20
+00:01:30,434 --> 00:01:35,506
+then it has an algorithm that runs in some
+low degree polynomial, like N squared or N
+
+21
+00:01:35,506 --> 00:01:40,420
+cubed at the most. In this lecture we
+introduce several important preliminary
+
+22
+00:01:40,420 --> 00:01:44,640
+concepts. We introduce the idea of a
+Turing machine that is time-bounded. It
+
+23
+00:01:44,640 --> 00:01:49,086
+can only run for time that is a known
+function of its input size before it has
+
+24
+00:01:49,086 --> 00:01:53,634
+to stop and tell us whether it accepts or
+rejects. We introduce the Class P of
+
+25
+00:01:53,634 --> 00:01:58,775
+problems or languages, it's the same thing
+of course, that can be solved by a Turing
+
+26
+00:01:58,775 --> 00:02:03,854
+Machine that runs in polynomial time as a
+function of its input size. We also meet
+
+27
+00:02:03,854 --> 00:02:08,686
+the Class NP which is problems that can be
+solved by a Turing Machine that is
+
+28
+00:02:08,686 --> 00:02:13,472
+non-deterministic but has a [inaudible]
+time bound along each branch. Finally,
+
+29
+00:02:13,472 --> 00:02:18,337
+we'll learn about polynomial time
+reductions, which are reductions where the
+
+30
+00:02:18,337 --> 00:02:22,946
+transducer runs in time which is
+polynomial in its input size. These are
+
+31
+00:02:22,946 --> 00:02:28,067
+used to show one problem intractable by
+reducing a known intractable problem to
+
+32
+00:02:28,067 --> 00:02:33,688
+it. [sound] We say a Turning Machine is T
+of N, time-bounded where T of N is some
+
+33
+00:02:33,688 --> 00:02:39,258
+function of N like N squared or two to the
+N. If given an input of length N the
+
+34
+00:02:39,258 --> 00:02:45,399
+machine always halts at most T of N steps.
+Okay? We allow the Turing Machine to have
+
+35
+00:02:45,399 --> 00:02:49,726
+several tapes. In some circumstances we
+allow the Turning Machine to be
+
+36
+00:02:49,726 --> 00:02:54,663
+non-deterministic, although in that case
+we will specify that it is a [inaudible]
+
+37
+00:02:54,663 --> 00:02:59,540
+time-bounded non-deterministic Turning
+Machine. Also in that case will mean that
+
+38
+00:02:59,540 --> 00:03:03,928
+any, any sequence of moves of the
+non-deterministic machine is no longer
+
+39
+00:03:03,928 --> 00:03:09,875
+than T of N. In practice, a deterministic
+multi-tape Turing Machine is close to the
+
+40
+00:03:09,875 --> 00:03:14,754
+idea of an algorithm that runs in time
+proportional to T of N or big O of T of N.
+
+41
+00:03:14,754 --> 00:03:19,813
+That is why some algorithms take longer in
+a Turing Machine, even multi-tape, than on
+
+42
+00:03:19,813 --> 00:03:25,684
+a real computer these are rare. Moreover
+when there is a difference, the difference
+
+43
+00:03:25,684 --> 00:03:32,143
+tends to be small A turn machine and the
+set to be polynomial time bounded, if it
+
+44
+00:03:32,143 --> 00:03:37,354
+is time bounded by any polynomial. It
+could be linear, quadratic, cubic or into
+
+45
+00:03:37,354 --> 00:03:42,565
+the thousandth power, as long as it is
+some polynomial. The languages that are
+
+46
+00:03:42,565 --> 00:03:48,758
+accepted by polynomial time bounded turn
+machines form the class P. Now P is
+
+47
+00:03:48,758 --> 00:03:52,963
+defined formally in terms of Turing
+Machines, but it could just as well have
+
+48
+00:03:52,963 --> 00:03:57,446
+been stated as polynomial time on a real
+computer. The reason, which we address on
+
+49
+00:03:57,446 --> 00:04:01,486
+the next slide, is that if an algorithm
+runs in some polynomial time on a
+
+50
+00:04:01,486 --> 00:04:06,079
+computer, then it will run polynomial time
+on a multi-tape Turing Machine, or even a
+
+51
+00:04:06,079 --> 00:04:10,451
+one tape Turing Machine, although the
+degree of the polynomial may be higher in
+
+52
+00:04:10,451 --> 00:04:16,322
+some cases. That is, we saw a way to
+simulate a name value store by a computer.
+
+53
+00:04:16,322 --> 00:04:21,062
+That is the part of a real computer that
+takes the most time when simulated by a
+
+54
+00:04:21,062 --> 00:04:25,927
+Turing Machine. But if a computer runs for
+on the order of T of N steps then it can
+
+55
+00:04:25,927 --> 00:04:30,384
+store or retrieve more than T of N items
+in its memory. A Turing Machine can
+
+56
+00:04:30,384 --> 00:04:35,369
+simulate one look up or insert into a name
+value store and a number of steps that is
+
+57
+00:04:35,369 --> 00:04:40,002
+proportional to the length of the tape
+that holds the store. But that length is
+
+58
+00:04:40,002 --> 00:04:44,577
+proportional at most to the number of
+steps the computer has taken, which is T
+
+59
+00:04:44,577 --> 00:04:49,510
+of N. And thus the Turing Machine takes at
+most T squared of N of its own steps. If T
+
+60
+00:04:49,510 --> 00:04:54,200
+of N is a polynomial, then so is T squared
+of N. The exponent grows of course, a
+
+61
+00:04:54,200 --> 00:04:59,130
+cubic algorithm on a computer might take
+time proportional to N to the sixth on a
+
+62
+00:04:59,130 --> 00:05:03,940
+Turing Machine, but it's no worse than
+that. And since we're trying to divide the
+
+63
+00:05:03,940 --> 00:05:08,510
+world of problems into those that have
+polynomial algorithms and those that
+
+64
+00:05:08,510 --> 00:05:13,209
+don't, we can think Turing Machine or
+computer whichever is more convenient. As
+
+65
+00:05:13,209 --> 00:05:17,890
+you might expect, when simulating a
+program it's best to simulate a Turing
+
+66
+00:05:17,890 --> 00:05:22,634
+Machine, but when devising an algorithm
+it's best to think about a computer
+
+67
+00:05:22,634 --> 00:05:27,820
+program. Here are two examples of problems
+or languages, which is the same thing, in
+
+68
+00:05:27,820 --> 00:05:32,572
+the Class P. For each context-free grammar
+G there is an algorithm, the CYK
+
+69
+00:05:32,572 --> 00:05:37,595
+algorithm, that takes an input string W
+and tells whether W is in the language.
+
+70
+00:05:37,595 --> 00:05:42,167
+There's many times that this lag-,
+algorithm is o of N cubed. The second
+
+71
+00:05:42,167 --> 00:05:47,125
+problem I want to talk about is finding a
+path in a graph. Here we're given a
+
+72
+00:05:47,125 --> 00:05:52,212
+directed graph, that is a list of its
+nodes and arcs. We are also given one node
+
+73
+00:05:52,212 --> 00:05:57,299
+that is the source node X and another is
+the sync node Y. The answer's yes, that
+
+74
+00:05:57,299 --> 00:06:02,258
+there's a path in the graph from the
+source to the sync. Graphs must be coded
+
+75
+00:06:02,258 --> 00:06:07,254
+in a [inaudible] alphabet, which should
+not be hard to see, represent the
+
+76
+00:06:07,254 --> 00:06:12,529
+[inaudible] node by N followed by I in
+binary in represent an arc by a pair of
+
+77
+00:06:12,529 --> 00:06:17,783
+nodes that tail and the head of the arc.
+Used two special symbols to indicate the
+
+78
+00:06:17,783 --> 00:06:22,824
+source and sync nodes. Note that there are
+M nodes, it takes order log M space to
+
+79
+00:06:22,824 --> 00:06:27,551
+represent one node, so N, the input
+length, is actually somewhat greater than
+
+80
+00:06:27,551 --> 00:06:32,340
+the number of nodes and arcs, but the
+difference is unimportant since we are
+
+81
+00:06:32,340 --> 00:06:37,112
+only worrying about polynomial versus not
+polynomial. Depth for a [inaudible]
+
+82
+00:06:37,112 --> 00:06:41,887
+answers this question in time that is
+linear in the number of nodes and arcs. On
+
+83
+00:06:41,887 --> 00:06:46,601
+a turing machine you might need order,
+order N squared steps, since for one step
+
+84
+00:06:46,601 --> 00:06:51,555
+of the depth for [inaudible], you have to
+locate on the input the arcs with a given
+
+85
+00:06:51,555 --> 00:06:56,270
+node as the tail. That could require that
+you run all along the tape just to
+
+86
+00:06:56,270 --> 00:07:00,806
+simulate one computer step. But N squared
+is still a polynomial so as far as
+
+87
+00:07:00,806 --> 00:07:05,634
+membership in P is concerned N squared is
+just fine. And just to make sure, when we
+
+88
+00:07:05,634 --> 00:07:10,405
+talk about polynomial time, we talk about
+every running time that is less than some
+
+89
+00:07:10,405 --> 00:07:14,659
+polynomial. That is the definition of B
+only requires that the language be
+
+90
+00:07:14,659 --> 00:07:19,028
+accepted by some [inaudible] machine,
+whose running time is bounded above by
+
+91
+00:07:19,028 --> 00:07:23,396
+some polynomial. For example there are
+many algorithms that run in time, like
+
+92
+00:07:23,396 --> 00:07:27,535
+order N log N, but that is less than N
+squared so the problems solved by
+
+93
+00:07:27,535 --> 00:07:32,715
+algorithms like this are surely empty.
+Before proceeding, I want to examine in
+
+94
+00:07:32,715 --> 00:07:39,245
+detail a problem that seems to be in P but
+really isn't. And I want you to understand
+
+95
+00:07:39,245 --> 00:07:44,853
+why, this is really important in
+understanding what the class P really
+
+96
+00:07:44,853 --> 00:07:51,275
+means. The problem called knapsack is
+this. We're given a list of N positive
+
+97
+00:07:51,275 --> 00:07:58,924
+integers. The answer to this instance of
+nap stack is yes, if and only if we can
+
+98
+00:07:58,924 --> 00:08:06,574
+partition the integers into two groups
+whose sums are equal. For example, if the
+
+99
+00:08:06,574 --> 00:08:13,774
+integers are one, two, three and four Then
+i can partition them into one in four in
+
+100
+00:08:13,774 --> 00:08:20,395
+one group, and two and three in the other
+group, and the sums in each group will be
+
+101
+00:08:20,395 --> 00:08:25,432
+equal. Incidentally the problem is called
+Nap Sack because of the view that the
+
+102
+00:08:25,432 --> 00:08:30,608
+integers await the items and two hikers
+want to divide the items between their two
+
+103
+00:08:30,608 --> 00:08:35,690
+nap sacks, so each carries equal weight.
+At first glance we can solve an abstract
+
+104
+00:08:35,690 --> 00:08:40,214
+problem by a polynomial time dynamic
+programming algorithm. That is, we
+
+105
+00:08:40,214 --> 00:08:45,386
+maintain a table of all the differences
+and sums we can achieve by partitioning
+
+106
+00:08:45,386 --> 00:08:50,557
+the first J minus one integers. When we
+incorporate the Jth integer, we take each
+
+107
+00:08:50,557 --> 00:08:55,663
+possible difference and both add and
+subtract the Jth integer thus getting two
+
+108
+00:08:55,663 --> 00:09:01,093
+new possible differences. After looking at
+all integers we see if zero is a possible
+
+109
+00:09:01,093 --> 00:09:06,070
+difference. To be more precise, for the
+basis we consider none of the integers.
+
+110
+00:09:06,070 --> 00:09:11,260
+Then the table That's true for zero
+difference and false for all the other
+
+111
+00:09:11,260 --> 00:09:16,888
+differences. For the induction, suppose we
+have a table for the first J minus one
+
+112
+00:09:16,888 --> 00:09:22,516
+integers. We build a new table to reflect
+the partitions of the first J integers,
+
+113
+00:09:22,516 --> 00:09:28,004
+initially each entry in the new table is
+false. But suppose the Jth integer is
+
+114
+00:09:28,004 --> 00:09:33,940
+[inaudible] of J. For each difference, M
+that was true in the old table set the
+
+115
+00:09:33,940 --> 00:09:40,158
+entries for M plus I's of J and also M
+minus I of J to be true in the new table.
+
+116
+00:09:40,158 --> 00:09:46,375
+Lets compute the running time of this
+algorithm as a function of the sum of the
+
+117
+00:09:46,375 --> 00:09:53,670
+integers. Lets say that some is S. We need
+order S space to construct a table for one
+
+118
+00:09:53,670 --> 00:10:00,616
+value of J, since the differences must be
+in the range minus S to plus S. And it
+
+119
+00:10:00,616 --> 00:10:05,318
+only takes order S time to construct each
+table from the previous one using a real
+
+120
+00:10:05,318 --> 00:10:09,907
+computer, maybe it's order S squared on a
+Turing machine because you have to move
+
+121
+00:10:09,907 --> 00:10:13,872
+the head a long distance to write each
+entry. But again, when designing
+
+122
+00:10:13,872 --> 00:10:18,631
+algorithms and worrying only about whether
+something is polynomial time or not, real
+
+123
+00:10:18,631 --> 00:10:23,106
+computer is the right model to think about
+because the programming details are
+
+124
+00:10:23,106 --> 00:10:28,480
+generally easier. Okay note that N equal
+to or less than S, since the integers are
+
+125
+00:10:28,480 --> 00:10:33,856
+each positive. That is the sum of the
+integers is at least equal to the number
+
+126
+00:10:33,856 --> 00:10:40,428
+of integers on the list. Thus we can build
+a table that corresponds to the set of all
+
+127
+00:10:40,428 --> 00:10:46,718
+the integers in order S squared time. S
+for each of N different tables. We then
+
+128
+00:10:46,718 --> 00:10:52,846
+look at this table and see if zero is
+true. If so, the answer to the knapsack
+
+129
+00:10:52,846 --> 00:10:58,893
+instance is yes. And otherwise it is no.
+However that conclusion is actually
+
+130
+00:10:58,893 --> 00:11:04,350
+deceptive. Although it is true that we
+just described an algorithm that runs in
+
+131
+00:11:04,350 --> 00:11:09,259
+time no more than the square of the sum of
+the integers and that algorithm really
+
+132
+00:11:09,259 --> 00:11:13,868
+does solve the nap sack problem. It
+doesn't tell us that the nap sack problem
+
+133
+00:11:13,868 --> 00:11:18,669
+is in P and in fact it is surely not in P
+as we shall see later. The reason this
+
+134
+00:11:18,669 --> 00:11:23,818
+algorithm doesn't show knapsack to be in P
+is that membership in P requires that the
+
+135
+00:11:23,818 --> 00:11:28,845
+algorithm runs in time polynomial in the
+input size. But we can't just define input
+
+136
+00:11:28,845 --> 00:11:33,934
+size to be the sum of the integers in the
+input. The input size is always the number
+
+137
+00:11:33,934 --> 00:11:38,794
+of cells it takes to write the input on a
+Turing Machine tape. For the knapsack
+
+138
+00:11:38,794 --> 00:11:43,603
+problem, this input length is not
+necessarily polynomial in the sum of the
+
+139
+00:11:43,603 --> 00:11:48,672
+integers, as we shall see on the next
+slide. The longest input length occurs if
+
+140
+00:11:48,672 --> 00:11:53,871
+we have any integers, each of whose values
+is about two to the N. If we write the
+
+141
+00:11:53,871 --> 00:11:58,615
+integers in binary, the input to the
+Turing Machine is order N squared in
+
+142
+00:11:58,615 --> 00:12:03,691
+length. But a table then requires about
+two to the N entries and at least that
+
+143
+00:12:03,691 --> 00:12:08,963
+much space to write down. That is the sum
+of all N integers can be around N times
+
+144
+00:12:08,963 --> 00:12:14,170
+two to the N. Mccath can construct one
+table in time less than its length so the
+
+145
+00:12:14,170 --> 00:12:20,972
+total time of the algorithm is on the
+order of N squared times two to the N But
+
+146
+00:12:20,972 --> 00:12:27,110
+the input size is N squared and N squared
+two to the N is not a polynomial function
+
+147
+00:12:27,110 --> 00:12:32,809
+of input length. By the way, we usually
+like to have N be the actual input size
+
+148
+00:12:32,809 --> 00:12:37,960
+for the Turing Machine. So if we
+substitute N for N squared we can say the
+
+149
+00:12:37,960 --> 00:12:43,335
+inputs of size N leads to an algorithm
+that takes time proportional to N times
+
+150
+00:12:43,335 --> 00:12:48,575
+two to the squared root of N. That is
+still not a polynomial. Thus the dynamic
+
+151
+00:12:48,575 --> 00:12:54,018
+programming algorithm we described, while
+it is really a good algorithm when the
+
+152
+00:12:54,018 --> 00:12:59,530
+integers of limited size, does not show
+the knapsack problem to be in the class P.
+
+153
+00:12:59,530 --> 00:13:05,465
+There is another problem which we can call
+pseudo-knapsack. The question is the same,
+
+154
+00:13:05,465 --> 00:13:10,691
+but the integers are represented in unary
+not binary. That is interger I is
+
+155
+00:13:10,691 --> 00:13:16,012
+represented by I ones followed by some
+Marcuss symbol toseparateeintegerss. This
+
+156
+00:13:16,012 --> 00:13:20,874
+problem is in P, and the dynamic
+programing algorithm proves that. But it
+
+157
+00:13:20,874 --> 00:13:26,346
+is not the classical nap sack problem
+where integers are represented in binary,
+
+158
+00:13:26,346 --> 00:13:31,886
+the sort of rational way to represent
+large integers. The second important class
+
+159
+00:13:31,886 --> 00:13:37,080
+of languages for our story is NP, a
+nondeterministic polynomial class. Np is
+
+160
+00:13:37,080 --> 00:13:42,275
+defined in terms of nondeterministic
+Turing Machines. The running time of a
+
+161
+00:13:42,275 --> 00:13:47,954
+nondeterministic Turing Machine is the
+maximum number of moves it takes along any
+
+162
+00:13:47,954 --> 00:13:53,182
+branch, that is making any sequence of
+choices. If there's a polynomial bound on
+
+163
+00:13:53,182 --> 00:13:57,515
+that time then the non-deterministic
+machine is said to be polynomial
+
+164
+00:13:57,515 --> 00:14:03,707
+time-bounded. And the language or problem
+it accepts is said to be in the class NP.
+
+165
+00:14:03,707 --> 00:14:09,372
+For example, the standard version of
+knapsack where integers are represented in
+
+166
+00:14:09,372 --> 00:14:15,138
+binary is an NP. The non-deterministic
+polynomial time algorithm that solves this
+
+167
+00:14:15,138 --> 00:14:19,891
+is fairly simple. First it uses its
+non-determinism to guess a partition of
+
+168
+00:14:19,891 --> 00:14:25,150
+the integers into two subsets. This can be
+done in time that is linear in the input
+
+169
+00:14:25,150 --> 00:14:30,346
+length using two extra tapes for the two
+subsets. Then sum the subsets and compare.
+
+170
+00:14:30,346 --> 00:14:35,605
+Say yes if this partition yields two equal
+sums. And this part can truly be done in
+
+171
+00:14:35,605 --> 00:14:40,801
+time that is quadratic in the input size
+and can be done in linear time if you're
+
+172
+00:14:40,801 --> 00:14:45,877
+clever and use a few extra tapes. Thus
+standard knapsack is an NP. Note that this
+
+173
+00:14:45,877 --> 00:14:50,726
+fact doesn't suggest a deterministic
+polynomial time algorithm, since it may
+
+174
+00:14:50,726 --> 00:14:55,831
+take exponential time to simulate the
+non-determinism of the Turing Machine. Are
+
+175
+00:14:55,831 --> 00:15:00,489
+P and NP really the same class of
+languages? That is, can any problem that
+
+176
+00:15:00,489 --> 00:15:05,722
+is solved by a non-deterministic Turing
+machine in polynomial time also be solved
+
+177
+00:15:05,722 --> 00:15:10,954
+by some deterministic Turing Machine in
+polynomial time, even if the degree of the
+
+178
+00:15:10,954 --> 00:15:15,959
+polynomial is higher? This question was
+posed by Steve Cook in 1970. At first it
+
+179
+00:15:15,959 --> 00:15:20,700
+didn't seem all that hard or unlikely.
+After all nondeterministic [inaudible],
+
+180
+00:15:20,700 --> 00:15:24,954
+[inaudible] can be simulated by
+deterministic [inaudible], [inaudible],
+
+181
+00:15:24,954 --> 00:15:29,755
+even though the number states might grow
+and deterministic Turing Machines can
+
+182
+00:15:29,755 --> 00:15:34,164
+simulate nondeterministic ones. But the
+problem is proving to be very, very
+
+183
+00:15:34,164 --> 00:15:38,684
+difficult, and mathematicians who once
+neared the question and assumed it was
+
+184
+00:15:38,684 --> 00:15:43,321
+easy because computer scientists have
+thought it up, now recognize it as one of
+
+185
+00:15:43,321 --> 00:15:47,841
+the most important mathematical question,
+perhaps the most important unsolved
+
+186
+00:15:47,841 --> 00:15:52,986
+question. However there are thousands of
+problems that are in N P but for which no
+
+187
+00:15:52,986 --> 00:15:57,730
+algorithm N P has been found. And
+unfortunately neither is there proof that
+
+188
+00:15:57,730 --> 00:16:02,663
+these problems are not N P. What we do
+have is a linkage of the large class of
+
+189
+00:16:02,663 --> 00:16:07,596
+problems called N P Complete Problems
+which we discuss on the next slide. What
+
+190
+00:16:07,596 --> 00:16:12,729
+we do know is then that either all these
+problem are in P or none of them are. So
+
+191
+00:16:12,729 --> 00:16:17,924
+the mutually enforce the notion that none
+of them are since many have been worked
+
+192
+00:16:17,924 --> 00:16:22,740
+for decades and no polynomial time
+algorithm for any of them has been found.
+
+193
+00:16:22,740 --> 00:16:27,660
+So we're going to address the question of
+whether P equals N P by identifying
+
+194
+00:16:27,660 --> 00:16:33,487
+complete problems for N P. We say a
+problem is NP complete if the following is
+
+195
+00:16:33,487 --> 00:16:40,171
+true about the problem. If the problem is
+NP then P equals NP, that is every problem
+
+196
+00:16:40,171 --> 00:16:46,232
+in NP is also NP. It turns out that almost
+every problem that is known to be an N P,
+
+197
+00:16:46,232 --> 00:16:51,723
+but is not known to be N P is N P
+complete. There is only one well known
+
+198
+00:16:51,723 --> 00:16:57,113
+exception, [inaudible]. Given two graphs
+is there a one to one matching of nodes
+
+199
+00:16:57,113 --> 00:17:01,899
+between the two graphs that makes the
+graphs identical? This problem is known
+
+200
+00:17:01,899 --> 00:17:06,623
+the be N P just guess matching the two
+nodes and check that the right edges
+
+201
+00:17:06,623 --> 00:17:11,410
+exist. But there is no polynomial time
+algorithm known and neither is there a
+
+202
+00:17:11,410 --> 00:17:16,376
+proof that the graph is M P complete But
+[inaudible] is an exception to what
+
+203
+00:17:16,376 --> 00:17:21,775
+appears to be an almost general rule, if
+it is an NP and it is not known to be NP,
+
+204
+00:17:21,775 --> 00:17:26,840
+then it is NP complete. While the
+definition of NP complete is merely states
+
+205
+00:17:26,840 --> 00:17:32,539
+that there has to be some way proving that
+P. Equals NP from the assumption that the
+
+206
+00:17:32,539 --> 00:17:37,439
+problem is NP. There is a standard way of
+making such proofs and it appears to be
+
+207
+00:17:37,439 --> 00:17:41,674
+sufficient for all the NP complete
+problems we know about. This method
+
+208
+00:17:41,674 --> 00:17:46,635
+involves reductions of the type we talked
+about in Turing Machines in general, but
+
+209
+00:17:46,635 --> 00:17:51,777
+with the condition that the transducer in
+polynomial time is a function of its input
+
+210
+00:17:51,777 --> 00:17:56,436
+size. Intuitively a complete problem for a
+class embodies, in some sense, every
+
+211
+00:17:56,436 --> 00:18:01,034
+problem in the class. For example post
+correspondence problem embodies every
+
+212
+00:18:01,034 --> 00:18:06,097
+Turing Machine even though it is hard to
+see PCP as. Computation. It only seems to
+
+213
+00:18:06,097 --> 00:18:11,121
+be about concatenating strings in
+constrained ways. So it might surprise you
+
+214
+00:18:11,121 --> 00:18:15,683
+to know that each NP complete problems,
+such as nap sack, embodies all
+
+215
+00:18:15,683 --> 00:18:20,311
+nondeterministic polynomial time
+computation, even though the nap sack
+
+216
+00:18:20,311 --> 00:18:25,666
+problem seems to be about anything but
+computation. So in order to show problem L
+
+217
+00:18:25,666 --> 00:18:31,087
+to be NP complete we have to show that
+every problem in NP is somehow embedded in
+
+218
+00:18:31,087 --> 00:18:36,216
+L. We need a transformation from every
+problem in NP to L and this transformation
+
+219
+00:18:36,216 --> 00:18:41,086
+has to be sufficiently fast that if we had
+to deterministic polynomial timed
+
+220
+00:18:41,086 --> 00:18:46,082
+algorithm for L, then we could use it to
+build a deterministic polynomial timed
+
+221
+00:18:46,082 --> 00:18:51,095
+algorithm for each problem in NP. We are
+going to define a polynomial time
+
+222
+00:18:51,095 --> 00:18:56,945
+transducer. Notice that people frequently
+shorten polynomial time to poly time, and
+
+223
+00:18:56,945 --> 00:19:02,653
+we will start doing that to, So a poly
+time transducer is a deterministic Turing
+
+224
+00:19:02,653 --> 00:19:08,218
+Machine in that it takes an input of
+length N, runs for some polynomial number
+
+225
+00:19:08,218 --> 00:19:13,926
+of steps, P of N. And produces an output
+on an output tape. It is important to
+
+226
+00:19:13,926 --> 00:19:19,339
+observe that although we do not restrict
+the output length since the Turing Machine
+
+227
+00:19:19,339 --> 00:19:24,688
+only runs P of N steps. It could not write
+more than P of N symbols, thus the length
+
+228
+00:19:24,688 --> 00:19:29,585
+of the output of the polynomial time
+transducer is always polynomial in the
+
+229
+00:19:29,585 --> 00:19:34,702
+length of its input. Here is a picture of
+a poly time transducer. He can have any
+
+230
+00:19:34,702 --> 00:19:39,290
+fixed number of tapes, one is the input
+tape, and one is the output tape. We
+
+231
+00:19:39,290 --> 00:19:44,374
+argued on the last slide that the output
+length was the polynomial in the link of
+
+232
+00:19:44,374 --> 00:19:49,334
+the input, but the real constraint on the
+poly time transducer is on how long it
+
+233
+00:19:49,334 --> 00:19:54,480
+runs. It is not acceptable to have it run
+for time that is exponential in its input
+
+234
+00:19:54,480 --> 00:20:00,087
+length, even if the output is short.
+Consider two languages or problems say
+
+235
+00:20:00,087 --> 00:20:06,873
+LMN. We say L is poly-time reducible to M
+if there is a poly-timed translucor T that
+
+236
+00:20:06,873 --> 00:20:13,174
+takes and inputs W that is in the instance
+of L, produces an output of X that is in
+
+237
+00:20:13,174 --> 00:20:19,552
+the instance of M and the adds are on W is
+the same as the answer to M on X. That is
+
+238
+00:20:19,552 --> 00:20:25,535
+W is L only if X is in M. Here is a
+picture to help us remember what a poly
+
+239
+00:20:25,535 --> 00:20:31,986
+time reduction does. On the left is set of
+strings for the alphabet of L divided into
+
+240
+00:20:31,986 --> 00:20:38,135
+those that are in L and those that are not
+in L. On the right is the set of strings
+
+241
+00:20:38,135 --> 00:20:43,693
+over the alphabet of M, also divided by
+its compliment. In the middle is the
+
+242
+00:20:43,693 --> 00:20:49,546
+poly-timed translucor of T. Every string
+in L is transformed by T into a string
+
+243
+00:20:49,546 --> 00:20:55,400
+that is in M. There can be strings in M
+that are not the target of strings in L.
+
+244
+00:20:55,400 --> 00:21:01,126
+And every string not in L but over the
+alphabet of L is transformed by T into a
+
+245
+00:21:01,126 --> 00:21:06,351
+string that is over the alphabet of M, but
+is not in M. Again there can be
+
+246
+00:21:06,351 --> 00:21:12,292
+compliments of strings that are not the
+target of any strings in the compliment of
+
+247
+00:21:12,292 --> 00:21:18,162
+L. Formally we say a problem or language
+of MP complete if for every language L or
+
+248
+00:21:18,162 --> 00:21:24,174
+MP there is a poly timed reduction from L
+to M. An important consequence of the fact
+
+249
+00:21:24,174 --> 00:21:30,234
+that M is MP complete is that if M has a
+poly timed algorithm then so do every L in
+
+250
+00:21:30,234 --> 00:21:36,152
+MP, that is the classic language of P or
+MP are the same, or P equals MP. Notice
+
+251
+00:21:36,152 --> 00:21:41,918
+that earlier we suggested that the
+definition of MP completeness was simply
+
+252
+00:21:41,918 --> 00:21:47,488
+that the language had this property. Steve
+Cooks original definition of MP complete
+
+253
+00:21:47,488 --> 00:21:51,836
+was exactly that. And it is often referred
+to as Cooks completeness. Cook
+
+254
+00:21:51,836 --> 00:21:56,365
+concentrated on showing one particular
+problem- the question of whether an
+
+255
+00:21:56,365 --> 00:22:00,834
+expression of proposition logic was
+satisfiable that is made true by some
+
+256
+00:22:00,834 --> 00:22:05,424
+assignment of truth values to the
+propositional variables. But shortly after
+
+257
+00:22:05,424 --> 00:22:09,832
+Cook wrote his original paper on MP
+completeness, Dick Carp wrote another
+
+258
+00:22:09,832 --> 00:22:14,241
+paper that showed many of the classical
+problems that have been puzzling
+
+259
+00:22:14,241 --> 00:22:18,650
+mathematicians for centuries where MP
+complete. Carp used only poly-timed
+
+260
+00:22:18,650 --> 00:22:23,574
+reductions to the problems Cook had
+completed. Since then it is generally
+
+261
+00:22:23,574 --> 00:22:29,106
+accepted that the preferred definition of
+NP complete and this is the one we gave
+
+262
+00:22:29,106 --> 00:22:33,896
+here, the existence of poly-timed
+ductions. To make the distinction this
+
+263
+00:22:33,896 --> 00:22:39,562
+notion of MP completeness is often called
+Carp Completeness. So here is the plan for
+
+264
+00:22:39,562 --> 00:22:44,217
+proving certain problems to be NP
+complete. Here is all of NP, sad the
+
+265
+00:22:44,217 --> 00:22:49,209
+satisfiable problem for propositional
+logic that we just discussed is one
+
+266
+00:22:49,209 --> 00:22:54,165
+problem in NP. Cook's theorem is that
+every problem and then MP reduces in
+
+267
+00:22:54,165 --> 00:22:59,502
+poly-timed to the sad problem. So sad is
+the first known MP complete problem. Cook
+
+268
+00:22:59,502 --> 00:23:04,510
+also proved a restrictive form of sad
+called Three Sad to be MP complete by
+
+269
+00:23:04,510 --> 00:23:09,320
+reducing sad to three sad. We'll learn
+about the three sad restriction is
+
+270
+00:23:09,320 --> 00:23:13,998
+shortly, but in brief it is sad
+restrictive to expressions that are the
+
+271
+00:23:13,998 --> 00:23:19,336
+and of clauses with three literals per
+term. A literal is a variable or a negated
+
+272
+00:23:19,336 --> 00:23:24,277
+variable and a clause is the or of
+literals. Then from three sad we do poly
+
+273
+00:23:24,277 --> 00:23:29,455
+timed reductions either directly or
+Indirectly. Each problem we can reach from
+
+274
+00:23:29,455 --> 00:23:34,866
+sack by a chain of poly-time reductions is
+thus proved NP complete. But before we
+
+275
+00:23:34,866 --> 00:23:40,410
+embark on this quest, let's make sure that
+a polynomial time reductions work in the
+
+276
+00:23:40,410 --> 00:23:45,954
+sense that they let us draw the desired
+conclusion about all of NP reducing to the
+
+277
+00:23:45,954 --> 00:23:51,031
+target problem. So suppose M has a
+poly-time algorithm, say running time Q of
+
+278
+00:23:51,031 --> 00:23:56,441
+N for some polynomial Q. Let that be a
+poly-time transducer T from some problem L
+
+279
+00:23:56,441 --> 00:24:01,754
+to M. And let the time taken by T be P of
+N for some polynomial. [inaudible] the
+
+280
+00:24:01,754 --> 00:24:07,415
+output of T given an input of length N is
+at most of length P of N, so when we run
+
+281
+00:24:07,415 --> 00:24:12,800
+the algorithm for N on this input of
+length P of N, the algorithm takes time Q
+
+282
+00:24:12,800 --> 00:24:18,323
+of P of N. Note that a polynomial of a
+polynomial is a polynomial. The degrees of
+
+283
+00:24:18,323 --> 00:24:23,708
+the polynomial are multiplied but it's
+still a polynomial. We claim there is a
+
+284
+00:24:23,708 --> 00:24:29,370
+poly-time algorithm for L, given an input
+W of length N for L, apply the transducer
+
+285
+00:24:29,370 --> 00:24:35,362
+T to W. The result is Now put X at length
+of P and N and more importantly T takes
+
+286
+00:24:35,362 --> 00:24:40,855
+time only P of N to produce this output.
+Apply to X the algorithm to tell whether
+
+287
+00:24:40,855 --> 00:24:46,348
+it is in M. As we observed in the previous
+slide this part takes time Q of P of N.
+
+288
+00:24:46,348 --> 00:24:51,976
+And in return the answer to W whatever the
+N algorithm says about X. The total time
+
+289
+00:24:51,976 --> 00:24:57,604
+of this algorithm is P of N plus Q of P of
+N which is polynomial of P and QR. It is
+
+290
+00:24:57,604 --> 00:25:02,894
+the correct algorithm because that the
+fact that T is a poly-timed translucor
+
+291
+00:25:02,894 --> 00:25:07,709
+from L to M says that the answers to input
+W and output X are the same.

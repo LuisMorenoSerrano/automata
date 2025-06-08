@@ -1,0 +1,1844 @@
+1
+00:00:00,000 --> 00:00:05,471
+Now it's time for the payload of the
+theory of NP completeness. We're going to
+
+2
+00:00:05,471 --> 00:00:10,942
+see some perfectly ordinary problems not
+apparently related to computation in
+
+3
+00:00:10,942 --> 00:00:16,343
+anyway, that are also NP complete. Of
+course we can cover only a tiny fraction
+
+4
+00:00:16,343 --> 00:00:21,265
+of the problems that are known to be NP
+complete. But the methods, ways of
+
+5
+00:00:21,265 --> 00:00:26,030
+designing reductions, are the things to
+take away from this discussion. If you
+
+6
+00:00:26,030 --> 00:00:30,857
+encounter a problem in your work, and
+can't come up with an efficient solution,
+
+7
+00:00:30,857 --> 00:00:35,745
+there is a good chance that you can devise
+a reduction that proves [inaudible]
+
+8
+00:00:35,745 --> 00:00:40,820
+complete. That proof guides your thinking.
+You need to consider for example, whether
+
+9
+00:00:40,820 --> 00:00:46,660
+you need to solve the problem in all its
+generality. Or whether a simple or special
+
+10
+00:00:46,660 --> 00:00:52,022
+case would give you what you need. You
+need to consider efficient algorithms that
+
+11
+00:00:52,022 --> 00:00:57,568
+offer an approximation to what you really
+want. Without the assurance of the problem
+
+12
+00:00:57,568 --> 00:01:02,981
+[inaudible] complete, you are less likely
+to want to attempt, or to justify to your
+
+13
+00:01:02,981 --> 00:01:08,173
+boss, taking one of these simplifying
+steps. But before moving onto reductions
+
+14
+00:01:08,173 --> 00:01:13,641
+that show the problem's node color and
+knapsack to be NP-complete, we introduce
+
+15
+00:01:13,641 --> 00:01:18,764
+one more nuance since the theory. Np-hard
+problems are those that would be
+
+16
+00:01:18,764 --> 00:01:24,509
+NP-complete if only they were an NP, but
+that are probably or certainly harder than
+
+17
+00:01:24,509 --> 00:01:30,358
+anything in NP. We talk about the
+tautology problem. Which is an example of
+
+18
+00:01:30,358 --> 00:01:35,351
+such as problem even though it is very
+closely related to the problem set. We are
+
+19
+00:01:35,351 --> 00:01:40,407
+ready to reduce three set to a number of
+other problems, thus showing each of them
+
+20
+00:01:40,407 --> 00:01:45,463
+meant be complete. These reductions can be
+directly from three set or from another
+
+21
+00:01:45,463 --> 00:01:50,210
+problem that we previously proved NP
+complete. Remember, the key issue is that
+
+22
+00:01:50,210 --> 00:01:55,551
+each reduction must be in polynomial time.
+However, in most cases, the construction
+
+23
+00:01:55,551 --> 00:02:00,707
+is computationally simple. So, as long as
+the output is of length polynomial in the
+
+24
+00:02:00,707 --> 00:02:05,359
+input, it will be easy to argue that the
+running time of the transducer, is
+
+25
+00:02:05,359 --> 00:02:11,244
+polynomial. Of course. If a problem is NP
+complete it must be an MP. Usually, this
+
+26
+00:02:11,244 --> 00:02:16,896
+part of the proof is quite simple, since a
+non-deterministic polytime Turing machine
+
+27
+00:02:16,896 --> 00:02:22,145
+can use its non-determinism to guess a
+solution in linear time. And then check
+
+28
+00:02:22,145 --> 00:02:27,393
+that it has guessed the solution using
+some polynomial amount of time. However,
+
+29
+00:02:27,393 --> 00:02:32,776
+there are some interesting cases where we
+can only show a problem to be NP hard.
+
+30
+00:02:32,776 --> 00:02:38,024
+Meaning that if it is in P, then P=NP. But
+the problem, itself, may or may not be an
+
+31
+00:02:38,024 --> 00:02:42,742
+NP. A curious example of an NP hard
+problem is the tautology problem. A
+
+32
+00:02:42,742 --> 00:02:48,230
+bullion expression is a totallogy if it
+true for every truth assignment. For
+
+33
+00:02:48,230 --> 00:02:54,075
+example, this expression is a totallogy.
+Every truth assignment makes X either true
+
+34
+00:02:54,075 --> 00:02:59,492
+or false so one of the first two terms,
+that is this or that, will have to be
+
+35
+00:02:59,492 --> 00:03:05,336
+true, and therefore the whole expression
+is true. We don't even need the term Y and
+
+36
+00:03:05,336 --> 00:03:11,180
+Z. If you look at Cook's original paper on
+NP completeness, he was really trying to
+
+37
+00:03:11,180 --> 00:03:17,132
+argue that totallogies required
+exponential time to recognize. Because
+
+38
+00:03:17,132 --> 00:03:22,053
+tautologies of the theorems of logic,
+that's what logicians care about, not
+
+39
+00:03:22,053 --> 00:03:27,374
+satisfiable expressions. Cook was able to
+reduce all of MP to satisfiability but
+
+40
+00:03:27,374 --> 00:03:33,028
+that is enough to show that if there were
+a poly-time algorithm for tautologies then
+
+41
+00:03:33,028 --> 00:03:38,481
+P equals MP. We'll address this point in a
+few slides. In fact, there is good reason
+
+42
+00:03:38,481 --> 00:03:43,935
+to believe the tautology problem is not an
+MP. On the other hand as compliment, the
+
+43
+00:03:43,935 --> 00:03:48,889
+non-tautologies. Including those inputs
+that don't make sense as Boolean
+
+44
+00:03:48,889 --> 00:03:53,208
+expressions, isn't np. We use the
+non-determinist to get [inaudible]
+
+45
+00:03:53,208 --> 00:03:58,106
+assignment, and evaluate the expression in
+polynomial in time for this truth
+
+46
+00:03:58,106 --> 00:04:03,263
+assignment. If the value is false, then
+the non-deterministic machine accepts its
+
+47
+00:04:03,263 --> 00:04:08,144
+input. On the other hand, the
+nondeterministic machine accepts whatever
+
+48
+00:04:08,144 --> 00:04:13,551
+it finds the value to be true. It accepts
+the satisfiable expressions, not the
+
+49
+00:04:13,551 --> 00:04:19,099
+[inaudible]. The class of languages called
+[inaudible] is those languages whose
+
+50
+00:04:19,099 --> 00:04:24,998
+complement is an [inaudible]. For example,
+we just argued that [inaudible] problem is
+
+51
+00:04:24,998 --> 00:04:29,384
+in [inaudible], because the non
+[inaudible] are an [inaudible]. P is
+
+52
+00:04:29,384 --> 00:04:35,145
+closing the complementation. We didn't
+prove this exactly, but it is easy to
+
+53
+00:04:35,145 --> 00:04:40,398
+show. Because if I have a deterministic
+touring machine that halts within P of N
+
+54
+00:04:40,398 --> 00:04:45,202
+steps for some polynomial P of N, we can
+modify it to accept the compliment
+
+55
+00:04:45,202 --> 00:04:50,262
+language. Just have the new machine sim,
+simulate the original. It halts without
+
+56
+00:04:50,262 --> 00:04:55,515
+accepting if the original machine accepts,
+and it goes to a new accepting state if
+
+57
+00:04:55,515 --> 00:05:00,511
+the original halts. Since the compliment
+of every language NP is also NP, just
+
+58
+00:05:00,511 --> 00:05:06,239
+surely an NP, that proves that class P is
+a subset of co-NP as well as an NP. And
+
+59
+00:05:06,239 --> 00:05:13,203
+another important connection is, that if p
+does equals n p, then p also equals co n
+
+60
+00:05:13,203 --> 00:05:19,231
+p. And, therefore, then n p and co n p are
+equal. However. It is possible, but
+
+61
+00:05:19,231 --> 00:05:25,378
+unlikely that MP and co-MP are the same,
+and both are bigger than NP. We can prove
+
+62
+00:05:25,378 --> 00:05:31,979
+the tautology problem to be for the proof.
+Suppose there is polytime algorithm for
+
+63
+00:05:31,979 --> 00:05:38,050
+the tautology problem, and given ebullient
+expression E, converted to (not) E, which
+
+64
+00:05:38,050 --> 00:05:43,513
+takes only linear time since all we have
+to do is add ?not' in a pair of
+
+65
+00:05:43,513 --> 00:05:48,901
+parentheses. Notice that E is satisfiable,
+if, and only if (not) E is not a
+
+66
+00:05:48,901 --> 00:05:55,337
+tautology. So use the hypothetical
+algorithm for the tautology problem to
+
+67
+00:05:55,337 --> 00:06:01,498
+tell whether or not, not E is tautology in
+polynomial time. Then just compliment the
+
+68
+00:06:01,498 --> 00:06:07,586
+answer. That is, say E isn't SAT whenever
+the answer you got is that not E is not a
+
+69
+00:06:07,586 --> 00:06:13,600
+tautology. And say E is not satisfiable
+whenever not E is found to be a tautology.
+
+70
+00:06:14,720 --> 00:06:20,534
+That would be a poly-time algorithm for
+sad which would show people's empty that
+
+71
+00:06:20,534 --> 00:06:26,407
+is all we need for proof that totalogy is
+empty heart. Now lets read a real problem
+
+72
+00:06:26,407 --> 00:06:31,713
+from operations research that Cobb proved
+to be NP complete. A node cover for a
+
+73
+00:06:31,713 --> 00:06:36,840
+graph is a set of nodes of that graph such
+that every edge has at least one of two
+
+74
+00:06:36,840 --> 00:06:41,798
+nodes in the set. We need to express the
+problem of finding a small as possible
+
+75
+00:06:41,798 --> 00:06:46,905
+node cover as a yes/no problem. We do so
+by asking what? They were given a graph G,
+
+76
+00:06:46,905 --> 00:06:51,886
+and an integer K. Does G have a node cover
+of size, K or less? This is the formal
+
+77
+00:06:51,886 --> 00:06:56,993
+problem or language called node cover.
+Notice that if we had a polytime algorithm
+
+78
+00:06:56,993 --> 00:07:01,532
+for the minimization problem. That is,
+given a graph, find a node cover of
+
+79
+00:07:01,532 --> 00:07:06,450
+smallest size. Then we could prove that
+the formal problem node cover was in P.
+
+80
+00:07:06,450 --> 00:07:11,407
+Just use the hypothetical polytime
+algorithm to find the smallest node cover.
+
+81
+00:07:11,407 --> 00:07:16,816
+Count the number of nodes in the cover and
+see if it is the nodes K. That means that
+
+82
+00:07:16,816 --> 00:07:21,903
+once we prove the formal node cover
+problem with s node version of the problem
+
+83
+00:07:21,903 --> 00:07:27,247
+to be n node complete. We also know there
+is also a node time polyalgorithm for the
+
+84
+00:07:27,247 --> 00:07:32,401
+minimization version unless p equals np.
+Here's an example of a graph. One of the
+
+85
+00:07:32,401 --> 00:07:37,379
+interesting things about NP complete
+problems and node cover is one such, Is
+
+86
+00:07:37,379 --> 00:07:42,616
+that even small instances of the problem
+seem hard, so how small a node cover can
+
+87
+00:07:42,616 --> 00:07:49,011
+we find to this graph, do you see the
+answer yet? We'll work it out. We have to
+
+88
+00:07:49,011 --> 00:07:54,914
+pick either c or d for our node cover. Or
+else, the edge c d isn't covered. We may
+
+89
+00:07:54,914 --> 00:08:00,735
+as well pick c, because c covers every
+edge that d covers and, and more. We also
+
+90
+00:08:00,735 --> 00:08:07,040
+have to pick either A or E, else the edge
+AE is not covered. But picking C and
+
+91
+00:08:07,040 --> 00:08:13,592
+either A or E does not cover the edge BF,
+so we need at least three nodes in the
+
+92
+00:08:13,592 --> 00:08:20,062
+cover. But here's one example that works,
+B, C and E together cover all the edges.
+
+93
+00:08:20,062 --> 00:08:26,056
+Thus, given this graph and the budget K=3,
+the answer is yes. The same answer applies
+
+94
+00:08:26,061 --> 00:08:30,691
+if the instance of no [inaudible] in this
+graph, this graph, with a higher budget.
+
+95
+00:08:30,691 --> 00:08:35,380
+However if we are given this graph with a
+budget of two or less the answer is no.
+
+96
+00:08:35,380 --> 00:08:41,197
+We're now going to prove a node cover to
+be NP complete, okay, we will give a
+
+97
+00:08:41,197 --> 00:08:47,166
+polytie reduction from three sat, given an
+instance of three sat, we construct a
+
+98
+00:08:47,166 --> 00:08:52,387
+graph. There is a node for each lit,
+literal of each clause. So the number of
+
+99
+00:08:52,387 --> 00:08:57,432
+nodes is three times the number of
+clauses. It helps to imagine the nodes
+
+100
+00:08:57,432 --> 00:09:02,614
+arranged in a rectangle. The columns
+corresponds to the clauses. Each column
+
+101
+00:09:02,614 --> 00:09:06,787
+has three nodes. One for each of its
+clauses. There are vertical edges
+
+102
+00:09:06,787 --> 00:09:11,532
+connecting each pair of nodes in a column
+and thus there are three vertical edges
+
+103
+00:09:11,532 --> 00:09:15,872
+per column. There are also horizontal
+edges that connect nodes in different
+
+104
+00:09:15,872 --> 00:09:20,617
+columns. Two nodes are connected if they
+represent literals with the same variable
+
+105
+00:09:20,617 --> 00:09:25,751
+and exactly one of those literals has that
+variable negated. And, finally, the budget
+
+106
+00:09:25,751 --> 00:09:32,084
+k is twice the number of clauses. Which is
+also exactly two-thirds of the nodes. So
+
+107
+00:09:32,084 --> 00:09:37,245
+here's an example of an instance of three
+set with four clauses. We'll construct the
+
+108
+00:09:37,245 --> 00:09:41,975
+graph that has a node cover of eight
+nodes, if and only if this expression is
+
+109
+00:09:41,975 --> 00:09:46,890
+satisfiable. So here's the column for the
+first clause. The literals of the first
+
+110
+00:09:46,890 --> 00:09:51,928
+clause are X, Y, and Z with no negations.
+So those are the labels of the three nodes
+
+111
+00:09:51,928 --> 00:09:56,542
+in this column. And similarly, we
+construct a column for each of the other
+
+112
+00:09:56,542 --> 00:10:01,635
+clauses. It is convenient that all four
+clauses have the same three variables in
+
+113
+00:10:01,635 --> 00:10:06,665
+order, either negated or not. So this
+graph is going to turn out to be easier to
+
+114
+00:10:06,665 --> 00:10:11,440
+understand than might be the case
+otherwise. Now I add the horizontal edges.
+
+115
+00:10:11,440 --> 00:10:16,966
+For example, in the top row, where all the
+X's are, each node labeled X is connected
+
+116
+00:10:16,966 --> 00:10:22,626
+to each node labeled not X. Again, because
+all the X nodes line up and the horizontal
+
+117
+00:10:22,626 --> 00:10:27,344
+edges are truly horizontal. In more
+complex examples, they would not be,
+
+118
+00:10:27,344 --> 00:10:33,148
+although they always go between columns.
+Similarly we see connections in the second
+
+119
+00:10:33,148 --> 00:10:38,530
+row between nodes Y and nodes not Y, and
+then the third row are the edges between Z
+
+120
+00:10:38,530 --> 00:10:43,394
+and not Z. And the final part of the
+output is the budget K, since there are
+
+121
+00:10:43,394 --> 00:10:48,776
+four clauses, the budget is K equals twice
+that or eight. The first thing to observe
+
+122
+00:10:48,776 --> 00:10:53,964
+about the constructive graph is that a
+node cover must have at least two of the
+
+123
+00:10:53,964 --> 00:10:58,480
+three nodes in every column. If it has
+only one note in the column then the
+
+124
+00:10:58,480 --> 00:11:08,713
+vertical edge between the two unselected
+notes will not be covered. Blanc But the
+
+125
+00:11:08,713 --> 00:11:12,964
+budget is exactly twice the number of
+clauses. So if all three nodes in one
+
+126
+00:11:12,964 --> 00:11:17,386
+column were in the node cover, then some
+other column will be short changed, it
+
+127
+00:11:17,386 --> 00:11:22,034
+could get only one node and we would not
+have a node cover. The conclusion is that
+
+128
+00:11:22,034 --> 00:11:26,852
+there can be no node cover with fewer than
+K nodes and that there is a node cover of
+
+129
+00:11:26,852 --> 00:11:31,217
+exactly K nodes, then these K nodes must
+be exactly two from each column. Were
+
+130
+00:11:31,217 --> 00:11:35,525
+going to show out there is a tight
+relationship between the node covers and
+
+131
+00:11:35,525 --> 00:11:39,995
+the truth assignments and this connection
+goes. Through the nodes that are not
+
+132
+00:11:39,995 --> 00:11:44,597
+selected for the node cover. That is, a
+satisfying assignment for the three-side
+
+133
+00:11:44,597 --> 00:11:49,315
+instance will yield a node-cover, if we
+omit from the node-cover one of the nodes
+
+134
+00:11:49,315 --> 00:11:54,033
+from each column that is made true by the
+assignment. And conversely, a node-cover
+
+135
+00:11:54,033 --> 00:11:58,751
+with two nodes per column will give us a
+satisfying assignment by making all the
+
+136
+00:11:58,751 --> 00:12:03,619
+literals [inaudible] nodes are uncovered
+to be true. We'll prove all this in a
+
+137
+00:12:03,619 --> 00:12:08,391
+minute, but first an example. For example,
+here's the three set instance we saw
+
+138
+00:12:08,391 --> 00:12:13,426
+earlier. And here's the graph of budget
+eight, that we constructed. Here's a truth
+
+139
+00:12:13,426 --> 00:12:19,064
+assignment. It happens to be a satisfying
+assignment so we can pick a node from each
+
+140
+00:12:19,064 --> 00:12:23,897
+column that is made true by the
+assignment. Here's one such choice. There
+
+141
+00:12:23,897 --> 00:12:29,065
+are others, for example, in the first
+column, we could have picked Y instead of
+
+142
+00:12:29,065 --> 00:12:34,234
+X. I claim that if we take the other two
+nodes from each column, we get a node
+
+143
+00:12:34,234 --> 00:12:39,603
+cover. Surely all the vertical edges are
+covered since we have two nodes in each
+
+144
+00:12:39,603 --> 00:12:45,026
+column, but what about the horizontal
+edges? Suppose we have a horizontal edge,
+
+145
+00:12:45,026 --> 00:12:50,697
+say with x at one end and not x at the
+other and neither end is in the node
+
+146
+00:12:50,697 --> 00:12:56,407
+cutter. That means both were selected as
+the literal that made their clause true.
+
+147
+00:12:56,407 --> 00:13:01,649
+But how could that be? They can't both be
+true in any one-truth assignment. So they
+
+148
+00:13:01,649 --> 00:13:06,380
+can't simultaneously make their clauses
+true. We need to show that what we
+
+149
+00:13:06,380 --> 00:13:11,352
+described is a polytime reduction from
+three [inaudible] to node cover. It is
+
+150
+00:13:11,352 --> 00:13:16,761
+easy to see the transducer takes
+polynomial time. It works clause-by-clause
+
+151
+00:13:16,763 --> 00:13:22,030
+generating no more nos than there are
+literals. The vertical edges can be
+
+152
+00:13:22,030 --> 00:13:28,156
+generated at the same time and they number
+only three per clause. The horizontal
+
+153
+00:13:28,156 --> 00:13:33,191
+edges can be generated easily if we list
+all the nodes labeled by each literal.
+
+154
+00:13:33,191 --> 00:13:37,716
+After seeing all the clauses we can
+generate horizontal edges for each
+
+155
+00:13:37,716 --> 00:13:42,624
+variable X. We look at the list of nodes
+for literals X and not X. We generate
+
+156
+00:13:42,624 --> 00:13:47,786
+edges for all pairs one from each list.
+The total number of edges generated is no
+
+157
+00:13:47,786 --> 00:13:52,949
+more than quadratic in the length of the
+input and the edges can be generated in
+
+158
+00:13:52,949 --> 00:13:58,048
+constant time each. We also need to show
+the reduction is correct of course. That
+
+159
+00:13:58,048 --> 00:14:03,951
+is, if we construct graph G and budget. K
+for the three-side expression E. Then g
+
+160
+00:14:03,951 --> 00:14:09,348
+has a node cover of size k or less, if and
+only if e is satisfiable. For one
+
+161
+00:14:09,348 --> 00:14:14,276
+direction. Suppose he is satisfiable and
+let A be a satisfying truth assignment.
+
+162
+00:14:14,276 --> 00:14:19,453
+The argument that G has a node cover in
+size K is really just the argument we gave
+
+163
+00:14:19,453 --> 00:14:24,130
+for our example earlier. That is, we begin
+by, to construct the node cover by
+
+164
+00:14:24,130 --> 00:14:29,058
+selecting for each laws of E one of the
+literals that truth assignment A makes
+
+165
+00:14:29,058 --> 00:14:34,235
+true. We know there is one because A is a
+satisfying assignment, and the only way to
+
+166
+00:14:34,235 --> 00:14:39,411
+make a three-side expression true is to
+make each clause true. Then the node cover
+
+167
+00:14:39,411 --> 00:14:44,299
+consists of the two unselected nodes from
+each column. Notice that some of these
+
+168
+00:14:44,299 --> 00:14:48,683
+nodes may also have their literal made
+true by assignment A, but it doesn't
+
+169
+00:14:48,683 --> 00:14:53,301
+matter. The important thing is that the
+unselected nodes all correspond to true
+
+170
+00:14:53,301 --> 00:14:57,626
+literals. This selection of nodes has
+exactly K nodes, since K is twice the
+
+171
+00:14:57,626 --> 00:15:02,419
+number of clauses. So if we can prove that
+there's a node cover, then we have shown
+
+172
+00:15:02,419 --> 00:15:06,978
+that G has a node cover of size, at most
+K. In this case, exactly K. We claim the
+
+173
+00:15:06,978 --> 00:15:11,830
+nodes we selected include at least one end
+of each edge. So, indeed, we have selected
+
+174
+00:15:11,830 --> 00:15:17,013
+a node cover. First, consider the vertical
+edges. We selected two nodes from each
+
+175
+00:15:17,013 --> 00:15:22,174
+column, there are only three nodes per
+column so only one is un-selected. Thus
+
+176
+00:15:22,174 --> 00:15:27,581
+any edge in that column has at least one
+selected end. [sound]. And how about the
+
+177
+00:15:27,581 --> 00:15:33,141
+horizontal edges? Okay. Each horizontal
+edge has ends corresponding to literals x
+
+178
+00:15:33,141 --> 00:15:38,494
+and not-x for some propositional variable
+x. The truth assignment A has to make
+
+179
+00:15:38,494 --> 00:15:43,673
+either X or not X false. Whichever is
+false could not have been selected as the
+
+180
+00:15:43,673 --> 00:15:48,524
+literal that makes this clause true.
+Therefore, it s-, it surely is selected
+
+181
+00:15:48,524 --> 00:15:53,441
+for the node cover. That mean every
+horizontal edge is covered, and the case
+
+182
+00:15:53,441 --> 00:15:58,226
+selected nodes do, indeed, form a node
+cover. The converse also follows the
+
+183
+00:15:58,226 --> 00:16:03,077
+outline of the proof we gave in our
+example. So, suppose G has a node cover
+
+184
+00:16:03,077 --> 00:16:08,576
+with K or fewer nodes. Since all the
+vertical edges must be covered, there must
+
+185
+00:16:08,576 --> 00:16:13,877
+be at least two selective nodes in each
+column because one selected node can cover
+
+186
+00:16:13,877 --> 00:16:19,179
+only two of the three edges. We claim that
+from the nodes not selected for the node
+
+187
+00:16:19,179 --> 00:16:23,713
+cover, we can figure out a satisfying
+assignment for E. If there's un, an
+
+188
+00:16:23,713 --> 00:16:29,015
+unselected node corresponding to literal
+X, then make propositional variable X true
+
+189
+00:16:29,015 --> 00:16:34,060
+in the truth assignment. If there's an
+unselected node corresponding to literal
+
+190
+00:16:34,060 --> 00:16:38,925
+not X, then make X false. We'll see why
+this works on the next slide. Well what
+
+191
+00:16:38,925 --> 00:16:43,260
+could go wrong we might have made it
+through the sign mate that made some
+
+192
+00:16:43,260 --> 00:16:48,005
+variables true and false. That is no's
+corresponding to both literals X and not X
+
+193
+00:16:48,005 --> 00:16:53,108
+might have been outside the note cover.
+But that can't happen because there is a
+
+194
+00:16:53,108 --> 00:16:58,540
+horizontal edge between these two nodes
+and therefore one is in the node cover.
+
+195
+00:16:58,540 --> 00:17:04,144
+Thus, we do have a consistent satisfying
+assignment and the expression E is in
+
+196
+00:17:04,144 --> 00:17:09,891
+three sat whenever G has a node cover of
+size up to K. Now, let's revisit our old
+
+197
+00:17:09,891 --> 00:17:15,639
+friend, the knapsack problem. We're going
+to prove knapsack is MP complete. But it
+
+198
+00:17:15,639 --> 00:17:21,387
+is easier first to reduce three sat to a
+varientative knapsack which we'll call
+
+199
+00:17:21,387 --> 00:17:27,350
+knapsack with target. That is given a list
+of integers L and an integer target K, is
+
+200
+00:17:27,350 --> 00:17:32,971
+there a subset of L that sums to exactly
+K? Once we've show Knapsack with target MP
+
+201
+00:17:32,971 --> 00:17:37,972
+complete, we'll reduce it to the real
+Knapsack problem, which is given a list of
+
+202
+00:17:37,972 --> 00:17:43,364
+integers L. Can we divide L into two parts
+whose sums are the same? We have to show
+
+203
+00:17:43,364 --> 00:17:49,208
+Knapsack with target as an MP. But that,
+as usual, is an easy argument. Just use
+
+204
+00:17:49,208 --> 00:17:55,507
+the non-determinism to guess a subset of
+L. Then compute the sum of the integers in
+
+205
+00:17:55,507 --> 00:18:00,954
+the guest subset. And accept of that sum
+is exactly K. We're going to reduce
+
+206
+00:18:00,954 --> 00:18:05,941
+[inaudible] to [inaudible] with target, so
+suppose we have an expression e, in
+
+207
+00:18:05,941 --> 00:18:11,237
+[inaudible], and a target k. That e have c
+clauses and v propositional variables.
+
+208
+00:18:11,237 --> 00:18:16,831
+Regard to think of the integers in the
+list l we construct as written in the base
+
+209
+00:18:16,831 --> 00:18:22,492
+32. We can write them in binary so we need
+five characters per digit. But the factor
+
+210
+00:18:22,492 --> 00:18:28,086
+five is of no importance if we are only
+worried about performing the transduction
+
+211
+00:18:28,086 --> 00:18:33,612
+from three side instances to [inaudible]
+instances in polynomial time. The length
+
+212
+00:18:33,612 --> 00:18:38,933
+of each integer will be c plus v, so each
+integer can be as long as the entire
+
+213
+00:18:38,933 --> 00:18:43,471
+expression e. There will be 3C +2V
+integers. That means the length of the
+
+214
+00:18:43,471 --> 00:18:48,571
+output could be on the order of the square
+of the length of the input. But that's
+
+215
+00:18:48,571 --> 00:18:53,671
+okay, it's all poly times transduction, as
+long as we can generate the integers in
+
+216
+00:18:53,671 --> 00:18:58,645
+time proportional to their length, which
+we can. Here's a picture of some of the
+
+217
+00:18:58,645 --> 00:19:03,682
+base 32 integers we will use, those for
+the literals. Notice that each digit will
+
+218
+00:19:03,682 --> 00:19:08,467
+be either zero or one, but the base is
+still 32. We need a base that large to
+
+219
+00:19:08,467 --> 00:19:13,386
+avoid carries from place to place when we
+add integers. The high order of V
+
+220
+00:19:13,386 --> 00:19:19,211
+positions represent the variables. We'll
+have one integer for each literal, XI or
+
+221
+00:19:19,211 --> 00:19:25,255
+not XI, and thus there will be two V such
+integers. The integer has a one in the nth
+
+222
+00:19:25,255 --> 00:19:31,298
+position from the left and of the first V
+positions. If it corresponds to a literal,
+
+223
+00:19:31,298 --> 00:19:36,982
+based on propositional variable XI, that
+is it's either XI or not XI. The C low
+
+224
+00:19:36,982 --> 00:19:43,135
+order positions correspond to the clauses.
+The integer for a literal will have a one
+
+225
+00:19:43,135 --> 00:19:49,141
+in the position for each clause that it
+makes true. In all other positions in this
+
+226
+00:19:49,141 --> 00:19:54,488
+integer hold zeros. There will also be
+three integers for each clause. The
+
+227
+00:19:54,488 --> 00:19:59,908
+integers for the Ith clause have
+respectively the base 32 digits five, six,
+
+228
+00:19:59,908 --> 00:20:05,768
+and seven in the Ith position from the
+left end. All other positions are zero. So
+
+229
+00:20:05,768 --> 00:20:11,375
+here's a tiny example. There are two
+clauses and three variables in the, this
+
+230
+00:20:11,375 --> 00:20:17,369
+expression so c equals two and b equals
+three. Let's number the three variables x,
+
+231
+00:20:17,369 --> 00:20:23,584
+y and z by one, two and three respectively
+and number the clauses one and two in the
+
+232
+00:20:23,584 --> 00:20:29,800
+order in which they appear. Let's see the
+base 32 and [inaudible] is constructed for
+
+233
+00:20:29,800 --> 00:20:35,424
+this example, okay. First consider the
+literal x. There are three variables. So
+
+234
+00:20:35,424 --> 00:20:41,198
+the first three positions correspond to
+the variables. X is the first, so it's
+
+235
+00:20:41,198 --> 00:20:47,461
+position is at the left end of the first
+three positions. That's here. Thus we see
+
+236
+00:20:47,461 --> 00:20:52,951
+a one there and zero in the first two
+positions. The last two positions
+
+237
+00:20:52,951 --> 00:20:58,983
+correspond to the two clauses. When X is
+true, both clauses are made true, so we
+
+238
+00:20:58,983 --> 00:21:04,707
+have 1s in the each of the last two
+positions. Now, consider a literal not X.
+
+239
+00:21:04,707 --> 00:21:10,610
+The first three positions are the same as
+for literal X. But not X doesn't make
+
+240
+00:21:10,610 --> 00:21:16,870
+either clause true. So the last two
+positions are both zero. That is, these.
+
+241
+00:21:16,870 --> 00:21:22,966
+Here are the integers for Y and not Y.
+Among the first three positions, they both
+
+242
+00:21:22,966 --> 00:21:28,910
+have their ones in the middle, as they
+should. Y makes the first clause, but not
+
+243
+00:21:28,910 --> 00:21:35,006
+the second true, so, so it has a one in
+the low order position and that's the one
+
+244
+00:21:35,006 --> 00:21:40,873
+that corresponds to clause one and has
+zero in the second from last position.
+
+245
+00:21:40,873 --> 00:21:46,893
+These digits are switched for the literal
+not Y, because not Y makes the second
+
+246
+00:21:46,893 --> 00:21:52,624
+clause true, but not the first. And here
+are the integers for z. In the three high
+
+247
+00:21:52,624 --> 00:21:58,319
+order positions that each have one of the
+highest position as that. Likewise, e
+
+248
+00:21:58,319 --> 00:22:03,896
+makes the first but not the second clause
+true, so the two low order positions look
+
+249
+00:22:03,896 --> 00:22:10,199
+like the previous two integers. That is
+these are like those. Now let's look at
+
+250
+00:22:10,199 --> 00:22:16,685
+the integers for the clauses. For clause
+one we have integers with five, six, and
+
+251
+00:22:16,685 --> 00:22:23,418
+seven in the low order position. And for
+clause two we have the same digits in the
+
+252
+00:22:23,418 --> 00:22:29,987
+second lowest position. We'll pick the
+target as shown. Note that K in base 32 is
+
+253
+00:22:29,987 --> 00:22:35,799
+V1s followed by C8s. Thus, it is easy to
+write down and time proportional to the
+
+254
+00:22:35,799 --> 00:22:41,594
+length of the input to the transducer. The
+claim that when we add a subset of a 2V+3C
+
+255
+00:22:41,594 --> 00:22:47,094
+integers. There cannot be any carries from
+one place to the next higher place. We'll
+
+256
+00:22:47,094 --> 00:22:52,286
+see why on the next slide. In the high
+order positions, only two integers have a
+
+257
+00:22:52,286 --> 00:22:57,610
+one in any position so there can be no
+carries there. For the low order positions
+
+258
+00:22:57,610 --> 00:23:02,474
+corresponding to the clauses, each
+position has integers with five, six, and
+
+259
+00:23:02,474 --> 00:23:07,667
+seven there. Even if all three are in the
+selected set, that's only eighteen, not
+
+260
+00:23:07,667 --> 00:23:12,726
+enough. But what other integers could
+contribute to a low order position? Only
+
+261
+00:23:12,726 --> 00:23:17,816
+the three integers for literals that
+appear in the clause that corresponds to
+
+262
+00:23:17,816 --> 00:23:23,317
+that position. But these three integers
+only have one in that position, so the
+
+263
+00:23:23,317 --> 00:23:29,336
+maximum sum in any position is 21. So
+there are no carries. But we could have
+
+264
+00:23:29,336 --> 00:23:35,366
+made the base 22 instead of 32, but 32 is
+easier to convert to binary, so we went
+
+265
+00:23:35,366 --> 00:23:40,884
+with 32. The importance consequence of no
+carries is that the target can only be met
+
+266
+00:23:40,884 --> 00:23:46,187
+by making each position in the sum match
+the corresponding position of the target.
+
+267
+00:23:46,187 --> 00:23:51,683
+We'll see how this connects satisfying two
+of the assignments, the knapsack solutions
+
+268
+00:23:51,683 --> 00:23:56,598
+in the next slide. First, consider the
+high order positions, the positions for
+
+269
+00:23:56,598 --> 00:24:01,642
+the variables. If the sum of a set of
+integers matches the target, then the sum
+
+270
+00:24:01,642 --> 00:24:06,492
+must be one in that position. That means
+either X or not X is true for each
+
+271
+00:24:06,492 --> 00:24:11,953
+propositional variable but not both. That,
+in turn, means that the selected integers
+
+272
+00:24:11,953 --> 00:24:16,646
+correspond to a truth assignment. Now,
+let's look at the low water positions for
+
+273
+00:24:16,646 --> 00:24:21,399
+the clauses. The target has eight in that
+position. We can't have two or three of
+
+274
+00:24:21,399 --> 00:24:26,093
+the integers that have five, six or seven
+in that position. The sum would be too
+
+275
+00:24:26,093 --> 00:24:31,023
+great. The only way we're going to have
+integers that sum to eight in position for
+
+276
+00:24:31,023 --> 00:24:36,017
+a clause, is if, between one and three of
+the integers corresponding to the literals
+
+277
+00:24:36,017 --> 00:24:40,771
+of that clause are chosen. And we can use
+one of the integers, five, six, or seven,
+
+278
+00:24:40,771 --> 00:24:45,496
+to make up the difference, and make
+exactly eight. Now we need to prove the
+
+279
+00:24:45,496 --> 00:24:50,820
+construction we just gave works. First, I
+hope you see how to construct a single
+
+280
+00:24:50,820 --> 00:24:55,233
+integer for the output in time,
+proportional to the "n", which is built
+
+281
+00:24:55,233 --> 00:25:00,230
+the length of the input expression "e",
+and to with a constant factor of itself.
+
+282
+00:25:00,230 --> 00:25:04,525
+Since the number of integers is
+proportional to the number of clauses plus
+
+283
+00:25:04,525 --> 00:25:09,525
+the number of variables. And there can't
+be more than N variables in an expression
+
+284
+00:25:09,525 --> 00:25:14,275
+of length N. It is also sure that the
+number of integers in the output is, at
+
+285
+00:25:14,275 --> 00:25:19,213
+most, proportional to N. Thus, the output
+can be constructed in time, on the order
+
+286
+00:25:19,213 --> 00:25:24,026
+of N squared, and the transduction is
+polynomial time. We need to show it as a
+
+287
+00:25:24,026 --> 00:25:28,964
+correct reduction. As always, there will
+be two parts. First we'll show that if E
+
+288
+00:25:28,964 --> 00:25:33,902
+is satisfiable, then there is a subset of
+integers summing to exactly K. That is,
+
+289
+00:25:33,902 --> 00:25:39,010
+the output instance of the Knapsack with
+target problem has a solution. Then we'll
+
+290
+00:25:39,010 --> 00:25:43,700
+show the converse, that if there's a
+solution to the output instance then the
+
+291
+00:25:43,700 --> 00:25:48,838
+input expression is satisfiable. For the
+first erection, assume he is satisfiable
+
+292
+00:25:48,838 --> 00:25:55,043
+and let a be a truth assignment that makes
+e true. For a subset of integers we'll
+
+293
+00:25:55,043 --> 00:26:00,317
+start with the integers that correspond to
+the literals that A makes true. That gives
+
+294
+00:26:00,317 --> 00:26:05,282
+us the necessary one in the position for
+each of the variables that is the high
+
+295
+00:26:05,282 --> 00:26:09,997
+order positions. The integers we've
+selected so far make each clause true so
+
+296
+00:26:09,997 --> 00:26:15,210
+the sum in the positions correspondent to
+the clauses that is the low-end positions
+
+297
+00:26:15,210 --> 00:26:20,234
+will each sum to one, two or three. So for
+each clause, add to the set of the
+
+298
+00:26:20,234 --> 00:26:25,139
+integers we're choosing. The integer that
+has five, six, or seven in that position.
+
+299
+00:26:25,139 --> 00:26:30,481
+Whatever is needed to make the sum be
+eight in that position. Now we have a set
+
+300
+00:26:30,481 --> 00:26:36,136
+that sums to one in each of the high order
+positions, that is, the position for the
+
+301
+00:26:36,136 --> 00:26:41,032
+variables, and to eight for each of the
+low order positions, that is, the
+
+302
+00:26:41,032 --> 00:26:46,549
+positions for the clauses. That sum is
+exactly the target. So there is a solution
+
+303
+00:26:46,549 --> 00:26:52,065
+to the output knapsack instance. Now we
+must show the converse. Assume the output
+
+304
+00:26:52,065 --> 00:26:57,486
+instance has a solution, a subset of its
+integers whose sum is the target. First
+
+305
+00:26:57,486 --> 00:27:02,697
+look at the high order positions, those
+corresponding to the variables. The subset
+
+306
+00:27:02,697 --> 00:27:08,167
+of selected integers matches the target so
+it has one in each of these positions. The
+
+307
+00:27:08,167 --> 00:27:13,314
+only way that can happen is if we select
+exactly one of the two integers to the
+
+308
+00:27:13,314 --> 00:27:18,526
+variable corresponding to that position.
+If X is that variable, that means we pick
+
+309
+00:27:18,526 --> 00:27:23,765
+either the integer for X or the integer
+for non-X but not both. That means we have
+
+310
+00:27:23,765 --> 00:27:28,820
+a truth-value for each variable x. If we
+pick the integer for x itself and make x
+
+311
+00:27:28,820 --> 00:27:33,937
+true and if we pick the integer for not x,
+make x false. Either way the literal for
+
+312
+00:27:33,937 --> 00:27:38,866
+the integer we picked is true in this
+truth assignment. Which we'll refer to as
+
+313
+00:27:38,866 --> 00:27:43,022
+a in what follows. Now look at the
+position for one of the clauses. We
+
+314
+00:27:43,022 --> 00:27:47,958
+discussed earlier that with only five, six
+and seven available for a given position
+
+315
+00:27:47,958 --> 00:27:52,894
+we have to pick exactly one of them before
+we have to reach eight in that position.
+
+316
+00:27:52,894 --> 00:27:57,414
+But we can only reach eight if the
+selected integers for the variables have
+
+317
+00:27:57,414 --> 00:28:02,903
+among them something between one and three
+1's in that position. That means the truth
+
+318
+00:28:02,903 --> 00:28:07,645
+assignment A must make each clause true.
+And therefore, A is a satisfying
+
+319
+00:28:07,645 --> 00:28:12,782
+assignment. We have now proved that when
+an output instance has a solution. The
+
+320
+00:28:12,782 --> 00:28:18,153
+input instance is satisfiable. That was
+the second of the two needed directions so
+
+321
+00:28:18,153 --> 00:28:23,524
+now we know that transduction is correct.
+The output has a solution if and only, if
+
+322
+00:28:23,524 --> 00:28:28,961
+the input is satisfiable. We're now going
+to prove the original knapsack problem is
+
+323
+00:28:28,961 --> 00:28:33,874
+NP complete. We'll refer to it as
+partition knapsack but it is exactly what
+
+324
+00:28:33,874 --> 00:28:40,141
+we earlier call just knapsack. That is,
+given a list of integers, can we partition
+
+325
+00:28:40,141 --> 00:28:45,873
+them into two disjoint sets with equal
+sums. We'll show partition knapsack to be
+
+326
+00:28:45,873 --> 00:28:51,073
+[inaudible], by reducing knapsack with
+target to it Remember, we already saw that
+
+327
+00:28:51,073 --> 00:28:56,231
+partition knapsack is an NP, but if you
+forgot, just guess the partition and sum
+
+328
+00:28:56,231 --> 00:29:01,927
+the two sets. Here's the essence of the
+reduction from Knapsack with target to
+
+329
+00:29:01,927 --> 00:29:08,117
+partition Knapsack. Suppose we're given an
+instance of Knapsack with target. Say the
+
+330
+00:29:08,117 --> 00:29:14,158
+list L in target K. The first thing we
+need to do is compute the sum S of all the
+
+331
+00:29:14,158 --> 00:29:19,830
+integers. That takes time proportional to
+the input length N. Now we can make our
+
+332
+00:29:19,830 --> 00:29:25,395
+output, which is an instance of partition
+knapsack. This output is a copy of the
+
+333
+00:29:25,395 --> 00:29:31,170
+list L followed by two or more integers.
+One of those integers is 2K, that is twice
+
+334
+00:29:31,170 --> 00:29:36,693
+the target. And the other is S, the sum of
+all the integers on list L. Here is an
+
+335
+00:29:36,693 --> 00:29:41,497
+example of a knapsack with target
+instance. The list l consisting of the
+
+336
+00:29:41,497 --> 00:29:46,645
+integers three, four, five and six and the
+target is seven. Resulting in some
+
+337
+00:29:46,645 --> 00:29:52,777
+partition match that has the same integers
+then 2K which is fourteen, in this case.
+
+338
+00:29:52,777 --> 00:29:58,983
+And five to the sum S of three plus four
+plus five plus six which is eighteen. This
+
+339
+00:29:58,983 --> 00:30:04,890
+instance of [inaudible] target has a
+solution. We can select the integers three
+
+340
+00:30:04,890 --> 00:30:10,527
+and four from L their sum is the target
+seven. The output instance of partition
+
+341
+00:30:10,527 --> 00:30:15,589
+knapsack, also has a solution. Take the
+integers in the solution to the input
+
+342
+00:30:15,589 --> 00:30:20,718
+instance. That is three and four. And
+include the last integer, the some of all
+
+343
+00:30:20,718 --> 00:30:27,492
+the integers on list L. Notice that both
+the selective integers three, four and
+
+344
+00:30:27,492 --> 00:30:34,005
+eighteen and the unselected integers.
+Five, six, and fourteen sum to 25, which
+
+345
+00:30:34,005 --> 00:30:39,196
+means we have a solution to partition
+knapsack. That turns out not to be a
+
+346
+00:30:39,196 --> 00:30:44,948
+coincidence. Including the integer that is
+the sum of L, always turns a solution in
+
+347
+00:30:44,948 --> 00:30:50,560
+the, to the input instance into a solution
+to the output instance. We'll see that
+
+348
+00:30:50,560 --> 00:30:56,172
+when we prove the correctness of this
+polytime reduction. So here's the proof of
+
+349
+00:30:56,172 --> 00:31:01,924
+correctness. And first, observe that the
+sum of the integers in the output instance
+
+350
+00:31:01,924 --> 00:31:07,488
+of partition knapsack is two times S+K.
+That is, the integers on list L sum to S.
+
+351
+00:31:07,488 --> 00:31:13,053
+And there's another integer S in the
+output list, so that makes 2S. And then
+
+352
+00:31:13,053 --> 00:31:18,841
+there is an integer 2K in the output list,
+which makes 2S+2K. Therefore, if we were
+
+353
+00:31:18,841 --> 00:31:24,332
+to partition the output list into two
+parts, each part must sum to S+K. First,
+
+354
+00:31:24,332 --> 00:31:29,993
+suppose the input instance of Knapsack
+with target has a solution. That means
+
+355
+00:31:29,993 --> 00:31:35,730
+there is a subset of L that sums to K. In
+the output instance we can pick this upset
+
+356
+00:31:35,730 --> 00:31:41,326
+of L plus the integer S to sum to S plus
+K. Of course what remains will also sum to
+
+357
+00:31:41,326 --> 00:31:46,516
+S plus K. So, we have a solution to the
+output instance. And conversely, suppose
+
+358
+00:31:46,516 --> 00:31:52,044
+there's a solution to the output instance.
+We claim that the two integers S and 2K
+
+359
+00:31:52,044 --> 00:31:57,437
+cannot be in the same partition because
+their sum is S plus 2K and that's more
+
+360
+00:31:57,437 --> 00:32:02,830
+than half the sum of all the integers in
+the output instance. Which recall is 2S
+
+361
+00:32:02,830 --> 00:32:08,043
+plus 2K. Now, if the output instance of a
+partition knapsack has a solution, then
+
+362
+00:32:08,043 --> 00:32:12,980
+the subset of l that is in the same
+partition as the integer as the sum to.
+
+363
+00:32:12,980 --> 00:32:18,629
+S+k. That's half the total. That means the
+subset of l sums to exactly k. Now look at
+
+364
+00:32:18,629 --> 00:32:24,209
+the input instance of [inaudible] sack
+with target. We just showed that there is
+
+365
+00:32:24,209 --> 00:32:29,162
+a subset of l that sums to k, so this
+subset is a solution to the input
+
+366
+00:32:29,162 --> 00:32:33,993
+instance. That completes the proof that
+the input instance has a solution, if and
+
+367
+00:32:33,993 --> 00:32:38,197
+only if the output instance has a
+solution. They therefore have a valid
+
+368
+00:32:38,197 --> 00:32:42,816
+polytime reduction from Knapsack with
+target, to partition Knapsack. And we now
+
+369
+00:32:42,816 --> 00:32:46,132
+know the partition Knapsack problem is
+also MP complete.

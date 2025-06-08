@@ -1,0 +1,838 @@
+1
+00:00:00,000 --> 00:00:04,935
+The goal of this lecture is to show you
+the push on alternative to find exactly
+
+2
+00:00:04,935 --> 00:00:10,742
+the context for your languages. So let's
+get to it. Besides the comfort of knowing
+
+3
+00:00:10,742 --> 00:00:15,094
+that two seemingly unrelated concepts are
+really the same, the grammar PDA
+
+4
+00:00:15,094 --> 00:00:19,445
+equivalence will let us jump between the
+two notations when we talk about
+
+5
+00:00:19,445 --> 00:00:23,855
+properties of context free languages. The
+ability to jump between different
+
+6
+00:00:23,855 --> 00:00:28,559
+representations, regular expressions and
+deterministic [inaudible] was important
+
+7
+00:00:28,559 --> 00:00:34,261
+when we addressed properties of regular
+languages. Felicia found the ability
+
+8
+00:00:34,261 --> 00:00:40,201
+essential for context free languages as
+well. We also find it easier sometimes to
+
+9
+00:00:40,201 --> 00:00:45,800
+describe a PDA for a language rather than
+a grammar. For example, you might find it
+
+10
+00:00:45,800 --> 00:00:50,266
+hard to invent a grammar for balanced
+parenthesis, but a PDA is easy to think
+
+11
+00:00:50,266 --> 00:00:54,790
+of. Just push left parens onto the stack,
+and pop the stack, once, every time you
+
+12
+00:00:54,790 --> 00:00:59,604
+see a right parenthesis. If the bottom of
+the bottom of the stack marker is exposed,
+
+13
+00:00:59,604 --> 00:01:04,186
+then the parenthesis were balanced. And
+you never pop the bottom marker because
+
+14
+00:01:04,186 --> 00:01:10,241
+that would mean you have more right parens
+than left. Let's start with a language L
+
+15
+00:01:10,241 --> 00:01:16,056
+that has a context-free grammar G. We'll
+convert grammar G to a PDAP that accepts L
+
+16
+00:01:16,056 --> 00:01:21,800
+by empty stack. And if you want a PDA that
+accepts L by final state, we know how to
+
+17
+00:01:21,800 --> 00:01:26,844
+convert to one of those. P will have only
+one state, Q. That's all we need.
+
+18
+00:01:26,844 --> 00:01:32,589
+Naturally, Q is the start state. There are
+no final states because we are accepting
+
+19
+00:01:32,589 --> 00:01:40,984
+by empty stack. The input symbols of P are
+the terminals of G. The stacks symbols of
+
+20
+00:01:40,984 --> 00:01:47,237
+P are all the terms and variables of G.
+And the start symbol of P is the start
+
+21
+00:01:47,237 --> 00:01:53,492
+symbol of G. Our intent is that people
+step through a left-most arivation of
+
+22
+00:01:53,492 --> 00:01:59,479
+input W from the start symbol S. The
+secret is that each left [inaudible] form
+
+23
+00:01:59,479 --> 00:02:05,159
+is represented in a subtle way. It is
+whatever input P has so far consumed
+
+24
+00:02:05,159 --> 00:02:10,460
+followed by whatever is on P's stack. When
+P reaches an empty stack, then the
+
+25
+00:02:10,460 --> 00:02:15,319
+[inaudible] form it represents is whatever
+input it has consumed, followed by
+
+26
+00:02:15,319 --> 00:02:19,988
+nothing. That is, by the empty stack. That
+means that P has found a leftmost
+
+27
+00:02:19,988 --> 00:02:24,657
+derivation of the input string it has
+read. So acceptance of the string is
+
+28
+00:02:24,657 --> 00:02:29,579
+justified. If not sequence of choices of
+the nondeterministic P leads to empty
+
+29
+00:02:29,579 --> 00:02:35,311
+stack after consuming W from the input.
+And W is not a terminal string drive by
+
+30
+00:02:35,311 --> 00:02:41,961
+the grammar and P rightly does not accept
+W. There are two kinds of rules in the
+
+31
+00:02:41,961 --> 00:02:47,588
+transition function of P depending on
+whether a terminal or variable G is at the
+
+32
+00:02:47,588 --> 00:02:53,424
+top of P stack.The type one rules handle
+the case where A is the terminal on top of
+
+33
+00:02:53,424 --> 00:02:58,805
+P stack. There better NA as the next input
+symbol or P is guessed wrongly about the
+
+34
+00:02:58,805 --> 00:03:04,081
+left most derivation of the input as it
+actually exists. In affect we cancel the A
+
+35
+00:03:04,081 --> 00:03:09,292
+in the stack against the A on the input.
+The less intention form represented does
+
+36
+00:03:09,292 --> 00:03:14,310
+not change. We have now consumed one more
+input symbolA from the input. So that
+
+37
+00:03:14,310 --> 00:03:19,458
+becomes part of the left centential form.
+But the A that was at the stack top is
+
+38
+00:03:19,458 --> 00:03:24,995
+removed so it no longer participates in
+the left centential form. The type two
+
+39
+00:03:24,995 --> 00:03:30,689
+rules handle a variable, say A, at the top
+of the stack. We need to expand that
+
+40
+00:03:30,689 --> 00:03:35,859
+variable by the body of one of its
+productions, and thus, move to the next
+
+41
+00:03:35,859 --> 00:03:41,171
+[inaudible] form. Of course, we're only
+guessing. We have to allow any of A's
+
+42
+00:03:41,171 --> 00:03:47,121
+productions to be used. If A goes to alpha
+is one of these productions that a choice
+
+43
+00:03:47,121 --> 00:03:52,504
+for P, using epsilon input, and with A on
+top of the stack, is to replace A by
+
+44
+00:03:52,504 --> 00:03:58,376
+alpha. We're going to prove that P accepts
+exactly what G generates. Formally we will
+
+45
+00:03:58,376 --> 00:04:03,874
+show something more general. It seems we
+always have to show something more general
+
+46
+00:04:03,874 --> 00:04:08,776
+than what we really want. Here we show,
+that if p consumes w from its input.
+
+47
+00:04:08,776 --> 00:04:15,298
+Starting with only s on it's stack. And
+[inaudible] up with stack alpha That is
+
+48
+00:04:15,298 --> 00:04:25,817
+this ID becomes that ID.'Kay. Then in G,
+there is a left most derivation of the
+
+49
+00:04:25,817 --> 00:04:32,776
+screen W Alpha. Incidentally, notice that
+as we describe the moves of P, we allow
+
+50
+00:04:32,776 --> 00:04:38,105
+any string X to follow W on the input.
+Since no part of X was consumed, X cannot
+
+51
+00:04:38,105 --> 00:04:43,366
+have any effect on the moves P made
+reaching the ID shown, so if the statement
+
+52
+00:04:43,366 --> 00:04:50,030
+is true for one X, it is true for any
+other, that is X does not matter. We start
+
+53
+00:04:50,030 --> 00:04:56,973
+with the only if part. That is, if P makes
+the transition shown, then S derives W
+
+54
+00:04:56,973 --> 00:05:06,214
+alpha in G. The basis is zero steps and W
+is obviously Epsilon since nothing can
+
+55
+00:05:06,214 --> 00:05:12,862
+have been consumed from the input, and
+alpha is S since the stack doesn't change.
+
+56
+00:05:12,862 --> 00:05:19,511
+We need to show that S derives W alpha in
+a left most derivation. But W alpha is
+
+57
+00:05:19,511 --> 00:05:27,149
+just S and surely S derives itself. Now
+let's do the induction. We'll consider the
+
+58
+00:05:27,149 --> 00:05:33,588
+result of N steps of P, that is, this id
+has become that id and we'll assume the
+
+59
+00:05:33,588 --> 00:05:40,469
+inductive hypothesis. For sequences of N
+minus one steps. You must consider type
+
+60
+00:05:40,469 --> 00:05:47,500
+one and type two moves as a last step
+separately. For us consider the case.
+
+61
+00:05:47,500 --> 00:05:53,694
+Where the last of the n moves is a type
+one move. Where the a of the top of the
+
+62
+00:05:53,694 --> 00:05:59,888
+stack is canceled against the a on the
+input. Then the w consumed by the n move
+
+63
+00:05:59,888 --> 00:06:08,705
+system must then be formed y a. That's
+this. And before the last move, the Y was
+
+64
+00:06:08,705 --> 00:06:17,717
+consumed. That is, leaving just a X.
+Further, just before the last step. The
+
+65
+00:06:17,717 --> 00:06:26,168
+stack of P is A, alpha. But the inductive
+hypothesis applies to the first N minus
+
+66
+00:06:26,168 --> 00:06:33,020
+one moves, we can conclude that there is a
+left-most derivation from S of Y A alpha.
+
+67
+00:06:33,980 --> 00:06:42,323
+That's this and it corresponds to the fact
+that there is an N minus one derivation of
+
+68
+00:06:42,323 --> 00:06:49,887
+that ID. But Y A is W, so we already know
+that there is a leftmost derivation of W
+
+69
+00:06:49,887 --> 00:06:58,444
+alpha. That is the needed conclusion for
+the full sequence of N steps. Now, let's
+
+70
+00:06:58,444 --> 00:07:05,748
+look at the case of a type two rules,
+where there is a variable A on the top of
+
+71
+00:07:05,748 --> 00:07:12,775
+the stack, after the N- first move. After
+N-1 moves, P has consumed W from the
+
+72
+00:07:12,775 --> 00:07:20,265
+input, and has A beta on its stack. That's
+that. This, of course, is the ID after N-1
+
+73
+00:07:20,265 --> 00:07:28,191
+moves. At the nth move, no input is
+consumed but A is replaced by gamma, one
+
+74
+00:07:28,191 --> 00:07:37,796
+of its production bodies. Okay that is we
+assume A goes to gamma is A production,
+
+75
+00:07:37,796 --> 00:07:46,790
+okay notice that alpha is gamma beta here
+that is. This stack string is really,
+
+76
+00:07:46,790 --> 00:07:54,759
+alpha. Okay. Again we apply the inductive
+hypothesis to the first and minus one
+
+77
+00:07:54,759 --> 00:08:03,514
+steps. We thus know that there is leftmost
+derivation from this of WA Beta. Since A
+
+78
+00:08:03,514 --> 00:08:10,569
+is clearly the left most variable, and A
+goes to gamma as a production there is
+
+79
+00:08:10,569 --> 00:08:18,893
+also left most derivation of W gamma beta.
+That and of course gama beta is alpha so
+
+80
+00:08:18,893 --> 00:08:27,023
+that is really a derrivation of W alpha as
+we wanted to prove. We also should prove
+
+81
+00:08:27,023 --> 00:08:33,136
+the converse, but we won't. That is, we
+need to show if there's a leftmost
+
+82
+00:08:33,136 --> 00:08:42,191
+variation of W alpha. Is this, then peak
+at consumed W from its input with any
+
+83
+00:08:42,191 --> 00:08:48,835
+unseen X following. And turn stack S into
+stack Alpha. The proof is and induction on
+
+84
+00:08:48,835 --> 00:08:54,715
+the number of steps of the derivation but
+that's as far as we will take it. Assuming
+
+85
+00:08:54,715 --> 00:09:00,505
+we complete the proof of the converse, we
+have the statement we set out to prove. P
+
+86
+00:09:00,505 --> 00:09:06,012
+can consume W from its input with any X
+following, and turn stack S into stack
+
+87
+00:09:06,012 --> 00:09:12,259
+alpha if and only if G has a left most
+derivation of W alpha. Now we can restrict
+
+88
+00:09:12,259 --> 00:09:16,724
+the statement to what we really care
+about, the case where X is empty, that is,
+
+89
+00:09:16,724 --> 00:09:21,304
+P has consumed all its input, and alpha is
+also empty. That is, P has emptied its
+
+90
+00:09:21,304 --> 00:09:29,062
+stack and is accepted. We conclude that P
+consumes W while emptying its stack, if
+
+91
+00:09:29,062 --> 00:09:37,162
+and only if there's a left most derivation
+of W and G. That is W is in N of P, if and
+
+92
+00:09:37,162 --> 00:09:46,060
+only if W is in L of G. For our next
+trick, we'll show how to convert PDAs to
+
+93
+00:09:46,060 --> 00:09:52,031
+grabbers. Assume language L is accepted by
+PDAP by empty stack. If it were accepted
+
+94
+00:09:52,031 --> 00:09:57,066
+by a final state, we already know how to
+construct a new PDA that accepts L by
+
+95
+00:09:57,066 --> 00:10:02,561
+empty stack, so we're entitled to assume
+acceptance is by empty stack. We'll
+
+96
+00:10:02,561 --> 00:10:11,055
+construct G ground refer L, and the idea
+is to give G variables, which we'll denote
+
+97
+00:10:11,055 --> 00:10:18,073
+by PXQ with brackets around them, like
+this. His job, the job of this variable is
+
+98
+00:10:18,073 --> 00:10:23,270
+to generate [inaudible] only if the
+string's W. Such, that while reading W
+
+99
+00:10:23,270 --> 00:10:28,682
+from the input, P goes from state P to
+state Q, and appears to pop X from the
+
+100
+00:10:28,682 --> 00:10:34,093
+input. While doing so, P can grow the
+stack well above where X was. But it can
+
+101
+00:10:34,093 --> 00:10:39,647
+never go below where X was. And at the
+end, the stack is shorter by one than it
+
+102
+00:10:39,647 --> 00:10:46,389
+was when it started. That is the net
+effect is that X has been popped. Here's a
+
+103
+00:10:46,389 --> 00:10:51,196
+picture showing the height of the stack
+while X is effectively popped while
+
+104
+00:10:51,196 --> 00:10:56,129
+reading W. Note that X might be replaced
+at the first move or later by another
+
+105
+00:10:56,129 --> 00:11:01,253
+symbol, Y. It could even be replaced many
+times. But the position of the stack that
+
+106
+00:11:01,253 --> 00:11:07,278
+originally held X is never popped until
+the last move, right at the end here. As
+
+107
+00:11:07,278 --> 00:11:12,802
+we mentioned for every pair of states P
+and Q, and stack symbol X, there is a
+
+108
+00:11:12,802 --> 00:11:18,029
+variable that we represent by the
+composite symbol PXQ. Although this
+
+109
+00:11:18,029 --> 00:11:22,938
+expression consists of five characters,
+you must think of it as a single symbol,
+
+110
+00:11:22,938 --> 00:11:30,867
+in the set of variables of G. Also, as we
+hit to the java of PXQ, as it generate all
+
+111
+00:11:30,867 --> 00:11:36,976
+strings W that have the effect taking
+PDAP, and state P with only X on the stack
+
+112
+00:11:36,976 --> 00:11:43,315
+to the ID where the state is Q. The input
+has been consumed and X was popped. That's
+
+113
+00:11:43,315 --> 00:11:48,814
+that. Notice that since the initial
+landing shows nothing below X on the
+
+114
+00:11:48,814 --> 00:11:54,847
+stack. You know that X can't be pupped
+until the last step. So, PDAP can not make
+
+115
+00:11:54,847 --> 00:12:02,070
+any moves when it's stack is empty. And
+there's one more variable in gene that
+
+116
+00:12:02,070 --> 00:12:08,109
+starts in bolex. There maybe many
+productions of variable pxq. For each move
+
+117
+00:12:08,109 --> 00:12:13,039
+of the pda from state p with x as the top
+of the stack. We produce one or more
+
+118
+00:12:13,039 --> 00:12:18,348
+productions. There several cases and they
+get increasingly more complex depending on
+
+119
+00:12:18,348 --> 00:12:24,876
+how long the stack string is that's
+replacing x on the first move. The easiest
+
+120
+00:12:24,876 --> 00:12:33,530
+case is that of a rule that says, instate
+P with input A which could be epsilon or a
+
+121
+00:12:33,530 --> 00:12:43,208
+real symbol we pop X. That's that. Okay.
+Their x is replaced by zero symbols. Then
+
+122
+00:12:43,208 --> 00:12:55,350
+there is a production PXQ goes to A. The
+reason this is correct is that reading
+
+123
+00:12:55,350 --> 00:13:01,394
+only A is one way to have the metafact of
+popping X from going to state P to state
+
+124
+00:13:01,394 --> 00:13:08,534
+Q. The next simplest case is when a move
+replaces X by a string of length one, say
+
+125
+00:13:08,534 --> 00:13:16,882
+Y. Suppose that rule also changes the
+state to R. Then there's a production,
+
+126
+00:13:16,882 --> 00:13:25,532
+PXQ, goes to A R Y Q. That is, one way to
+pop X while going from state P to state Q
+
+127
+00:13:25,532 --> 00:13:31,894
+is to read input A going to state R and
+replacing the X by Y at the top of the
+
+128
+00:13:31,894 --> 00:13:38,175
+stack. Then, some number of inputs, AW,
+has the net effect of popping the Y while
+
+129
+00:13:38,175 --> 00:13:44,860
+going from state R to Q. As a consequence,
+the net effect of reading A followed by W.
+
+130
+00:13:45,460 --> 00:13:51,236
+Is to take state p, to state q while
+popping the original x. Here's a picture
+
+131
+00:13:51,236 --> 00:13:57,164
+of the case where x is replaced by a
+single symbol y. How the y gets popped, we
+
+132
+00:13:57,164 --> 00:14:03,168
+don't know, but when it does, the effect
+is that symbol a followed by whatever w
+
+133
+00:14:03,168 --> 00:14:11,989
+popped the y, has the effect of popping x
+while going from state p to state q. Now
+
+134
+00:14:11,989 --> 00:14:18,573
+it's getting a little more complicated.
+Supposed there is a move that replaces X
+
+135
+00:14:18,573 --> 00:14:24,993
+by two symbols Y ans Z, while going to
+state R and reading A from the input. As
+
+136
+00:14:24,993 --> 00:14:31,935
+the new stack YZ replacing X. In order for
+x to be raised. There must be some input
+
+137
+00:14:31,935 --> 00:14:37,041
+string u. That has the net effect of
+raising y. And you must take the pda from
+
+138
+00:14:37,041 --> 00:14:41,684
+state r to some state s. Which
+unfortunately we don't know. As a result.
+
+139
+00:14:41,684 --> 00:14:47,159
+We're going to have one production for
+each possible state s. But after reaching
+
+140
+00:14:47,159 --> 00:14:53,104
+state s. We must have some additional
+input [inaudible] that takes the pda from
+
+141
+00:14:53,104 --> 00:14:59,125
+state s to state q while popping the z
+from the stack. And that effect is that a
+
+142
+00:14:59,125 --> 00:15:04,920
+followed by u and then v pops x from the
+stack while going from state p to q.
+
+143
+00:15:06,542 --> 00:15:15,787
+Here's a picture of that action. Initially
+you see X got replaced by Y and Z on the
+
+144
+00:15:15,787 --> 00:15:24,258
+stack. Then U had the net effect of
+replacing Y, a pop, popping Y. Exposing
+
+145
+00:15:24,258 --> 00:15:32,044
+the Z, now we're in state S. And then V
+has the net effect of popping the Z and
+
+146
+00:15:32,044 --> 00:15:39,742
+winding up in state Q. So we generate many
+productions for this case, where I input
+
+147
+00:15:39,742 --> 00:15:45,950
+A, state P becomes R, and X gets replaced
+by the sta, on the stack by Y and Z. For
+
+148
+00:15:45,950 --> 00:15:52,768
+every state S, there's a production with
+head PXQ. And then the A that causes the
+
+149
+00:15:52,768 --> 00:15:59,079
+first move. Remember A could be empty. And
+then, RYS to effectively pop the Y,
+
+150
+00:15:59,079 --> 00:16:05,390
+winding up in the state S that we really
+don't know. So that's why there's one
+
+151
+00:16:05,390 --> 00:16:11,783
+production for each S. And then SZQ to
+effectively pop the Z. We finally wind up
+
+152
+00:16:11,783 --> 00:16:17,851
+in state Q, which is the state that we
+wanted to wind up, because that's the
+
+153
+00:16:17,851 --> 00:16:25,985
+state that appears in the head. As a
+result of this production you can see that
+
+154
+00:16:25,985 --> 00:16:35,161
+PXQ can derive any string AUV, provided
+that RYS derives the U. And SGQ divides
+
+155
+00:16:35,161 --> 00:16:42,614
+the V. In the general case, we're on input
+A, in state P. X is replaced by a string
+
+156
+00:16:42,614 --> 00:16:50,852
+of three or more stack symbols, Y1 through
+YK. And the state becomes r. We need a
+
+157
+00:16:50,852 --> 00:16:57,258
+family of productions in which there are k
+minus one unknown states, s one through s
+
+158
+00:16:57,258 --> 00:17:06,891
+k minus one, right. The productions all
+have this form. P X Q can re, can be
+
+159
+00:17:06,891 --> 00:17:17,635
+replaced by an A. Which again maybe esplon
+followed by variables R, Y1, S1. S1, Y2,
+
+160
+00:17:17,635 --> 00:17:24,584
+S2 and so on with the last of the
+variables being SK minus one, YK and
+
+161
+00:17:24,584 --> 00:17:33,155
+finally the state Q from the head that we
+want to wind up in. With productions
+
+162
+00:17:33,155 --> 00:17:38,840
+disrupted in this manner, we can prove
+that P accept W by empty stack, that is.
+
+163
+00:17:39,440 --> 00:17:54,004
+The I.D. Q0wz0 goes to P epsilon, epsilon,
+if and only if the variable Q0Z0P derives
+
+164
+00:17:54,004 --> 00:18:00,420
+W. We're not going to give the proof that
+is too easy inductions, one for each
+
+165
+00:18:00,420 --> 00:18:07,561
+direction. The only problem is, we don't
+know state P. But remember G has another
+
+166
+00:18:07,561 --> 00:18:14,294
+variable S and that is the start symbol.
+So, we add production S goes to Q0 Z0 P
+
+167
+00:18:14,294 --> 00:18:21,284
+for every state and now we have a grammar
+that generates exactly the strings that
+
+168
+00:18:21,284 --> 00:18:22,733
+the pdap accepts.

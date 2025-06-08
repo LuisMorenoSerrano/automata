@@ -1,0 +1,1858 @@
+1
+00:00:00,000 --> 00:00:05,227
+We're not changing the subject matter
+considerably. Until now, I've been talking
+
+2
+00:00:05,227 --> 00:00:10,123
+about simple models, such as finite
+automata, or context free grammars, that
+
+3
+00:00:10,123 --> 00:00:15,615
+let us model mechanisms like communication
+protocols, or processes like the parsing
+
+4
+00:00:15,615 --> 00:00:20,662
+of programming languages. Today we begin
+to study the other side of automata
+
+5
+00:00:20,662 --> 00:00:25,982
+theory, the part that lets us show certain
+tasks are impossible, or in some cases,
+
+6
+00:00:25,982 --> 00:00:30,904
+possible but intractable. That is, they
+can be solved but only by very slow
+
+7
+00:00:30,904 --> 00:00:35,892
+algorithms. It might not be obvious but
+just because we can state a problem
+
+8
+00:00:35,892 --> 00:00:41,174
+doesn't mean there is any algorithm at all
+that can solve it. For example, can you
+
+9
+00:00:41,174 --> 00:00:46,131
+devise an algorithm to tell whether the
+complement of a context free language is
+
+10
+00:00:46,131 --> 00:00:51,027
+empty? That is, does a grammar generate
+all strings over its terminal alphabet? It
+
+11
+00:00:51,027 --> 00:00:55,984
+turns out you can't. And we're going to
+learn the theory that lets us prove facts
+
+12
+00:00:55,984 --> 00:01:01,470
+of this kind. We begin with the central
+theme of the study. Of what can be solved
+
+13
+00:01:01,470 --> 00:01:07,140
+by computer algorithms. The idea that all
+data can be represented by integers. The
+
+14
+00:01:07,140 --> 00:01:12,460
+idea of countable sets. Those whose
+members can be assigned integers one, two,
+
+15
+00:01:12,460 --> 00:01:17,806
+three, and so on, is essential here. We're
+going to meet the touring machine which in
+
+16
+00:01:17,806 --> 00:01:22,468
+some sense the ultimate automaton. It is a
+formal computing model that can, can
+
+17
+00:01:22,468 --> 00:01:27,250
+compute anything we can do with the
+computer or with any other realistic model
+
+18
+00:01:27,250 --> 00:01:31,609
+that we might think of as computing.
+Turing machines define the class of
+
+19
+00:01:31,609 --> 00:01:36,755
+recursively innumerable languages which is
+thus the largest class of languages about
+
+20
+00:01:36,755 --> 00:01:41,659
+which we can compute anything. There's
+another smaller class called the recursive
+
+21
+00:01:41,659 --> 00:01:46,447
+languages that can be thought of as
+modeling algorithms. Computer programs
+
+22
+00:01:46,447 --> 00:01:52,559
+that answer a particular question and then
+finish. I realize the concepts are vague
+
+23
+00:01:52,559 --> 00:01:58,098
+at this point, but we'll get to it all in
+good time. If you took a modern course on
+
+24
+00:01:58,098 --> 00:02:03,299
+programming you're undoubtedly introduced
+to the importance of data types or
+
+25
+00:02:03,299 --> 00:02:08,401
+classes. >> But when you look under the
+hood, how these types are represented
+
+26
+00:02:08,401 --> 00:02:13,405
+inside the computer. You see that there is
+only one type. Strings of bits. We could
+
+27
+00:02:13,405 --> 00:02:18,225
+base our whole theory on strings of bits,
+but it is more convenient to convert
+
+28
+00:02:18,225 --> 00:02:23,291
+binary strings to integers. We can almost
+see how to do that since integers can be
+
+29
+00:02:23,291 --> 00:02:28,741
+represented in binary notation, but there
+is a small glitch we'll get to. And to
+
+30
+00:02:28,741 --> 00:02:33,407
+make the idea that all the world is
+integers even more pervasive, remember
+
+31
+00:02:33,407 --> 00:02:38,514
+that programs that computers execute are
+also, under the hood, just strings of 0's
+
+32
+00:02:38,514 --> 00:02:43,495
+and 1's, they therefore can be regarded as
+integers. That lets up talk about the
+
+33
+00:02:43,495 --> 00:02:48,665
+hundredth program and things like that. As
+we shall see, the fact that programs and
+
+34
+00:02:48,665 --> 00:02:53,709
+data are at heart the same thing is what
+let's us build a powerful theory about
+
+35
+00:02:53,709 --> 00:02:58,853
+what is not computable. As a simple
+example of a type that is really integers,
+
+36
+00:02:58,853 --> 00:03:03,764
+let's look at character strings. Strings
+of ASCII characters can be thought of as
+
+37
+00:03:03,764 --> 00:03:08,614
+binary strings, eight bits to a character.
+Or if you use Unicode, you need sixteen
+
+38
+00:03:08,614 --> 00:03:13,161
+bits per character, but the idea is the
+same. Strings in any alphabet can be
+
+39
+00:03:13,161 --> 00:03:19,889
+represented by binary strings. And binary
+strings are really integers. Does it make
+
+40
+00:03:19,889 --> 00:03:26,153
+sense to talk about the ith string in any
+i. However, we have to be careful how we
+
+41
+00:03:26,153 --> 00:03:32,256
+do the conversion from binary strings to
+integers. Because binary strings can have
+
+42
+00:03:32,256 --> 00:03:38,061
+leading zeroes, there is not a unique
+representation of an integer as a binary
+
+43
+00:03:38,061 --> 00:03:44,014
+string. More to the point, if you do the
+obvious conversion, then strings like the
+
+44
+00:03:44,014 --> 00:03:49,521
+ones shown, all seem to be the integers
+five. But we can't call two or more
+
+45
+00:03:49,521 --> 00:03:55,334
+different strings by the same integer.
+However, there is a correspondence between
+
+46
+00:03:55,334 --> 00:04:01,091
+binary strings and integers that is one to
+one, and almost as simple. Put a one in
+
+47
+00:04:01,091 --> 00:04:06,989
+front of any binary string, and then treat
+it as an integer. This way, no two strings
+
+48
+00:04:06,989 --> 00:04:12,880
+can correspond to the same integer. For
+example, if we're given string 1-0-1. Then
+
+49
+00:04:12,880 --> 00:04:21,291
+put a one in front of it, and treat 1101
+as a binary integer. And you'll get
+
+50
+00:04:21,291 --> 00:04:30,038
+thirteen, by the way. If you put a one in
+front of 0101, then this integer is 21,
+
+51
+00:04:30,038 --> 00:04:36,297
+and so on. For a wilder example consider
+images as a data type. There are many
+
+52
+00:04:36,297 --> 00:04:42,126
+representations of images. Let's talk
+about gift for a [inaudible] example. A
+
+53
+00:04:42,126 --> 00:04:48,260
+gift file is just an ASCII string. So we
+know how to convert ASCII to binary. And
+
+54
+00:04:48,260 --> 00:04:54,242
+then cover the binary string into an
+integer in the way we just discussed. And
+
+55
+00:04:54,242 --> 00:04:59,969
+bingo, you have a notion of the
+[inaudible] image. Here's another wild
+
+56
+00:04:59,969 --> 00:05:05,405
+example of proofs. A proof can be viewed
+as a sequence of expressions or assertions
+
+57
+00:05:05,405 --> 00:05:10,383
+in mathematical form, each of which is,
+are the given or follow some previous
+
+58
+00:05:10,383 --> 00:05:15,622
+statements in the sequence per certain
+logical rules. We can encode mathematical
+
+59
+00:05:15,622 --> 00:05:21,452
+expressions in Unicode, it has pretty much
+any symbol you use in mathematics. But we
+
+60
+00:05:21,452 --> 00:05:26,553
+can convert any expression to a binary
+string, and hence to an integer. There is,
+
+61
+00:05:26,553 --> 00:05:31,137
+again, a small glitch. A proof is a
+sequence of expressions, not a single
+
+62
+00:05:31,137 --> 00:05:36,238
+expression. So we need to fix on a way to
+separate a sequence of expressions. We
+
+63
+00:05:36,238 --> 00:05:40,694
+also need to indicate whether an
+expression is given, or follows from
+
+64
+00:05:40,694 --> 00:05:45,343
+previous expressions. We thus need to
+introduce two new symbols into our
+
+65
+00:05:45,343 --> 00:05:50,315
+strings. One is a comma to separate
+expressions. We can't just use the Unicode
+
+66
+00:05:50,315 --> 00:05:55,689
+comma, because the expression themselves
+may use this symbol. The other is a marker
+
+67
+00:05:55,689 --> 00:06:01,140
+that says this is a given expression. The
+following technique is useful not only
+
+68
+00:06:01,140 --> 00:06:06,796
+here but in general as a way to introduce
+new symbols with any meaning into binary
+
+69
+00:06:06,796 --> 00:06:11,906
+strings while still keeping the strings
+binary. First, given a binary string,
+
+70
+00:06:11,906 --> 00:06:17,700
+expand it by inserting a zero in front of
+every byte of the string. For example. 101
+
+71
+00:06:17,700 --> 00:06:26,007
+becomes 01 that's the first one, 00 that's
+the zero in the middle, and then 01. Now
+
+72
+00:06:26,007 --> 00:06:34,417
+as a consequence of this change strings
+have no consecutive 1s. Use strings of two
+
+73
+00:06:34,417 --> 00:06:42,930
+or more 1s as the new symbols, for example
+we'll use 111 to mark a given expression.
+
+74
+00:06:42,930 --> 00:06:48,526
+And one, one, as the marker for the end of
+an expression. Here's an example of what a
+
+75
+00:06:48,526 --> 00:06:53,853
+proof as a binary string could look like.
+The initial one, one, one, can only mean
+
+76
+00:06:53,853 --> 00:06:59,099
+that expression to follow is a given
+expression. Here is the expression itself.
+
+77
+00:06:59,099 --> 00:07:04,392
+It was originally one zero one but we
+expanded it with a zero in front of each
+
+78
+00:07:04,392 --> 00:07:09,483
+symbol. Of course one zero one is too
+short to really be an expression since
+
+79
+00:07:09,483 --> 00:07:14,776
+even one unit code character takes sixteen
+bytes, but not let's, let's not worry
+
+80
+00:07:14,776 --> 00:07:20,200
+about that. This one, one marks the end of
+the first expression. Notice that this one
+
+81
+00:07:20,200 --> 00:07:24,860
+cannot be part of a special marker since
+all expressions without the special
+
+82
+00:07:24,860 --> 00:07:31,117
+markers have even length and this one is
+the sixth symbol in the expression. Here's
+
+83
+00:07:31,117 --> 00:07:36,972
+another given marker and another
+expression. This one was zero, zero one,
+
+84
+00:07:36,972 --> 00:07:43,075
+one with zeros embedded. And another
+expression ender and so on. As we said,
+
+85
+00:07:43,075 --> 00:07:50,085
+programs in a language like C or Java are
+also a data type and can be represented by
+
+86
+00:07:50,085 --> 00:07:55,953
+integers as if they were data. First,
+represent the program as an ASCII
+
+87
+00:07:55,953 --> 00:08:01,390
+[inaudible], or in some other alphabet
+like Unicode, if the language requires it.
+
+88
+00:08:01,390 --> 00:08:07,172
+And then convert the character string to a
+binary string, and then to an integer. Now
+
+89
+00:08:07,172 --> 00:08:12,954
+we can talk about the [inaudible] program.
+And this should worry, there really aren't
+
+90
+00:08:12,954 --> 00:08:18,391
+more programs than there are integers.
+While that number is infinite, you may be
+
+91
+00:08:18,391 --> 00:08:24,104
+aware that there are different orders of
+infinity, and the integers of the smallest
+
+92
+00:08:24,104 --> 00:08:29,533
+one. For example, there are more real
+numbers than there are integers, so there
+
+93
+00:08:29,533 --> 00:08:34,549
+are more real numbers than there are
+programs. That immediately tells you that
+
+94
+00:08:34,549 --> 00:08:39,636
+some real numbers cannot be computed by
+programs. We'll get to more concrete
+
+95
+00:08:39,636 --> 00:08:44,949
+explanation of what the [inaudible]
+program really means shortly. We have an
+
+96
+00:08:44,949 --> 00:08:49,438
+intuitive notion of what a set of
+[inaudible] are intimate. It says a finite
+
+97
+00:08:49,438 --> 00:08:54,341
+if there is a particular integer that is
+the count of numbers on the set. The term
+
+98
+00:08:54,341 --> 00:08:59,791
+for the count of the number of members is
+cardinality. For example, a set containing
+
+99
+00:08:59,791 --> 00:09:04,388
+A, B, and C is a finite set, and its
+cardinality is three. And the formal
+
+100
+00:09:04,388 --> 00:09:09,511
+definition of a finite set is one for
+which it is impossible to find a one to
+
+101
+00:09:09,511 --> 00:09:14,896
+one correspondence between the members of
+the set, and a proper subset of that set.
+
+102
+00:09:14,896 --> 00:09:20,215
+Well, actually, the formal definition of
+an infinite set is one for which there is
+
+103
+00:09:20,215 --> 00:09:25,510
+a one to one correspondence between its
+members and a proper subset. Then. Finite
+
+104
+00:09:25,510 --> 00:09:30,852
+sets are formally the sets that are not
+infinite. For example, the positive
+
+105
+00:09:30,852 --> 00:09:36,895
+integers are an infinite set. We can let
+the proper subset be the even integers.
+
+106
+00:09:36,895 --> 00:09:43,145
+And the one to one correspondence matches
+one with two, two with four, three with
+
+107
+00:09:43,145 --> 00:09:49,316
+six, and so on. Every positive integer I
+is matched with the unique even integer,
+
+108
+00:09:49,316 --> 00:09:55,410
+2I. A countable set has a one to one
+correspondence with the positive integers.
+
+109
+00:09:55,410 --> 00:10:01,929
+For example, the set of all integers,
+positive and negative, is countable. A
+
+110
+00:10:01,929 --> 00:10:09,609
+correspondence maps zero to one minus I to
+plus 2I for all I equal to or greater than
+
+111
+00:10:09,609 --> 00:10:16,218
+one, and plus I to 2I plus one for all I
+equal to or greater than one. As a
+
+112
+00:10:16,218 --> 00:10:23,273
+consequence, the positive and negative
+integers get [inaudible] in the ordering
+
+113
+00:10:23,273 --> 00:10:29,718
+as 0-1, 1-2, two and so on. The binary
+strings are also countable. We saw how to
+
+114
+00:10:29,718 --> 00:10:34,456
+assign a unique positive integer to each
+binary string. By putting a one in front.
+
+115
+00:10:34,456 --> 00:10:39,022
+And treating the result as a binary
+integer. Likewise, the Java programs can
+
+116
+00:10:39,022 --> 00:10:44,099
+be put in one-to-one correspondence with
+binary strings, and then with integers.
+
+117
+00:10:44,099 --> 00:10:49,241
+Many of these integers represent flawed
+Java programs, things that don't compile.
+
+118
+00:10:49,241 --> 00:10:54,446
+But that is not important. The important
+thing is that every working Java program
+
+119
+00:10:54,446 --> 00:10:59,395
+has you, a unique integer. A rather
+surprising point is that pairs of integers
+
+120
+00:10:59,395 --> 00:11:04,944
+can be put in one-to-one correspondence
+with the integers themselves. A simple way
+
+121
+00:11:04,944 --> 00:11:12,142
+to see this is to explain the ordering of
+the pair as first pair, second pair and so
+
+122
+00:11:12,142 --> 00:11:18,195
+on. The ordering we want is first by sum
+and then for pairs with the same sum by
+
+123
+00:11:18,195 --> 00:11:25,715
+first component. Thus one, one comes
+first. It is the only pair with a sum of a
+
+124
+00:11:25,715 --> 00:11:32,600
+two. There are two pairs with a sum of
+three, these guys. And we put two one
+
+125
+00:11:32,600 --> 00:11:40,137
+ahead of one two because it has the higher
+first component. Then come three pairs
+
+126
+00:11:40,137 --> 00:11:48,071
+with sum four. These three, again ordered
+by the first component. You can, in fact,
+
+127
+00:11:48,071 --> 00:11:53,457
+figure out a function F of IJ, such as the
+pair of IJ is the F of IJ in that order.
+
+128
+00:11:53,457 --> 00:11:58,778
+But the important point is that some such
+function exists. And therefore, it makes
+
+129
+00:11:58,778 --> 00:12:03,943
+sense to talk about the [inaudible] pair
+of integers. We call the one to one
+
+130
+00:12:03,943 --> 00:12:10,089
+correspondence between a countable set and
+the positive integers and enumeration of
+
+131
+00:12:10,089 --> 00:12:15,651
+the set. Thus, strings, programs, proofs,
+and pairs of integers, for example, have
+
+132
+00:12:15,651 --> 00:12:21,578
+enumerations. Now, let's look at the set
+of all languages over some fixed alphabet,
+
+133
+00:12:21,578 --> 00:12:28,549
+say, 01. Could this set be countable? The
+answer is no and we can prove it. Suppose
+
+134
+00:12:28,549 --> 00:12:34,320
+that we are possible to innumerate the
+languages so every language over zero one.
+
+135
+00:12:34,320 --> 00:12:39,634
+Was the ith language for some i. We
+already know how to enumerate binary
+
+136
+00:12:39,634 --> 00:12:45,527
+strings. So we can talk about the ith
+binary string. Now, I'm going to define a
+
+137
+00:12:45,527 --> 00:12:52,993
+language L. L is the language containing
+those binary strings W such that W is the
+
+138
+00:12:52,993 --> 00:13:00,277
+Ith binary string. That must be true for
+some I. And W is not in the Ith language.
+
+139
+00:13:00,277 --> 00:13:07,335
+L is really a language over alphabet 01.
+Since we assume that the languages over
+
+140
+00:13:07,335 --> 00:13:13,661
+zero one are innumerable. That means that
+for some j. L is the j language. So let X
+
+141
+00:13:13,661 --> 00:13:19,970
+be the J string. Surely some string is the
+J in the enumeration of binary strings.
+
+142
+00:13:19,970 --> 00:13:26,079
+Now we can ask is X in L? It turns out
+that if it is, then it isn't and vice
+
+143
+00:13:26,079 --> 00:13:32,514
+versa. To see why, remember the definition
+of L. L contains W if and only if W is
+
+144
+00:13:32,514 --> 00:13:39,181
+not. In the language that corresponds to
+the same integer I that W corresponds to
+
+145
+00:13:39,181 --> 00:13:45,357
+as a string. So let's focus on the case
+where W is X, the Jth string. In that
+
+146
+00:13:45,357 --> 00:13:52,110
+case, the value of I is J because we know
+X is the Jth string. Further we know that
+
+147
+00:13:52,110 --> 00:13:58,451
+L is the Jth language so both L, the
+language being defined, and the quote Ith
+
+148
+00:13:58,451 --> 00:14:07,610
+language mentioned in the definition of L.
+Are all the same. And they are L J. Thus
+
+149
+00:14:07,610 --> 00:14:13,464
+when we read the definition of L as a
+reply is to X, it says, that X as in L,
+
+150
+00:14:13,464 --> 00:14:19,631
+which is Ls of J. If and only if, X is not
+in L, again, which is Ls of J. We have a
+
+151
+00:14:19,631 --> 00:14:25,797
+contradiction. X is neither in L nor not
+in L. That's an impossible situation. We
+
+152
+00:14:25,797 --> 00:14:32,395
+conclude that our assumptions are wrong.
+The only unproved assumption we made. Was
+
+153
+00:14:32,395 --> 00:14:37,397
+that we could innumerate the languages
+over zero one. So that is false. We can't
+
+154
+00:14:37,397 --> 00:14:42,957
+enumerate such languages. As a result, we
+see that there are more languages than
+
+155
+00:14:42,957 --> 00:14:48,001
+programs, since the programs can be
+enumerated. A particularly bad consequence
+
+156
+00:14:48,001 --> 00:14:53,372
+of this fact is that there are languages
+for which no program can tell whether or
+
+157
+00:14:53,372 --> 00:14:58,547
+not a given string is in the language. On
+the bright side, none of these strange
+
+158
+00:14:58,547 --> 00:15:04,305
+languages are context free or therefore
+not regular, Since the CYK algorithm gives
+
+159
+00:15:04,305 --> 00:15:09,836
+us a membership testing program for any
+context-free language. The process of
+
+160
+00:15:09,836 --> 00:15:15,080
+coming up with the language L that can't
+be in any enumeration is called
+
+161
+00:15:15,080 --> 00:15:20,602
+diagonilization. The reason should be
+apparent from this picture. Imagine an
+
+162
+00:15:20,602 --> 00:15:26,086
+infinite matrix in which the rows
+correspond to languages, and the columns
+
+163
+00:15:26,086 --> 00:15:32,336
+to binary strings. A one in the entry for
+row I in column J means that the Jth
+
+164
+00:15:32,336 --> 00:15:37,907
+string is in the Ith language. Zero means
+it is not. If we could innumerate
+
+165
+00:15:37,907 --> 00:15:43,478
+languages then we could create such a
+table. Look at the entries along the
+
+166
+00:15:43,478 --> 00:15:50,489
+diagonal and complement each one. That is,
+replace zero by one and vice versa. Here's
+
+167
+00:15:50,489 --> 00:15:55,607
+what it looks like. A complement in
+diagonal rotated 45 degrees looks like a
+
+168
+00:15:55,607 --> 00:16:00,762
+language. It tells which strings are its
+members. Here strings one and two are not
+
+169
+00:16:00,762 --> 00:16:06,044
+in the language, the third and fourth are
+and so on. But this language cannot be any
+
+170
+00:16:06,044 --> 00:16:11,198
+row because it disagrees with each row in
+at least one position. In particular it
+
+171
+00:16:11,198 --> 00:16:15,900
+disagrees with the ith row in the ith
+position. We're now ready to look at the
+
+172
+00:16:15,900 --> 00:16:20,481
+theory of Turing Machines. One important
+purpose of this theory is to prove certain
+
+173
+00:16:20,481 --> 00:16:24,896
+particular languages to have no membership
+algorithm. The first step is to prove
+
+174
+00:16:24,896 --> 00:16:28,980
+certain languages about Turing Machines
+themselves, not to have membership
+
+175
+00:16:28,980 --> 00:16:33,649
+algorithms. We're then going to introduce
+the important notion of a reduction. From
+
+176
+00:16:33,649 --> 00:16:40,535
+one problem to another. These are proved
+through the form. If there is an algorithm
+
+177
+00:16:40,535 --> 00:16:47,168
+for problem P than there is an algorithm
+for problem Q. We'll draw this as Q is
+
+178
+00:16:47,168 --> 00:16:53,187
+reduced to P. If we already know that
+there's no algorithm for q, then how could
+
+179
+00:16:53,187 --> 00:16:59,009
+there be a algorithm for p. Because, if
+there were an algorithm for p, then this
+
+180
+00:16:59,009 --> 00:17:06,256
+reduction would give us an algorithm for
+q. By use of reductions, we don't have to
+
+181
+00:17:06,256 --> 00:17:13,277
+resort to diagonalization or another trick
+to prove that P has no algorithm. Here is
+
+182
+00:17:13,277 --> 00:17:19,964
+the picture of a Turning Machine which you
+should keep in mind. There is a state
+
+183
+00:17:19,964 --> 00:17:26,986
+which like all other automata can only be
+in one of a finite number of states. There
+
+184
+00:17:26,986 --> 00:17:34,166
+is a tape, this. Infinite in both
+directions, and partitioned into squares,
+
+185
+00:17:34,166 --> 00:17:41,033
+each of which can hold a symbol of a
+finite tape alphabet. There's a tape head.
+
+186
+00:17:41,033 --> 00:17:46,554
+And always points to one of the tape
+squares. The touring machine makes move
+
+187
+00:17:46,554 --> 00:17:51,968
+just like the automaton or the push down
+automaton. For the touring machine. The
+
+188
+00:17:51,968 --> 00:17:57,092
+move is determined by the state and by the
+tape symbol under the [inaudible]. In one
+
+189
+00:17:57,092 --> 00:18:01,912
+move, the touring machine can change its
+state. Write a new tape symbol over the
+
+190
+00:18:01,912 --> 00:18:06,550
+old one. In the square [inaudible] its
+scanning. And move the head one square
+
+191
+00:18:06,550 --> 00:18:11,128
+left or right. We might ask why we
+introduce the turn machine, rather than
+
+192
+00:18:11,128 --> 00:18:15,828
+representing computation by C programs.
+While you can develop a theory around
+
+193
+00:18:15,828 --> 00:18:20,956
+programs without using turn machines, it
+would be much harder. The thing that we'll
+
+194
+00:18:20,956 --> 00:18:26,267
+come to appreciate about turn machines is
+that they are so simple in their operation
+
+195
+00:18:26,267 --> 00:18:30,862
+compared to programs in a programming
+language or even real computers. That
+
+196
+00:18:30,862 --> 00:18:36,221
+wouldn't matter if touring machines could
+not mimic real computers, but they can, as
+
+197
+00:18:36,221 --> 00:18:40,747
+we shall argue. And in fact, one could
+argue that, because Turing Machines have
+
+198
+00:18:40,747 --> 00:18:44,936
+infinite storage capacity on their tape,
+they are even more powerful than
+
+199
+00:18:44,936 --> 00:18:49,468
+computers, since computers always have a
+finite amount of storage, however large
+
+200
+00:18:49,468 --> 00:18:53,829
+that may be. But the difference is not
+essential, since, in principle, we could
+
+201
+00:18:53,829 --> 00:18:58,468
+always by more storage for a computer. One
+good counter argument is the universe is
+
+202
+00:18:58,468 --> 00:19:02,838
+finite so where are you going to get the
+atoms from which to build all of those
+
+203
+00:19:02,838 --> 00:19:07,208
+discs? But even if you accept that the
+universe is finite the limitation doesn't
+
+204
+00:19:07,208 --> 00:19:11,742
+seem to be effecting what we can compute
+in practice. So we're never going to argue
+
+205
+00:19:11,742 --> 00:19:16,057
+that a computer is weaker than a Turing
+machine in a meaningful way. So here is
+
+206
+00:19:16,057 --> 00:19:20,775
+the formula [inaudible] use for Turing
+machines. There's a finite set of states.
+
+207
+00:19:20,775 --> 00:19:26,398
+We follow our tradition in using q for
+this set. There's a finite input alphabet
+
+208
+00:19:26,398 --> 00:19:32,295
+for which we use the traditional sigma.
+There's a [unknown] alphabet, gamma, which
+
+209
+00:19:32,295 --> 00:19:38,105
+always includes the input output alphabet.
+The transition function is as always
+
+210
+00:19:38,105 --> 00:19:43,435
+delta, and we'll talk about how that works
+next. There is a start state Q0, a member
+
+211
+00:19:43,435 --> 00:19:48,635
+of the set of states Q. Again, this is as
+before. There is a blank symbol which we
+
+212
+00:19:48,635 --> 00:19:53,445
+usually represent by capital B. This
+symbol is in the tape alphabet, but is
+
+213
+00:19:53,445 --> 00:19:58,320
+never an output symbol. There is a set of
+final states. F, as usual. There are
+
+214
+00:19:58,320 --> 00:20:03,780
+several conventions about letters we shall
+use. They are consistent with our earlier
+
+215
+00:20:03,780 --> 00:20:08,653
+conventions about finite and push down
+automata. Lower case letters at the
+
+216
+00:20:08,653 --> 00:20:12,966
+beginning of the alphabet are still
+symbols of the input alphabet. Now capital
+
+217
+00:20:12,966 --> 00:20:17,812
+letters at the end of the alphabet are
+tape symbols which might or might not be
+
+218
+00:20:17,812 --> 00:20:22,703
+input symbols. Lower case letters at the
+end of the alphabet or strings of input
+
+219
+00:20:22,703 --> 00:20:27,666
+symbols, again, that's as usual. And Greek
+letters at the beginning of the alphabet
+
+220
+00:20:27,666 --> 00:20:32,812
+or strings of tape symbols which again may
+include some input symbols. Now let's see
+
+221
+00:20:32,812 --> 00:20:38,019
+the transition function delta for a turn
+machine. A turn machine is deterministic
+
+222
+00:20:38,019 --> 00:20:42,614
+and moreover does not have to have a move
+in any situation. Delta takes two
+
+223
+00:20:42,614 --> 00:20:47,577
+arguments, the state and the symbol scan
+by the tape head. Delta of QZ for state Q
+
+224
+00:20:47,577 --> 00:20:52,358
+and tape symbol Z. Can be undefined. In
+which case, the touring machine can make
+
+225
+00:20:52,358 --> 00:20:57,080
+no more moves. Scanning a z in state q.
+And the touring machine is set to halt.
+
+226
+00:20:57,080 --> 00:21:06,996
+But if delta of Q and Z is defined. Then
+it is a triple P Y D, where P is the new
+
+227
+00:21:06,996 --> 00:21:13,596
+state. Y is the symbol that replaces Z in
+the square being scanned on the tape head.
+
+228
+00:21:13,596 --> 00:21:18,975
+And D is the direction for the tape head
+to move. This direction is either L for
+
+229
+00:21:18,975 --> 00:21:23,950
+left or R for right. And the move is by
+one square. Here is an example of a
+
+230
+00:21:23,950 --> 00:21:29,195
+touring machine. It's input symbols are
+zero and one. The touring machine scans
+
+231
+00:21:29,195 --> 00:21:34,646
+right on it's input looking for a one If
+it finds a wanted change is it's a zero,
+
+232
+00:21:34,646 --> 00:21:40,102
+and goes to a final state F and halts.
+However if it sees the blank symbol before
+
+233
+00:21:40,102 --> 00:21:45,558
+seeing a one, it changes the blank to one
+and, and moves one square left repeating
+
+234
+00:21:45,558 --> 00:21:51,081
+the process just described. There are two
+states for the Arcturing machine, Q and F.
+
+235
+00:21:51,081 --> 00:21:57,104
+Q is the start state, and F is the final
+state. As we mentioned, the input alphabet
+
+236
+00:21:57,104 --> 00:22:03,114
+is 01. The tape symbols are only 01 and
+the blank B. One move of the turn machine
+
+237
+00:22:03,114 --> 00:22:10,843
+is given here. It says that in state Q,
+scanning a zero. In state Q, scanning
+
+238
+00:22:10,843 --> 00:22:18,045
+zero, it stays in state Q. Leaves the zero
+on the square it was scanning and it moves
+
+239
+00:22:18,045 --> 00:22:24,432
+right. Another rule says that if it is in
+state Q and sees a one. It goes to final
+
+240
+00:22:24,432 --> 00:22:30,249
+state F. Replaces the one by a zero and
+moves right. It doesn't matter which way
+
+241
+00:22:30,249 --> 00:22:36,141
+the head moves in this situation since it
+has accepted its input, but it always has
+
+242
+00:22:36,141 --> 00:22:41,890
+to move left or right, so we'll say right.
+The last move of the touring machine is
+
+243
+00:22:41,890 --> 00:22:47,356
+this. It says that in state Q, while
+scanning a blank, it replaces the blank by
+
+244
+00:22:47,356 --> 00:22:52,963
+one and moves left, staying in state Q.
+Here's the beginning of a moving picture
+
+245
+00:22:52,963 --> 00:22:58,855
+of this touring machine. The three moves
+are shown in the upper right with the move
+
+246
+00:22:58,855 --> 00:23:04,474
+that. Is applicable in a given situation
+shown in red. Here, the touring machine
+
+247
+00:23:04,474 --> 00:23:10,184
+has just started. It is in a start state
+and the tape head is at the left end of
+
+248
+00:23:10,184 --> 00:23:15,950
+the input which is 00 in this case. That
+is, here's the input. The rule in red says
+
+249
+00:23:15,950 --> 00:23:21,431
+that in state Q scouting zero, it moves
+right and leaves the state and symbol
+
+250
+00:23:21,431 --> 00:23:26,989
+unchanged. So we'll see that on the next
+slide. Here it's done that. And it is in
+
+251
+00:23:26,989 --> 00:23:32,209
+the same situation, again scanning a zero,
+so it again moves right. Now it sees a
+
+252
+00:23:32,209 --> 00:23:37,232
+blank on its tape so another rule is
+applicable. This rule says that stay in
+
+253
+00:23:37,232 --> 00:23:42,651
+state Q and replace the blank by one and
+move left. So it's made those changes and
+
+254
+00:23:42,651 --> 00:23:47,806
+the first rule is applicable again. The
+touring machine is going to move right
+
+255
+00:23:47,806 --> 00:23:52,569
+while leaving the state and symbol
+unchanged. Here the second rule applies.
+
+256
+00:23:52,569 --> 00:23:57,753
+In state Q it is scanning a one so it goes
+to the final state F, replaces the one by
+
+257
+00:23:57,753 --> 00:24:02,423
+zero and moves right. Here, we see the
+effect of the last move. The Turing
+
+258
+00:24:02,423 --> 00:24:07,581
+Machine has no move for when it is in
+state F scanning a blank, so it halts. It
+
+259
+00:24:07,581 --> 00:24:12,938
+has also accepted, since F is the, in a
+final state. Moving pictures of a Turing
+
+260
+00:24:12,938 --> 00:24:17,965
+Machine can get a bit cumbersome, so we're
+going to develop an instantaneous
+
+261
+00:24:17,965 --> 00:24:23,124
+description or ID notation for Turing
+Machine, similar to what we use for push
+
+262
+00:24:23,124 --> 00:24:28,504
+down automata. But in a sense, the touring
+machine I.D.s are even simpler because the
+
+263
+00:24:28,504 --> 00:24:33,461
+input and paved contents are combined into
+one stream. Moreover, we represent the
+
+264
+00:24:33,461 --> 00:24:38,260
+state in the head position by imbedding
+the state to the left of the symbol being
+
+265
+00:24:38,260 --> 00:24:43,058
+scanned. We'll always assume that state
+symbols are chosen so they do not conflict
+
+266
+00:24:43,058 --> 00:24:47,622
+with tape symbols and thus we can always
+tell which symbol is the state. As we
+
+267
+00:24:47,622 --> 00:24:51,953
+suggested in our little example, the
+touring machine gets its input on the
+
+268
+00:24:51,953 --> 00:24:56,576
+tape. The input, which is always a string
+of input symbols, is placed on the tape
+
+269
+00:24:56,576 --> 00:25:01,641
+surrounded by an infinity of blanks to the
+left and to the right. The touring machine
+
+270
+00:25:01,641 --> 00:25:06,563
+begins in it's start state with the head
+at the left most input symbol. If the
+
+271
+00:25:06,563 --> 00:25:11,547
+input string happens to be epsilon then
+the touring machine's tape is entirely
+
+272
+00:25:11,547 --> 00:25:16,343
+blanks and the head is scanning one of
+them. An idea is a string of the form
+
+273
+00:25:16,343 --> 00:25:21,327
+alpha Q beta. Here alpha beta is the
+contents of the tape between the left most
+
+274
+00:25:21,327 --> 00:25:26,264
+and right most non-blank symbols. That is,
+the tape consists of an infinity of
+
+275
+00:25:26,264 --> 00:25:31,324
+blanks. Alpha, beta, and another infinity
+of blanks. We should observe that after
+
+276
+00:25:31,324 --> 00:25:36,448
+any finite number of moves, the Turing
+machine has only visited a finite number
+
+277
+00:25:36,448 --> 00:25:41,189
+of tape squares. So they can only be a
+finite number of non blanks. Thus, we
+
+278
+00:25:41,189 --> 00:25:45,727
+always have a finite representation for
+the tape, even though it is infinite in
+
+279
+00:25:45,727 --> 00:25:50,859
+extent. The state is Q, and it is placed
+immediately to the left of the symbol the
+
+280
+00:25:50,859 --> 00:25:56,164
+head is now scanning. Remember we assumed
+state symbols were chosen, so none of them
+
+281
+00:25:56,164 --> 00:26:01,085
+are taped symbols. Therefore, we can
+always identify Q. As a special case Q can
+
+282
+00:26:01,085 --> 00:26:06,070
+be at the right end of beta. If so, it
+means that the symbol being scanned is a
+
+283
+00:26:06,070 --> 00:26:11,183
+blank. This can only occur if the Turing
+machine has just moved to the right, and
+
+284
+00:26:11,183 --> 00:26:16,104
+there are only blanks to the right. We use
+the turn-style notation, as this, to
+
+285
+00:26:16,104 --> 00:26:20,898
+represent one move. And we use the
+turn-style star This to represent any
+
+286
+00:26:20,898 --> 00:26:26,492
+number of moves including zero moves.
+These are exactly as for PDAs. Here's an
+
+287
+00:26:26,492 --> 00:26:32,521
+example which corresponds to the earlier
+touring machine example but now using the
+
+288
+00:26:32,521 --> 00:26:38,042
+ID notation. We start off in the start
+state with a state to the left of the
+
+289
+00:26:38,042 --> 00:26:43,564
+input. At the first move, the touring
+machine moves right, here, and then right
+
+290
+00:26:43,564 --> 00:26:51,145
+again. Now it is scanning a blank, and
+it's action was to replace the blank by a
+
+291
+00:26:51,145 --> 00:26:57,261
+one and move left. Notice. That the state
+is now two symbols to the left of the end
+
+292
+00:26:57,261 --> 00:27:02,355
+and it's scanning what used to be the
+right most zero, that is this guy. It, it
+
+293
+00:27:02,355 --> 00:27:07,516
+again moves right and when it sees the
+one, it enters state AF and again moves
+
+294
+00:27:07,516 --> 00:27:12,478
+right, changing that one to a zero. Now
+we'll discuss the turnstile relation
+
+295
+00:27:12,478 --> 00:27:17,837
+formally. We have to discuss what happens
+on rightward moves separately from what
+
+296
+00:27:17,837 --> 00:27:22,865
+happens on leftward moves. So suppose
+there is a right move where in state Q,
+
+297
+00:27:22,865 --> 00:27:29,194
+scanning the Z, the touring machine goes
+to state P. Writes y and moves right. Then
+
+298
+00:27:29,194 --> 00:27:35,740
+in any I d with q z as a sub string. Which
+means that the touring machines is in
+
+299
+00:27:35,740 --> 00:27:40,787
+state q. And the z is being scanned. We
+can replace q z by y p. That has the
+
+300
+00:27:40,787 --> 00:27:45,690
+effect of moving the head right. As well
+as making the state and simple changes.
+
+301
+00:27:45,690 --> 00:27:52,983
+Called for. There's a special case when Z
+is blank. Then it is additionally possible
+
+302
+00:27:52,983 --> 00:28:00,013
+that from an ID with Q at the right end,
+that is this, which means that the blank
+
+303
+00:28:00,013 --> 00:28:06,515
+is being scanned, for the next ID to
+replace the Q by YP. That is, the blank
+
+304
+00:28:06,515 --> 00:28:13,339
+which we didn't see in alpha Q. Has been
+replaced by Y, that's here, and the state
+
+305
+00:28:13,339 --> 00:28:19,614
+Q became P. P, of course, moving to the
+right of the Y that it just wrote. Now
+
+306
+00:28:19,614 --> 00:28:26,391
+consider a left move, where again, we are
+in state Q scanning Z. The new state will
+
+307
+00:28:26,391 --> 00:28:33,950
+be P. And the symbol Y will be written
+over the Z. If there is any symbol X, to
+
+308
+00:28:33,950 --> 00:28:41,883
+the left of the state in the current id,
+such as this, in the next, in the next id,
+
+309
+00:28:41,883 --> 00:28:48,684
+the Z is replaced by Y, and the XQ is
+replaced by PX. That means that X is being
+
+310
+00:28:48,684 --> 00:28:53,619
+scanned in the next ID. And of course, we
+have gone to state P from state Q. But we
+
+311
+00:28:53,619 --> 00:28:58,432
+also have to take care of the case where
+the ID has nothing to the left of the
+
+312
+00:28:58,432 --> 00:29:02,879
+state. Which means that there is an
+infinity of blanks to the left of the
+
+313
+00:29:02,879 --> 00:29:08,726
+present head position. Then we reflect the
+move by replacing the z by y. That's that.
+
+314
+00:29:08,726 --> 00:29:13,837
+And introducing a blank to be the symbol
+immediately to the right of the state.
+
+315
+00:29:13,837 --> 00:29:18,819
+It's okay if the ID represents a blank
+explicitly, and this is one of several
+
+316
+00:29:18,819 --> 00:29:23,671
+situations where we have to do so.
+However, it is important to note that the
+
+317
+00:29:23,671 --> 00:29:28,976
+length of the ID can only grow by one at
+each move, so it remains finite after any
+
+318
+00:29:28,976 --> 00:29:34,537
+finite number of moves. There are actually
+two ways to define the language of a turn
+
+319
+00:29:34,540 --> 00:29:40,350
+machine. Final state is one of these ways,
+of course. Formally, L of M, our Turing
+
+320
+00:29:40,350 --> 00:29:47,418
+Machine M, is the set of strings of input
+symbols W, such that started in the
+
+321
+00:29:47,418 --> 00:29:54,485
+initial ID, that's Q, not W. With W on the
+tape, M gets to some ID with a final
+
+322
+00:29:54,485 --> 00:30:02,252
+state. The other way to define a language
+is by halting. We define each of them to
+
+323
+00:30:02,252 --> 00:30:09,166
+be the setup of input strings W, such that
+started in the initial I.D. Again. M gets
+
+324
+00:30:09,166 --> 00:30:15,406
+the sum I For which no move is possible.
+The two methods defining languages define
+
+325
+00:30:15,406 --> 00:30:19,124
+the same class of languages, as we can
+show by simple Turing Machine
+
+326
+00:30:19,124 --> 00:30:23,663
+constructions that are not too different
+from how we show that PDA is accepting by
+
+327
+00:30:23,663 --> 00:30:28,147
+final state and by empty stack at the same
+language defining power. Given a Turing
+
+328
+00:30:28,147 --> 00:30:32,748
+Machine M, we are going to modify M into a
+new Turing Machine, M Prime. The language
+
+329
+00:30:32,748 --> 00:30:37,912
+M prime accepts by final state. M prime
+will accept by halting. We can easily make
+
+330
+00:30:37,912 --> 00:30:43,140
+the final states of M be halting states by
+removing the rule for delta of Q and X
+
+331
+00:30:43,140 --> 00:30:48,368
+whenever Q is a final state. But we have
+to protect against the possibility that M
+
+332
+00:30:48,368 --> 00:30:53,378
+halts without accepting, because the M
+prime would then accidentally accept. So
+
+333
+00:30:53,378 --> 00:30:59,399
+for M prime, we introduce a new state S,
+whose job is to make sure M Prime never
+
+334
+00:30:59,399 --> 00:31:05,343
+halts. One M Prime is in state S, on any
+tape symbol X, M Prime stays in state S,
+
+335
+00:31:05,343 --> 00:31:10,729
+leaves the X as it is, and moves right.
+Thus N prime will always have an X move in
+
+336
+00:31:10,729 --> 00:31:15,186
+state S. Eventually it will get to the
+infinity of blanks to the right on the
+
+337
+00:31:15,186 --> 00:31:19,527
+blank and look at them one at a time. And
+to make sure N prime doesn't hold
+
+338
+00:31:19,527 --> 00:31:24,846
+accidentally. Whenever delta of Q and X is
+undefined for M, and Q is not a final
+
+339
+00:31:24,846 --> 00:31:30,588
+state, we'll have M prime enter the state
+S. The construction in the other direction
+
+340
+00:31:30,588 --> 00:31:35,984
+is also pretty easy. Now we assume M
+accepts some language L by halting, and we
+
+341
+00:31:35,984 --> 00:31:41,311
+want to modify it to become M double prime
+which accepts L by final state. We
+
+342
+00:31:41,311 --> 00:31:46,569
+introduce a new state F, which is the
+final state of M double prime. F has no
+
+343
+00:31:46,569 --> 00:31:51,965
+moves, so in fact, M double prime will
+also halt when it accepts, but it doesn't
+
+344
+00:31:51,965 --> 00:31:56,937
+matter. Once a touring machine enters the
+final state, if acceptance is by final
+
+345
+00:31:56,937 --> 00:32:01,985
+state then nothing it does in the future
+will negate the fact that the input was
+
+346
+00:32:01,985 --> 00:32:06,909
+accepted. If M halts in any situation,
+that is delta of Q in X is undefined, then
+
+347
+00:32:06,909 --> 00:32:11,708
+define it and make the next state be F. We
+now have a proof that the class of
+
+348
+00:32:11,708 --> 00:32:16,819
+languages accepted by touring machines
+using final state is the same as the class
+
+349
+00:32:16,819 --> 00:32:22,264
+of languages accepted by touring machines
+using halting. The name for this, class of
+
+350
+00:32:22,264 --> 00:32:26,890
+language is, is the recursively
+innumerable languages. You might rightly
+
+351
+00:32:26,890 --> 00:32:31,711
+wonder where this name came from. It
+actually predates Alan Turing's paper
+
+352
+00:32:31,711 --> 00:32:36,988
+describing Turing machines. And it refers
+to an earlier notion of anything we can
+
+353
+00:32:36,988 --> 00:32:42,410
+compute. I'm not gonna say more about
+that. But there's another important class
+
+354
+00:32:42,410 --> 00:32:47,352
+related to touring machines. There are
+called the recursive languages. These we
+
+355
+00:32:47,352 --> 00:32:51,611
+shall see are proper subset of the
+recursively innumerable languages. An
+
+356
+00:32:51,611 --> 00:32:56,521
+algorithm formally is a touring machine
+accepting by final state that halts on any
+
+357
+00:32:56,521 --> 00:33:01,372
+input regardless of whether that input is
+accepted. This notion of an algorithm is
+
+358
+00:33:01,372 --> 00:33:05,809
+consistent with the information notions
+you may have learned. However, it is
+
+359
+00:33:05,809 --> 00:33:10,127
+limited to accept and to reject
+[inaudible] input. That is, all algorithms
+
+360
+00:33:10,127 --> 00:33:14,922
+in this sense render a yes no decision but
+do not compute an output. We can extend
+
+361
+00:33:14,922 --> 00:33:19,502
+the notion of what a turn machine does to
+allow it to produce output and then halt
+
+362
+00:33:19,502 --> 00:33:23,750
+in which case we have exactly the same
+notion of algorithm that is taught in
+
+363
+00:33:23,750 --> 00:33:28,275
+freshman computing. The language that is
+excepted by final state by some algorithm
+
+364
+00:33:28,275 --> 00:33:32,854
+is called a recursive language. This term
+too comes from the history of attempts to
+
+365
+00:33:32,854 --> 00:33:36,661
+answer the question, "what can a
+[inaudible] compute, prior to Turing's
+
+366
+00:33:36,661 --> 00:33:41,131
+insights?" For example, every context free
+language is a recursive language. You can
+
+367
+00:33:41,131 --> 00:33:45,490
+implement the CY K algorithm for any
+context free language on a Turing machine.
+
+368
+00:33:45,490 --> 00:33:49,889
+That Turning machine will halt once it has
+computed the triangle of sets of
+
+369
+00:33:49,889 --> 00:33:54,637
+variables, and checked whether the start
+symbol of the grammar is in the final set.
+
+370
+00:33:54,637 --> 00:33:59,442
+But the recursive languages go way beyond
+the context free. In fact it is very hard
+
+371
+00:33:59,442 --> 00:34:04,131
+to come up with a language that is not
+recursive. Except by using tricks like the
+
+372
+00:34:04,131 --> 00:34:06,563
+diagonalization that we discussed earlier.

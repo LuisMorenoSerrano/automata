@@ -1,0 +1,2259 @@
+1
+00:00:00,000 --> 00:00:05,627
+In this lecture, we're going to prove one
+problem, satisfiability for Boolean
+
+2
+00:00:05,627 --> 00:00:11,180
+expressions, to be [inaudible] by showing
+how to reduce the language of any
+
+3
+00:00:11,180 --> 00:00:17,695
+nondeterministic polytime Turing machine,
+to satisfiability. We will then cover two
+
+4
+00:00:17,695 --> 00:00:23,915
+of its restricted versions, called CSAT
+and 3SAT respectively. We'll learn shortly
+
+5
+00:00:23,915 --> 00:00:29,402
+what those mean. The first step is to
+learn about bullion expressions, or what
+
+6
+00:00:29,402 --> 00:00:34,692
+is saying. Expression the proposition of
+logic. These expressions consist of
+
+7
+00:00:34,692 --> 00:00:39,758
+constants, variables, and the operators
+and, or, or not. There are only two
+
+8
+00:00:39,758 --> 00:00:45,426
+constants, true and false. Which will
+usually represent by one equals true and
+
+9
+00:00:45,426 --> 00:00:51,168
+zero equals false. The variables can only
+take on these two values as well. The
+
+10
+00:00:51,168 --> 00:00:56,542
+operators and or not have the usual
+logical meaning when you write these
+
+11
+00:00:56,542 --> 00:01:02,284
+expressions you will use catenation
+[inaudible] that is no operating symbol or
+
+12
+00:01:02,284 --> 00:01:16,354
+and so. [sound]. X Y. Really means X and
+Y. We'll use + for or, so X+Y means X or Y
+
+13
+00:01:16,354 --> 00:01:25,119
+and we'll use the - sign for not, so -X
+really means not X. Here's an example of a
+
+14
+00:01:25,119 --> 00:01:34,440
+Boolean expression, X or Y is true when at
+least one of X and Y is true and not X or
+
+15
+00:01:34,440 --> 00:01:42,193
+not Y is true when at least one of X and Y
+is false so, the whole expression is true
+
+16
+00:01:42,193 --> 00:01:46,965
+when at least one is true and at least one
+is false. Since there are only two
+
+17
+00:01:46,965 --> 00:01:52,047
+variables that means exactly one is true
+and exactly one is false. As for any kind
+
+18
+00:01:52,047 --> 00:01:57,254
+of expression remember to use parenthesis
+to alter the order in which operators are
+
+19
+00:01:57,254 --> 00:02:03,194
+applied. The order of precedence with that
+is not first or highest, then and, then
+
+20
+00:02:03,194 --> 00:02:09,169
+or. Thus the parenthesis in the example
+expression are needed to make sure that
+
+21
+00:02:09,169 --> 00:02:15,218
+the ors are applied before the ands. A
+truth assignment is an assignment of zero
+
+22
+00:02:15,218 --> 00:02:21,420
+or one that is false or true to each of
+the variables of a [inaudible] expression.
+
+23
+00:02:21,820 --> 00:02:27,190
+In general, the key question about Boolean
+expressions is which truth assignments
+
+24
+00:02:27,190 --> 00:02:32,493
+give them the value true. But for our NP
+complete problem we need only this very
+
+25
+00:02:32,493 --> 00:02:37,333
+simple question: given a Boolean
+expression does there exist at least one
+
+26
+00:02:37,333 --> 00:02:43,046
+truth assignment for which the value of
+the expression is true? So this expression
+
+27
+00:02:43,046 --> 00:02:49,114
+is satisfiable. There are in fact two
+satisfying assignments, those that made
+
+28
+00:02:49,114 --> 00:02:55,504
+one of x and y true and the other false.
+But this expression, x and not x is not
+
+29
+00:02:55,504 --> 00:03:01,490
+satisfiable. There are only truth
+assignments. X can be assigned true or it
+
+30
+00:03:01,490 --> 00:03:08,985
+can be assigned false. If x is true than
+not x is false. That is, the and of
+
+31
+00:03:08,985 --> 00:03:14,765
+expressions, one of which is true and the
+other is false, has value false.
+
+32
+00:03:14,765 --> 00:03:21,348
+Similarly, if we assign X false, then X is
+false while not X is true. And, the and of
+
+33
+00:03:21,348 --> 00:03:27,850
+these is again false. We must see the SAC
+problem as a language just like all the
+
+34
+00:03:27,850 --> 00:03:34,273
+other problems we have discussed. First,
+the instances of the SAC problem are all
+
+35
+00:03:34,273 --> 00:03:39,492
+the bouillon expressions. Since
+expressions can have any number of
+
+36
+00:03:39,492 --> 00:03:45,837
+variables, we must code expressions in a
+finite alphabet. The parentheses, the plus
+
+37
+00:03:45,837 --> 00:03:52,372
+and minus can represent themselves. But we
+need to have a scheme for representing
+
+38
+00:03:52,372 --> 00:03:57,374
+variables. We'll represent the ith
+variable by the symbol X. Followed by I.
+
+39
+00:03:57,374 --> 00:04:06,020
+In binary. So here is an example of an
+expression coded this way. We have assumed
+
+40
+00:04:06,020 --> 00:04:13,380
+that x is the first variable so it is
+represented by an x followed by one. That
+
+41
+00:04:13,380 --> 00:04:20,739
+appears here, and also there. Y is the
+second variable so it is represented by x
+
+42
+00:04:20,739 --> 00:04:27,217
+and two in binary that?s x one zero. What
+we call the variables doesn't matter as
+
+43
+00:04:27,217 --> 00:04:31,785
+far as satisfiability is concerned, so we
+could have called Y. The first and X. The
+
+44
+00:04:31,785 --> 00:04:38,662
+second. Generally the easier part of
+proving of problem NP complete is proving
+
+45
+00:04:38,662 --> 00:04:46,513
+it isn't NP. Generally you just guess a
+solution and then in polynomial time, you
+
+46
+00:04:46,513 --> 00:04:53,008
+check it. And, the SAD problem is no
+exception. Okay, while Leeds described a
+
+47
+00:04:53,008 --> 00:04:58,333
+non-deterministic touring machine that can
+take a coded Boolean expression as input
+
+48
+00:04:58,333 --> 00:05:03,342
+and tell if it is satisfiable. And of
+course the non-deterministic machine must
+
+49
+00:05:03,342 --> 00:05:08,921
+be polynomial time bounded. In this case,
+order N squared time suffices. The power
+
+50
+00:05:08,921 --> 00:05:13,993
+of non-determinism lets us guess a truth
+assignment. We'll use a second tape to
+
+51
+00:05:13,993 --> 00:05:19,065
+write down the guess of a truth value for
+each variable. Then in the expression
+
+52
+00:05:19,065 --> 00:05:25,162
+itself replace each variable by its
+guessed truth value. We can now evaluate
+
+53
+00:05:25,162 --> 00:05:31,720
+the expression bottom up. You are not
+determining if the machine accepts the
+
+54
+00:05:31,720 --> 00:05:36,175
+value of the expression of this assignment
+is true. Notice the power of
+
+55
+00:05:36,175 --> 00:05:40,818
+nondeterminism here. The number of
+assignments could be exponential on the
+
+56
+00:05:40,818 --> 00:05:45,461
+length of the expression, but the
+nondeterministic machine works on all of
+
+57
+00:05:45,461 --> 00:05:50,418
+the expressions sort of in parallel thus
+appearing to finish in a time that is
+
+58
+00:05:50,418 --> 00:05:55,689
+polynomial on the input side cause we only
+count the time for processing one single
+
+59
+00:05:55,689 --> 00:06:00,298
+assignment Also, notice that
+non-determinism is more than parallelism.
+
+60
+00:06:00,298 --> 00:06:05,769
+Given any fixed number or processors, say
+a 1000, we can divide the time needed to
+
+61
+00:06:05,769 --> 00:06:10,903
+evaluate the effect of each truth
+assignment into a 1000 groups, and they'll
+
+62
+00:06:10,903 --> 00:06:16,185
+evaluate them in parallel. But if there
+are two to the N. Assignments it would
+
+63
+00:06:16,185 --> 00:06:21,051
+still take each processor time two to the
+N. Divided by 1,000. Which is still
+
+64
+00:06:21,051 --> 00:06:27,684
+exponential in N. We're now going to give
+the proof of Cook's theorem that the sat
+
+65
+00:06:27,684 --> 00:06:33,036
+problem is N., P. Complete. Since we don't
+have any N.P. Complete problems yet, we
+
+66
+00:06:33,036 --> 00:06:38,512
+can't do a reduction from some one other
+problem to sat. Rather we have to show how
+
+67
+00:06:38,512 --> 00:06:43,793
+to reduce any problem in NP to SAT in
+polynomial time. We do these reductions by
+
+68
+00:06:43,793 --> 00:06:48,745
+assuming nothing about the problem L that
+is an NP except that it has some
+
+69
+00:06:48,745 --> 00:06:54,290
+non-deterministic polynomial time bounded
+Turing machine that accepts L. To make the
+
+70
+00:06:54,290 --> 00:06:59,188
+reduction from these Turing machines to
+SAT easier, we're going. To make some
+
+71
+00:06:59,188 --> 00:07:03,673
+restrictions on the Turing machine. But,
+only restrictions we can assume without
+
+72
+00:07:03,673 --> 00:07:08,214
+losing any of the problems in n p. That is
+every problem in n p has one of these
+
+73
+00:07:08,214 --> 00:07:13,690
+machines which we'll describe on the next
+slide. The [inaudible] inscriptions we
+
+74
+00:07:13,690 --> 00:07:19,777
+make are the following. First, that the
+nondeterministic machine has only one
+
+75
+00:07:19,777 --> 00:07:24,943
+tape. And that the head never moves left
+of its initial position. We'll assume the
+
+76
+00:07:24,943 --> 00:07:29,541
+states are never also tape symbols so we
+can tell which symbol in an ID is the
+
+77
+00:07:29,541 --> 00:07:33,848
+state. Point three clearly loses us
+nothing since we can always change the
+
+78
+00:07:33,848 --> 00:07:38,620
+names of the states without changing what
+the machine does. And we're already seen
+
+79
+00:07:38,620 --> 00:07:43,335
+the constructions many tapes to one and
+two way infinite tape to one way. Each of
+
+80
+00:07:43,335 --> 00:07:48,049
+these constructions can square the number
+of steps the turning machine makes. But
+
+81
+00:07:48,049 --> 00:07:52,583
+that's okay. The square of a polynomial is
+still a polynomial. This slide has a
+
+82
+00:07:52,583 --> 00:07:56,982
+collections of random but important
+comments about what we assume about the
+
+83
+00:07:56,982 --> 00:08:00,917
+non determinates that poly contouring
+machine and, in addition to the
+
+84
+00:08:00,917 --> 00:08:05,814
+restrictions we've seen on the previous
+slide. First let P. Of N. Be the
+
+85
+00:08:05,814 --> 00:08:12,751
+particular polynomial upper bound on the
+running time of N. We'll be simulating M
+
+86
+00:08:12,751 --> 00:08:18,036
+on an input W, which is of length N. This
+next assumption is really about how we
+
+87
+00:08:18,036 --> 00:08:23,454
+define the next ID relation. We're going
+to assume that if M accepts W then there
+
+88
+00:08:23,454 --> 00:08:29,207
+is a sequence of exactly P of N moves from
+the initial ID with the final state in the
+
+89
+00:08:29,207 --> 00:08:34,525
+last ID, and perhaps other IDs as well.
+We're going to assume that if M is in an
+
+90
+00:08:34,525 --> 00:08:39,873
+accepting state then the identical ID
+represents one legal move. So if M enters
+
+91
+00:08:39,873 --> 00:08:45,221
+an accepting state early on, then the
+sequence of IDs leading to acceptance can
+
+92
+00:08:45,221 --> 00:08:50,840
+be extended to length P of N, by repeating
+the first ID that has an accepting state.
+
+93
+00:08:50,840 --> 00:08:55,425
+There's no harm in doing this, and it's
+already accepted, so entering an accepting
+
+94
+00:08:55,425 --> 00:08:59,970
+state more than once will not change
+anything. This is an observation rather
+
+95
+00:08:59,970 --> 00:09:05,403
+than an assumption. Remember that the head
+cannot move more than pvn squares and pvn
+
+96
+00:09:05,403 --> 00:09:10,513
+moves. So we're going to represent each
+i.d. By a sequence of exact pvn plus one
+
+97
+00:09:10,513 --> 00:09:15,623
+positions. The first pvn tape squares and
+the state. Initially most of these are
+
+98
+00:09:15,623 --> 00:09:21,057
+blank, but it's okay for some of these pvn
+plus one position to hold a blank beyond
+
+99
+00:09:21,057 --> 00:09:26,361
+where a head has reached so far. Even if
+this guide is not technically part of the
+
+100
+00:09:26,361 --> 00:09:31,887
+i.d. We have to design a polytime
+transducer that can turn the input w into
+
+101
+00:09:31,887 --> 00:09:38,458
+a brilliant expression that is satisfiable
+if and only if m accepts w. The transducer
+
+102
+00:09:38,458 --> 00:09:45,258
+is designed knowing M but not W. The first
+thing the translucent does, seeing W. Is
+
+103
+00:09:45,258 --> 00:09:51,759
+to determine its length N. The expression
+that is output from the transducer will
+
+104
+00:09:51,759 --> 00:09:58,218
+involve P. Of N. Plus one, all squared.
+What we call variables. But these
+
+105
+00:09:58,218 --> 00:10:02,731
+variables are not the propositional
+variables of [inaudible] and logic. Rather
+
+106
+00:10:02,731 --> 00:10:07,129
+they are collections of propositional
+variables that together represent the
+
+107
+00:10:07,129 --> 00:10:13,357
+symbol in a particular position of a
+particular ID. That is, the variable we'll
+
+108
+00:10:13,357 --> 00:10:21,150
+call X. Of I., J., represents the J.
+Position of the ife I.D. Thus I and J are
+
+109
+00:10:21,150 --> 00:10:26,844
+each in the range zero through P of N
+exclusive. Think of the variables arranged
+
+110
+00:10:26,844 --> 00:10:32,041
+in an array. The rose represents
+successive IDs and the columns represent
+
+111
+00:10:32,041 --> 00:10:37,878
+positions in those IDs. We'll start with
+the initial ID with the start state input
+
+112
+00:10:37,878 --> 00:10:43,003
+w and the rest of the positions blank.
+We'll design the expression to be
+
+113
+00:10:43,003 --> 00:10:48,555
+satisfiable if and only if M accepts W.
+We'll see that the expression constrains
+
+114
+00:10:48,555 --> 00:10:53,182
+the values of the variables, so that the
+only way that the expression can be
+
+115
+00:10:53,182 --> 00:10:58,112
+satisfiable, is if each ID represents a
+move from the previous ID, or the previous
+
+116
+00:10:58,112 --> 00:11:04,406
+ID has an accepting state and the next ID
+is the same. And the expression also
+
+117
+00:11:04,406 --> 00:11:10,426
+requires that of the final id iso p m is
+an accepted state. Thus from m which it
+
+118
+00:11:10,426 --> 00:11:16,146
+knows, w which it sees the transducer
+constructs an expression any satisfied
+
+119
+00:11:16,146 --> 00:11:22,393
+truth assignment for this expression will
+give the x as the proper values with the
+
+120
+00:11:22,393 --> 00:11:28,489
+id sequence of m with input w leading to
+acceptance. Now remember the x's are not
+
+121
+00:11:28,489 --> 00:11:35,546
+moving variables they represent states and
+tape symbols of m. However, each variable
+
+122
+00:11:35,546 --> 00:11:42,751
+can take on only a fixed number of values.
+The sum of the number of type symbols and
+
+123
+00:11:42,751 --> 00:11:49,612
+the states of the known turing machine M.
+Thus we can represent each XIJ by this
+
+124
+00:11:49,612 --> 00:11:56,388
+number of propositional variables, exactly
+one of which can be true. That is, for
+
+125
+00:11:56,388 --> 00:12:03,251
+each state or type symbol A let y sub IJA,
+that's this. Be a propositional variable
+
+126
+00:12:03,251 --> 00:12:09,706
+and we want y's of IJA to be true if and
+only if X of IJ equals A. As we describe
+
+127
+00:12:09,706 --> 00:12:16,001
+the construction of the Boolean expression
+we must make sure that we take time
+
+128
+00:12:16,001 --> 00:12:22,297
+[inaudible] is only a polynomial in N.
+There are many components from which the
+
+129
+00:12:22,297 --> 00:12:29,483
+final expression is built but they fall
+into two classes. Some depend on W and
+
+130
+00:12:29,483 --> 00:12:35,977
+therefore depend on N. These components
+are and must be of size that is polynomial
+
+131
+00:12:35,977 --> 00:12:42,075
+in N. And more importantly we can write
+them easily so that the time taken to
+
+132
+00:12:42,075 --> 00:12:49,004
+write them on the output is polynomial in
+N. The second kind is those that depend
+
+133
+00:12:49,004 --> 00:12:54,049
+only on M. These take a constant time as
+far as input size is concerned. That is, N
+
+134
+00:12:54,049 --> 00:12:59,219
+may have lots and lots of states and lots
+of type symbols, but these quantities are
+
+135
+00:12:59,219 --> 00:13:04,014
+independent of N. So as far as we're
+concerned, they're all just constants. And
+
+136
+00:13:04,014 --> 00:13:08,997
+to make our lives a bit simpler, don't
+forget that if an expression has a set of
+
+137
+00:13:08,997 --> 00:13:14,167
+arguments whose size is fixed independent
+of N, then no matter how large the number
+
+138
+00:13:14,167 --> 00:13:19,094
+is, it is a constant as far as N is
+concerned. So the time to write any such
+
+139
+00:13:19,094 --> 00:13:24,689
+component is a polynomial in N. In fact,
+it's a zero degree polynomial. Now let's
+
+140
+00:13:24,689 --> 00:13:30,000
+start to describe the output of the
+transducer. The output is an expression
+
+141
+00:13:30,000 --> 00:13:35,742
+and we want it to be satisfiable if and
+only if M accepts W. The whole expression
+
+142
+00:13:35,742 --> 00:13:41,500
+is the end of four sub expressions. Each
+of which enforces one of four conditions.
+
+143
+00:13:41,500 --> 00:13:47,544
+First is the sub expression we'll call
+'unique'. It enforces the rule that there
+
+144
+00:13:47,544 --> 00:13:53,130
+is only symbol in each position of each
+ID. That is, the value of X, I, J is
+
+145
+00:13:53,130 --> 00:13:59,453
+unique. The second sub expression is
+starts right. It forces the initial ID to
+
+146
+00:13:59,453 --> 00:14:05,868
+be the start state followed by W. The next
+is moves right. This really should be
+
+147
+00:14:05,868 --> 00:14:12,202
+moves correctly but that's too many
+syllables. This expression enforces the
+
+148
+00:14:12,202 --> 00:14:18,466
+condition that each ID follows the
+previous ID by one move of M. And as that
+
+149
+00:14:18,466 --> 00:14:23,706
+convenient exception if the previous I.D.
+Has an accepting state then the next I.D.
+
+150
+00:14:23,706 --> 00:14:30,203
+May be the previous I.D. Finally comes the
+expression 'finish is right'. This
+
+151
+00:14:30,203 --> 00:14:37,687
+condition says that somewhere in all that
+stuff is an accepting state. For unique we
+
+152
+00:14:37,687 --> 00:14:45,081
+use the 'and' over all IDs, I, positions J
+and states or tapes symbols Y and Z of the
+
+153
+00:14:45,081 --> 00:14:51,431
+expression 'not Y sub IJ capital Y'. Or,
+not Y, I, J, capital Z. This little
+
+154
+00:14:51,431 --> 00:14:58,911
+expression is satisfied as long as at most
+one of the two bouillon variables, Y, I,
+
+155
+00:14:58,911 --> 00:15:06,021
+J, cap Y and Y, I, J cap Z, is true. Put
+another way, if X, I, J, were to have two
+
+156
+00:15:06,021 --> 00:15:12,498
+different symbols, say cap Y and cap Z.
+And one of these little expressions would
+
+157
+00:15:12,498 --> 00:15:17,586
+be false but unique is the 'and' of all
+these expressions and the entire
+
+158
+00:15:17,586 --> 00:15:22,886
+expression is the 'and' of unique and the
+other expressions. Thus, the entire
+
+159
+00:15:22,886 --> 00:15:28,398
+expression cannot be satisfied by any
+truth assignment that makes any pair of
+
+160
+00:15:28,398 --> 00:15:33,333
+variables, Y, I J, Y and Y, I J, Z, both
+be true. Now let's formulate 'starts
+
+161
+00:15:33,345 --> 00:15:39,818
+right'. This expression requires the first
+ID to be the one and that starts it with
+
+162
+00:15:39,818 --> 00:15:46,109
+input W. The W whose length is N consists
+of symbols A1 through AN. We want X zero,
+
+163
+00:15:46,109 --> 00:15:52,047
+zero, the first position of the first ID,
+to be the symbol that is the start state
+
+164
+00:15:52,047 --> 00:15:58,833
+of them. That's [inaudible],
+conventionally q zero. And we want the
+
+165
+00:15:58,833 --> 00:16:07,165
+next ten variables to represent W. This
+is, X0 I must be AI for all I up to N.
+
+166
+00:16:07,165 --> 00:16:16,373
+[sound] and all the other positions of the
+first ID are blank. That is, X0 I is blank
+
+167
+00:16:16,373 --> 00:16:24,272
+for I between N plus one and P of N. But
+there's a propositional variable for that.
+
+168
+00:16:24,272 --> 00:16:30,889
+Each of the conditions that makes up
+'starts right' is of the form sum one of
+
+169
+00:16:30,889 --> 00:16:37,163
+the X variables is a particular symbol.
+But that's what the propositional
+
+170
+00:16:37,163 --> 00:16:43,350
+variables, Y, I, J, A do. So we can write
+'starts right' as the 'and' of Y, sub
+
+171
+00:16:43,350 --> 00:17:01,877
+zero. Zero, Q.0, and. Why? 0-1-A-1, the
+first symbol of W, and Y-0-2-A-2 and so on
+
+172
+00:17:01,877 --> 00:17:12,941
+and after let?s say Y-0-N-A-N. Then you've
+got to have Y, zero, N plus one, comma,
+
+173
+00:17:12,941 --> 00:17:20,776
+blank and so on. So finish is right is
+easy. M accepts if and only if the last ID
+
+174
+00:17:20,776 --> 00:17:28,416
+has an accepting state because once M
+enters an accepting state it appears to
+
+175
+00:17:28,416 --> 00:17:35,663
+stay in that state until the ID number P
+of N. So take the 'or', the Boolean
+
+176
+00:17:35,663 --> 00:17:41,940
+variables, Y sub P of N, J and Q. Where Q
+is an accepting state and J is anything
+
+177
+00:17:41,940 --> 00:17:47,409
+from zero through P of N. Now, let's see
+how long it takes to write down the three
+
+178
+00:17:47,409 --> 00:17:53,081
+of the four expressions we have described.
+Remember, we have yet to describe the hard
+
+179
+00:17:53,081 --> 00:17:58,415
+one, Moves Right. Unique is actually the
+most time consuming. It requires that we
+
+180
+00:17:58,415 --> 00:18:04,086
+write down [inaudible] of P squared event
+symbols. The P squared comes from the fact
+
+181
+00:18:04,086 --> 00:18:09,423
+that we range over all I and J, between
+zero and P of N. The constant factor comes
+
+182
+00:18:09,423 --> 00:18:14,045
+from the fact that for each I and j,
+there're a large but finite number of
+
+183
+00:18:14,045 --> 00:18:18,980
+pairs of states and their tape symbols,
+each of which needs a little expression.
+
+184
+00:18:18,980 --> 00:18:23,890
+The number of pairs may be large but it is
+an independent event, so it is a constant.
+
+185
+00:18:23,890 --> 00:18:28,146
+So that expression involves two
+parentheses, three logical operators, and
+
+186
+00:18:28,146 --> 00:18:32,402
+two propositional variables. Only a
+constant number of things. But let me
+
+187
+00:18:32,402 --> 00:18:37,072
+remind you again, that the real issue is
+not how long the expression is, but how
+
+188
+00:18:37,072 --> 00:18:41,552
+long it takes to write it. But, the
+expression is simple and it is simple to
+
+189
+00:18:41,552 --> 00:18:46,416
+write the expression by looping on I and
+J. Thus, taking time proportional to its
+
+190
+00:18:46,416 --> 00:18:51,160
+length. Starts write is the and of P of N
+propositional variables, and again, the
+
+191
+00:18:51,160 --> 00:18:55,964
+pattern is simple. So, we can write this
+expression, in order P of N time. The same
+
+192
+00:18:55,964 --> 00:19:00,888
+holds for Finishers Write. They're a P of
+N propositional variables and we need to
+
+193
+00:19:00,888 --> 00:19:05,709
+output those variables connected by or's.
+Whoops. I lied. The running times are a
+
+194
+00:19:05,709 --> 00:19:10,738
+little bit larger than I said. Not enough
+larger to take us out of the Paulanolio
+
+195
+00:19:10,738 --> 00:19:16,049
+class, but larger by a factor of log in.
+That is, I cannot really output a
+
+196
+00:19:16,049 --> 00:19:22,578
+propositional variable, like wise of I.,
+J., A., or even a constant time. The
+
+197
+00:19:22,578 --> 00:19:28,306
+reason is that we have to use a finite
+alphabet to represent order P squared of N
+
+198
+00:19:28,306 --> 00:19:33,475
+propositional variables. We agreed to
+represent a variable by the symbol X
+
+199
+00:19:33,475 --> 00:19:38,673
+followed by an integer in binary. Like
+this. To represent order p squared of n
+
+200
+00:19:38,673 --> 00:19:43,672
+variables requires interfusers length
+order log n. But this is no big deal. A
+
+201
+00:19:43,672 --> 00:19:48,934
+factor order log n is less than a factor
+of n so long as all we do is raise the
+
+202
+00:19:48,934 --> 00:19:54,327
+degree of polynomial by one, not even that
+much. So in what follows is we are going
+
+203
+00:19:54,327 --> 00:19:59,984
+to ignore factors of log n and just assume
+we can write down a propositional variable
+
+204
+00:19:59,984 --> 00:20:05,180
+in constant time and space. We are now
+going to start working on Newton's right.
+
+205
+00:20:05,180 --> 00:20:13,839
+A lot of this expression simply says that
+X.I.J. Equals X.I. Minus one J. That is, a
+
+206
+00:20:13,839 --> 00:20:19,014
+symbol in the IF ID is the same as the
+symbol in the same position of the
+
+207
+00:20:19,014 --> 00:20:24,469
+previous ID. That will be true whenever
+the symbol in that position is not the
+
+208
+00:20:24,469 --> 00:20:30,344
+state and neither are the positions to the
+left and right of the previous ID of the
+
+209
+00:20:30,344 --> 00:20:35,799
+state. Since a state can only move one
+position, we know nothing changes two or
+
+210
+00:20:35,799 --> 00:20:40,624
+more symbols away from the state. So,
+we're going to construct one sub
+
+211
+00:20:40,624 --> 00:20:46,825
+expression for each I and J, saying that,
+either, XIJ equals XI minus 1J. Or the
+
+212
+00:20:46,825 --> 00:20:56,348
+state is lurking about. The idea that the
+state is lurking is the or of those
+
+213
+00:20:56,348 --> 00:21:06,284
+propositional variables Y sub I -1KA.
+Where k is within one of I and a is state
+
+214
+00:21:06,284 --> 00:21:14,400
+symbol of m. Now we need to translate the
+quality of x I j and x I-1 j into
+
+215
+00:21:14,400 --> 00:21:23,155
+propositional variables but we just need
+the or of y I j a and y i. Minus one J, A,
+
+216
+00:21:23,155 --> 00:21:31,759
+that's this, for all symbols A. The reason
+that works, is that we already have the
+
+217
+00:21:31,759 --> 00:21:39,933
+need to enforce the condition that, for
+only one symbol A, can Y, I, J, A or Y, I
+
+218
+00:21:39,933 --> 00:21:45,648
+minus one, J, A, be true. The expressions
+we constructed for each IDI and position J
+
+219
+00:21:45,648 --> 00:21:50,076
+will be part of [inaudible] right. Each
+says colloquially that the [inaudible]
+
+220
+00:21:50,076 --> 00:21:54,617
+symbol can't change if the state isn't
+nearby. They will be [inaudible] together
+
+221
+00:21:54,617 --> 00:21:58,742
+with expressions that enforce the
+correctness of the moves of M. For the
+
+222
+00:21:58,742 --> 00:22:03,607
+case when the state is nearby. To write
+the expression for [inaudible] right, we
+
+223
+00:22:03,607 --> 00:22:08,102
+need to consider both the case on the
+left, where a position holds a type
+
+224
+00:22:08,102 --> 00:22:12,904
+symbol, and so do its neighbors to the
+left and right, and the hard case on the
+
+225
+00:22:12,904 --> 00:22:17,584
+right where the state is nearby. In the
+easy case there is no doubt that the
+
+226
+00:22:17,584 --> 00:22:22,756
+symbol in position J of the [inaudible] ID
+is the same as the [inaudible] symbol of
+
+227
+00:22:22,756 --> 00:22:27,811
+the I minus first ID. We already covered
+this case in the previous slide with the
+
+228
+00:22:27,811 --> 00:22:33,131
+expressions that if the state isn't nearby
+then the symbol doesn't change. But in the
+
+229
+00:22:33,131 --> 00:22:38,024
+hard case there are three positions. The
+positions that hold the state in the I
+
+230
+00:22:38,024 --> 00:22:43,041
+minus first ID and its neighbors that can
+be affected by the move. Moreover since
+
+231
+00:22:43,041 --> 00:22:47,934
+we're simulating a non-deterministic
+[inaudible] machine there may be a choice
+
+232
+00:22:47,934 --> 00:22:52,827
+of move, and we need to coordinate the
+three positions in the [inaudible] ID to
+
+233
+00:22:52,827 --> 00:22:57,534
+make sure that all three reflect the
+changes of a single choice of move. For
+
+234
+00:22:57,534 --> 00:23:02,568
+the hard case, the pieces of the move's
+right expression must do two things. Okay.
+
+235
+00:23:02,568 --> 00:23:08,627
+It has to pick one of the possible moves
+of M. That is the state of Q, it takes
+
+236
+00:23:08,627 --> 00:23:15,246
+symbol A in a direction that is the choice
+of one of triples in Delta of Q and A. And
+
+237
+00:23:15,246 --> 00:23:21,778
+then for that move [inaudible] force the
+condition, that when the J condition of
+
+238
+00:23:21,778 --> 00:23:28,638
+the id I minus one, holds the state Q. And
+the J plus first position of the I minus
+
+239
+00:23:28,638 --> 00:23:34,289
+first idea holds a symbol A, then in the
+[inaudible] ID the position J minus one
+
+240
+00:23:34,289 --> 00:23:39,728
+through j plus one, reflect that move.
+Note that either the J minus first or J
+
+241
+00:23:39,728 --> 00:23:45,026
+plus first position is unchanged, so the
+expression also has to enforce the
+
+242
+00:23:45,026 --> 00:23:50,606
+condition that this position is unchanged
+from the previous ID, that is suppose
+
+243
+00:23:50,606 --> 00:23:55,762
+delta of QA contains perhaps with other
+choices a leftward move going to
+
+244
+00:23:55,762 --> 00:24:04,116
+[inaudible] P and, and writing B over the
+A. That could be that. Then. For any
+
+245
+00:24:04,116 --> 00:24:15,010
+I.D.I. Position J. And tape symbol C. That
+is, this is. Id I-1, that's I, this is
+
+246
+00:24:15,010 --> 00:24:24,228
+position j-1, that's j and that's j+1,
+okay, then one possibility for the six
+
+247
+00:24:24,228 --> 00:24:36,651
+variables represented by this rectangle.
+That is this, is the combination that is
+
+248
+00:24:36,651 --> 00:24:45,990
+reflected here, that is. P has moved, lo,
+the state has become P. P is moved to the
+
+249
+00:24:45,990 --> 00:24:53,290
+left. The C is unchanged but its actual
+position is different, and the A has been
+
+250
+00:24:53,290 --> 00:25:00,500
+replaced by B. Similarly, if the move is
+to the right, but is something like that.
+
+251
+00:25:00,811 --> 00:25:08,900
+And the six values are the ones we must
+enforce from the variables in this
+
+252
+00:25:08,900 --> 00:25:16,989
+rectangle. And those, well, c doesn't
+change at all. The state q becomes p and
+
+253
+00:25:16,989 --> 00:25:23,533
+moves to the right. So it's at here, and
+then the a got replaced b and the b
+
+254
+00:25:23,533 --> 00:25:30,067
+appears over here. Now we can assemble the
+parts of moves right that enforce the
+
+255
+00:25:30,067 --> 00:25:36,355
+moves. We already gave the formulas that
+say, if the state is non of x, I minus
+
+256
+00:25:36,355 --> 00:25:42,644
+one, j minus one, through x, I minus one,
+j plus one, then x, I, j equals x, I minus
+
+257
+00:25:42,644 --> 00:25:49,261
+one, j. That is you can't change the
+symbol if the state is not nearby. Now we
+
+258
+00:25:49,261 --> 00:25:54,834
+have to include expressions that constrain
+the six variable Xs that are near the
+
+259
+00:25:54,834 --> 00:26:00,475
+state in the I minus first ID. For each
+possible move write an expression for each
+
+260
+00:26:00,475 --> 00:26:06,185
+position J and each ID I that expresses
+the constraints on the six relevant Xs for
+
+261
+00:26:06,185 --> 00:26:11,869
+that move. There is one more type of move
+of M that isn't really a move. We need to
+
+262
+00:26:11,869 --> 00:26:17,608
+allow no change in ID if M is an accepting
+state. For each accepting state of M
+
+263
+00:26:17,608 --> 00:26:23,348
+there's a fake move in which nothing
+changes. For each INJ take the [inaudible]
+
+264
+00:26:23,348 --> 00:26:29,306
+over all moves of M, of the expression you
+just wrote for INJ. Now, for each INJ you
+
+265
+00:26:29,306 --> 00:26:34,924
+have an expression that says that six
+relevant Xs reflect some move of M. Take
+
+266
+00:26:34,924 --> 00:26:39,824
+the and of these expressions over all I
+and j. Also include in the and all the
+
+267
+00:26:39,824 --> 00:26:44,913
+expressions from earlier that say symbols
+do not change if the state is not near.
+
+268
+00:26:44,913 --> 00:26:49,876
+Okay, there's a small glitch in all this
+material. The assumed position j is not
+
+269
+00:26:49,876 --> 00:26:55,035
+zero of p and n the left most and right
+most positions represented by the id's. If
+
+270
+00:26:55,035 --> 00:27:00,257
+J is one of these there are only four Xs
+involved. We need to modify so that the
+
+271
+00:27:00,257 --> 00:27:05,414
+missing symbols are assumed blank. This
+same fix up is needed for the rules that
+
+272
+00:27:05,414 --> 00:27:10,832
+say the symbol doesn't change if the state
+is not nearby. If the symbol in question
+
+273
+00:27:10,832 --> 00:27:16,380
+is in one of the end positions O or N then
+there is no possibility that the state is
+
+274
+00:27:16,380 --> 00:27:21,472
+outside this range and we can omit that
+requirement. Now consider how long it
+
+275
+00:27:21,472 --> 00:27:26,483
+takes to write down the moves right
+expression. Moves Right, consists of the
+
+276
+00:27:26,483 --> 00:27:32,037
+and of two P squared of and expressions,
+two for each ID I and position J. One of
+
+277
+00:27:32,037 --> 00:27:37,659
+the two is the expression that says the
+symbol doesn't change if the head is not
+
+278
+00:27:37,659 --> 00:27:43,421
+nearby. The other says that if the head is
+nearby then the six relevant symbols are
+
+279
+00:27:43,421 --> 00:27:48,738
+related in such a way, that they reflect
+one move of M. Each of these expressions
+
+280
+00:27:48,738 --> 00:27:53,684
+can depend on the number of state symbols
+and moves of M, but, none of this depends
+
+281
+00:27:53,684 --> 00:27:58,570
+on N. That is, as far as the length of the
+input W is concerned, each expression is
+
+282
+00:27:58,570 --> 00:28:03,456
+of constant size. The claim that each of
+the order P squared of an expressions is
+
+283
+00:28:03,456 --> 00:28:08,463
+easy to write down in time proportional to
+their length, by a transducer that knows
+
+284
+00:28:08,463 --> 00:28:13,530
+the moves of M. So, the transducer can now
+put moves right in time that is polynomial
+
+285
+00:28:13,530 --> 00:28:18,759
+in the length of its input W. As always
+there is another factor log n because we
+
+286
+00:28:18,759 --> 00:28:23,788
+must write the Boolean expression in a
+fixed alphabet, but factors of log n
+
+287
+00:28:23,788 --> 00:28:28,883
+cannot take us out of the polynomial
+class. So to sum up the proof of Cook's
+
+288
+00:28:28,883 --> 00:28:34,773
+theorem. It takes time less than order p
+cubed of n for the transducer to output
+
+289
+00:28:34,773 --> 00:28:40,736
+the Boolean expression that is the and of
+the four key components. Unique, starts
+
+290
+00:28:40,736 --> 00:28:46,774
+right, finishes right, and moves right.
+The claim that this transduction really is
+
+291
+00:28:46,774 --> 00:28:53,051
+a poly time reduction of the language of M
+to the language Sat First; if M accepts W
+
+292
+00:28:53,051 --> 00:28:59,135
+then there is some ID sequence that leads
+to acceptance. Imagine the P of N plus one
+
+293
+00:28:59,135 --> 00:29:05,292
+by P of N plus one matrix of the XIJs. The
+accepting sequence of IDs lets us fill out
+
+294
+00:29:05,292 --> 00:29:10,797
+this table correctly; giving the value to
+XIJ that reflects the sequence. The
+
+295
+00:29:10,797 --> 00:29:15,506
+expression we constructed will be
+satisfied only assigned to the
+
+296
+00:29:15,506 --> 00:29:20,938
+propositional variables, Y, I, J, A, the
+truth values implied by this choice of
+
+297
+00:29:20,938 --> 00:29:25,927
+XIJs. So if M accepts W then the
+expression is satisfiable. Conversely if
+
+298
+00:29:25,927 --> 00:29:30,480
+we have a satisfying assignment for the
+expressions we can get unique values for
+
+299
+00:29:30,480 --> 00:29:34,696
+the x I j's from the propositional
+variables. The unique expression assures
+
+300
+00:29:34,696 --> 00:29:39,098
+that the x I j's can be given unique
+values. And starts, finishes, and move
+
+301
+00:29:39,098 --> 00:29:44,420
+right assures that the X.I.J.'s form an
+accepting computation of M. With input W.
+
+302
+00:29:44,420 --> 00:29:49,240
+That is enough to show that every polytime
+non-deterministic turing machine's
+
+303
+00:29:49,240 --> 00:29:54,308
+language is polytime reducible to Sat. We
+now have one problem, Sat, that we know to
+
+304
+00:29:54,308 --> 00:29:59,438
+be NB complete. We're going to reduce it
+to other problems in order to show them NP
+
+305
+00:29:59,438 --> 00:30:04,073
+complete as well. But it is easier to
+polytime reduce a special case of Sat
+
+306
+00:30:04,073 --> 00:30:09,265
+called three Sat to other problems. So our
+first step is to show that [inaudible] is
+
+307
+00:30:09,265 --> 00:30:14,160
+NP complete even if the Boolean expression
+is in a very special form. The first
+
+308
+00:30:14,160 --> 00:30:19,016
+restriction that we place on expressions
+is, is that they be in C.N.F. That is
+
+309
+00:30:19,016 --> 00:30:24,516
+conjunctive normal form. These expressions
+are the end of clauses. And a clause is
+
+310
+00:30:24,516 --> 00:30:30,390
+the [inaudible] of literals. And a literal
+is either a propositional variable or its
+
+311
+00:30:30,390 --> 00:30:38,124
+negation. So, our next step will be to
+show to be NP complete. The problem C SAT,
+
+312
+00:30:38,124 --> 00:30:46,066
+which is whether a bouillon expression, in
+conjunctive normal form, is satisfiable.
+
+313
+00:30:46,066 --> 00:30:53,811
+Here's an example of a CNF expression. The
+first clause, this is X, or not Y or Z.
+
+314
+00:30:53,811 --> 00:31:03,074
+That is X, not Y. And Z. Are, each
+literals. The second. Clause is just this
+
+315
+00:31:03,074 --> 00:31:09,686
+not x. That's okay a clause can be for
+only one literal. The third is the ore of
+
+316
+00:31:09,686 --> 00:31:16,132
+four literals which are not w, not x, y
+and z. K, we are not going to reduce sac
+
+317
+00:31:16,132 --> 00:31:22,912
+and c sac, rather we will examine cooks
+proof and see where it needed to be fixed
+
+318
+00:31:22,912 --> 00:31:29,441
+up to make the output expression be in
+conjunctive normal form. That way we'll
+
+319
+00:31:29,441 --> 00:31:35,868
+have a direct reduction of every problem
+we need for c sac. Everything but moves
+
+320
+00:31:35,868 --> 00:31:41,536
+right is already in CNF. You can review
+the constructions, but when you do you'll
+
+321
+00:31:41,536 --> 00:31:46,922
+find that unique is the [inaudible]
+clauses, so is starts right. In fact, each
+
+322
+00:31:46,922 --> 00:31:52,557
+clause is only one literal, which is in
+fact an un-negated variable. And finishes
+
+323
+00:31:52,557 --> 00:31:57,609
+right is the [inaudible] of unnegated
+variables and therefore is a single
+
+324
+00:31:57,609 --> 00:32:03,139
+clause. Now let?s look at the most right.
+It is the and of an expression for each I
+
+325
+00:32:03,139 --> 00:32:08,669
+and j where I is id number and j position
+in that id. [inaudible] this expression
+
+326
+00:32:08,669 --> 00:32:14,652
+says [inaudible] is not near position j.
+And the symbol in position J of I, D, I is
+
+327
+00:32:14,652 --> 00:32:19,864
+the same as the symbol in the same
+position of the previous I, D or the head
+
+328
+00:32:19,864 --> 00:32:24,940
+is at position J in the I, D, I minus one.
+And three symbols of I, D, I around
+
+329
+00:32:24,940 --> 00:32:30,427
+position J reflect one move of the poly
+time Turing machine M. Here's the supple
+
+330
+00:32:30,427 --> 00:32:36,051
+thing. As complicated as these expressions
+are they depend only on M and not on the
+
+331
+00:32:36,051 --> 00:32:40,580
+input length N. As a result we can write
+the expression for given INJ in
+
+332
+00:32:40,580 --> 00:32:45,248
+conjunctive normal form. It is possible to
+convert any Boolean expression to
+
+333
+00:32:45,248 --> 00:32:50,284
+conjunctive normal form. I'll show you the
+trick on the next slide. This conversion
+
+334
+00:32:50,284 --> 00:32:55,197
+does in the worst case exponentiate the
+length of the expression but it doesn't
+
+335
+00:32:55,197 --> 00:33:00,233
+matter in this application because the
+only expressions to which we need to apply
+
+336
+00:33:00,233 --> 00:33:05,085
+the conversion are expressions whose size
+is independent of the input length N.
+
+337
+00:33:05,085 --> 00:33:10,060
+Thus, the time taking to convert to CNF
+for each expression is just some constant.
+
+338
+00:33:10,060 --> 00:33:17,057
+Independent event. Here's how we'll
+convert a given Boolean expression to C
+
+339
+00:33:17,057 --> 00:33:21,605
+and F. We'll consider each truth
+assignment that makes the expression
+
+340
+00:33:21,605 --> 00:33:26,362
+false. Note that if there are K variables
+in the given expression, there could be
+
+341
+00:33:26,362 --> 00:33:31,356
+[inaudible] such truth assignments and the
+resulting expression will take that much
+
+342
+00:33:31,356 --> 00:33:36,172
+time to write down. But again, we're only
+exponentiating a constant and the result
+
+343
+00:33:36,172 --> 00:33:40,941
+is still independent of the input size, N.
+For each such truth assignment, we
+
+344
+00:33:40,941 --> 00:33:46,220
+construct one clause. If variable x is
+assigned true in this truth assignment,
+
+345
+00:33:46,220 --> 00:33:51,774
+then the clause has literal not x. And if
+x is assigned false then the clause has
+
+346
+00:33:51,774 --> 00:33:56,516
+literal x. That way the only time the
+clause, which is the or of all these
+
+347
+00:33:56,516 --> 00:34:01,474
+literals, is false is if this is the exact
+truth assignment. The resulting CNF
+
+348
+00:34:01,474 --> 00:34:06,497
+expression is the and of the clauses for
+each truth assignment that makes the
+
+349
+00:34:06,497 --> 00:34:11,584
+original expression false. Thus, the CNF
+ex, expression is made false exactly for
+
+350
+00:34:11,584 --> 00:34:16,800
+those truth assignments that make the
+original expression false and therefore it
+
+351
+00:34:16,800 --> 00:34:21,887
+is, it is of course, true exactly when the
+original is true. For example, consider
+
+352
+00:34:21,887 --> 00:34:27,395
+the expression not X or YNZ. This
+expression is made false by three truth
+
+353
+00:34:27,395 --> 00:34:33,983
+assignments, those in which X is true and
+at least one of Y and Z is false. Let's
+
+354
+00:34:33,983 --> 00:34:40,407
+convert the first truth assignment, where
+X and Y are true and Z is false, to a
+
+355
+00:34:40,407 --> 00:34:46,336
+clause. Here is the resulting clause,
+since X and Y are assigned true, the
+
+356
+00:34:46,336 --> 00:34:52,847
+clause has, not X and not Y. >> Since Z.
+Is assigned false. >> [inaudible]. >> The
+
+357
+00:34:52,847 --> 00:34:59,278
+clause has Z. Without negation. Notice
+that the only way to make those calls
+
+358
+00:34:59,278 --> 00:35:04,559
+false. Is to make each literal false,
+which means giving each variable its value
+
+359
+00:35:04,559 --> 00:35:09,318
+from the truth assignment that generated
+this clause. The other two truth
+
+360
+00:35:09,318 --> 00:35:14,730
+assignments generate the next two clauses,
+that is, these two generate this and this.
+
+361
+00:35:14,730 --> 00:35:20,547
+And the entire CNF expression is the and
+of the three clauses. It is therefore made
+
+362
+00:35:20,547 --> 00:35:26,155
+false exactly when the variables are given
+one of the three truth assignments. A
+
+363
+00:35:26,155 --> 00:35:31,762
+bouillon expression is said to be in K
+conjunctive normal form or KCNF, if it is
+
+364
+00:35:31,762 --> 00:35:37,510
+the and of clauses, each of which contains
+exactly K literals. The problem, K SAT is
+
+365
+00:35:37,510 --> 00:35:43,468
+whether a KCNF expression is satisfiable.
+For example, the expression we derived on
+
+366
+00:35:43,468 --> 00:35:49,170
+the previous slide. Which we show here is
+in three, C and F. Notice it is the and if
+
+367
+00:35:49,170 --> 00:35:54,790
+clauses and each clause has, has exactly
+three literals. We're going to prove that
+
+368
+00:35:54,790 --> 00:36:00,340
+the problem three set is NP complete. The
+easy part, as is often the case, is that
+
+369
+00:36:00,340 --> 00:36:05,682
+three set is an NP. We already saw that
+the general problem set is an NP. Just
+
+370
+00:36:05,682 --> 00:36:11,537
+guess a truth assignment and check that it
+makes the expression true. Since 3-SAT is
+
+371
+00:36:11,537 --> 00:36:16,093
+a special case of SAT, the same
+non-deterministic algorithm were
+
+372
+00:36:16,093 --> 00:36:22,073
+[inaudible] 3-SAT. We're going to prove
+the, NP completeness of 3-SAT by poly time
+
+373
+00:36:22,073 --> 00:36:27,697
+reducing C-SAT to 3-SAT. We might suppose
+that the way to do that was to find a
+
+374
+00:36:27,697 --> 00:36:33,249
+polynomial- [inaudible] time algorithm to
+convert every CNF expression into a
+
+375
+00:36:33,249 --> 00:36:39,300
+logically equivalent 3-CNF expression. But
+not only can you not do that in polynomial
+
+376
+00:36:39,300 --> 00:36:44,773
+time, you can't do it all. That is their
+uploading expression simply had no c and f
+
+377
+00:36:44,773 --> 00:36:50,022
+expression. I'm not going to prove that
+formally, but an example is the expression
+
+378
+00:36:50,022 --> 00:36:55,400
+with four variables that is true if and
+only if an odd number of the variables are
+
+379
+00:36:55,400 --> 00:37:00,260
+true, that is if exactly one or exactly
+three of the four variables is true.
+
+380
+00:37:00,260 --> 00:37:05,508
+Fortunately, the reduction does not have
+to preserve equivalents of the input and
+
+381
+00:37:05,508 --> 00:37:09,938
+output expressions. Since we are dealing
+only with whether expressions are
+
+382
+00:37:09,938 --> 00:37:14,473
+satisfied all we need to preserve, as we
+transform the input expression to the
+
+383
+00:37:14,473 --> 00:37:19,067
+output expression, is that either both are
+satisfiable or neither is. Thus we're
+
+384
+00:37:19,067 --> 00:37:23,835
+going to give a poly time reduction that
+does not preserve equivalents. In fact, it
+
+385
+00:37:23,835 --> 00:37:27,841
+doesn't even preserve the set of
+propositional variables. Rather it
+
+386
+00:37:27,841 --> 00:37:33,723
+introduces new variables into clauses that
+have more than three literals, in order to
+
+387
+00:37:33,723 --> 00:37:39,328
+split them up into many clauses of three
+literals each. So, consider a clause with
+
+388
+00:37:39,328 --> 00:37:44,933
+K literals, X1 through XK, remember these
+are literals not variables, so any of the
+
+389
+00:37:44,933 --> 00:37:49,777
+XI's could be not, followed by a
+propositional variables. [inaudible] K
+
+390
+00:37:49,777 --> 00:37:55,748
+minus three new variables which we'll call
+Y1 through YK-3. These Ys appear in no
+
+391
+00:37:55,748 --> 00:38:02,615
+other clause and they're really variables,
+not literals. Also notice that if K is
+
+392
+00:38:02,615 --> 00:38:09,224
+equal to less than three, then no new
+variables are introduced. We're going to
+
+393
+00:38:09,224 --> 00:38:15,878
+replace the clause X1 through XK by K -
+two clauses, the first consists of. The
+
+394
+00:38:15,878 --> 00:38:23,556
+first two literals. X. One and X. Two. And
+the first new variable unnegated. That's
+
+395
+00:38:23,556 --> 00:38:31,917
+Y. One. The second. Which is this, has
+only one of the original literals, x3 and
+
+396
+00:38:31,917 --> 00:38:39,739
+two variables. The previous variable is
+negated while the next variable y2 is not
+
+397
+00:38:39,739 --> 00:38:46,691
+negated. That pattern repeats. Each new
+clause has in one of the original
+
+398
+00:38:46,691 --> 00:38:55,419
+literals, say that. A negated previous Y,
+and an unnegated next Y. Then finally the
+
+399
+00:38:55,419 --> 00:39:00,577
+last of the new clauses has the last two
+of the original literals and only the
+
+400
+00:39:00,577 --> 00:39:05,342
+previous Y negated. We need to show that
+when we make this change the new
+
+401
+00:39:05,342 --> 00:39:10,761
+expression is satisfiable if and only if
+the original expression was. For the first
+
+402
+00:39:10,761 --> 00:39:15,722
+direction, we'll show that if there is a
+satisfying truth assignment for the
+
+403
+00:39:15,722 --> 00:39:20,749
+original expression then we can extend
+this truth assignment to also provide
+
+404
+00:39:20,749 --> 00:39:26,196
+truth values for the Ys that will make the
+'and' of all new clauses true. So suppose
+
+405
+00:39:26,196 --> 00:39:31,080
+that there is a satisfying truth
+assignment for the original expression.
+
+406
+00:39:31,940 --> 00:39:39,531
+Then this assignment makes at least one of
+the literals, the Xs true. Say it makes XI
+
+407
+00:39:39,531 --> 00:39:46,851
+true, then we can assign Y sub J the truth
+value true for J less than I minus one,
+
+408
+00:39:46,851 --> 00:39:54,342
+and assign Y sub J the value false for Y
+equal to or greater than I minus one. For
+
+409
+00:39:54,342 --> 00:40:03,309
+this truth assignment, the clause with xi,
+that is this one is made true by xi. All
+
+410
+00:40:03,309 --> 00:40:12,165
+the previous clauses goes there, and can
+be made true by their unnegated y's, and
+
+411
+00:40:12,165 --> 00:40:18,704
+all the later clauses, all of these. Are
+made true by their negating Ys.
+
+412
+00:40:18,704 --> 00:40:25,021
+Conversely, suppose that there is a truth
+assignment that makes all the new clauses
+
+413
+00:40:25,021 --> 00:40:30,806
+true yet makes none of the literal Xs
+true. Assuming that no Xs are true, the
+
+414
+00:40:30,806 --> 00:40:36,897
+fact that the first clause is true, that
+is this. Says that, Y SUB one, must be
+
+415
+00:40:36,897 --> 00:40:42,992
+true in this hypothetical truth
+assignment. And then, the second clause,
+
+416
+00:40:42,992 --> 00:40:50,044
+says that, since X, shh, so three is false
+and, not Y SUB one is already known to be
+
+417
+00:40:50,044 --> 00:40:56,921
+false, because we didn't, had to make Y1
+true. That means that Y2 must be true. We
+
+418
+00:40:56,921 --> 00:41:03,538
+can reason the same way to show that all
+the Y's are true. But then, the last
+
+419
+00:41:03,538 --> 00:41:15,162
+clause, this, which has only false X's.
+And a negated Y, must be false. We have
+
+420
+00:41:15,162 --> 00:41:20,348
+shown that when we convert one long clause
+of the input to a sequence of clauses with
+
+421
+00:41:20,348 --> 00:41:24,569
+three literals per clause, the
+satisfiability or non- satisfiability of
+
+422
+00:41:24,569 --> 00:41:29,574
+the expression is preserved. We can repeat
+this argument for every long clause, thus
+
+423
+00:41:29,574 --> 00:41:34,805
+converting the original expression to an
+expression. But at most three literals per
+
+424
+00:41:34,805 --> 00:41:39,807
+clause, and that is satisfiable if and
+only if the original is. Technically
+
+425
+00:41:39,807 --> 00:41:44,539
+we're, we are not done because the
+original expression could also have
+
+426
+00:41:44,539 --> 00:41:49,609
+through clauses that are too short. For a
+clause with only one literal X, we
+
+427
+00:41:49,609 --> 00:41:55,084
+introduce two new variables Y1 and Y2, and
+replace one, clause by the four clauses
+
+428
+00:41:55,084 --> 00:42:01,409
+shown. Notice that the Ys appear in all
+four combinations. So if X is false, one
+
+429
+00:42:01,409 --> 00:42:08,068
+of these four clauses will be false, no
+matter what truth values we assign to the
+
+430
+00:42:08,068 --> 00:42:14,644
+two Ys. For example, if Y1 is true and Y2
+is false, then this clause will be false,
+
+431
+00:42:14,644 --> 00:42:20,810
+whenever X is false. Conversely if X is
+true, then all four clauses are true,
+
+432
+00:42:20,810 --> 00:42:27,057
+regardless of the truth values of Y. And
+don't forget that these introduced Ys are
+
+433
+00:42:27,057 --> 00:42:32,918
+new. They appear in no other clauses just
+like the Ys we introduced to split apart
+
+434
+00:42:32,918 --> 00:42:38,778
+the long clauses. And the final case is a
+clause with two literals, say W and X. For
+
+435
+00:42:38,778 --> 00:42:44,639
+this clause we introduce one new variable
+Y and replace plus X by two clauses, one
+
+436
+00:42:44,639 --> 00:42:49,982
+with a non-negated Y, the other with a
+negated Y. Same argument as for the clause
+
+437
+00:42:49,982 --> 00:42:54,765
+of a single literal applies here. If a
+truth assignment makes both W and X false,
+
+438
+00:42:54,765 --> 00:42:59,547
+then one of the two new clauses will be
+false. But if the truth assignment makes
+
+439
+00:42:59,547 --> 00:43:03,851
+at least one of w and x true, then both
+new clauses can be made true. The
+
+440
+00:43:03,851 --> 00:43:08,873
+conversion of the clauses from the input C
+N F expression to clauses in three C N F
+
+441
+00:43:08,873 --> 00:43:13,471
+takes only linear time in the length of
+the input sequence. That is [sound], we
+
+442
+00:43:13,471 --> 00:43:17,924
+run through each long clause generating
+new variables and new three in literal
+
+443
+00:43:17,924 --> 00:43:22,434
+clauses as we go, taking time that is
+proportional to the length of the original
+
+444
+00:43:22,434 --> 00:43:26,369
+clause. [sound]. The constant of
+proportionality may be large, but the
+
+445
+00:43:26,369 --> 00:43:31,032
+algorithm is still linear. Well, we have
+to be careful as always to remember that
+
+446
+00:43:31,032 --> 00:43:35,696
+there is a finite alphabet involved. That
+means when we create new variables, the
+
+447
+00:43:35,696 --> 00:43:40,301
+Y's, it may take login time to write down
+their numbers, so the algorithm really
+
+448
+00:43:40,301 --> 00:43:44,556
+could take order and login time to
+generate, the output expression but as
+
+449
+00:43:44,556 --> 00:43:49,220
+always we'll ignore factors of login, they
+cannot take us out of the polynomial
+
+450
+00:43:49,220 --> 00:43:54,699
+class. We thus, have a poly time reduction
+from the problem c-sat to the problem
+
+451
+00:43:54,699 --> 00:44:00,039
+3-sat. And since c-sat was shown NP
+complete by the modified construction in
+
+452
+00:44:00,039 --> 00:44:05,309
+Crook's theorem that produced a CNF
+expression it follows that 3-sat is NP

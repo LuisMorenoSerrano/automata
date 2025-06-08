@@ -1,0 +1,1288 @@
+1
+00:00:00,000 --> 00:00:05,573
+Good morning, good afternoon, good evening
+or good whatever or whenever, you are
+
+2
+00:00:05,573 --> 00:00:10,616
+actually listening to this. Today we're
+going to start a completely new tack,
+
+3
+00:00:10,616 --> 00:00:16,057
+where we learn about a second important
+class of languages other than the regular
+
+4
+00:00:16,057 --> 00:00:21,365
+languages. This class is the context-free
+languages. They include all the regular
+
+5
+00:00:21,365 --> 00:00:26,076
+languages and more. The most common
+description of these languages is a
+
+6
+00:00:26,076 --> 00:00:30,807
+context-free grammar. We'll see the
+definition of these grammars and the way
+
+7
+00:00:30,807 --> 00:00:35,722
+these grammars define languages, which is
+through derivations. We're also going to
+
+8
+00:00:35,722 --> 00:00:40,993
+introduce a related notation called
+Bacchusnouer four. The two most important
+
+9
+00:00:40,993 --> 00:00:46,530
+applications of context free grammars are
+probably a processing natural languages
+
+10
+00:00:46,530 --> 00:00:52,277
+and computer languages. I am going to
+focus on computer languages Where almost
+
+11
+00:00:52,277 --> 00:00:57,472
+every language today has its syntax
+defined by a context free grammar in the
+
+12
+00:00:57,472 --> 00:01:03,005
+Bacchusnouer notation. Grammars are also
+essential when designing a parser for the
+
+13
+00:01:03,005 --> 00:01:08,470
+language. That part of the compiler that
+puts together the tokens of the language
+
+14
+00:01:08,470 --> 00:01:13,733
+into the proper structure. For example,
+the parser discovers the order in which
+
+15
+00:01:13,733 --> 00:01:19,064
+arithmetic operators in an arithmetic
+expression and group statements properly
+
+16
+00:01:19,064 --> 00:01:27,896
+so their execution sequence is as intended
+by the programmer. A context free grammar
+
+17
+00:01:27,896 --> 00:01:33,231
+defines a language by a mechanism we will
+soon learn. Every regular language has a
+
+18
+00:01:33,231 --> 00:01:38,176
+context free grammar describing it but
+there are also languages that can be
+
+19
+00:01:38,176 --> 00:01:43,251
+described by a grammar but that are not
+regular. On the other hand, the context
+
+20
+00:01:43,251 --> 00:01:48,456
+free grammar is still a relatively weak
+formalism. There are some languages that
+
+21
+00:01:48,456 --> 00:01:55,120
+are simple to describe yet have to context
+free grammar. Many of the languages in the
+
+22
+00:01:55,120 --> 00:01:59,688
+context free class that are outside the
+regular languages are languages that
+
+23
+00:01:59,688 --> 00:02:04,256
+involve nested structures such as the
+patterns of left and right parenthesis
+
+24
+00:02:04,256 --> 00:02:09,275
+that we called balanced. The central
+elements of the grammar are variables.
+
+25
+00:02:09,275 --> 00:02:14,323
+These are symbols that generate particular
+sets of strings. One of these symbols
+
+26
+00:02:14,323 --> 00:02:19,245
+called the start symbol will generate the
+entire language. But we can add many
+
+27
+00:02:19,245 --> 00:02:27,330
+others to help us in that definition. The
+variables or rather the sets of strings
+
+28
+00:02:27,330 --> 00:02:34,560
+they generate, are defined recursively in
+terms of one another. The rules that
+
+29
+00:02:34,560 --> 00:02:41,094
+define the languages of the variables are
+called productions. Each production has a
+
+30
+00:02:41,094 --> 00:02:50,872
+variable on the left, say A, an arrow And
+zero or more symbols on the right will
+
+31
+00:02:50,872 --> 00:02:57,667
+draw say x or y on the right, that serve
+as the definition. A rule like this says
+
+32
+00:02:57,667 --> 00:03:04,631
+that the concatenation of the languages
+represented by x and y is a subset of the
+
+33
+00:03:04,631 --> 00:03:10,625
+language represented by a. A variable may
+have several productions and its languages
+
+34
+00:03:10,625 --> 00:03:15,649
+thus defined to be the union of the
+languages described by the right side of
+
+35
+00:03:15,649 --> 00:03:21,001
+each of its productions, but remember, all
+of this may be recursive so grammars are
+
+36
+00:03:21,001 --> 00:03:26,482
+in fact far more powerful than the regular
+expressions we can build from unions and
+
+37
+00:03:26,482 --> 00:03:31,703
+concatenations. For our first example,
+let's consider the language that we showed
+
+38
+00:03:31,703 --> 00:03:37,054
+not to be a regular language. The set of
+strings of the form of N, zero followed by
+
+39
+00:03:37,054 --> 00:03:42,432
+the same number of 1s. Here is a grammar
+for this language, Two productions or
+
+40
+00:03:42,432 --> 00:03:49,529
+rules and only one variable s. The first
+production, this one is a basis rule. It
+
+41
+00:03:49,529 --> 00:03:55,566
+says that the string zero one is in the
+language of s. The second, this, is an
+
+42
+00:03:55,566 --> 00:04:01,762
+inductive rule. It says that if w is a
+string in the language of s, then zero w
+
+43
+00:04:01,762 --> 00:04:08,196
+one is also in the language. That rule
+lets us build longer and longer strings at
+
+44
+00:04:08,196 --> 00:04:14,868
+each step adding one zero to the beginning
+and one, one to the end. So we always have
+
+45
+00:04:14,868 --> 00:04:20,959
+the same numbers of zeros and ones with
+the zeros preceding the ones. Now lets
+
+46
+00:04:20,959 --> 00:04:26,581
+make precise our informal introduction to
+what context free grammars look like. The
+
+47
+00:04:26,581 --> 00:04:32,000
+terminals of the grammar are analogous to
+the input symbols of an atomaton. They
+
+48
+00:04:32,000 --> 00:04:38,018
+form the alphabet for the language being
+defined. The variables or non-terminals
+
+49
+00:04:38,018 --> 00:04:45,500
+are something like states of automaton but
+they are more powerful. One variable is
+
+50
+00:04:45,500 --> 00:04:50,120
+called the start symbol. It is the
+language of this variable that the grammar
+
+51
+00:04:50,120 --> 00:04:55,160
+defines. And the other variables are used
+as auxiliaries but we can think of them as
+
+52
+00:04:55,160 --> 00:04:59,508
+internal to the grammar and their
+languages are not visible outside. The
+
+53
+00:04:59,508 --> 00:05:05,153
+productions of the grammar which are akin
+to the transition function of an atomaton
+
+54
+00:05:05,153 --> 00:05:10,730
+have the form of the variable on the left,
+sometimes called the head, an arrow and a
+
+55
+00:05:10,730 --> 00:05:15,703
+string of zero or more symbols which can
+terminals of variables. These are
+
+56
+00:05:15,703 --> 00:05:22,747
+sometimes called the body of the
+production. We have the convention about
+
+57
+00:05:22,747 --> 00:05:28,166
+the letters used for certain symbols and
+strings. These conventions are more
+
+58
+00:05:28,166 --> 00:05:33,372
+complex than the convention we use to
+distinguish input symbols, little a,
+
+59
+00:05:33,372 --> 00:05:39,076
+little b and so on from strings w, x and
+so on. But they're really important as a
+
+60
+00:05:39,076 --> 00:05:45,137
+reminder of the roles different components
+play and it is something worth committing
+
+61
+00:05:45,137 --> 00:05:50,913
+to memory early on. First, we use capital
+letters at the beginning of the alphabet
+
+62
+00:05:50,913 --> 00:05:57,467
+as variables. However S is also normally a
+variable. In fact it will be the start
+
+63
+00:05:57,467 --> 00:06:04,461
+symbol in many grammars. On the other
+hand, lower case letters at the beginning
+
+64
+00:06:04,461 --> 00:06:08,730
+of the alphabet are terminals. This
+convention agrees with an earlier
+
+65
+00:06:08,730 --> 00:06:13,742
+convention that made these letters stand
+for input symbols. Since there is a good
+
+66
+00:06:13,742 --> 00:06:21,651
+analogy between the inputs of an atomaton
+and the terminals of a grammar. Capital
+
+67
+00:06:21,651 --> 00:06:26,577
+letters near the end of the alphabet are
+used for symbols that can be either
+
+68
+00:06:26,577 --> 00:06:31,886
+terminals or variables, we typically don't
+know which. Lower case letters at the end
+
+69
+00:06:31,886 --> 00:06:36,684
+of the alphabet stand for strings of
+terminals only. Again, this matches our
+
+70
+00:06:36,684 --> 00:06:41,714
+earlier convention. And we use Greek
+letters at the beginning of the Greek
+
+71
+00:06:41,714 --> 00:06:46,715
+alphabet for strings that may consist of
+both terminals and variables mixed. We'll
+
+72
+00:06:46,715 --> 00:06:51,411
+design a grammar for the language of
+strings with the form zero to the n, one
+
+73
+00:06:51,411 --> 00:06:59,412
+to the n. The terminal alphabet is zero
+and one of course. We need only one
+
+74
+00:06:59,412 --> 00:07:06,983
+variable in this case, we'll call it S. S
+will be the start symbol. There's no other
+
+75
+00:07:06,983 --> 00:07:13,562
+option since it is the only variable. And
+here are the productions which we
+
+76
+00:07:13,562 --> 00:07:19,004
+explained earlier in our informal
+discussion. The first production generates
+
+77
+00:07:19,004 --> 00:07:24,298
+only the string zero one and the second
+production puts a zero and one at the
+
+78
+00:07:24,298 --> 00:07:28,981
+beginning and end respectively of a
+shorter string in the language. A
+
+79
+00:07:28,981 --> 00:07:34,411
+derivation consists of a sequence of
+strings that typically have both terminals
+
+80
+00:07:34,411 --> 00:07:39,909
+and variables, although they can have only
+one kind of symbol or even be empty. We
+
+81
+00:07:39,909 --> 00:07:45,406
+start with the string consisting of just
+the start symbol. At each step, we find a
+
+82
+00:07:45,406 --> 00:07:50,090
+variable to replace, say A. The
+productions for A, or the A productions,
+
+83
+00:07:50,090 --> 00:07:55,424
+are those that have A on the left side,
+that is the head of production. We replace
+
+84
+00:07:55,424 --> 00:08:00,561
+this A by the right side or the body of
+the production. We can then repeat the
+
+85
+00:08:00,561 --> 00:08:05,829
+process as many times as we like until we
+are left with only terminals at which
+
+86
+00:08:05,829 --> 00:08:11,296
+point no replacement is possible and we
+have in fact generated a string that is in
+
+87
+00:08:11,296 --> 00:08:16,795
+the language of the grammar. Here's what
+the replacement looks like. You take any
+
+88
+00:08:16,795 --> 00:08:22,279
+string that has an occurrence of some
+variable A and anything to the left and
+
+89
+00:08:22,279 --> 00:08:28,035
+right. Terminals and or variables, which
+is what the alpha and beta we have here,
+
+90
+00:08:28,035 --> 00:08:34,725
+suggest you take an A production who's
+body is gamma and you replace the A by
+
+91
+00:08:34,725 --> 00:08:41,930
+gamma. Here is an example derivation. We
+always start with the string that has Just
+
+92
+00:08:41,930 --> 00:08:50,680
+the start symbol s. We choose the second
+production so S replaced by zero, S, one.
+
+93
+00:08:52,760 --> 00:09:00,796
+Now, we replace the s, again using the
+second production. And again we replace
+
+94
+00:09:00,796 --> 00:09:05,449
+the s, but this time we use the first
+production whose body is just zero one. We
+
+95
+00:09:05,449 --> 00:09:09,983
+are now left with a string that has only
+terminals and this string cannot be
+
+96
+00:09:09,983 --> 00:09:14,636
+subjected to further replacements. You
+should be aware that in more complicated
+
+97
+00:09:14,636 --> 00:09:18,817
+grammars, variables can be replaced by
+strings that contain two or more
+
+98
+00:09:18,817 --> 00:09:23,293
+variables, and when that happens we have
+lots of choices of what variable to
+
+99
+00:09:23,293 --> 00:09:28,853
+replace at each step. And derivations can
+be much more complicated. The double arrow
+
+100
+00:09:28,853 --> 00:09:34,030
+symbol represents single steps of a
+derivation and just as we extend the delta
+
+101
+00:09:34,030 --> 00:09:39,272
+the many steps for atomaton, we need to
+have a notation that means any number of
+
+102
+00:09:39,272 --> 00:09:47,120
+steps for a derivation. This is the arrow
+star symbol, and we define it inductively.
+
+103
+00:09:47,520 --> 00:09:56,484
+The basis is that in zero steps the string
+can't change, so any string goes to star
+
+104
+00:09:56,484 --> 00:10:02,190
+itself. The inductive step lets us get
+from alpha to beta using any number of
+
+105
+00:10:02,190 --> 00:10:08,111
+steps using any numbers of steps including
+zero steps. That's that. And then with one
+
+106
+00:10:08,111 --> 00:10:15,369
+more step, get from beta to gamma. The
+conclusion is then that alpha goes on some
+
+107
+00:10:15,369 --> 00:10:21,756
+number of steps to gamma. Here's an
+example using the same grammar as before
+
+108
+00:10:21,756 --> 00:10:28,647
+and the same derivation sequence we just
+discussed. We can conclude that s goes to
+
+109
+00:10:28,647 --> 00:10:35,034
+itself in zero steps, that is we just
+start here, don't go anywhere. So we can
+
+110
+00:10:35,034 --> 00:10:46,090
+conclude that s goes to star itself. Then
+inductively, S goes to 0,1, zero, S, one
+
+111
+00:10:46,090 --> 00:10:56,497
+rather 00, S1 and 000111. Notice also that
+we don't have to start with the start
+
+112
+00:10:56,497 --> 00:11:06,552
+symbol. It is also true for example, that
+0S1 goes to star Zero, zero, zero, one,
+
+113
+00:11:06,552 --> 00:11:17,316
+one, one. That is anything along the
+derivation sequence goes to any later,
+
+114
+00:11:17,316 --> 00:11:29,745
+goes to itself and any later position
+along the sequence. A sentential form for
+
+115
+00:11:29,745 --> 00:11:38,158
+a grammar is any string derivable from the
+start symbol. That is, s arrow star the
+
+116
+00:11:38,158 --> 00:11:47,308
+sentential form. The [inaudible] form can
+consist of any mix of terminals and non
+
+117
+00:11:47,308 --> 00:11:55,767
+terminals. The language of the grammar G
+is the set of terminal strings W such as
+
+118
+00:11:55,767 --> 00:12:03,809
+the start symbol G derives W. Here's an
+example grammar that's just a little
+
+119
+00:12:03,809 --> 00:12:09,966
+different from the previous one. Here the
+basis rule is that S goes to Epsilon
+
+120
+00:12:09,966 --> 00:12:16,362
+rather than S goes to 01. Note that
+Epsilon is a perfectly legitimate body for
+
+121
+00:12:16,362 --> 00:12:21,382
+production and is effective to make the
+variable on the left disappear. As a
+
+122
+00:12:21,382 --> 00:12:26,927
+result, this grammar can derive the empty
+string along with all the other strings
+
+123
+00:12:26,927 --> 00:12:32,432
+that have some numbers of 0s followed by
+the same number of 1s. That is, the
+
+124
+00:12:32,432 --> 00:12:37,254
+language of this grammar is this set of
+zero to the n, one to the n, such that n
+
+125
+00:12:37,254 --> 00:12:42,014
+is at least zero while the previous
+grammar had at least one as the condition
+
+126
+00:12:42,014 --> 00:12:50,606
+on n. The class of language is called
+context-free languages consists of all
+
+127
+00:12:50,606 --> 00:12:55,206
+those languages that are defined by some
+context-free grammar. We now see that
+
+128
+00:12:55,206 --> 00:13:00,159
+there are context-free languages that are
+not regular languages, such as the zero to
+
+129
+00:13:00,159 --> 00:13:05,954
+the n, one to the n example just given.
+However there are languages that are not
+
+130
+00:13:05,954 --> 00:13:12,263
+context free and the intuition is that
+context free grammars can count two things
+
+131
+00:13:12,263 --> 00:13:18,187
+but not three. Thus an example of a
+language that is not context free is zero
+
+132
+00:13:18,187 --> 00:13:26,665
+to the N, One to the n, two to the n, say,
+such that n is equal to a greater than
+
+133
+00:13:26,665 --> 00:13:35,935
+one. That is, you cannot match both the
+zeroes against the ones and the ones
+
+134
+00:13:35,935 --> 00:13:42,562
+against the two at the same time. I want
+to introduce a notation called BNF or
+
+135
+00:13:42,562 --> 00:13:48,137
+Bacchusnaur Form, which you may have seen
+in manuals for programming languages, and
+
+136
+00:13:48,137 --> 00:13:53,577
+which is closely related to context-free
+grammars. Bnf has a number of extensions
+
+137
+00:13:53,577 --> 00:13:59,219
+of the grammar notation we use, and these
+extensions are useful in manuals but don't
+
+138
+00:13:59,219 --> 00:14:04,629
+add any power. B and F style notations
+were used for two of the original
+
+139
+00:14:04,629 --> 00:14:09,874
+programming languages. John Bacchus used
+it in the original description of Fortran
+
+140
+00:14:09,874 --> 00:14:17,838
+and Peter Nouer used it in the original
+description of [inaudible]. In B and F you
+
+141
+00:14:17,838 --> 00:14:22,861
+usually use a word to describe a variable
+for example, statement for the intent is
+
+142
+00:14:22,861 --> 00:14:27,393
+that this variable will generate all the
+strings that valid statements of
+
+143
+00:14:27,393 --> 00:14:32,538
+programming language. Conventionally these
+words are put in triangular brackets that
+
+144
+00:14:32,538 --> 00:14:41,058
+tell us they are variables rather than
+terminals. Some terminals for programming
+
+145
+00:14:41,058 --> 00:14:46,070
+language are single characters just like
+in our formal context free grammars. For
+
+146
+00:14:46,070 --> 00:14:51,020
+example, the plus sign or semi-colon are
+commonly terminals in the grammar for a
+
+147
+00:14:51,020 --> 00:14:57,272
+programming language. However other
+terminals are really reserve words like if
+
+148
+00:14:57,272 --> 00:15:03,232
+or while. And we see these shown either in
+bold or underline depending on the style
+
+149
+00:15:03,232 --> 00:15:08,905
+used to remind us that they are single
+symbols. In B and F we often colon, colon
+
+150
+00:15:08,905 --> 00:15:14,721
+equals used in productions rather than
+arrow. We also find a vertical bar used to
+
+151
+00:15:14,721 --> 00:15:20,681
+list several production bodies that have
+the same head. That is a useful convention
+
+152
+00:15:20,681 --> 00:15:27,458
+that we should use in formal conventions
+as well. For example, our original grammar
+
+153
+00:15:27,458 --> 00:15:32,431
+can be written with s ones on the left
+side and the bodies of the two s
+
+154
+00:15:32,431 --> 00:15:39,866
+productions listed with the bar connecting
+them. We follow a symbol or bracketed
+
+155
+00:15:39,866 --> 00:15:47,237
+expression by dot, dot, dot. So here's an
+example. We have one variable digit with
+
+156
+00:15:47,237 --> 00:15:53,664
+the obvious ten productions all grouped
+together with the bars. Then we have one
+
+157
+00:15:53,664 --> 00:16:00,563
+production for the variable unsigned
+integer. With the right side digit, ... ,
+
+158
+00:16:00,563 --> 00:16:07,861
+that is one or more digits. In general, we
+can replace alpha ... By two productions.
+
+159
+00:16:07,861 --> 00:16:17,118
+Let A be a new variable that generates all
+sequences of one or more alphas. A has two
+
+160
+00:16:17,118 --> 00:16:23,829
+productions with bodies a alpha and just
+alpha. They are. You should be able to see
+
+161
+00:16:23,829 --> 00:16:30,540
+how a can be replaced of n alphas. Just
+use the first production n minus one times
+
+162
+00:16:30,540 --> 00:16:37,005
+and then the second production once. For
+example, here is a grammar for unsigned
+
+163
+00:16:37,005 --> 00:16:42,897
+integers, where the BNF d dot, dot, dot
+has been replaced by the these two
+
+164
+00:16:42,897 --> 00:16:52,393
+productions. These generate any sequence
+of one or more D's. Then D generates each
+
+165
+00:16:52,393 --> 00:16:58,777
+of the ten strings consisting of a single
+digit. That's, of course, that. We can
+
+166
+00:16:58,777 --> 00:17:05,653
+make part of a production body be optional
+if we surround it by square brackets. For
+
+167
+00:17:05,653 --> 00:17:12,004
+example, many programming languages have
+both an if then and an if then construct
+
+168
+00:17:12,004 --> 00:17:18,040
+for statements. We can see this as an if
+then statement with an optional else
+
+169
+00:17:18,040 --> 00:17:24,077
+clause. In B and F we put brackets around
+the else clause to make it optional.
+
+170
+00:17:24,077 --> 00:17:29,912
+That's essentially this stuff there. We
+can replace an optional alpha by a new
+
+171
+00:17:29,912 --> 00:17:35,291
+variable a. This variable has two
+productions, one with a body alpha and the
+
+172
+00:17:35,291 --> 00:17:41,101
+other with the empty string for a body.
+Thus the alpha can be either there or not,
+
+173
+00:17:41,101 --> 00:17:48,749
+when we expand the new variable a. Here
+we're using I for IF, T for then E for
+
+174
+00:17:48,749 --> 00:17:54,815
+else and the semicolon is another terminal
+standing for itself. S is the start symbol
+
+175
+00:17:54,815 --> 00:18:00,240
+standing for statement. And C is another
+variable representing conditions. We
+
+176
+00:18:00,240 --> 00:18:05,592
+really need to add production for
+conditions but I haven't done so in this
+
+177
+00:18:05,592 --> 00:18:11,586
+fragment of a real grammar. Notice the a
+is a variable standing for an optional
+
+178
+00:18:11,586 --> 00:18:17,534
+else clause. Okay. It can be replaced by a
+semi colon and else and another statement
+
+179
+00:18:17,534 --> 00:18:23,410
+if we want to have the else clause there.
+Or by epsilon if we just want an if/then
+
+180
+00:18:23,410 --> 00:18:29,900
+statement with no else clause. Curly
+braces are used in B and F for grouping
+
+181
+00:18:29,900 --> 00:18:35,347
+several different elements. You need this
+for example if you want to have a
+
+182
+00:18:35,347 --> 00:18:41,157
+repeating group of elements and a ... Or
+one or more construct. For example, it is
+
+183
+00:18:41,157 --> 00:18:46,676
+common if programming languages to allow a
+statement list to be one or more
+
+184
+00:18:46,676 --> 00:18:52,196
+statements. The statements are separated
+by semicolons so there is one fewer
+
+185
+00:18:52,196 --> 00:18:57,788
+semicolon than statements. That is a
+statement list consists of one statement,
+
+186
+00:18:57,788 --> 00:19:05,334
+that's this. Followed optionally by one or
+more groups consisting of a semi-colon and
+
+187
+00:19:05,334 --> 00:19:20,762
+a statement There. The Brackets form a
+group and then finally the ... Applying to
+
+188
+00:19:20,762 --> 00:19:31,343
+the group says one or more of these
+groups. Finally you have the braces And
+
+189
+00:19:31,343 --> 00:19:38,702
+those braces say that the whole thing is
+optional. To translate groups to our
+
+190
+00:19:38,702 --> 00:19:44,126
+original notation, just create a new
+variable a for the group. A has one
+
+191
+00:19:44,126 --> 00:19:51,370
+production whose body is the group. Here's
+an example of a production that uses all
+
+192
+00:19:51,370 --> 00:19:57,025
+three BNF features, one or more optional
+and grouping. It says a list of statements
+
+193
+00:19:57,025 --> 00:20:02,474
+L is a single statement S optionally
+followed by one or more groups each group
+
+194
+00:20:02,474 --> 00:20:08,703
+consisting of a semi-colon and a
+statement. The first thing we'll do is
+
+195
+00:20:08,703 --> 00:20:15,112
+replace the group semicolon S by a new
+variable A. A has one production in which
+
+196
+00:20:15,112 --> 00:20:22,401
+it is replaced by thing it stands for,
+that's this guy right here. And next we'll
+
+197
+00:20:22,401 --> 00:20:28,590
+introduce a new variable B which stands
+for the optional A ., ., ., . B has two
+
+198
+00:20:28,590 --> 00:20:34,778
+productions, it is replaced either by the
+A... , that would be choice, or, it is
+
+199
+00:20:34,778 --> 00:20:43,718
+replaced by the empty string. Finally, we
+replace the A... And the B productions by
+
+200
+00:20:43,718 --> 00:20:52,333
+the new variable C. The productions for C,
+which are here, allow C to be replaced by
+
+201
+00:20:52,333 --> 00:21:00,804
+any sequence by one or more As. When a
+sentential form has a number of variables,
+
+202
+00:21:00,804 --> 00:21:05,745
+we can replace any one of them at any
+step. But what string of terminals a
+
+203
+00:21:05,745 --> 00:21:10,752
+variable ultimately gets replaces by is
+independent of what else is in the
+
+204
+00:21:10,752 --> 00:21:16,426
+sentential form. That's actually where the
+term context free comes from. As a result,
+
+205
+00:21:16,426 --> 00:21:22,717
+we have many different derivations of the
+same string of terminals. We can restore
+
+206
+00:21:22,717 --> 00:21:27,966
+some order to the world by requiring that
+a particular variable be replaced at each
+
+207
+00:21:27,966 --> 00:21:32,840
+step. Although we cannot demand that any
+particular production be used for the
+
+208
+00:21:32,840 --> 00:21:38,524
+replacement. One reasonable rule is to
+require that the leftmost variable be the
+
+209
+00:21:38,524 --> 00:21:44,112
+one replaced at each step. This rule
+restricts us to what are called leftmost
+
+210
+00:21:44,112 --> 00:21:50,063
+derivations. Similarly we could require
+that the rightmost variable be replaced at
+
+211
+00:21:50,063 --> 00:21:56,014
+each step, and that gives us the rightmost
+derivations. The double arrow with an LM
+
+212
+00:21:56,014 --> 00:22:05,966
+subscript That's this, represents one step
+of a left most derivation. That is, on the
+
+213
+00:22:05,966 --> 00:22:14,679
+left of the arrow LM we must have a string
+in the form WA Alpha. Here you see one.
+
+214
+00:22:14,958 --> 00:22:22,112
+That is since W by our convention has
+terminals only, A must be the left most
+
+215
+00:22:22,112 --> 00:22:29,453
+variable in this string. On the right is
+the same string with the body, say Beta,
+
+216
+00:22:29,453 --> 00:22:37,636
+is that, of some A production replacing
+it, A. The symbol consisting of the double
+
+217
+00:22:37,636 --> 00:22:43,530
+arrow with the subscript LM and the star.
+That's this, means becomes by a sequence
+
+218
+00:22:43,530 --> 00:22:48,659
+of zero or more leftmost derivation steps.
+Let's introduce another very simple
+
+219
+00:22:48,659 --> 00:22:54,051
+grammar that generates a language that is
+not a regular language. This grammar has
+
+220
+00:22:54,051 --> 00:22:59,180
+only one variable but unlike the zero to
+the n one to the n grammar there are
+
+221
+00:22:59,180 --> 00:23:05,616
+productions with more than one variable in
+the body. This grammar generates strings
+
+222
+00:23:05,616 --> 00:23:12,060
+of balanced parentheses. Those strings
+that are legal and arithmetic expressions.
+
+223
+00:23:12,060 --> 00:23:18,925
+The last production, here's it's body.
+Says that a pair of matching parentheses
+
+224
+00:23:18,925 --> 00:23:24,500
+is balanced. Of course the left
+parenthesis must come first. The middle
+
+225
+00:23:24,500 --> 00:23:30,473
+production, this, says that if we put
+matching parentheses around a balanced
+
+226
+00:23:30,473 --> 00:23:36,207
+string it is still balanced. And the first
+production, this, says that the
+
+227
+00:23:36,207 --> 00:23:42,033
+concatenation of two balanced strings is
+balanced. We need to prove that every
+
+228
+00:23:42,033 --> 00:23:47,101
+string of balanced parentheses can be
+generated by this grammar. The proof is
+
+229
+00:23:47,101 --> 00:23:52,301
+not too hard but we're not going to do it
+here. Here's an example of a leftmost
+
+230
+00:23:52,301 --> 00:23:59,993
+derivation. We start with just S, so that
+is the leftmost variable. We replace it by
+
+231
+00:23:59,993 --> 00:24:06,408
+two S's at the first step. There we go.
+Next, the first of these S's must be
+
+232
+00:24:06,408 --> 00:24:12,823
+replaced in a leftmost derivation. We
+choose the second production for the
+
+233
+00:24:12,823 --> 00:24:19,064
+replacement. There we are. At the third
+step, the first of the S's must be
+
+234
+00:24:19,064 --> 00:24:25,479
+replaced and here we choose the last
+production in the replacement, that's
+
+235
+00:24:25,479 --> 00:24:33,566
+giving us that. [sound] At the last step,
+we have only one S and that naturally is
+
+236
+00:24:33,566 --> 00:24:39,457
+the one we replace. We've chosen to
+replace Using the last of the three
+
+237
+00:24:39,457 --> 00:24:45,696
+productions so now we have a terminal
+string and are done. The arrow star
+
+238
+00:24:45,696 --> 00:24:51,098
+leftmost notation can be used to express
+zero or more leftmost derivation steps. So
+
+239
+00:24:51,098 --> 00:24:56,305
+for example, S is related to the terminal
+string by this relationship. It is also
+
+240
+00:24:56,305 --> 00:25:01,838
+related to itself and all the other steps
+in the derivation by the same relationship
+
+241
+00:25:01,838 --> 00:25:09,401
+and in fact each step is related to itself
+and all the following steps. Here is an
+
+242
+00:25:09,401 --> 00:25:16,245
+example of a derivation that is not left
+most. The problem is that if the second
+
+243
+00:25:16,245 --> 00:25:24,657
+step, the second S, rather than the first,
+was replaced. Rightmost derivations are
+
+244
+00:25:24,657 --> 00:25:31,148
+defined quite analogously to leftmost
+derivations. The arrow with an RM
+
+245
+00:25:31,148 --> 00:25:37,806
+subscript, this. Means that the rightmost
+variable is replaced at the step. Notice
+
+246
+00:25:37,806 --> 00:25:44,803
+that the string on the left which is this,
+has W which must be a string of only
+
+247
+00:25:44,803 --> 00:25:50,864
+terminals following the variable A that
+it's replaced. Thus A is surely the
+
+248
+00:25:50,864 --> 00:25:58,625
+rightmost variable. And the arrow with the
+RM and a star means zero or more steps in
+
+249
+00:25:58,625 --> 00:26:05,904
+the rightmost derivation. Here's a
+balanced parenthesis grammar again. Now we
+
+250
+00:26:05,904 --> 00:26:13,183
+have a rightmost derivation of the same
+string as before. Notice that at the
+
+251
+00:26:13,183 --> 00:26:19,887
+second step, okay, the second S got
+replaced rather than the first. S is
+
+252
+00:26:19,887 --> 00:26:27,137
+related to the terminal string by the
+arrow star rightmost operator. And as the
+
+253
+00:26:27,137 --> 00:26:32,299
+leftmost derivations each step in the
+rightmost derivation is related by the
+
+254
+00:26:32,299 --> 00:26:37,864
+operator to itself and all the steps that
+follow. Here's an example of a derivation
+
+255
+00:26:37,864 --> 00:26:42,891
+that is neither a leftmost nor a
+rightmost. See how at the third step The
+
+256
+00:26:42,891 --> 00:26:51,213
+middle S is replaced. Also notice that the
+second step is correct but the ambiguous
+
+257
+00:26:51,213 --> 00:26:59,334
+in a concerning way. One of the [sound],
+here, one of the these got replaced by two
+
+258
+00:26:59,334 --> 00:27:02,543
+[sound] but we don't know which.

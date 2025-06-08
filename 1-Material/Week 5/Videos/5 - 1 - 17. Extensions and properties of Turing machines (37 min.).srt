@@ -1,0 +1,2013 @@
+1
+00:00:00,000 --> 00:00:04,662
+Now, we're going to explore the Turing
+Machine in some depth. We start off with
+
+2
+00:00:04,662 --> 00:00:09,563
+what I'd like to think of as programming
+tricks for Turing Machines. It's not that
+
+3
+00:00:09,563 --> 00:00:14,643
+anyone is really going to program a Turing
+Machine. But we need to argue about what a
+
+4
+00:00:14,643 --> 00:00:19,134
+Turing Machine could do, if we really
+needed to have it do it. That is how we
+
+5
+00:00:19,134 --> 00:00:23,466
+argue about the capabilities of Turing
+Machines. For example, we argue that it
+
+6
+00:00:23,466 --> 00:00:27,855
+can simulate a real computer. Then we
+delve into the matter of Turing Machines
+
+7
+00:00:27,855 --> 00:00:32,132
+with less capability, but the same ability
+to define exactly the recursively
+
+8
+00:00:32,132 --> 00:00:36,432
+innumerable languages. And we argue that
+some natural extensions of the touring
+
+9
+00:00:36,432 --> 00:00:41,286
+machine idea. For example, make them non
+deterministic. Do not add power. They
+
+10
+00:00:41,286 --> 00:00:45,320
+still accept only the recursively
+innumerable languages. The conclusion I
+
+11
+00:00:45,320 --> 00:00:49,520
+want to draw from these restrictions and
+extensions is that the classically
+
+12
+00:00:49,520 --> 00:00:53,555
+recursively innumerable languages is
+really an important class with many
+
+13
+00:00:53,555 --> 00:00:57,644
+definitions and that it really does
+represent what can be computed by any
+
+14
+00:00:57,644 --> 00:01:01,900
+realistic notion of what computation
+means. And finally we'll look at some of
+
+15
+00:01:01,900 --> 00:01:06,211
+the closure properties of recursive and
+recursively innumerable languages. The
+
+16
+00:01:06,211 --> 00:01:10,697
+first program we trick is thinking of the
+tape as if it had multiple tracks. This
+
+17
+00:01:10,697 --> 00:01:15,073
+idea enables us to describe touring
+machines that do things like leave markers
+
+18
+00:01:15,073 --> 00:01:20,320
+on their tape so they can find their way
+back to an important place. We get tape
+
+19
+00:01:20,320 --> 00:01:25,720
+tracks if we think of each tape symbol as
+a, as a vector with K components, each
+
+20
+00:01:25,720 --> 00:01:30,722
+component chosen from some finite
+alphabet. We can think of the [inaudible]
+
+21
+00:01:30,722 --> 00:01:36,078
+components of each tapes in [inaudible]
+forming the ith track. Input symbols will
+
+22
+00:01:36,078 --> 00:01:41,015
+have the blank symbols in all components
+but one. Which then becomes the track of
+
+23
+00:01:41,015 --> 00:01:47,581
+where the input is placed. Here is how we
+can visualize a turning machine with three
+
+24
+00:01:47,581 --> 00:01:55,022
+tracks. This symbol is viewed as the
+vector of x y z. But it is really just one
+
+25
+00:01:55,022 --> 00:02:01,977
+tape symbol. Let's suppose the input is
+written on track one. Then the input
+
+26
+00:02:01,977 --> 00:02:07,923
+symbol zero must be thought of as the
+vector zero blank, blank. And the blank
+
+27
+00:02:07,923 --> 00:02:13,250
+symbol is thought of as the vector blank,
+blank, blank. A good use of the idea of
+
+28
+00:02:13,250 --> 00:02:18,577
+tracks is to use one track for data and
+another track for marks. In the marking
+
+29
+00:02:18,577 --> 00:02:24,106
+track, almost all the tape squares have a
+blank value, but one or more have special
+
+30
+00:02:24,106 --> 00:02:29,837
+symbols, the marks, that indicate a place
+on the tape that the turn machine needs to
+
+31
+00:02:29,837 --> 00:02:35,366
+find later. Here's an example. The bottom
+track holds the data and the top track is
+
+32
+00:02:35,366 --> 00:02:44,378
+the marking track. This symbol XY
+represents a marked Y. And these symbols
+
+33
+00:02:44,378 --> 00:02:50,751
+are unmarked of the U and Z respectively.
+A similar trick is to think of the state
+
+34
+00:02:50,751 --> 00:02:56,464
+as a vector, with each component from some
+finite alphabet. The first component is
+
+35
+00:02:56,464 --> 00:03:01,754
+used to control operation. What we
+normally think of as the state. But other
+
+36
+00:03:01,754 --> 00:03:07,185
+components are used as, as a cache to hold
+values the Turing Machine needs to
+
+37
+00:03:07,185 --> 00:03:12,636
+remember. Typically, these values are bits
+or tape symbols. But they can be anything,
+
+38
+00:03:12,636 --> 00:03:17,231
+as long as they're chosen from a finite
+alphabet. Here's an example that will
+
+39
+00:03:17,231 --> 00:03:21,826
+illustrate the three tricks we talked
+about. The Turing Machine is not really
+
+40
+00:03:21,826 --> 00:03:26,720
+useful. All it does is copy its input over
+and over again, moving right on the tape.
+
+41
+00:03:27,820 --> 00:03:31,983
+Here are the values that will appear on
+the control component of this state along
+
+42
+00:03:31,983 --> 00:03:36,890
+with the intuition about what they're
+supposed to be doing. In control state Q,
+
+43
+00:03:36,890 --> 00:03:42,231
+we mark the current position. Store the
+current input symbol in the cache
+
+44
+00:03:42,231 --> 00:03:48,012
+component of the state and move right.
+From Q, we also enter the control state P.
+
+45
+00:03:48,012 --> 00:03:54,012
+In state P we run to the right looking for
+a blank. When we find it, we deposit the
+
+46
+00:03:54,012 --> 00:03:59,855
+symbol we have stored in the cache on the
+data track, and then we move left. From
+
+47
+00:03:59,855 --> 00:04:05,538
+state P we also enter control state R in
+which we run laps looking for the mark
+
+48
+00:04:05,538 --> 00:04:11,009
+that was left by state Q. When we find it,
+we remove the mark, enter state ! and
+
+49
+00:04:11,009 --> 00:04:19,468
+repeat the process with another symbol.
+The state is a vector. The form little X,
+
+50
+00:04:19,468 --> 00:04:26,240
+capital Y. Your little x is q, p, or r,
+one of the control states and y is the
+
+51
+00:04:26,240 --> 00:04:32,620
+cache component. It's values are zero, one
+or b. Incidentally, we shall see that the
+
+52
+00:04:32,620 --> 00:04:38,922
+only state, only state p uses zero or one
+in the cache. The other two states just
+
+53
+00:04:38,922 --> 00:04:45,618
+have the blank of the cache thus there are
+really only four states. Tape symbols will
+
+54
+00:04:45,618 --> 00:04:51,677
+be vectors u v. The first component
+represents the marking tracks so U is
+
+55
+00:04:51,677 --> 00:04:57,984
+either X, the mark, or a B, which is no
+mark. The second component is the data
+
+56
+00:04:57,984 --> 00:05:04,880
+track. So V can be either zero, one, or B.
+We regard as the blind symbol, B0 as input
+
+57
+00:05:04,880 --> 00:05:11,691
+symbol zero, and B1 as input symbol one.
+Well now describe the transition function
+
+58
+00:05:11,691 --> 00:05:17,929
+of this touring machine. But before we do,
+let's understand that A and B, can each
+
+59
+00:05:17,929 --> 00:05:23,505
+have the values zero or one, but in a
+rule, all occurrences of one of these
+
+60
+00:05:23,505 --> 00:05:31,075
+letters has the same value. Thus this is a
+pair of rules, one for each value of A. It
+
+61
+00:05:31,075 --> 00:05:38,676
+says that if a controlled state is Q copy
+whatever symbol A is on the data track
+
+62
+00:05:38,676 --> 00:05:46,555
+into the cache. That is this guy. Winds up
+here in the cash. The position under the
+
+63
+00:05:46,555 --> 00:05:54,814
+head is marked X, as we see here. And the,
+the head moves right and the control state
+
+64
+00:05:54,814 --> 00:06:02,973
+becomes P. There are two families of rules
+for control state P. If the current tape
+
+65
+00:06:02,973 --> 00:06:10,899
+symbol does not have a blank in the data
+track. Then stay in the same state, leave
+
+66
+00:06:10,899 --> 00:06:18,451
+the tape symbol as it is, and move right.
+Note that A and little b, can represent
+
+67
+00:06:18,451 --> 00:06:26,193
+either zero or one independently. So there
+are really four rules represented here.
+
+68
+00:06:26,193 --> 00:06:33,411
+When the blank symbol is reached, place
+the symbol A. That is in the cache, in
+
+69
+00:06:33,411 --> 00:06:40,313
+the, in the data track of the square,
+currently reached. That is, the guy in the
+
+70
+00:06:40,313 --> 00:06:47,484
+cache winds up in the data track. Go to
+control state R, and move to the left. And
+
+71
+00:06:47,484 --> 00:06:54,858
+here are the rules for control state R. In
+state R as long as we do not see the mark
+
+72
+00:06:54,858 --> 00:07:01,667
+in the first track, we simply move left
+with no change in the state or the tape
+
+73
+00:07:01,667 --> 00:07:08,389
+symbol. When we find the square that has
+the mark, we do three things: we remove
+
+74
+00:07:08,389 --> 00:07:15,935
+the mark, we go to control state Q. And we
+move to the right. We'll be at the
+
+75
+00:07:15,935 --> 00:07:21,598
+position just to right of where the mark
+was. We're back in state cue so the whole
+
+76
+00:07:21,598 --> 00:07:27,054
+cycle will repeat again with whichever
+input zero or one is in the next square.
+
+77
+00:07:27,054 --> 00:07:32,855
+Here's a motion picture, we are in control
+state cue with an empty or blank cash and
+
+78
+00:07:32,855 --> 00:07:38,346
+we're at the left end of the input 01.
+We're going to pick up the zero for the
+
+79
+00:07:38,346 --> 00:07:44,224
+cash and mark the current square going to
+control state P and moving right. We did
+
+80
+00:07:44,224 --> 00:07:50,029
+all that. Now we failed to see a blank in
+the data track so we'll just move right
+
+81
+00:07:50,029 --> 00:07:57,791
+again. Now we see the blank. So we deposit
+the zero in the cash. And go to state r
+
+82
+00:07:57,791 --> 00:08:04,904
+and move left. Bingo. We haven't found the
+mark, so we'll move left again. Now here's
+
+83
+00:08:04,904 --> 00:08:11,838
+the mark. We remove the mark, go to
+control state Q and move right. And here
+
+84
+00:08:11,838 --> 00:08:17,335
+we are in a situation similar to that. In
+which we started. We'll pick up the one.
+
+85
+00:08:17,335 --> 00:08:23,574
+Mark the square we're at. And move right
+in state p. Here we go, off on another
+
+86
+00:08:23,574 --> 00:08:28,577
+cycle. It never ends. We keep writing 01,
+01, 01, so on, on the data track. We're
+
+87
+00:08:28,577 --> 00:08:34,181
+now going to start exploring restrictions
+of the original Turing Machine model that
+
+88
+00:08:34,181 --> 00:08:39,318
+are powerful enough to simulate the
+original model. And therefore, also define
+
+89
+00:08:39,318 --> 00:08:43,913
+exactly the recursively enumerable
+languages. Our first restriction is a
+
+90
+00:08:43,913 --> 00:08:48,516
+minor one, compared with some of the
+amazingly strong restrictions we're going
+
+91
+00:08:48,516 --> 00:08:53,473
+to mention later. But this restriction is
+that we can assume the tape is infinite to
+
+92
+00:08:53,473 --> 00:08:58,312
+the right of the input only. Tape squares
+to the left of where the input is placed
+
+93
+00:08:58,312 --> 00:09:02,677
+do not exist, and may not be used. The
+Turing Machine halts if it tries to move
+
+94
+00:09:02,677 --> 00:09:06,867
+left into a non-existent square. But we
+shall see that in the construction that
+
+95
+00:09:06,867 --> 00:09:11,003
+simulates a two way infinite tape by a one
+way infinite tape, that it is also
+
+96
+00:09:11,003 --> 00:09:15,461
+possible to design a Turing Machine, so it
+never makes that mistake, and never falls
+
+97
+00:09:15,461 --> 00:09:20,486
+off the tape. Suppose I have an ordinary
+Turing Machine with a two way infinite
+
+98
+00:09:20,486 --> 00:09:25,402
+tape. We want to simulate it with a one
+way infinite tape. So let's call the
+
+99
+00:09:25,402 --> 00:09:30,581
+initial position of the head square zero.
+Positions to the left are -one, -two, and
+
+100
+00:09:30,581 --> 00:09:35,457
+so on, heading left. While positions to
+the right are +one, +two and so on. The
+
+101
+00:09:35,457 --> 00:09:40,984
+new turning machine will have to tracks on
+its tape, and never move left from
+
+102
+00:09:40,984 --> 00:09:46,162
+position zero. The top track holds the
+positions 012 and, and so on of the
+
+103
+00:09:46,162 --> 00:09:51,820
+original Turing Machine. And in the bottom
+track, paired with positions zero is a
+
+104
+00:09:51,820 --> 00:09:57,620
+special marker, a star. It is the presence
+of this market that warns the new Turing
+
+105
+00:09:57,620 --> 00:10:02,940
+Machine never to go left from that point.
+Also on the bottom track are all the
+
+106
+00:10:02,940 --> 00:10:08,500
+negative positions of the original touring
+machine with position minus I paired with
+
+107
+00:10:08,500 --> 00:10:13,534
+position i. That is, the bottom track
+holds the tape to the left of position
+
+108
+00:10:13,534 --> 00:10:18,725
+zero, but backward. Here's a picture of
+the new Turing Machine. Its state holds
+
+109
+00:10:18,725 --> 00:10:24,185
+the state of the original Turing Machine,
+plus s bit url that tells it whether to
+
+110
+00:10:24,185 --> 00:10:29,380
+look at the upper or lower track to
+simulate a move of the original. When that
+
+111
+00:10:29,380 --> 00:10:34,017
+bit is U, the new Turing Machine moves its
+head in the same direction as the
+
+112
+00:10:34,017 --> 00:10:38,898
+original. But if the bit is L, then it
+moves in the direction opposite to that of
+
+113
+00:10:38,898 --> 00:10:43,473
+the original. At the first move, the
+market star will be placed on the lower
+
+114
+00:10:43,473 --> 00:10:48,761
+track. However, there is no need to modify
+the input symbols since the negative
+
+115
+00:10:48,761 --> 00:10:53,372
+positions of the original Turing machine
+initially hold blank. And we can treat
+
+116
+00:10:53,372 --> 00:10:58,099
+each of the input symbols and the blank of
+a new Turing machine as if they had a
+
+117
+00:10:58,099 --> 00:11:02,593
+second component that is blank. There are
+several other restrictions that are
+
+118
+00:11:02,593 --> 00:11:09,253
+discussed in the text that we're not going
+to cover here. It might be surprising, but
+
+119
+00:11:09,253 --> 00:11:14,710
+if you give a push down of automaton. Even
+a [inaudible] push down automaton a second
+
+120
+00:11:14,710 --> 00:11:20,548
+stack. Then it can simulate a touring
+machine. The idea is that one stack hold
+
+121
+00:11:20,548 --> 00:11:25,043
+whatever is to the left of the head.
+Including the head position itself. Where
+
+122
+00:11:25,043 --> 00:11:29,916
+the top of the stack at the right end of
+the string. The second stack holds what is
+
+123
+00:11:29,916 --> 00:11:34,660
+to the right of the head position, with
+the top of the stack at the left end. The
+
+124
+00:11:34,660 --> 00:11:39,480
+two stack PDA can figure out a move for
+the touring machine. The head moves left
+
+125
+00:11:39,480 --> 00:11:44,299
+and a symbol is popped off the first stack
+and pushed on to the second. The head
+
+126
+00:11:44,299 --> 00:11:49,239
+moves right and the top symbols move to
+the second stack to the first. Moreover an
+
+127
+00:11:49,239 --> 00:11:53,697
+even stronger restriction on the two stack
+PDA can be made in addition to
+
+128
+00:11:53,697 --> 00:11:58,698
+determinism. The two stacks can each be a
+counter that is a stack that has only two
+
+129
+00:11:58,698 --> 00:12:03,276
+stack symbols. One of these symbols, the
+bottom marker can only appear as the
+
+130
+00:12:03,276 --> 00:12:08,347
+bottom symbol. Plus the stacks each act as
+counters. You can add one or subtract one.
+
+131
+00:12:08,347 --> 00:12:13,309
+But you can only tell when the count is
+zero. You can't tell one large count from
+
+132
+00:12:13,309 --> 00:12:19,194
+another. This comment speaks for itself.
+The guy who discovered this construction
+
+133
+00:12:19,194 --> 00:12:23,811
+of Let's two counter simulated touring
+machine was Patrick Fisher. He was one of
+
+134
+00:12:23,811 --> 00:12:28,081
+the really early computer science
+professors and apparently attracted the
+
+135
+00:12:28,081 --> 00:12:33,066
+attention of the unibomber. Pat was sent
+an exploding package which was opened by
+
+136
+00:12:33,066 --> 00:12:37,640
+his secretary, who was injured in the
+blast, but fortunately survived. Now we're
+
+137
+00:12:37,640 --> 00:12:42,625
+going to look at several extensions to the
+basic Turing machine that we've described.
+
+138
+00:12:42,625 --> 00:12:47,082
+These extensions have some use when we
+talk about closure properties of the
+
+139
+00:12:47,082 --> 00:12:51,773
+recursively enumerable languages. But
+mainly they are considered to convince you
+
+140
+00:12:51,773 --> 00:12:56,347
+that the basic Turing machine is good
+enough. It captures all of what we might
+
+141
+00:12:56,347 --> 00:13:01,836
+think of as computing by any means. That
+is our goal is to simulate each of the
+
+142
+00:13:01,836 --> 00:13:07,169
+extensions with the basic model and thus
+to show that the extensions define only
+
+143
+00:13:07,169 --> 00:13:12,106
+the recursively numeral languages. Are
+fist extension will allow any phonic
+
+144
+00:13:12,106 --> 00:13:16,439
+number of tapes. Then we add
+nondeterminism. The last extension is
+
+145
+00:13:16,439 --> 00:13:21,794
+really a demonstration of how a touring
+machine can simulate a name value store.
+
+146
+00:13:21,794 --> 00:13:26,681
+That is a storage system that let's us
+associate any value with any name.
+
+147
+00:13:26,681 --> 00:13:32,036
+Recently, very large scale name value
+stores have become a significant factor in
+
+148
+00:13:32,036 --> 00:13:37,123
+the big data world with systems like
+Google's big table. However, our purpose
+
+149
+00:13:37,123 --> 00:13:42,277
+here is more mundane. A name value store
+is the hardest part of a computer to
+
+150
+00:13:42,277 --> 00:13:46,953
+simulate. In essence, the memory
+[inaudible] of a computer can be thought
+
+151
+00:13:46,953 --> 00:13:51,868
+of as a place where we store values and
+locations, whether the location's in
+
+152
+00:13:51,868 --> 00:13:56,717
+memory addresses, cache addresses, or
+block numbers on a disk. If we can show
+
+153
+00:13:56,717 --> 00:14:01,891
+how a truing machine simulates a general
+name value store, then we should have a
+
+154
+00:14:01,891 --> 00:14:06,934
+good idea of how the truing machine can
+simulate a real computer. A multi-tape
+
+155
+00:14:06,934 --> 00:14:12,629
+truing machine has k tapes for some fixed
+k. There's one head for each tape. And
+
+156
+00:14:12,629 --> 00:14:18,511
+each head is positioned at one square of
+its own tape. To determine a move of the
+
+157
+00:14:18,511 --> 00:14:24,217
+multi-tape turn machine you have to look
+at the tape symbol under each head as well
+
+158
+00:14:24,217 --> 00:14:29,978
+as the state. And the action of the
+multi-tape Turing machine consists of a
+
+159
+00:14:29,978 --> 00:14:34,746
+new state, a new symbol for each taped
+square that is scanned, and a direction
+
+160
+00:14:34,746 --> 00:14:39,699
+for each of the heads. The heads move
+independently and some heads may choose to
+
+161
+00:14:39,699 --> 00:14:44,529
+stay where they are rather than move it a
+step. To simulate K tags we'll use a
+
+162
+00:14:44,529 --> 00:14:49,296
+Turing machine with a single tape but
+we'll regard this tape as having two K
+
+163
+00:14:49,296 --> 00:14:54,852
+tracks. K of the tracks are used to
+simulate each of the K tapes. While the
+
+164
+00:14:54,852 --> 00:14:59,845
+other K tracks are used to mark the head
+position of each of the tapes. That is,
+
+165
+00:14:59,845 --> 00:15:05,303
+these tracks are blank except for a single
+X in one of the squares. Here is a picture
+
+166
+00:15:05,303 --> 00:15:10,809
+of a one-tape turn machine simulating a
+two-tape turn machine. There are four
+
+167
+00:15:10,809 --> 00:15:16,111
+tracks. Two of these tracks hold the
+contents of the two tapes, while the other
+
+168
+00:15:16,111 --> 00:15:21,210
+two tracks hold only a single X each,
+marking the positions of the two tape
+
+169
+00:15:21,210 --> 00:15:26,784
+heads. That is, the two-tape turn machine
+has the head of its first tape scanning
+
+170
+00:15:26,784 --> 00:15:32,534
+this C. And the head of the second tape is
+scanning this W. I hope it is clear that
+
+171
+00:15:32,534 --> 00:15:37,878
+the ordinary Turing Machine can, to
+simulate one move of the two tape Turing
+
+172
+00:15:37,878 --> 00:15:43,574
+Machine, visit each of X marks. Store the
+symbols that the two tape Turing Machine
+
+173
+00:15:43,574 --> 00:15:49,411
+sees in cache components of its own state.
+And finally figure out the move that the
+
+174
+00:15:49,411 --> 00:15:54,717
+two tape machine would make. One tape
+mission then visits each of the positions
+
+175
+00:15:54,717 --> 00:16:00,148
+with the x's again, changes symbols as the
+two tape machine would. And moves the x's
+
+176
+00:16:00,148 --> 00:16:06,426
+to reflect the head moves of the two tape
+machine. >> The one tape machine needs to
+
+177
+00:16:06,426 --> 00:16:11,325
+be careful to remember in a component of
+its own state how many X's are to its
+
+178
+00:16:11,325 --> 00:16:16,101
+left. So, it can always find them all on
+its own tape, but if we design the one
+
+179
+00:16:16,101 --> 00:16:21,248
+tape machine to do that correctly then it
+is, it is possible for it to simulate the
+
+180
+00:16:21,248 --> 00:16:26,023
+due date machine. Although, it will
+obviously take many of its own moves to do
+
+181
+00:16:26,023 --> 00:16:29,798
+so. Now let's look at the non
+deterministic version of a touring
+
+182
+00:16:29,798 --> 00:16:34,151
+machine. We'll talk only about one tape
+non deterministic machines but the
+
+183
+00:16:34,151 --> 00:16:39,545
+addition of several tapes along with non
+determinism doesn't add power either. The
+
+184
+00:16:39,545 --> 00:16:44,385
+basic idea that the touring machine is
+allowed to have more than one choice of
+
+185
+00:16:44,385 --> 00:16:49,436
+move for any state [inaudible] single
+pair. Once a choice is made then the next
+
+186
+00:16:49,436 --> 00:16:53,960
+state, new symbol and head direction are
+determined. That is you may have several
+
+187
+00:16:53,960 --> 00:16:58,429
+choices in a non deterministic touring
+machine. But you can't pick a state from
+
+188
+00:16:58,429 --> 00:17:03,510
+one, a symbol from another, and a
+direction from a third. As for the
+
+189
+00:17:03,510 --> 00:17:07,834
+non-deterministic finite automate and
+[inaudible] automate, the non
+
+190
+00:17:07,834 --> 00:17:12,804
+deterministic Turing Machine said to
+accept any sequence of choices, leads to
+
+191
+00:17:12,804 --> 00:17:17,451
+an ID with an accepting state. The basic
+trick is to use the tape of the
+
+192
+00:17:17,451 --> 00:17:22,680
+deterministic machine to represent the Q
+of IDs of the non deterministic machine.
+
+193
+00:17:22,680 --> 00:17:27,671
+The deterministic machine will make a
+systematic search of all the IDs a non
+
+194
+00:17:27,671 --> 00:17:32,598
+deterministic machine can reach. If it
+finds one with a final state, then the
+
+195
+00:17:32,598 --> 00:17:37,849
+deterministic machine accepts. But if it
+never finds one, the simulation may go on
+
+196
+00:17:37,849 --> 00:17:43,122
+forever. But the deterministic machine
+will never accept. Incidentally we should
+
+197
+00:17:43,122 --> 00:17:47,753
+start to become aware of a surprising
+behavior of touring machines. Sometimes
+
+198
+00:17:47,753 --> 00:17:52,383
+they run forever without accepting or
+halting. Moreover, we can't tell whether
+
+199
+00:17:52,383 --> 00:17:57,314
+the touring machine is going to do that or
+whether it will eventually halt, either
+
+200
+00:17:57,314 --> 00:18:02,246
+accepting or not. That is, you can't tell
+whether a touring machine is an algorithm.
+
+201
+00:18:02,246 --> 00:18:07,177
+Anyway, back to our description of how the
+deterministic touring machine simulates
+
+202
+00:18:07,177 --> 00:18:11,860
+the nondeterministic. To determine the
+[inaudible] machine needs a separate
+
+203
+00:18:11,860 --> 00:18:17,180
+track. In addition to the track that holds
+the i.d.s of the none [inaudible] machine.
+
+204
+00:18:18,580 --> 00:18:24,024
+One purpose of this track is to mark the
+I.D. That is currently at the head of the
+
+205
+00:18:24,024 --> 00:18:29,430
+queue of I.D.s. And we need another mark
+whose job is to allow the deterministic
+
+206
+00:18:29,430 --> 00:18:34,656
+machine to make a copy of the ID at the Q
+head, one symbol at a time. While it
+
+207
+00:18:34,656 --> 00:18:40,017
+changes this ID to reflect one of the
+choices of moves of the un-deterministic
+
+208
+00:18:40,017 --> 00:18:45,174
+machine. Here is a picture of what the
+tape of a deterministic machine looks
+
+209
+00:18:45,174 --> 00:18:50,128
+like. On the data track there is a
+sequence of IDs separated by a special
+
+210
+00:18:50,128 --> 00:18:55,353
+symbol, pound sign. Which we assume is not
+a symbol that can appear on the IDs
+
+211
+00:18:55,353 --> 00:19:01,027
+themselves. The mark X is at the pound
+sign, just before the ID that is at the
+
+212
+00:19:01,027 --> 00:19:06,224
+head of the queue. The ID's to the left of
+this point will never be useful again,
+
+213
+00:19:06,224 --> 00:19:11,616
+since they've already been processed. But
+it is more trouble to erase them from the
+
+214
+00:19:11,616 --> 00:19:17,008
+tape than it is to just leave them there.
+The mark Y indicates the last position of
+
+215
+00:19:17,008 --> 00:19:21,230
+the front ID that has been copied, with
+one choice of move of the
+
+216
+00:19:21,230 --> 00:19:26,066
+non-deterministic machine. The
+deterministic machine will run back and
+
+217
+00:19:26,066 --> 00:19:31,169
+forth between the Y and the first blank it
+sees to its right. Storing the symbol
+
+218
+00:19:31,169 --> 00:19:36,335
+under the Y, in its state, and depositing
+it at the first blank. When it returns to
+
+219
+00:19:36,335 --> 00:19:41,055
+the Y, it moves the Y one position right
+until it has copied the entire ID.
+
+220
+00:19:41,055 --> 00:19:46,030
+However, making the changes that reflect
+one move. The process is just a little
+
+221
+00:19:46,030 --> 00:19:51,005
+more complex than the simple Turing
+machine we gave as our example in the use
+
+222
+00:19:51,005 --> 00:19:56,301
+of multiple tracks. Which ran back and
+forth copying its input. Here's how the
+
+223
+00:19:56,301 --> 00:20:02,511
+deterministic machine processes the front
+ID on the cue. First the deterministic
+
+224
+00:20:02,511 --> 00:20:07,362
+machine looks for the state within the
+front id. By storing the state. And the
+
+225
+00:20:07,362 --> 00:20:12,654
+symbol to it's right on its own state. It
+now knows all the choices of those the non
+
+226
+00:20:12,654 --> 00:20:18,710
+deterministic machine. Suppose there are m
+choices of move. And the deterministic
+
+227
+00:20:18,710 --> 00:20:24,283
+machine will create m new ids at the rear
+of the q. That is to the right of its
+
+228
+00:20:24,283 --> 00:20:29,925
+portion of its state currently holding
+ids. The deterministic machine decides an
+
+229
+00:20:29,925 --> 00:20:35,780
+order for the m choice is. And creates an
+idea reflecting each choice one at a time.
+
+230
+00:20:36,360 --> 00:20:41,456
+After creating all [inaudible] it finds
+the x marker, and moves it to the pound
+
+231
+00:20:41,456 --> 00:20:47,320
+sign to the right. Thus moving to the next
+id in the q. However, as an exception, if
+
+232
+00:20:47,320 --> 00:20:52,242
+the deterministic machine ever creates a
+new ID with an accepting state, then it
+
+233
+00:20:52,242 --> 00:20:56,609
+accepts and halts its operation. [sound].
+I described the workings of the
+
+234
+00:20:56,609 --> 00:21:01,408
+deterministic machine fairly informally.
+But I hope you are convinced that the
+
+235
+00:21:01,408 --> 00:21:06,021
+determinist machine really could be
+programmed to do what I suggested. That
+
+236
+00:21:06,021 --> 00:21:10,266
+is, you could write down a delta
+transition function that did all the
+
+237
+00:21:10,266 --> 00:21:16,340
+things I talked about. However, there's an
+additional concern that must be addressed.
+
+238
+00:21:16,340 --> 00:21:21,210
+Can we be sure that if any sequence of
+choices by the nondeterministic machine
+
+239
+00:21:21,210 --> 00:21:25,525
+leads to a final state, then the
+deterministic machine will eventually
+
+240
+00:21:25,525 --> 00:21:30,456
+follow each ID in the sequence and thus
+will also accept. To prove that we first
+
+241
+00:21:30,456 --> 00:21:35,387
+observe that there's an upper bound, say
+K, on the number of choices of move that
+
+242
+00:21:35,387 --> 00:21:40,470
+the nondeterministic machine has in any
+situation. Thus, there most k id is
+
+243
+00:21:40,470 --> 00:21:46,886
+reachable after one move. K squared
+reachable after two moves. K q after three
+
+244
+00:21:46,886 --> 00:21:54,858
+moves and so on. Suppose the final state
+is reached after N moves for sum N. And
+
+245
+00:21:54,858 --> 00:22:02,500
+the number of IDs the determinist machine
+might have to look at is at most this.
+
+246
+00:22:03,020 --> 00:22:08,861
+Which is the sum of the first N powers of
+K before it sees the ID with the final
+
+247
+00:22:08,861 --> 00:22:14,630
+state. The exact formula is not important.
+The point is that K is finite and N is
+
+248
+00:22:14,630 --> 00:22:20,562
+finite so the number of IDs examined is
+finite. To see this point, notice that all
+
+249
+00:22:20,562 --> 00:22:25,657
+the IDs reachable after one move are put
+on the cue before any ID that is reachable
+
+250
+00:22:25,657 --> 00:22:30,691
+by two moves. And all the IDs reachable by
+two moves are placed there before we get
+
+251
+00:22:30,691 --> 00:22:35,544
+to any ID that take three moves to reach,
+and so on. That is, the cue is organized
+
+252
+00:22:35,544 --> 00:22:41,017
+shortest distance first. To summarize, if
+the non-deterministic machine accepts, it
+
+253
+00:22:41,017 --> 00:22:46,179
+does so in N moves for some finite end.
+Therefore, the deterministic machine will
+
+254
+00:22:46,179 --> 00:22:51,664
+eventually construct the accepting idea of
+the non-deterministic machine. Even though
+
+255
+00:22:51,664 --> 00:22:56,632
+it may take a number of its own moves that
+is exponential in N. However, if no
+
+256
+00:22:56,632 --> 00:23:00,955
+sequence of non-deterministic choices
+leads to acceptance. Then the
+
+257
+00:23:00,955 --> 00:23:05,859
+deterministic machine does not accept.
+Thus the two machines define the same
+
+258
+00:23:05,859 --> 00:23:11,340
+language. All the constructions we just
+showed will turn out to be quite useful in
+
+259
+00:23:11,340 --> 00:23:15,951
+the future. We're going to have to do
+several important constructions involving
+
+260
+00:23:15,951 --> 00:23:20,504
+Turing machines. When we do that, we'll
+assume the Turing machine that is input,
+
+261
+00:23:20,504 --> 00:23:25,232
+is as simple as possible. In particular we
+will assume that it is a deterministic
+
+262
+00:23:25,232 --> 00:23:30,076
+machine with one tape infinite only to the
+right. However, when we do the simulation
+
+263
+00:23:30,076 --> 00:23:34,920
+we're free to use a Turing machine that is
+as powerful as we need. In particular, we
+
+264
+00:23:34,920 --> 00:23:39,844
+can allow it to be non-deterministic, and
+to have as many tapes as we need. But
+
+265
+00:23:39,844 --> 00:23:45,791
+first let's take up how we simulate name
+value stores by a touring machine. The
+
+266
+00:23:45,791 --> 00:23:51,281
+turning machine will have several tapes
+that we'll describe later, but one of the
+
+267
+00:23:51,281 --> 00:23:56,976
+tapes is used to hold the sequence of name
+value pairs. As suggested here. The format
+
+268
+00:23:56,976 --> 00:24:02,195
+we use is to separate pairs by pound
+signs. And to separate the name from the
+
+269
+00:24:02,195 --> 00:24:07,211
+value by a star. We assumed neither a
+pound or a star are symbols that can
+
+270
+00:24:07,211 --> 00:24:12,274
+appear in any name or value. A second
+track of this tape will be used to mark
+
+271
+00:24:12,274 --> 00:24:17,440
+the left end of the, of the sequence. This
+mark never moves. It's just there so we
+
+272
+00:24:17,440 --> 00:24:22,477
+can find the beginning of the sequence and
+scan it, looking for a particular. A
+
+273
+00:24:22,477 --> 00:24:28,765
+second tape will be used to hold the name
+that we want to look up. To look up the
+
+274
+00:24:28,765 --> 00:24:33,476
+value associated with a name, use the
+marker to find the left end of the store.
+
+275
+00:24:33,476 --> 00:24:38,126
+Compare each name with a name on the
+second tape. If we find a match, then the
+
+276
+00:24:38,126 --> 00:24:42,682
+associated value is between the star and
+the next pound sign. However, one
+
+277
+00:24:42,682 --> 00:24:48,499
+operation we need to be able to perform on
+a name value store is insertion. This
+
+278
+00:24:48,499 --> 00:24:54,097
+operation is like what happens when we
+store into a computers memory. When we
+
+279
+00:24:54,097 --> 00:24:59,768
+insert name value pair NV there is no
+value previously associated with name N
+
+280
+00:24:59,768 --> 00:25:04,930
+then V will now be associated with N.
+However if there was an old value
+
+281
+00:25:04,930 --> 00:25:10,378
+associated with name N then that value by
+V. Regardless of which case applies, the
+
+282
+00:25:10,378 --> 00:25:15,302
+first thing we need to do is to look up
+the name N, using the second tape to hold
+
+283
+00:25:15,302 --> 00:25:22,256
+N, as we just discussed. If we scan the
+entire store, and we never find N, then
+
+284
+00:25:22,256 --> 00:25:28,814
+append N star, the pound sign, to the
+right end of the store. That is a true
+
+285
+00:25:28,814 --> 00:25:36,872
+insertion rather than the rewriting of a
+value. But if we find some nv prime in the
+
+286
+00:25:36,872 --> 00:25:45,992
+store. We have to replace the prime by v.
+If V is shorter than V prime, then you can
+
+287
+00:25:45,992 --> 00:25:52,181
+leave blanks to fill out the value. But
+the hard case is, when v is longer than v
+
+288
+00:25:52,181 --> 00:25:57,728
+prime. Here, we have to shift the entire
+portions of store that follows. Far enough
+
+289
+00:25:57,728 --> 00:26:05,894
+to the right to make room for v. Here's
+how we'll do it. We use a third tape and
+
+290
+00:26:05,894 --> 00:26:10,816
+we copy the entire portion of the first
+tape that is added to the right of V
+
+291
+00:26:10,816 --> 00:26:16,057
+prime, but make sure to mark the position
+on the first tape that holds the star to
+
+292
+00:26:16,057 --> 00:26:21,711
+the left of the V prime. Remember this
+tape has a second track for marks. Now
+
+293
+00:26:21,711 --> 00:26:28,093
+write v on the first tape where v prime
+was. It's okay to over write any square as
+
+294
+00:26:28,093 --> 00:26:36,140
+to the right of where v prime was. Then we
+restore the first tape by copying from the
+
+295
+00:26:36,140 --> 00:26:41,625
+third tape everything that was copied
+there. The net effect is that the portion
+
+296
+00:26:41,625 --> 00:26:47,248
+of the first tape that held that to the
+right of V prime, has been moved right as
+
+297
+00:26:47,248 --> 00:26:53,010
+many squares as was necessary to fit V in
+place of V prime. Here's a picture of the
+
+298
+00:26:53,010 --> 00:26:59,122
+sequence of moves. First, we copy
+everything to the right of the prime onto
+
+299
+00:26:59,122 --> 00:27:08,668
+tape three. Then we overwrite V on tape
+one, covering anything we have to. And
+
+300
+00:27:08,668 --> 00:27:14,300
+then we copy tape three onto tape one
+positioning it to the right of whatever
+
+301
+00:27:14,300 --> 00:27:19,477
+space V has taken. Okay, now we're going
+to see something of the closure properties
+
+302
+00:27:19,477 --> 00:27:23,788
+for both the recursively innumerable
+languages. That is, those that are defined
+
+303
+00:27:23,788 --> 00:27:28,155
+by Turing Machines that may run forever if
+they don't accept. And the recursive
+
+304
+00:27:28,155 --> 00:27:32,411
+languages. Those defined by Turing
+Machines that will eventually halt without
+
+305
+00:27:32,411 --> 00:27:38,950
+accepting, if they choose not to accept
+the input. Each of these languages is
+
+306
+00:27:38,950 --> 00:27:43,821
+closed under the regular expression
+operations union, concatenation, and star.
+
+307
+00:27:43,821 --> 00:27:49,012
+They're also closed under reversal
+intersection and inverse homomorphism. The
+
+308
+00:27:49,012 --> 00:27:53,726
+recurs of languages. Not the recurs of the
+innumerable languages are closed under
+
+309
+00:27:53,726 --> 00:27:59,362
+difference and therefore [inaudible].
+Recursively newer of a languages, but not
+
+310
+00:27:59,362 --> 00:28:05,088
+recursive languages. They're closed and
+they are homomorphoses languages. Let's
+
+311
+00:28:05,088 --> 00:28:11,383
+first look at closure [inaudible] union.
+That l one and l two b language is
+
+312
+00:28:11,383 --> 00:28:17,549
+accepted by final state by touring
+machines m one and m two respectively. To
+
+313
+00:28:17,549 --> 00:28:22,793
+make things simple we're going to assume
+that M1 and M2 are one tape machines with
+
+314
+00:28:22,793 --> 00:28:28,633
+a semi-infinite tape. For the language L1,
+union L2, the constructor Turing Machine M
+
+315
+00:28:28,633 --> 00:28:34,603
+with two tapes. First thing M does is to
+copy its input from the first tape to the
+
+316
+00:28:34,603 --> 00:28:40,354
+second. Then, M uses one tape to simulate
+M1, and the other tape to simulate M2. M
+
+317
+00:28:40,354 --> 00:28:46,209
+accepts if either accepts. To show that
+the recursive languages are closed in the
+
+318
+00:28:46,209 --> 00:28:51,630
+union, observe that both M1 and M2 will
+eventually halt whether or not they
+
+319
+00:28:51,630 --> 00:28:57,558
+accept. M will accept if either does, but
+if neither accepts then M will eventually
+
+320
+00:28:57,558 --> 00:29:04,416
+halt without accepting so M is also an
+algorithm. The closure of the [inaudible]
+
+321
+00:29:04,416 --> 00:29:09,454
+enumerable languages under union. We don't
+know that [inaudible] two may run forever
+
+322
+00:29:09,454 --> 00:29:13,906
+if they do not accept. If either accepts
+than [inaudible] will surely accept.
+
+323
+00:29:13,906 --> 00:29:18,124
+However, if neither accepts then
+[inaudible] may run forever, but that is
+
+324
+00:29:18,124 --> 00:29:23,103
+okay since we only want to prove the L1
+union L2 is [inaudible] enumerable in this
+
+325
+00:29:23,103 --> 00:29:28,977
+case not necessarily recursive. We're
+going to use picture proofs for touring
+
+326
+00:29:28,977 --> 00:29:34,296
+machines quite a bit. Here's how we
+represent an algorithm. A touring machine
+
+327
+00:29:34,296 --> 00:29:40,098
+that always halts. It's just a box with
+two output symbols, accept and reject. We
+
+328
+00:29:40,098 --> 00:29:45,474
+should understand that reject just means
+that the machine halts without accepting.
+
+329
+00:29:45,474 --> 00:29:50,850
+We know that an algorithm will eventually
+make one of these signals and of course,
+
+330
+00:29:50,850 --> 00:29:57,792
+not both. Then the design of M can be
+expressed by this diagram. It gets its
+
+331
+00:29:57,792 --> 00:30:05,080
+input W from the outside. And it feeds it
+to M1 and M2, which it then simulates. M
+
+332
+00:30:05,080 --> 00:30:15,416
+produces the accept signal. If either M1
+or M2 accept. If neither producers accept
+
+333
+00:30:15,416 --> 00:30:21,719
+then they eventually both produce rejects
+and M produces the reject signal when they
+
+334
+00:30:21,719 --> 00:30:27,578
+both do. Because M will make one of these
+signals but not both and of course it
+
+335
+00:30:27,578 --> 00:30:33,362
+makes the right signal to accept the union
+of the languages. And here's how we
+
+336
+00:30:33,362 --> 00:30:39,583
+represent a turn machine that is not
+necessarily an algorithm. It makes an
+
+337
+00:30:39,583 --> 00:30:46,249
+accept signal if it accepts, but we cannot
+expect it to make a reject symbol. It may
+
+338
+00:30:46,249 --> 00:30:52,272
+just keeping making moves, but never
+accept. This diagram is the design of M
+
+339
+00:30:52,272 --> 00:30:58,697
+for the case where M1 and M2 are general
+Turing machines. Again, M feeds both the
+
+340
+00:30:58,697 --> 00:31:05,089
+input W. If either rays are the accept
+signal then M does too. We have no idea
+
+341
+00:31:05,089 --> 00:31:11,068
+what M does if neither accepts but it
+doesn't matter. M has the form needed to
+
+342
+00:31:11,068 --> 00:31:17,124
+show that the union of the languages of M1
+and M2 is a recursively innumerable
+
+343
+00:31:17,124 --> 00:31:23,257
+language. Here's a picture proof of the
+fact that recursive languages are closed
+
+344
+00:31:23,257 --> 00:31:29,467
+under [inaudible] section. M1 and M2 are
+algorithms. We design M to feed its input
+
+345
+00:31:29,467 --> 00:31:35,589
+to the simulated M1 and M2. And M accepts
+if both accept. And "m" rejects, if either
+
+346
+00:31:35,589 --> 00:31:41,841
+rejects. And here's a picture proof of the
+intersection of recursively innumerable
+
+347
+00:31:41,841 --> 00:31:47,406
+languages. Again "m" feeds it's input into
+"m1" and "m2" and it accepts, if both
+
+348
+00:31:47,406 --> 00:31:52,057
+accept. No, difference in compliment gives
+us very different story for the two
+
+349
+00:31:52,057 --> 00:31:56,546
+classes of languages, recursive and
+recursively enumerable. If you want to
+
+350
+00:31:56,546 --> 00:32:02,431
+accept the difference of the languages of
+algorithms M1 and M2, simulate them both
+
+351
+00:32:02,431 --> 00:32:07,769
+until they halt. Except if M1 accepts and
+M2 rejects and otherwise reject. The
+
+352
+00:32:07,769 --> 00:32:13,470
+picture is much like what we saw for union
+and intersection of recursive languages,
+
+353
+00:32:13,470 --> 00:32:18,828
+only the logic combining the signals is
+different. An important consequence is
+
+354
+00:32:18,828 --> 00:32:24,529
+that the complement with respect to some
+alphabet sigma of a recursive language is
+
+355
+00:32:24,529 --> 00:32:29,886
+recursive. Surely sigma-star, the set of
+all strings over sigma is recursive. So
+
+356
+00:32:29,886 --> 00:32:35,038
+the difference of sigma-star and a
+recursive language is the complement of
+
+357
+00:32:35,038 --> 00:32:39,059
+that language. Unfortunately, this
+[inaudible] does not work in the
+
+358
+00:32:39,059 --> 00:32:43,826
+in-cursively innumerable languages. They
+are in fact not closed under [inaudible]
+
+359
+00:32:43,826 --> 00:32:48,063
+contemplation. We'll see a particular re
+cursively innumerable languages.
+
+360
+00:32:48,063 --> 00:32:53,085
+[inaudible] Is not currently innumerable
+soon. But just to see why the construction
+
+361
+00:32:53,085 --> 00:32:57,967
+for recursive languages doesn't work,
+remember that M2 may never halt. So if M1
+
+362
+00:32:57,967 --> 00:33:03,385
+accepts, you may never know that the input
+is in the difference. Now let's show the,
+
+363
+00:33:03,385 --> 00:33:09,674
+the recursively innumerable languages are
+closed under concatenation. Like L1 and
+
+364
+00:33:09,674 --> 00:33:15,343
+L2, we define by Turing Machines, M1 and
+M2. Assume M1 and M2 have one semi
+
+365
+00:33:15,343 --> 00:33:20,623
+infinite tape each. And, for
+concatenation, we're going to construct M
+
+366
+00:33:20,623 --> 00:33:27,855
+a two tape non deterministic Turing
+Machine. Given input W, M guess is a
+
+367
+00:33:27,855 --> 00:33:37,065
+prefix X of W that is in L1. Then let Y be
+the remainder of W which then must be in
+
+368
+00:33:37,065 --> 00:33:46,163
+L2. If, that is, if W is to be in, the
+concatenation of the languages L1 and L2.
+
+369
+00:33:46,163 --> 00:33:55,456
+M moves Y to its second tape and simulates
+M1 on input X and M2 on Y. If both accept
+
+370
+00:33:55,456 --> 00:33:59,862
+then M accepts, since it is
+non-deterministic, it will guess every
+
+371
+00:33:59,862 --> 00:34:04,742
+possible way to break W into two pieces.
+So it always accepts W is in L1
+
+372
+00:34:04,742 --> 00:34:10,029
+concatenated with L2. Next, the claim the
+recursive languages are also close in
+
+373
+00:34:10,029 --> 00:34:15,316
+their concatenation, we can't use the
+non-deterministic trick, or at least it's
+
+374
+00:34:15,316 --> 00:34:22,481
+rather hard to do so. However, m will
+systematically try each possible break
+
+375
+00:34:22,481 --> 00:34:31,596
+point for w into x y. On m one on x and m
+two on y. M1 and M2 always halt on each x
+
+376
+00:34:31,596 --> 00:34:38,176
+and y. If for any break point, both accept
+their pieces, then an accept. But if all
+
+377
+00:34:38,176 --> 00:34:43,143
+break points lead to rejection. By one or
+both of them one in m two. Then M
+
+378
+00:34:43,143 --> 00:34:48,471
+eventually runs out of things to try and
+rejects. For closure on this star, the
+
+379
+00:34:48,471 --> 00:34:53,962
+same ideas work for, as for concatenation.
+Suppose M1 is a touring machine for some
+
+380
+00:34:53,962 --> 00:34:58,784
+language L and we want a touring machine
+for L star. For the recursively
+
+381
+00:34:58,784 --> 00:35:03,873
+innumerable languages, guess how many
+pieces to break input W into and guess
+
+382
+00:35:03,873 --> 00:35:08,869
+where the points of separation are, except
+if M1 accepts each piece. For the
+
+383
+00:35:08,869 --> 00:35:13,776
+recursive languages, don't guess, but
+enumerate the break systematically. Since
+
+384
+00:35:13,776 --> 00:35:18,874
+M1 is guaranteed to halt any time it is
+given a piece of the input W to examine,
+
+385
+00:35:18,874 --> 00:35:24,100
+we'll eventually get through testing each
+of the possible ways to break the input.
+
+386
+00:35:24,100 --> 00:35:29,044
+Reversal is easy for both classes of
+languages. First, reverse the input, and
+
+387
+00:35:29,044 --> 00:35:34,055
+then simulate the Turing machine for
+language L, on the reversed input. We'll
+
+388
+00:35:34,055 --> 00:35:39,329
+not say anything more about this simple
+idea. Inverse homomorphism is also quite
+
+389
+00:35:39,329 --> 00:35:44,603
+simple. Suppose L is a language, either
+recursive or recursively enumerable, let M
+
+390
+00:35:44,603 --> 00:35:51,070
+be a Turing machine for L. Let H be a
+homomorphism. Well the zonic [inaudible]
+
+391
+00:35:51,070 --> 00:35:58,688
+machine for h inverse of l. Start by
+applying h to the given, input w. Simulate
+
+392
+00:35:58,688 --> 00:36:09,880
+m on h of w. Except w if h of w is an l.
+If L is recursively innumerable and we've
+
+393
+00:36:09,880 --> 00:36:15,223
+got a touring machine which it may not
+always halt for H inverse of L. But if L
+
+394
+00:36:15,223 --> 00:36:20,769
+is recursive then we know M will always
+halt and thus so will the machine we just
+
+395
+00:36:20,769 --> 00:36:25,638
+designed. Last, let's show that the
+recursively innumerable languages are
+
+396
+00:36:25,638 --> 00:36:33,809
+closed in their homomorphism. So supposed
+L has a turning machine M1. We'll
+
+397
+00:36:33,809 --> 00:36:42,074
+construct a non deterministic turning
+machine M for HL. Given input W, M guess a
+
+398
+00:36:42,074 --> 00:36:52,579
+string X and checks the H of X is W. If so
+M simulates M1 on input X. If M1 accepts
+
+399
+00:36:52,579 --> 00:36:58,076
+X, then M accepts W. Thus, M accepts H
+inverse of L. This construction won't work
+
+400
+00:36:58,076 --> 00:37:03,858
+for the recursive languages. The reason is
+that if H maps some symbols to epsilon,
+
+401
+00:37:03,858 --> 00:37:09,283
+then the string X that M1 accepts may be
+arbitrarily long. And M may have to
+
+402
+00:37:09,283 --> 00:37:15,066
+simulate an infinite number of possible
+Xs. It can never be sure that there is no
+
+403
+00:37:15,066 --> 00:37:17,779
+X in L for which [inaudible] equals W.

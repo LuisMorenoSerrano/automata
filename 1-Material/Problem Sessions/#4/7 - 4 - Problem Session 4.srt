@@ -1,0 +1,749 @@
+1
+00:00:00,430 --> 00:00:03,630
+In this final set of comments on
+questions received, I'm going to
+
+2
+00:00:03,630 --> 00:00:08,640
+address some subtleties regarding
+decidability and NP-completeness.
+
+3
+00:00:08,640 --> 00:00:12,070
+My first point is that single
+instances of a problem, that is,
+
+4
+00:00:12,070 --> 00:00:15,410
+one input to a Turing machine,
+will always be decidable.
+
+5
+00:00:15,410 --> 00:00:19,370
+But that decidability is technical.
+
+6
+00:00:19,370 --> 00:00:22,380
+And it's useless if the underlying
+problem is really a hard one.
+
+7
+00:00:24,800 --> 00:00:28,480
+And I was pleased to see that people are
+thinking how they could form a start up
+
+8
+00:00:28,480 --> 00:00:30,330
+based on their solution to P equals NP.
+
+9
+00:00:31,820 --> 00:00:35,110
+Here in Silicon Valley we like
+to see people thinking that way.
+
+10
+00:00:35,110 --> 00:00:36,740
+It's not just about
+intellectual challenges,
+
+11
+00:00:38,090 --> 00:00:43,170
+it's about making the world a better
+place and getting rich while doing it.
+
+12
+00:00:43,170 --> 00:00:46,180
+The first question from the form
+concerns a doubt about my
+
+13
+00:00:46,180 --> 00:00:50,180
+comment regarding Rice's theorem that
+as a consequence of that theorem,
+
+14
+00:00:50,180 --> 00:00:55,770
+it is impossible to tell whether a program
+does something specific like a sort.
+
+15
+00:00:55,770 --> 00:01:00,410
+Let's suppose we have a program that is
+alleged to sort an input list of intigers.
+
+16
+00:01:02,190 --> 00:01:05,810
+The questioner suggested that we could
+feed the program a list of intigers,
+
+17
+00:01:05,810 --> 00:01:09,040
+run it, and
+see whether the output is sorted.
+
+18
+00:01:09,040 --> 00:01:13,240
+We could even feed the same program any
+finite number of lists like a million.
+
+19
+00:01:13,240 --> 00:01:18,400
+Lists in turn, it is true that
+if the program fails to sort
+
+20
+00:01:18,400 --> 00:01:22,400
+any of the finite number of input lists,
+then you know it is not a sorting program.
+
+21
+00:01:25,150 --> 00:01:28,760
+However, just because it sorts a million
+inputs correctly doesn't mean it
+
+22
+00:01:28,760 --> 00:01:30,590
+will sort the million and first correctly.
+
+23
+00:01:31,630 --> 00:01:34,690
+I can give you several examples
+of bugs that only showed up in
+
+24
+00:01:34,690 --> 00:01:37,430
+one out of a million or more cases.
+
+25
+00:01:37,430 --> 00:01:42,220
+The most famous is probably the Pentium
+multiplier bug, with a much
+
+26
+00:01:42,220 --> 00:01:46,430
+tinier than one in a million odds of it
+showing up on any given multiplication.
+
+27
+00:01:48,270 --> 00:01:51,400
+But, people were getting errors due to
+the hardware, rather than the program.
+
+28
+00:01:52,880 --> 00:01:55,200
+The point is that testing is a good idea.
+
+29
+00:01:55,200 --> 00:01:56,600
+It does uncover most bugs.
+
+30
+00:01:57,770 --> 00:01:59,340
+But, that's still not an algorithm for
+
+31
+00:01:59,340 --> 00:02:03,430
+deciding whether a program does what it
+has claimed to do under all circumstances.
+
+32
+00:02:04,670 --> 00:02:07,010
+And, in fact, there is no such algorithm.
+
+33
+00:02:07,010 --> 00:02:09,010
+Rice's theorem proves that.
+
+34
+00:02:09,010 --> 00:02:10,940
+It is worth remembering that problems, or
+
+35
+00:02:10,940 --> 00:02:13,920
+the languages or questions bout
+an infinite number of instances.
+
+36
+00:02:13,920 --> 00:02:14,800
+Instances.
+
+37
+00:02:14,800 --> 00:02:20,030
+The answer to all or all but one of those
+instances may be no, but a solution to
+
+38
+00:02:20,030 --> 00:02:23,240
+the problem still has to deal
+correctly with all possible instances.
+
+39
+00:02:24,320 --> 00:02:28,050
+Single instances of a problem
+are alway decidable although we can't
+
+40
+00:02:28,050 --> 00:02:30,920
+necessarily tell what the answer is.
+
+41
+00:02:33,290 --> 00:02:38,390
+That is, suppose we have a problem
+represented by language l and we ask if w,
+
+42
+00:02:38,390 --> 00:02:40,686
+a single instance is in L.
+
+43
+00:02:40,686 --> 00:02:44,830
+There are two Turing machines,
+one of which answers yes,
+
+44
+00:02:44,830 --> 00:02:48,310
+that is it accepts any input and
+the other of which answers no.
+
+45
+00:02:48,310 --> 00:02:50,050
+That is it rejects all inputs.
+
+46
+00:02:51,690 --> 00:02:55,030
+One of these Turing machines
+answers the question, is w in L?
+
+47
+00:02:57,930 --> 00:02:59,180
+Unless L is recursive,
+
+48
+00:02:59,180 --> 00:03:02,200
+I can't figure out which of the two
+Turing machines answers the question.
+
+49
+00:03:03,230 --> 00:03:07,820
+But I am absolutely certain that one does,
+and therefore the question.
+
+50
+00:03:07,820 --> 00:03:09,465
+Is w in L is decidable?
+
+51
+00:03:09,465 --> 00:03:14,360
+It has a Turing machine that always
+halts and gives you the correct answer.
+
+52
+00:03:14,360 --> 00:03:17,980
+Of course, this observation is useless,
+since we can't really solve anything with
+
+53
+00:03:17,980 --> 00:03:22,540
+it that we couldn't already solve
+because the language L was recursive.
+
+54
+00:03:22,540 --> 00:03:26,250
+The second question I would like to
+address is almost the same question, but
+
+55
+00:03:26,250 --> 00:03:29,380
+regarding intractability,
+rather than decidability.
+
+56
+00:03:30,630 --> 00:03:31,240
+The question or
+
+57
+00:03:31,240 --> 00:03:36,260
+hypothesis that they could invent an
+algorithm that runs in polynomial time and
+
+58
+00:03:36,260 --> 00:03:41,370
+appears to run some NP-complete problem,
+let's say SAT to be concrete.
+
+59
+00:03:41,370 --> 00:03:44,070
+That is, they tested it on
+a million expressions and
+
+60
+00:03:44,070 --> 00:03:45,709
+it gave the correct answer in all cases.
+
+61
+00:03:48,620 --> 00:03:51,880
+They then asked whether they could
+sell the solution to a company.
+
+62
+00:03:52,960 --> 00:03:56,690
+The objective would be that the company
+would be able to solve problems quickly
+
+63
+00:03:56,690 --> 00:03:59,790
+that no one else would be able to
+solve in less than exponential time,
+
+64
+00:03:59,790 --> 00:04:02,750
+and thus could charge for the service.
+
+65
+00:04:02,750 --> 00:04:04,690
+That's not quite the right approach.
+
+66
+00:04:04,690 --> 00:04:07,970
+The right thing to do would be
+to start a company of your own.
+
+67
+00:04:07,970 --> 00:04:10,670
+Implement the solution and
+sell the service.
+
+68
+00:04:10,670 --> 00:04:11,770
+Once you have a business going,
+
+69
+00:04:11,770 --> 00:04:17,060
+your company would be much more valuable
+than an unimplemented and untested idea.
+
+70
+00:04:17,060 --> 00:04:21,290
+So you could sell the company for
+much more than you could sell the idea.
+
+71
+00:04:21,290 --> 00:04:23,770
+You may, for example,
+have heard how Sergey Brin and
+
+72
+00:04:23,770 --> 00:04:29,950
+Larry Page offered to sell the key ideas
+behind Google to Yahoo for $1 million.
+
+73
+00:04:29,950 --> 00:04:33,810
+But Yahoo wasn't interested
+in developing the idea.
+
+74
+00:04:33,810 --> 00:04:36,140
+Now Google is worth ten
+times what Yahoo is worth.
+
+75
+00:04:37,410 --> 00:04:40,450
+The second issue is whether you
+can could the algorithm secret and
+
+76
+00:04:40,450 --> 00:04:44,470
+still convince people that you had
+a solution to an NP-complete problem.
+
+77
+00:04:44,470 --> 00:04:46,490
+And therefore all NP-complete problems.
+
+78
+00:04:47,840 --> 00:04:49,170
+That's not impossible.
+
+79
+00:04:49,170 --> 00:04:51,760
+And we'll talk about it on the next slide.
+
+80
+00:04:51,760 --> 00:04:55,810
+There's a fairly ancient theory called
+zero-knowledge proofs due to Goldwasser,
+
+81
+00:04:55,810 --> 00:04:57,730
+Micali, and Rackoff.
+
+82
+00:04:57,730 --> 00:05:01,090
+Their techniques were motivated
+by exactly this conundrum.
+
+83
+00:05:01,090 --> 00:05:05,050
+If you had solved p equals NP in
+the positive and you wanted to prove to
+
+84
+00:05:05,050 --> 00:05:09,189
+people that you had a solution without
+revealing your algorithm, could you do it?
+
+85
+00:05:10,860 --> 00:05:14,730
+In the previous problem session we argued
+that proofs of theorems require a social
+
+86
+00:05:14,730 --> 00:05:18,680
+process where you reveal your proof
+to interested mathematicians, and
+
+87
+00:05:18,680 --> 00:05:21,570
+they can examine and
+argue about anything that seems doubtful.
+
+88
+00:05:22,660 --> 00:05:26,140
+Well, the methodologically behind zero
+knowledge proofs is also a social
+
+89
+00:05:26,140 --> 00:05:28,430
+process but of a very different kind.
+
+90
+00:05:29,560 --> 00:05:33,760
+The verifier gives you many instances
+of the problem you want to solve.
+
+91
+00:05:33,760 --> 00:05:37,110
+And you produce a solution to each,
+but do not reveal them.
+
+92
+00:05:37,110 --> 00:05:39,470
+You are then asked the question
+about each solution and
+
+93
+00:05:39,470 --> 00:05:42,540
+must answer them all
+correctly to be believed.
+
+94
+00:05:42,540 --> 00:05:45,400
+There's considerably more to the concept,
+however.
+
+95
+00:05:45,400 --> 00:05:49,600
+Wikipedia has a good explanation of
+how a Zero-Knowledge proof works.
+
+96
+00:05:49,600 --> 00:05:52,390
+If you had a solution to
+the NP complete problem.
+
+97
+00:05:52,390 --> 00:05:56,400
+Called Hamilton Cycle that is
+whether a graph has a cycle that
+
+98
+00:05:56,400 --> 00:05:58,220
+contains all the nodes exactly once.
+
+99
+00:05:59,770 --> 00:06:04,750
+We just talked about being able to solve
+single instance of undecidable problems.
+
+100
+00:06:04,750 --> 00:06:09,210
+The same idea applies to
+attractable problems as well.
+
+101
+00:06:09,210 --> 00:06:13,530
+That is, suppose we have an empty,
+complete problem or language L, and
+
+102
+00:06:13,530 --> 00:06:18,820
+we want to know in polynomial time
+whether a given instance, w is in L.
+
+103
+00:06:18,820 --> 00:06:21,530
+Since everything is now decidable,
+we can even run
+
+104
+00:06:21,530 --> 00:06:25,830
+the non-deterministic polytime touring
+machine and see whether W is an L.
+
+105
+00:06:25,830 --> 00:06:29,200
+It will take us exponential time,
+but eventually we finish.
+
+106
+00:06:29,200 --> 00:06:33,690
+And now we can design our polynomial
+time Turing machine to take input w and
+
+107
+00:06:33,690 --> 00:06:39,080
+accept or reject whichever our exponential
+time analysis told was correct.
+
+108
+00:06:39,080 --> 00:06:42,310
+This Turing machine can do anything
+it likes on inputs other than w.
+
+109
+00:06:43,930 --> 00:06:45,210
+But as was the case for
+
+110
+00:06:45,210 --> 00:06:49,320
+undecidable problems this
+approach doesn't really help.
+
+111
+00:06:49,320 --> 00:06:52,750
+We can precompute the solution to
+any finite number of instances and
+
+112
+00:06:52,750 --> 00:06:55,500
+use them in a polytime Turing machine.
+
+113
+00:06:55,500 --> 00:06:58,070
+But that is not the same
+as solving the problem.
+
+114
+00:06:58,070 --> 00:07:01,260
+Out quote solution is still useless for
+
+115
+00:07:01,260 --> 00:07:05,260
+any instance whose solution
+we did not precompute.
+
+116
+00:07:05,260 --> 00:07:07,100
+But let us return to
+the original question.
+
+117
+00:07:07,100 --> 00:07:10,840
+Suppose someone came up with
+a polynomial time algorithm that they
+
+118
+00:07:10,840 --> 00:07:11,780
+thought might solve.
+
+119
+00:07:11,780 --> 00:07:12,830
+Sat.
+
+120
+00:07:12,830 --> 00:07:14,490
+But they couldn't prove it.
+
+121
+00:07:14,490 --> 00:07:17,110
+Could they test it on say,
+one million expressions and
+
+122
+00:07:17,110 --> 00:07:18,850
+check that it worked well on all million?
+
+123
+00:07:20,670 --> 00:07:24,300
+If so, wouldn't that be good evidence that
+the algorithm worked for any expression?
+
+124
+00:07:26,910 --> 00:07:30,159
+Well, we have to be a little careful
+how the test expressions are selected.
+
+125
+00:07:32,130 --> 00:07:35,930
+So the easy case is if there were
+a satisfying assignment that is,
+
+126
+00:07:35,930 --> 00:07:37,540
+the answer is yes.
+
+127
+00:07:37,540 --> 00:07:40,610
+In this case, we could expect
+the algorithm to provide at least one
+
+128
+00:07:40,610 --> 00:07:45,460
+example of a satisfying assignment which
+we could check easily and quickly.
+
+129
+00:07:45,460 --> 00:07:48,550
+The hard case is when your
+algorithm says no there is no.
+
+130
+00:07:49,870 --> 00:07:53,060
+There is no way known to
+verify that no is the right
+
+131
+00:07:53,060 --> 00:07:57,390
+answer without checking the exponential
+number of possible truth assignments.
+
+132
+00:07:57,390 --> 00:08:02,730
+That's not feasible for a million test
+cases, or even one large test case.
+
+133
+00:08:02,730 --> 00:08:05,860
+But perhaps we could handle this case
+if we knew that any expression that
+
+134
+00:08:05,860 --> 00:08:09,930
+had a satisfying assignment
+had many of such assignments.
+
+135
+00:08:09,930 --> 00:08:13,080
+If that were the case,
+a randomized test would work.
+
+136
+00:08:13,080 --> 00:08:17,440
+Pick a reasonable number of assignments
+and evaluate the expression on each.
+
+137
+00:08:17,440 --> 00:08:21,200
+If any of them are satisfying
+then your algorithm is wrong but
+
+138
+00:08:21,200 --> 00:08:25,470
+if none are satisfying then you could
+conclude with high probability that your
+
+139
+00:08:25,470 --> 00:08:28,280
+algorithm gave the correct no answer.
+
+140
+00:08:28,280 --> 00:08:31,450
+Unfortunately, there are lots of
+expressions that have exactly one
+
+141
+00:08:31,450 --> 00:08:33,110
+satisfying assignment.
+
+142
+00:08:33,110 --> 00:08:37,310
+For example, consider what happens if you
+apply the construction in Cook's theorem,
+
+143
+00:08:37,310 --> 00:08:39,460
+to a deterministic Turing machine.
+
+144
+00:08:39,460 --> 00:08:41,900
+There will be only one truth assignment,
+
+145
+00:08:41,900 --> 00:08:45,490
+the one that reflects the unique
+computation of that Turing machine.
+
+146
+00:08:45,490 --> 00:08:48,800
+I have enjoyed greatly the experience
+of using modern technology to
+
+147
+00:08:48,800 --> 00:08:54,320
+present this material on the basis of
+automata theory to a worldwide class.
+
+148
+00:08:54,320 --> 00:08:58,430
+Thanks to all of you who stuck with
+the difficult and challenging material.
+
+149
+00:08:58,430 --> 00:09:01,740
+I hope it will have some good effect
+on your future careers even if
+
+150
+00:09:01,740 --> 00:09:04,274
+you aren't the one to
+prove that p equals NP.
+
+151
+00:09:06,600 --> 00:09:10,660
+And I hope everyone who has come this
+far will do well on the final exam.
+
+152
+00:09:10,660 --> 00:09:14,930
+As mentioned on the class announcements,
+the cla, exam will be available for
+
+153
+00:09:14,930 --> 00:09:19,370
+the three hour period of your choice,
+during the week starting 11th of June.
+
+154
+00:09:20,370 --> 00:09:23,230
+Certificates of accomplishment
+will be emailed to all
+
+155
+00:09:23,230 --> 00:09:25,030
+whose total mark on the class are.
+
+156
+00:09:25,030 --> 00:09:28,910
+To at least 50% with the final
+accounting for half the marks and
+
+157
+00:09:28,910 --> 00:09:31,880
+the homework's accounting
+to the other half.
+
+158
+00:09:31,880 --> 00:09:32,750
+Good bye and good luck.
+

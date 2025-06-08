@@ -1,0 +1,1823 @@
+1
+00:00:00,000 --> 00:00:04,670
+We're gonna find how to express the ideas
+behind finite automata more formally.
+
+2
+00:00:04,670 --> 00:00:09,579
+We'll see how to represent finite automata
+either as graphs or tables, They are two
+
+3
+00:00:09,579 --> 00:00:13,830
+representations of the same idea. And
+we're going to do a few proofs in
+
+4
+00:00:13,830 --> 00:00:18,620
+considerable detail and learn some useful
+proof techniques, Especially, inductive
+
+5
+00:00:18,620 --> 00:00:24,508
+proofs. An alphabet is simply a finite set
+of symbols. There are many examples. Two
+
+6
+00:00:24,508 --> 00:00:30,051
+standard alphabets we see frequently are
+the ASCI and Unicode alphabets. An
+
+7
+00:00:30,051 --> 00:00:35,668
+alphabet we'll use frequently is the
+binary alphabet consisting of only the
+
+8
+00:00:35,668 --> 00:00:41,610
+symbols zero and one. We'll also sometimes
+use alphabets of letters like ABC. And in
+
+9
+00:00:41,610 --> 00:00:47,488
+the tennis example we use the alphabet of
+outcomes consisting of the letters s and
+
+10
+00:00:47,488 --> 00:00:53,237
+o. Each protocol has a set of signals. And
+the set of all signals used by a protocol
+
+11
+00:00:53,237 --> 00:00:58,914
+is also an alphabet. Strings are the usual
+data type you've seen in languages like
+
+12
+00:00:58,914 --> 00:01:04,383
+[inaudible] or Java. That is, a string is
+a sequence of symbols chosen from some
+
+13
+00:01:04,383 --> 00:01:09,852
+alphabet sigma. The strings over sigma are
+those strings whose symbols are each
+
+14
+00:01:09,852 --> 00:01:24,080
+members of sigma. For example 011 Is the
+string of over alphabet zero, one [sound],
+
+15
+00:01:24,340 --> 00:01:35,181
+[sound]. It is also a string over
+alphabet, zero, one, and two. It just
+
+16
+00:01:35,181 --> 00:01:40,393
+happens not to have any twos. Unlike
+programming languages, which typically put
+
+17
+00:01:40,393 --> 00:01:46,012
+quotes around strings, we're not going to
+do that. And even though strings are lists
+
+18
+00:01:46,012 --> 00:01:51,495
+of symbols, we're not going to separate
+the symbols by commas or other separators.
+
+19
+00:01:51,495 --> 00:01:56,978
+We'll just write down the strings like
+this. We use the expression Sigma star for
+
+20
+00:01:56,978 --> 00:02:02,597
+the set of all strings over the alphabet
+Sigma. The length of the string is the
+
+21
+00:02:02,597 --> 00:02:08,842
+number of positions in that string and a
+special string is the empty string which
+
+22
+00:02:08,842 --> 00:02:14,703
+has length zero. You represent it by
+epsilon. For example, the language zero
+
+23
+00:02:14,703 --> 00:02:21,029
+one star consists of all strings that
+could be made from the symbols zero and
+
+24
+00:02:21,029 --> 00:02:27,111
+one. For example, epsilon, the empty
+string, is in this language. There are two
+
+25
+00:02:27,111 --> 00:02:33,356
+strings of length one, the strings zero
+and one. And there are four strings of
+
+26
+00:02:33,356 --> 00:02:38,674
+length two, and so on. Notice that we do
+not make a distinction between a symbol
+
+27
+00:02:38,674 --> 00:02:43,597
+like zero and the string of length one
+that consists of single instance of that
+
+28
+00:02:43,597 --> 00:02:48,520
+symbol, the string zero. We trust that the
+context will make clear which we need.
+
+29
+00:02:48,920 --> 00:02:54,734
+Programming languages do make this
+distinction, So in c for example we'd put
+
+30
+00:02:54,734 --> 00:03:01,836
+single quotes around the zero. If we meant
+the symbol or character zero and we put
+
+31
+00:03:01,836 --> 00:03:07,737
+double quotes around it, if we Intended
+the string, consisting of only the zero.
+
+32
+00:03:07,737 --> 00:03:13,211
+Languages are sets of strings and they can
+be finite sets or infinite sets. The only
+
+33
+00:03:13,211 --> 00:03:18,619
+limitation we place on languages is that
+there is some alphabet that is finite set
+
+34
+00:03:18,619 --> 00:03:23,636
+of symbols from which all the strings in
+one language are composed. Here's an
+
+35
+00:03:23,636 --> 00:03:28,914
+example of a language L, were going to
+meet several times. Its alphabet is 01 and
+
+36
+00:03:28,914 --> 00:03:33,866
+it contains all strings of zeros and ones
+that do not have consecutive ones. So the
+
+37
+00:03:33,866 --> 00:03:41,179
+empty string is there, And both strings of
+length one. Of the strings of length two,
+
+38
+00:03:41,179 --> 00:03:47,634
+all are there except one, one because that
+obviously has two consecutive ones. Five
+
+39
+00:03:47,634 --> 00:03:53,767
+of the eight possible strings of length
+three are there, as are eight of the
+
+40
+00:03:53,767 --> 00:04:00,711
+sixteen strings of length four. Here's a
+little puzzle for you to think about. For
+
+41
+00:04:00,711 --> 00:04:06,080
+length zero through four we see there are
+one, two, three, five, and eight strings.
+
+42
+00:04:06,080 --> 00:04:11,687
+Do you recognize the sequence, and can you
+extend it to strings, five, six and so on?
+
+43
+00:04:11,687 --> 00:04:17,363
+And in particular, can you prove that your
+prediction is correct? Now we'll give the
+
+44
+00:04:17,363 --> 00:04:22,971
+formal notation for deterministic finite
+automata. There is a finite set of states,
+
+45
+00:04:22,971 --> 00:04:28,510
+and we usually use q as the set of states.
+Don't ask me why it's q, it just is. And
+
+46
+00:04:28,510 --> 00:04:33,981
+there is a finite input alphabet. The
+traditional name for the input alphabet is
+
+47
+00:04:33,981 --> 00:04:38,864
+sigma, again, for no known reason. There
+is a transition function which we'll
+
+48
+00:04:38,864 --> 00:04:44,128
+discuss on the next slide. It is the guts
+of the automaton since it tells us how the
+
+49
+00:04:44,128 --> 00:04:49,204
+automaton moves from state to state in
+response to inputs. The traditional symbol
+
+50
+00:04:49,204 --> 00:04:54,343
+for the transition function is delta. One
+of the states in q is the star state and
+
+51
+00:04:54,343 --> 00:04:59,231
+we designated q subzero typically. And
+some of the states are designated final
+
+52
+00:04:59,231 --> 00:05:05,598
+states, or synonymously accepting states,
+Final states are typically Denoted F. The
+
+53
+00:05:05,598 --> 00:05:10,565
+thing that makes the automaton work is the
+transition function, This function,
+
+54
+00:05:10,565 --> 00:05:15,404
+usually denoted by delta, takes two
+arguments, a state q, and an input symbol
+
+55
+00:05:15,404 --> 00:05:20,501
+a. It gives you back the state that the
+automaton goes to when it is in state q,
+
+56
+00:05:20,501 --> 00:05:25,662
+and the next input symbol to arrive is a.
+The function delta is total. That is, it
+
+57
+00:05:25,662 --> 00:05:30,759
+has a value for every state and symbol.
+There are examples of automata where we
+
+58
+00:05:30,759 --> 00:05:35,598
+really don't want to continue in certain
+situations. For example, our tennis
+
+59
+00:05:35,598 --> 00:05:40,674
+automaton did not have transitions out of
+the [inaudible]. The states, where one
+
+60
+00:05:40,674 --> 00:05:45,375
+player or the other has won the game. To
+fix up such situations we have to
+
+61
+00:05:45,375 --> 00:05:50,570
+introduce a dead state, A dead state is a
+state that is not accepting. And it has a
+
+62
+00:05:50,570 --> 00:05:55,306
+transition to itself on every input
+symbol. Once you get to a dead state, you
+
+63
+00:05:55,306 --> 00:05:59,669
+cannot leave it and you cannot ever
+accept. So death is a pretty good
+
+64
+00:05:59,669 --> 00:06:04,405
+description of what is going on. We're
+going to use the abbreviation DFA for
+
+65
+00:06:04,405 --> 00:06:09,017
+deterministic final automaton. The
+deterministic means that there's unique
+
+66
+00:06:09,017 --> 00:06:13,068
+transition for every state and input
+symbol. We are going to meet
+
+67
+00:06:13,068 --> 00:06:17,867
+non-deterministic automatons soon and
+there, it's possible to transition too
+
+68
+00:06:17,867 --> 00:06:23,615
+many states from one state on one input.
+Now, back to the matter of a dead state,
+
+69
+00:06:23,615 --> 00:06:29,719
+here's our tennis example. And you can
+notice that the two accepting states do
+
+70
+00:06:29,719 --> 00:06:36,169
+not actually have any transitions out. So
+we have a dead state and all the missing
+
+71
+00:06:36,169 --> 00:06:42,034
+transitions go to that state. The
+transitions from the dead state are to
+
+72
+00:06:42,034 --> 00:06:49,035
+itself on all possible input symbols. Like
+the tennis automaton, we can represent any
+
+73
+00:06:49,035 --> 00:06:55,953
+finite automaton by a graph. The nodes of
+the graph are the states of the automaton.
+
+74
+00:06:55,953 --> 00:07:02,788
+The arcs of the transitions, there is an
+arc from state or node p to state or node
+
+75
+00:07:02,788 --> 00:07:08,873
+q, labeled by all the input symbols a,
+such that delta of p and a is q. For
+
+76
+00:07:08,873 --> 00:07:17,998
+example, This arch, would be present if
+Delta of p and a and Delta of p and b were
+
+77
+00:07:17,998 --> 00:07:24,879
+both q. You represent the start state by
+adding an arrow labeled start into that
+
+78
+00:07:24,879 --> 00:07:31,197
+state. And we indicate final states by
+double circles. This is an interesting
+
+79
+00:07:31,197 --> 00:07:37,682
+example of an automaton that processes
+text. The goal is to recognize that the
+
+80
+00:07:37,682 --> 00:07:44,693
+string read so far ends in ING. The start
+state represents the condition where we
+
+81
+00:07:44,693 --> 00:07:51,422
+have made no progress towards seeing ING.
+If in that state we next see I, we've made
+
+82
+00:07:51,422 --> 00:07:57,340
+some progress, so we go to the state that
+says, I was the last symbol seen.
+
+83
+00:07:58,400 --> 00:08:05,654
+Otherwise we stay in the start state.
+Because what we've seen so far is no help
+
+84
+00:08:05,654 --> 00:08:13,073
+in seeing ING. Now, from the saw I state.
+If we next see an "n", then we have made
+
+85
+00:08:13,073 --> 00:08:18,997
+more progress. We go to: state saw "n". If
+we see another "i", and state saw "i",
+
+86
+00:08:18,997 --> 00:08:25,004
+then we have not made progress, but
+neither have we lost ground. We may be
+
+87
+00:08:25,004 --> 00:08:31,175
+bringing a word like "skiing", with a
+double "i", thus the transition from state
+
+88
+00:08:31,175 --> 00:08:37,263
+saw "i" and "i" [inaudible] is to itself
+and any symbol other than "i" and "n", we
+
+89
+00:08:37,263 --> 00:08:44,010
+go back from saw "i" to start state and
+state: saw "in" If we next see a "G", then
+
+90
+00:08:44,010 --> 00:08:50,592
+we win. We have just seen ING as the last
+three symbols. So we go to the accepting
+
+91
+00:08:50,592 --> 00:08:57,012
+state saw ING. On the other hand, if from
+state saw IN, we next see an I, then the
+
+92
+00:08:57,012 --> 00:09:03,269
+pattern IN is broken, but a new pattern
+beginning with I has started. So we go
+
+93
+00:09:03,269 --> 00:09:11,167
+into the, saw I state. On any input other
+than IOG including n, we have no progress
+
+94
+00:09:11,167 --> 00:09:18,701
+at all, so go back to the start state.
+Finally, from state saw ING, we can only
+
+95
+00:09:18,701 --> 00:09:26,830
+go state saw I if the next input is I, and
+otherwise we must go to the start state.
+
+96
+00:09:26,830 --> 00:09:32,297
+Here's an automaton that represents the
+simplest possible protocol for sending
+
+97
+00:09:32,297 --> 00:09:37,935
+data. The program is in one of two states,
+Ready and Sending. It starts in the ready
+
+98
+00:09:37,935 --> 00:09:43,210
+state. Eventually it gets some signals
+that some data has been loaded into its
+
+99
+00:09:43,210 --> 00:09:48,282
+buffer and at that point it enters the
+sending state, where it does what is
+
+100
+00:09:48,282 --> 00:09:53,896
+necessary to transmit the content of the
+buffer. The receiver will send back an ads
+
+101
+00:09:53,896 --> 00:09:59,442
+signal when the contents are received, in
+which case we are ready to return to the
+
+102
+00:09:59,442 --> 00:10:04,784
+ready state. However if the receiver is
+down, we may instead get a local timeout
+
+103
+00:10:04,784 --> 00:10:10,060
+signal that warns us something is wrong
+and the buffer must be re-transmitted.
+
+104
+00:10:10,060 --> 00:10:14,799
+This automaton is not complete. There are
+no final states because the automaton is
+
+105
+00:10:14,799 --> 00:10:19,656
+designed to run forever without rendering
+a decision. Also, there are missing
+
+106
+00:10:19,656 --> 00:10:25,554
+transitions. It is okay to ignore act or
+timeout signals if you're in the ready
+
+107
+00:10:25,554 --> 00:10:30,780
+state, staying in the ready state.
+However, a data signal in the sending
+
+108
+00:10:30,780 --> 00:10:36,752
+state is an indication of an error, so we
+might want to go to an error state. And
+
+109
+00:10:36,752 --> 00:10:42,649
+the error state is a dead state, so we
+need transitions to itself on any of the
+
+110
+00:10:42,649 --> 00:10:48,389
+three inputs. A typical question that is
+asked about protocols is whether you can
+
+111
+00:10:48,389 --> 00:10:53,122
+get to an error state. We could for
+example make the error state the final.
+
+112
+00:10:53,122 --> 00:10:57,883
+And then ask if the language of the
+automaton is empty. As we shall see there
+
+113
+00:10:57,883 --> 00:11:02,237
+is an algorithm to tell whether the
+language of the [inaudible] of automaton
+
+114
+00:11:02,237 --> 00:11:06,950
+is empty, A question we could not ask. The
+programs in general, in this example
+
+115
+00:11:06,950 --> 00:11:12,256
+however, it is easy really easy to see
+that there is a path in the graph from the
+
+116
+00:11:12,256 --> 00:11:17,169
+start state to the final state so its
+language is not empty and errors are
+
+117
+00:11:17,169 --> 00:11:22,409
+possible. For our running example were
+going to use [inaudible], this language is
+
+118
+00:11:22,409 --> 00:11:27,453
+the set of binary strings that do not
+contain two consecutive ones. State a is
+
+119
+00:11:27,453 --> 00:11:32,563
+where the [inaudible] would be whenever
+the input string seems so far is good,
+
+120
+00:11:32,563 --> 00:11:37,737
+that is it contains no consecutive ones.
+And also in state a, it is not ending on
+
+121
+00:11:37,737 --> 00:11:43,261
+one. Surely the state should be the start
+state when no input is received. There are
+
+122
+00:11:43,261 --> 00:11:48,523
+no consecutive ones, and moreover, the
+input so far does not end in a one. We get
+
+123
+00:11:48,523 --> 00:11:53,785
+to state b when the input is good, that
+is, no two consecutive ones, but the last
+
+124
+00:11:53,785 --> 00:11:59,313
+symbol seen is a one. Notice the only way
+to get to b is to be an a, and then to get
+
+125
+00:11:59,313 --> 00:12:05,824
+input one. C Is actually a dead state, You
+are there whenever two consecutive ones
+
+126
+00:12:05,824 --> 00:12:11,499
+have been received. We arrive at c for the
+first time from b. Which you recall, means
+
+127
+00:12:11,499 --> 00:12:16,885
+the previous input was one. And in state
+b, we receive a second one. Once in state
+
+128
+00:12:16,885 --> 00:12:22,137
+c, we stay there, because once a string
+has 1-1, you can never undo that fact, no
+
+129
+00:12:22,137 --> 00:12:27,456
+matter how many zeroes you see. We can
+also represent automata by tables. Here's
+
+130
+00:12:27,456 --> 00:12:32,909
+our example automaton for strings without
+consecutive ones shown as a transition
+
+131
+00:12:32,909 --> 00:12:38,296
+graph in the corner. And we also see a
+representation of the same automaton as a
+
+132
+00:12:38,296 --> 00:12:45,233
+table. The rows each correspond to one of
+the states. And the columns correspond to
+
+133
+00:12:45,233 --> 00:12:50,953
+the input samples. We indicate the final
+stage by putting a star next to their
+
+134
+00:12:50,953 --> 00:12:59,087
+name. And the start take Is indicated by
+an arrow. The entries of the table are the
+
+135
+00:12:59,087 --> 00:13:04,791
+values of the transition function applied
+to the state that is the row and the
+
+136
+00:13:04,791 --> 00:13:11,069
+symbol that is the column. For example
+this entry Is c because it is in the row
+
+137
+00:13:11,069 --> 00:13:17,056
+for the state b. And the column for input
+symbol one. And we know that delta of b
+
+138
+00:13:17,056 --> 00:13:22,503
+and one is c. There are two important
+conventions we're going to use. They let
+
+139
+00:13:22,503 --> 00:13:27,667
+us know the types of things without
+declaring types. In particular, we can
+
+140
+00:13:27,667 --> 00:13:32,759
+distinguish between strings and
+characters. We use lower case letters at
+
+141
+00:13:32,759 --> 00:13:38,277
+the end of the alphabet, w, x, y, and Z,
+And sometimes U or V to represent strings.
+
+142
+00:13:38,277 --> 00:13:43,627
+When you see one of these letters, you
+need to think, aha, that's a string. And
+
+143
+00:13:43,627 --> 00:13:48,516
+lower case letters near the beginning of
+the alphabet will represent single
+
+144
+00:13:48,516 --> 00:13:54,015
+symbols. Again, we'll try to remind you at
+first. But you have to think single symbol
+
+145
+00:13:54,015 --> 00:13:59,380
+when you see one of these letters. The
+extended transition function delta is a
+
+146
+00:13:59,380 --> 00:14:05,215
+function that takes a state q and a string
+w of any length, including zero. And tells
+
+147
+00:14:05,215 --> 00:14:11,325
+us where the automaton gets to. It follows
+a path in the transition diagram, from q,
+
+148
+00:14:11,325 --> 00:14:17,076
+where the arcs are labeled by each of the
+symbols of w in order. That is, we look
+
+149
+00:14:17,076 --> 00:14:22,427
+for the unique path from q, whose label's
+forms w. In some material, you will see a
+
+150
+00:14:22,427 --> 00:14:27,646
+hat over the delta to remind you that it
+is the standard version. However, as we
+
+151
+00:14:27,646 --> 00:14:32,996
+shall see, the standard delta agrees with
+the given delta when the string w is of
+
+152
+00:14:32,996 --> 00:14:37,819
+length one, that is, it is a single
+symbol. Thus, there is not really a need
+
+153
+00:14:37,819 --> 00:14:43,100
+to distinguish the standard and original
+deltas. The definition of the extended
+
+154
+00:14:43,100 --> 00:14:48,818
+transition function delta is an induction
+on the length of the string to which this
+
+155
+00:14:48,818 --> 00:14:54,332
+function is applied. For the basis, delta
+of q and epsilon is q. That is, if you are
+
+156
+00:14:54,332 --> 00:14:59,234
+in state q and no input symbols arrive,
+then you stay in state q. For the
+
+157
+00:14:59,234 --> 00:15:04,748
+induction, suppose the input string is WA.
+By our convention, w is a string of some
+
+158
+00:15:04,748 --> 00:15:11,644
+length, possibly zero, and a is a single
+symbol. The inductive rules says, that we
+
+159
+00:15:11,644 --> 00:15:19,418
+first see where you get to from state q,
+on string of inputs w. That would be Delta
+
+160
+00:15:19,418 --> 00:15:27,173
+of QW. And then you see where you get from
+that state, Whatever it is on the last
+
+161
+00:15:27,173 --> 00:15:40,765
+input a. In this example 001 is split into
+w into 01 and a which is one. Then, we
+
+162
+00:15:40,765 --> 00:15:49,529
+have to compute delta of b and 01, and see
+where it goes to on input one. Now, 01 is
+
+163
+00:15:49,529 --> 00:15:57,972
+broken into a string w that is just the
+star, zero, and then a, which is one. So
+
+164
+00:15:57,972 --> 00:16:06,522
+we need to compute delta of b, zero, and
+then see where we get to on input 1.'Kay,
+
+165
+00:16:06,522 --> 00:16:15,067
+But delta of b and zero is a. See, right
+here, Thus, And we can replace delta of
+
+166
+00:16:15,067 --> 00:16:21,804
+being zero by the a, And now we have to
+say what is the value of delta of a and
+
+167
+00:16:21,804 --> 00:16:28,549
+one. Well, that's b. Okay, So that's a b,
+And we replace that b there. And then
+
+168
+00:16:28,549 --> 00:16:35,001
+finally delta, b, and one that's c. So,
+that's our answer. Delta of b and zero
+
+169
+00:16:35,001 --> 00:16:41,186
+one, one is the state c. As I mentioned,
+the extended delta sometimes is given a
+
+170
+00:16:41,186 --> 00:16:47,213
+hat. However we really don't need to
+distinguish the two deltas because they
+
+171
+00:16:47,213 --> 00:16:53,636
+agree on single symbols, that is, if we
+want the extended delta for a state q in a
+
+172
+00:16:53,636 --> 00:16:59,742
+string consisting of one symbol a,
+formerly we treat that string as the empty
+
+173
+00:16:59,742 --> 00:17:07,862
+string followed by the symbol a. Then we
+have to compute delta hat of q and epsilon
+
+174
+00:17:07,862 --> 00:17:16,199
+but we know about the basis rule that this
+is q itself. Now if delta hat q and a is a
+
+175
+00:17:16,199 --> 00:17:22,903
+same state as delta of q and a. In fact, I
+really cheated on the previous slide. I
+
+176
+00:17:22,903 --> 00:17:28,100
+needed delta hat of b and zero and just
+went to the table and looked it up as if
+
+177
+00:17:28,100 --> 00:17:33,104
+it were delta of b and zero. Now we see
+they are in fact the same so it was no
+
+178
+00:17:33,104 --> 00:17:38,044
+harm, no foul. There are many different
+kinds of automaton. We have seen only a
+
+179
+00:17:38,044 --> 00:17:43,439
+bit of deterministic final automatons so
+far but there are many others. But no
+
+180
+00:17:43,439 --> 00:17:50,071
+matter what kind of automaton its job is
+to, is to define some language. We'll use
+
+181
+00:17:50,071 --> 00:17:58,550
+L of a to denote the language defined by
+automaton a, For a deterministic find in
+
+182
+00:17:58,550 --> 00:18:04,581
+automaton. The language it defines is the
+set of strings that may take the start
+
+183
+00:18:04,581 --> 00:18:10,129
+state to a final state. Formally, the
+language of a DFA is the set of strings w.
+
+184
+00:18:10,129 --> 00:18:15,676
+Such that, the extended delta applied to
+the start state, and this w, is a final
+
+185
+00:18:15,676 --> 00:18:21,152
+state. For example, consider our running
+example of the automaton that accepts
+
+186
+00:18:21,152 --> 00:18:26,248
+strings without consecutive ones. And
+consider the input, one zero one. It
+
+187
+00:18:26,248 --> 00:18:31,090
+should accept the string because it
+obviously does not have consecutive ones.
+
+188
+00:18:31,090 --> 00:18:36,290
+The start state is a. And if we follow the
+path labeled 101, we first go to b. Then
+
+189
+00:18:36,290 --> 00:18:43,019
+from b we follow the arch with a zero that
+leads us back to a. The theory put in
+
+190
+00:18:43,019 --> 00:18:49,695
+another one so that gets us back to b
+again. Since the path from a labeled one
+
+191
+00:18:49,695 --> 00:18:54,356
+zero one gets us to the final state, one
+zero one is indeed accepted by the
+
+192
+00:18:54,356 --> 00:18:59,079
+automaton. Now this expression is called
+the set former. It describes sets, in
+
+193
+00:18:59,079 --> 00:19:03,243
+particular while use it to describe
+languages. In this example, it's
+
+194
+00:19:03,243 --> 00:19:08,340
+describing the languages of the automaton
+that have served as our running example.
+
+195
+00:19:08,660 --> 00:19:14,285
+The second formula starts with a curly
+brace. And then an expression of the
+
+196
+00:19:14,285 --> 00:19:21,093
+things we want to put in the set. In this
+case the expression simply says that the
+
+197
+00:19:21,093 --> 00:19:26,122
+set consists of some strings w. We know
+they are strings because of our
+
+198
+00:19:26,122 --> 00:19:30,712
+convention. The vertical bar can be read
+such that. And then there follows a
+
+199
+00:19:30,712 --> 00:19:35,288
+description of what must be true for
+something to be a member of the set. In
+
+200
+00:19:35,288 --> 00:19:39,803
+our example we say that the string
+consists of zeros and ones and does not
+
+201
+00:19:39,803 --> 00:19:44,800
+have two consecutive ones. Many important
+facts about automators that we might want
+
+202
+00:19:44,800 --> 00:19:49,676
+to prove are of the form that two sets,
+typically languages of set of strings, are
+
+203
+00:19:49,676 --> 00:19:54,590
+really the same. We are going to prove
+that the DFA we've been playing with
+
+204
+00:19:54,590 --> 00:20:00,149
+accepts the language I claim it does. The
+set of binary strings without consecutive
+
+205
+00:20:00,149 --> 00:20:05,925
+1's, So one set is the language of the DFA
+from our example. And the second set is
+
+206
+00:20:05,925 --> 00:20:10,439
+the language consisting of all strings of
+zeros and ones without two consecutive
+
+207
+00:20:10,439 --> 00:20:15,008
+ones. I'm going to spend a good deal of
+time proving this simple result because it
+
+208
+00:20:15,008 --> 00:20:19,355
+will give you all the details of how one
+proves things about languages. In the
+
+209
+00:20:19,355 --> 00:20:23,868
+future I'm not going to be so focused on
+proofs, but I think it is important that
+
+210
+00:20:23,868 --> 00:20:28,214
+everyone go through one of these proofs
+and all its gory detail. To prove two
+
+211
+00:20:28,214 --> 00:20:32,338
+sets, s and t are equal, we generally need
+to prove two things. That each is
+
+212
+00:20:32,338 --> 00:20:37,793
+contained in the other. That is we start
+by assuming w is a member of one, say s.
+
+213
+00:20:37,793 --> 00:20:44,750
+And we use that fact to prove w is in the
+other t. Then, we start over and we assume
+
+214
+00:20:44,750 --> 00:20:50,806
+w as in t, and we use that to prove w is
+also in s. In what follows, we take s to
+
+215
+00:20:50,806 --> 00:20:56,633
+be the language of the DFA we have been
+playing with, and t to be the set of
+
+216
+00:20:56,633 --> 00:21:02,766
+binary strings without consecutive ones.
+First, we're going to prove that if w is
+
+217
+00:21:02,766 --> 00:21:08,746
+accepted by this automaton, the one shown
+in the slide. Then w has no one, one's.
+
+218
+00:21:08,746 --> 00:21:14,770
+Okay, and the proof is in the induction on
+the link of w. It turns out that if we
+
+219
+00:21:14,770 --> 00:21:19,718
+simply try to prove the statement on the
+slide we fail. And I'll point out in a few
+
+220
+00:21:19,718 --> 00:21:24,660
+slides what goes wrong. A common trick for
+inductive proofs is to make a more
+
+221
+00:21:24,660 --> 00:21:30,081
+detailed statement here than you really
+want, because it makes the inductive proof
+
+222
+00:21:30,081 --> 00:21:35,568
+work. Here, we need to distinguish whether
+an accepted string gets you to state a or
+
+223
+00:21:35,568 --> 00:21:40,990
+state b. Because we need to know whether
+or not the string ends in one, Even though
+
+224
+00:21:40,990 --> 00:21:46,411
+at the conclusion, no 1-1s is true in both
+states a and b. The inductive hypothesis
+
+225
+00:21:46,411 --> 00:21:52,735
+will be in two parts. Part one says that
+if w gets you to state a, then not only is
+
+226
+00:21:52,735 --> 00:21:58,735
+w good, in the sense that it doesn't have
+consecutive ones. Part two says that if w
+
+227
+00:21:58,735 --> 00:22:04,510
+gets you to state b, then w is still good,
+but it must end in one. Remember, the
+
+228
+00:22:04,510 --> 00:22:10,510
+induction is on the length of w, so the
+basis case is when w is the empty string,
+
+229
+00:22:10,510 --> 00:22:16,060
+the only string of length zero. We're
+going to use bars around a string to
+
+230
+00:22:16,060 --> 00:22:22,895
+denote its length. And now, let's prove
+part one of the basis. Delta of a in the
+
+231
+00:22:22,895 --> 00:22:30,744
+empty string is indeed equal to a. But the
+conclusion is true since the empty string
+
+232
+00:22:30,744 --> 00:22:36,461
+does not have consecutive ones. For item
+two things are a little trickier. It is
+
+233
+00:22:36,461 --> 00:22:43,440
+false that delta of a and the empty string
+is b. But it's also false that the empty
+
+234
+00:22:43,440 --> 00:22:49,087
+string ends in one. However an important
+principal of logic is that the statement
+
+235
+00:22:49,087 --> 00:22:54,421
+false implies false is true. That is
+whenever the if portion of the statement
+
+236
+00:22:54,421 --> 00:22:59,139
+is false it doesn't matter what whether
+the then portion is true or not, the
+
+237
+00:22:59,139 --> 00:23:03,795
+statement as a whole is true. Thus a
+statement like, "If I am superman, then I
+
+238
+00:23:03,795 --> 00:23:08,637
+wear red undershorts." is a true statement
+simply because I am not superman. You
+
+239
+00:23:08,637 --> 00:23:13,709
+don't have to concern yourself with the
+color of my undershorts. The mathematical
+
+240
+00:23:13,709 --> 00:23:19,142
+term for an if then statement that is true
+because the if part is false is that the
+
+241
+00:23:19,142 --> 00:23:23,833
+statement holds vacuously. Now let's
+address the inductor step. We assume that
+
+242
+00:23:23,833 --> 00:23:28,353
+w is a string of [inaudible] at least one.
+And we assume that the inductive
+
+243
+00:23:28,353 --> 00:23:33,785
+hypothesis the statements one and two from
+the previous slide. About strings that get
+
+244
+00:23:33,785 --> 00:23:39,758
+the automaton to states a or b, is true
+for strings shorter than w. Let's let w be
+
+245
+00:23:39,758 --> 00:23:45,509
+xa, where by our convention a is the last
+symbol of w, and x is all the symbols,
+
+246
+00:23:45,509 --> 00:23:51,629
+possibly none, up to but not including the
+last symbol of w. Since x is shorter than
+
+247
+00:23:51,629 --> 00:23:57,928
+w, we assume the inductive hypothesis for
+x. We're going to prove both statements,
+
+248
+00:23:57,928 --> 00:24:03,839
+one and two, for w. Which, remember, we
+broke up as a shorter string x followed by
+
+249
+00:24:03,839 --> 00:24:09,601
+the last symbol a. Let's start with
+condition one, that is if delta of a and w
+
+250
+00:24:09,601 --> 00:24:15,138
+equals a then w is good. It has no
+consecutive ones, and it does not end in
+
+251
+00:24:15,138 --> 00:24:20,825
+one. How can you get to a by reading
+string x followed by symbol A? Well, look
+
+252
+00:24:20,825 --> 00:24:27,066
+at the diagram. The only transitions into
+a are on input zero. That's this and that.
+
+253
+00:24:27,066 --> 00:24:33,614
+So symbol a must be zero. And immediately
+that's a [inaudible] that w does not end
+
+254
+00:24:33,614 --> 00:24:40,241
+in one. Furthermore these transitions to a
+are only from a and b. Thus x must get to
+
+255
+00:24:40,241 --> 00:24:46,309
+a or b. Now regardless of whether x gets
+to a or b, we can conclude, using the
+
+256
+00:24:46,309 --> 00:24:53,146
+inductive hypothesis, that x is good. It
+has no consecutive ones. This w which is x
+
+257
+00:24:53,146 --> 00:24:59,240
+followed by zero also has no consecutive
+ones and it surely does not end in one.
+
+258
+00:24:59,560 --> 00:25:07,060
+Now for part two, If delta of a and w
+equals b, then w is good and ends in one.
+
+259
+00:25:07,720 --> 00:25:14,417
+There's only one way to get to b. You have
+to be in state a, and the input has to be
+
+260
+00:25:14,417 --> 00:25:20,192
+one. Thus, if w equals x, followed by a,
+then x gets us to state a, and the symbol
+
+261
+00:25:20,192 --> 00:25:25,573
+a is a one. We can therefore conclude that
+w ends in one. Apply the inductive
+
+262
+00:25:25,573 --> 00:25:31,522
+hypothesis to x and we conclude that x not
+only has no consecutive ones, but doesn't
+
+263
+00:25:31,522 --> 00:25:37,045
+end in one. Any occurrence of one, one,
+and w would either have to be at the end
+
+264
+00:25:37,045 --> 00:25:42,426
+or lie completely within x. We know it
+doesn't lie within x, by the inductive
+
+265
+00:25:42,426 --> 00:25:47,950
+hypothesis. We know one, one cannot be at
+the end, because x does not end in one.
+
+266
+00:25:47,950 --> 00:25:54,758
+And a is only a single one. We can clue
+that the w's does not have consecutive
+
+267
+00:25:54,758 --> 00:25:59,502
+ones. Notice that if we don't use this
+more complicated inductive hypothesis
+
+268
+00:25:59,502 --> 00:26:04,384
+where we distinguish between a and b
+according to whether the string, x ends in
+
+269
+00:26:04,384 --> 00:26:09,553
+one that we cannot make the inductive
+proof. If we know only that x gets us to a
+
+270
+00:26:09,553 --> 00:26:14,914
+or b then we might think that x gets us to
+state a it ends at one, in which case w,
+
+271
+00:26:14,914 --> 00:26:19,491
+which would be XA, would have two
+consecutive 1s. But we're not done, we
+
+272
+00:26:19,491 --> 00:26:24,918
+still have to prove that t is contained in
+s, that is, if s is a good string with no
+
+273
+00:26:24,918 --> 00:26:30,344
+consecutive 1s that it is accepted by the
+automaton. It is helpful the restate what
+
+274
+00:26:30,344 --> 00:26:35,771
+we need to prove in its contra-positive
+form, which is logically equivalent to the
+
+275
+00:26:35,771 --> 00:26:41,708
+original. The contra positive of an if
+then statement, say if x then y, is if not
+
+276
+00:26:41,708 --> 00:26:47,822
+y, then not x. We can see why this is an
+equivalent statement, since if y is false,
+
+277
+00:26:47,822 --> 00:26:53,553
+it couldn't be that x is true. Because
+whenever x is true, y is true. In this
+
+278
+00:26:53,553 --> 00:27:00,693
+case, x is the statement that w is a good
+string with no one, ones. And y is the
+
+279
+00:27:00,693 --> 00:27:06,080
+statement that w is accepted by the
+automaton. The contra positive is that w
+
+280
+00:27:06,080 --> 00:27:11,826
+is not accepted by the automaton, and w is
+not a good string, that is, it contains
+
+281
+00:27:11,826 --> 00:27:17,571
+eleven as a substring. A deterministic
+automaton has exactly one transition from
+
+282
+00:27:17,571 --> 00:27:23,371
+each state on each input symbol. Thus any
+string w gets the automaton from the start
+
+283
+00:27:23,371 --> 00:27:28,826
+state to exactly one state. So the only
+way w could not be accepted is if it gets
+
+284
+00:27:28,826 --> 00:27:34,482
+this automaton to state c. Notice that the
+only way to get the automaton to c is for
+
+285
+00:27:34,482 --> 00:27:40,465
+some string x to get it to b and then for
+an input one to follow. Once in c you stay
+
+286
+00:27:40,465 --> 00:27:47,101
+in c, so anything can follow the x and
+one, We'll call that y. That is Any string
+
+287
+00:27:47,101 --> 00:27:53,824
+w that gets the automaton to state must
+[inaudible] the form x1y where x gets to
+
+288
+00:27:53,824 --> 00:28:00,385
+be. We already observed that the only way
+to get to b is by a string that ends in
+
+289
+00:28:00,385 --> 00:28:06,703
+one, since the only transition into b is
+on one. Thus, x must be the form Z1 for
+
+290
+00:28:06,703 --> 00:28:12,558
+sum z. Thus, w, is really, z, one, one, y,
+and, we can conclude that, if delta of a
+
+291
+00:28:12,558 --> 00:28:18,243
+and, w, is c, then, w, is bad. That is, it
+contains two consecutive ones. Now, we
+
+292
+00:28:18,243 --> 00:28:24,875
+introduce a class of languages, called the
+regular languages. These are the languages
+
+293
+00:28:24,875 --> 00:28:30,726
+that have a deterministic [inaudible]
+accepting them. That means that the
+
+294
+00:28:30,726 --> 00:28:35,591
+language is, is exactly the set of strings
+accepted by this automata. Soon we shall
+
+295
+00:28:35,591 --> 00:28:40,456
+see that there are several other ways to
+describe the regular languages including
+
+296
+00:28:40,456 --> 00:28:45,373
+by regular expressions and
+non-deterministic automata. While many
+
+297
+00:28:45,373 --> 00:28:49,863
+common languages are regular, there are
+also many that are not. Intuitively,
+
+298
+00:28:49,863 --> 00:28:54,367
+finite automata cannot count beyond a
+fixed number. Thus they cannot do things
+
+299
+00:28:54,367 --> 00:28:59,277
+like check whether they have seen the same
+number of zeros as ones on their input. Or
+
+300
+00:28:59,277 --> 00:29:04,070
+check that parentheses are balanced in an
+arithmetic expression. For those tasks we
+
+301
+00:29:04,070 --> 00:29:08,633
+need more powerful mechanisms such as
+context-free grammars, which we will meet
+
+302
+00:29:08,633 --> 00:29:13,138
+soon enough. Here is an example of a
+language that is simple to understand, but
+
+303
+00:29:13,138 --> 00:29:18,820
+is not a regular language. To understand
+what this notation is saying we first need
+
+304
+00:29:18,820 --> 00:29:24,980
+to know that and exponent I on a symbol is
+shorthand for the string consisting of I
+
+305
+00:29:24,980 --> 00:29:32,158
+copies of that symbol. Thus the zero to
+the fourth means the string 0000. Thus, we
+
+306
+00:29:32,158 --> 00:29:38,147
+read this set [inaudible] as zero to the
+n, one to the n, such that n is equal to
+
+307
+00:29:38,147 --> 00:29:44,285
+or greater than one, or more [inaudible].
+The set of strings consisting of n zeroes
+
+308
+00:29:44,285 --> 00:29:49,899
+followed by n ones for sum n equal to or
+greater than one. The strings of the
+
+309
+00:29:49,899 --> 00:29:55,813
+language l1 are thus 01, 0011, and so on.
+Here's another example of a non regular
+
+310
+00:29:55,813 --> 00:30:01,431
+language, The set of strings that are
+balance parentheses. The strings of
+
+311
+00:30:01,431 --> 00:30:08,550
+balanced parenthesis are those that can
+appear in an arithmetic expression for
+
+312
+00:30:08,550 --> 00:30:15,849
+example the string zero of left paren,
+right paren can appear in an expression
+
+313
+00:30:15,849 --> 00:30:31,910
+like (a+b)c. Or this string, can appear in
+an expression like (a+b)(c+d). Examples of
+
+314
+00:30:31,910 --> 00:30:37,845
+strings that are not balanced are the
+right paren followed by a left paren. This
+
+315
+00:30:37,845 --> 00:30:43,855
+is not balanced because no prefix of a
+balanced string can have more left parens
+
+316
+00:30:43,855 --> 00:30:49,494
+than right parens. Obviously there is no
+arithmetic expression that has this
+
+317
+00:30:49,716 --> 00:30:56,947
+sequence of parentheses as its sole set of
+parentheses. Also, three lefts followed by
+
+318
+00:30:56,947 --> 00:31:03,447
+two rights. It's not balanced, because it
+has more left per ends than right.
+
+319
+00:31:03,447 --> 00:31:08,627
+However, Regular languages are common. For
+example in each language there is a format
+
+320
+00:31:08,627 --> 00:31:12,928
+for floating point numbers. And this
+format can be quite complicated with
+
+321
+00:31:12,928 --> 00:31:17,955
+optional E's or decimal points and strings
+of digits, that could be empty. But in all
+
+322
+00:31:17,955 --> 00:31:22,838
+programming languages I know about, the
+set of strings that represent some
+
+323
+00:31:22,838 --> 00:31:27,853
+floating-point number is a regular
+language. This is a very interesting case
+
+324
+00:31:27,853 --> 00:31:32,868
+illustrating what finite memory means. We
+want to know if a binary number is
+
+325
+00:31:32,868 --> 00:31:38,279
+divisible by 23. We're going to read the
+bits high order first. But if we have only
+
+326
+00:31:38,279 --> 00:31:43,822
+finite memory, how can we remember exactly
+what sequence of bits has been read, since
+
+327
+00:31:43,822 --> 00:31:49,190
+the sequence can grow very long? But there
+is a trick. We don't really need to
+
+328
+00:31:49,190 --> 00:31:55,271
+remember everything about the pitch red.
+It is sufficient to remember what the
+
+329
+00:31:55,271 --> 00:32:01,040
+remainder is when divided by 23. Thus
+we'll have 23 states, zero through 22.
+
+330
+00:32:01,040 --> 00:32:06,398
+These correspond to the 23 possible
+remainders when an integer is divided by
+
+331
+00:32:06,398 --> 00:32:12,035
+23. The start state is zero because we
+interpret the empty string as representing
+
+332
+00:32:12,035 --> 00:32:17,602
+the number zero. That may be a bit of an
+assumption but nothing else makes sense
+
+333
+00:32:17,602 --> 00:32:23,128
+and treating it as zero makes everything
+work out right. State zero is also the
+
+334
+00:32:23,128 --> 00:32:29,145
+only final state since we want inputs that
+leave a remainder of zero when divided by
+
+335
+00:32:29,145 --> 00:32:34,949
+23. We're going to assume that the things
+are working right after reading a binary
+
+336
+00:32:34,949 --> 00:32:41,668
+string value. That is w takes state zero
+to the state that is the correct remainder
+
+337
+00:32:41,668 --> 00:32:48,598
+when w was divided by 23. I'm using the
+C-style percent operator to denote the
+
+338
+00:32:48,598 --> 00:32:55,130
+remainder. You can read the percent as
+modulo or mod, which is just another way
+
+339
+00:32:55,130 --> 00:33:01,997
+of saying the remainder when divided by.
+The transition from each state I on input
+
+340
+00:33:01,997 --> 00:33:09,116
+zero, is to the state that is the
+remainder of 2i/23. To see why this works,
+
+341
+00:33:09,116 --> 00:33:22,805
+we know that i=23a+b, for some integer a
+and for some integer b in the range zero
+
+342
+00:33:22,805 --> 00:33:36,668
+to 22. That is, b equals i mod 23. Then 2i
+is 45a+2b, since 46 is divisible by 23, 2i
+
+343
+00:33:36,668 --> 00:33:45,273
+by 23 is just 2b by 23. That is, when we
+divide by 23 we can just get rid of the
+
+344
+00:33:45,273 --> 00:33:52,745
+46a. We know it will leave you a remainder
+of zero. Thus, we can take the state b,
+
+345
+00:33:52,745 --> 00:33:57,913
+which is the remainder. Double it,
+subtract 23 if it is 23 or more. And that
+
+346
+00:33:57,913 --> 00:34:03,639
+gives us the new remainder, and therefore,
+the new state. We never need to know what
+
+347
+00:34:03,639 --> 00:34:09,296
+a is, and we never need to know I exactly.
+For the same reason, when one arrives at
+
+348
+00:34:09,296 --> 00:34:15,442
+the input, we can go from state I to the
+state that is the remainder of 2I+1 when
+
+349
+00:34:15,442 --> 00:34:22,832
+divided by 23. For example, twice fifteen
+is 30. So from state fifteen we go to the
+
+350
+00:34:22,832 --> 00:34:32,129
+state that is the remainder of 30/23 or
+state seven when the input is zero. From
+
+351
+00:34:32,129 --> 00:34:37,447
+state eleven on input one, we go to the
+state that is the remainder of twice
+
+352
+00:34:37,447 --> 00:34:43,674
+(eleven+1)/23, that's state zero. So
+whenever a string gets you to stay at
+
+353
+00:34:43,674 --> 00:34:48,852
+eleven, that is, the string leaves a
+remainder of eleven when divided by 23.
+
+354
+00:34:48,852 --> 00:34:54,170
+That string, followed by a one, must be
+divisible by 23, and therefore, must be
+
+355
+00:34:54,170 --> 00:34:58,980
+accepted. Interestingly in other regular
+languages is a set of all binary strings
+
+356
+00:34:58,980 --> 00:35:03,626
+that if we read the strings in backwards
+that is low [inaudible] byte first the
+
+357
+00:35:03,626 --> 00:35:08,445
+former binary entity that is divisible by
+23. And there is nothing special about 23,
+
+358
+00:35:08,445 --> 00:35:13,011
+it could be any number in both this
+example and the previous one. So for
+
+359
+00:35:13,011 --> 00:35:21,944
+example 0110100 is in this language
+because when we reverse it we get 00101110
+
+360
+00:35:21,944 --> 00:35:30,878
+which has the value 46 in decimal and 46
+is of course divisible by 23. It is really
+
+361
+00:35:30,878 --> 00:35:36,831
+tricky to design a DFA to accept this
+reverse language. However there is a
+
+362
+00:35:36,831 --> 00:35:41,979
+theorem, which we shall see soon. It says
+a language is, if a language is regular
+
+363
+00:35:41,979 --> 00:35:46,723
+then its reversal were to get to reversing
+each of its strings is also a regular
+
+364
+00:35:46,723 --> 00:35:51,409
+language. The proof of this theorem will
+let us construct the DFA for the reverse
+
+365
+00:35:51,409 --> 00:35:53,377
+language from the DFA we just saw.

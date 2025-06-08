@@ -1,0 +1,883 @@
+1
+00:00:00,000 --> 00:00:05,174
+[sound]. Today, we're going to give some
+hints about how regular expressions are
+
+2
+00:00:05,174 --> 00:00:10,348
+used in practice. I'm going to mention
+some of the extensions that are found in
+
+3
+00:00:10,348 --> 00:00:15,392
+various Unix commands. I'll also talk
+about some specifics of test processing
+
+4
+00:00:15,392 --> 00:00:20,239
+algorithms, and concentrate on the
+important task of lexical analysis. That
+
+5
+00:00:20,239 --> 00:00:25,806
+part of a compiler that looks at the entire
+program being compiled, and breaking it up
+
+6
+00:00:25,806 --> 00:00:30,850
+into tokens, which are sequences of
+characters that logically belong together.
+
+7
+00:00:30,850 --> 00:00:35,894
+Many systems use regular expressions of
+some sort to describe patterns. Often
+
+8
+00:00:35,894 --> 00:00:41,396
+these are embedded in the proprietary code
+of company but there are also some quite
+
+9
+00:00:41,396 --> 00:00:46,178
+visible ones such as a number of UNIX
+commands. I'm going to tell you one
+
+10
+00:00:46,178 --> 00:00:51,484
+particular story involving proprietary
+software before moving on to generalities
+
+11
+00:00:51,484 --> 00:00:56,725
+regarding text processing. Junglee was a start up founded by three of
+
+12
+00:00:56,725 --> 00:01:01,886
+my PHD students and two others in 1994. At
+the time, the web was really new, and they
+
+13
+00:01:01,886 --> 00:01:06,210
+had the idea of building systems to
+integrate web pages into more useful
+
+14
+00:01:06,210 --> 00:01:10,889
+products, and were doing that for about
+two years when they got a contract from
+
+15
+00:01:10,889 --> 00:01:15,806
+Yahoo to build a facility that would let
+Yahoo visitors search for books and get a
+
+16
+00:01:15,806 --> 00:01:20,544
+table [inaudible] the price, the delivery
+charge and delivery delay at different
+
+17
+00:01:20,544 --> 00:01:25,401
+booksellers. Immediately upon deployment
+of that product, Amazon bought Junglee
+
+18
+00:01:25,401 --> 00:01:30,022
+in order to shut down the comparison
+shopping capability. Interestingly, Amazon
+
+19
+00:01:30,022 --> 00:01:34,737
+did not understand that I bought from them
+not because they were the cheapest, but
+
+20
+00:01:34,737 --> 00:01:39,054
+because I was confident that they would
+deliver what I asked for, and deliver it
+
+21
+00:01:39,054 --> 00:01:43,372
+on time. And apparently, I was not alone
+in that thinking. But the world of online
+
+22
+00:01:43,372 --> 00:01:47,905
+commerce was new, and Amazon could not be
+sure of the impact of automated comparison
+
+23
+00:01:47,905 --> 00:01:51,737
+shopping. An interesting [inaudible],
+Amazon actually got good value for
+
+24
+00:01:51,737 --> 00:01:55,838
+Junglee, because one of its founders,
+Anand Rajaraman, while at Amazon, was the
+
+25
+00:01:55,838 --> 00:02:00,210
+inventor of Mechanical Turk. But the first
+paid work that Junglee got was his
+
+26
+00:02:00,210 --> 00:02:04,473
+contract from the Washington Post to
+produce an online table of the employment
+
+27
+00:02:04,473 --> 00:02:09,534
+opportunities offered by companies that
+were placing print classified ads
+
+28
+00:02:09,534 --> 00:02:14,923
+at The Post. This job was not trivial.
+Junglee had to go to several hundred
+
+29
+00:02:14,923 --> 00:02:20,072
+websites and extract the information about
+each job automatically. If you look at one
+
+30
+00:02:20,072 --> 00:02:24,831
+side, you can probably figure out how to
+do it. Which links to follow from the home
+
+31
+00:02:24,831 --> 00:02:29,532
+page, to get to the employment pages. And
+what's there. And how to navigate an html
+
+32
+00:02:29,532 --> 00:02:33,653
+source text. To find the critical
+information about the job such as the
+
+33
+00:02:33,653 --> 00:02:38,863
+title and salary. But you need to do this
+for each site. And to make matters worse,
+
+34
+00:02:38,863 --> 00:02:43,521
+they Junglee guys discovered that
+these sites were evolving. That is, not
+
+35
+00:02:43,521 --> 00:02:48,302
+only the jobs change, but the structure of
+the pages, or even the whole website
+
+36
+00:02:48,302 --> 00:02:53,390
+changed. The result was the approximately
+once a week, the reader for any given site
+
+37
+00:02:53,390 --> 00:02:58,942
+would break, and have to be redesigned. So
+the Junglee guys developed a regular
+
+38
+00:02:58,942 --> 00:03:03,300
+expression language for describing how to
+navigate a website to extract the
+
+39
+00:03:03,300 --> 00:03:08,116
+information they needed. The input symbols
+were the usual characters such as letters,
+
+40
+00:03:08,116 --> 00:03:13,460
+so they could look for important words
+like salary. They also treated HTML tags
+
+41
+00:03:13,460 --> 00:03:19,298
+like OL. That is this. As input symbols
+because they gave important hints about
+
+42
+00:03:19,298 --> 00:03:25,435
+the page structure. For instance a page might
+say, send salary requirements to. But that
+
+43
+00:03:25,435 --> 00:03:31,124
+doesn't indicate the salary for a
+particular job. But when you get to a list
+
+44
+00:03:31,124 --> 00:03:36,662
+of jobs. And that is indicated by the
+order of list tags. That's the OL. And
+
+45
+00:03:36,662 --> 00:03:42,800
+only after that, does salary mean that the
+number following is the salary for a job.
+
+46
+00:03:42,800 --> 00:03:48,801
+Another important kind of input element
+is a link, which indicate, that, that it's
+
+47
+00:03:48,801 --> 00:03:54,560
+necessary to move to another page. Once
+this regular expression language was
+
+48
+00:03:54,560 --> 00:03:59,501
+implemented, it was easier to write
+regular expression to find key information
+
+49
+00:03:59,501 --> 00:04:04,441
+like title of salary. And to write the
+code to process web pages directly. Thus,
+
+50
+00:04:04,441 --> 00:04:09,572
+there was an increase in productivity as
+they added size to their data base. More
+
+51
+00:04:09,572 --> 00:04:14,132
+over when the site changed. It was
+relatively easy to modify the regular
+
+52
+00:04:14,132 --> 00:04:20,472
+expression to track the changes in the
+site. The architecture of this system
+
+53
+00:04:20,472 --> 00:04:26,222
+developed at Junglee appears in many
+places. The input language is regular
+
+54
+00:04:26,222 --> 00:04:32,124
+expressions plus actions which are
+arbitrary codes executed when the regular
+
+55
+00:04:32,124 --> 00:04:38,103
+expression is recognized. In this case,
+the actions would be things like return
+
+56
+00:04:38,103 --> 00:04:44,046
+this integer as a salary. The regular
+expression is compiled into a DFA, or
+
+57
+00:04:44,046 --> 00:04:49,747
+sometimes into an NFA that is simulated,
+effectively by executing the lazy version
+
+58
+00:04:49,747 --> 00:04:56,039
+of the subset construction as needed.
+Simulation of the DFA or NFA goes on
+
+59
+00:04:56,039 --> 00:05:00,656
+exactly as we have described it
+theoretically. Each input symbol causes a
+
+60
+00:05:00,656 --> 00:05:05,398
+state change and nothing more. The magic
+happens when an accepting state is
+
+61
+00:05:05,398 --> 00:05:10,078
+reached. Then the associated action is
+executed and this action allows the
+
+62
+00:05:10,078 --> 00:05:15,327
+regular expression processor to interact
+with the rest of the world in some useful
+
+63
+00:05:15,327 --> 00:05:20,187
+way. We're now going to talk about the
+Unix extensions to regular expressions.
+
+64
+00:05:20,187 --> 00:05:24,926
+There are many commands in Unix that have
+some sort of regular expression notation
+
+65
+00:05:24,926 --> 00:05:29,209
+for input. An important example is the
+"grep" command which stands for Global
+
+66
+00:05:29,209 --> 00:05:33,833
+Regular Expression and Print. Most of the
+regular expression-based languages, even
+
+67
+00:05:33,833 --> 00:05:38,458
+though they have extensions at the end of
+their notation, we've covered so far to
+
+68
+00:05:38,458 --> 00:05:43,884
+find only regular language. There are also
+some commands that have additional
+
+69
+00:05:43,884 --> 00:05:48,328
+extensions, that allow non-regular
+extensions to be recognized, but we're not
+
+70
+00:05:48,328 --> 00:05:52,649
+going to go into these features.
+Incidentally, it is no coincidence that
+
+71
+00:05:52,649 --> 00:05:57,736
+regular expressions figure heavily into
+the original Unix commands. Before he did
+
+72
+00:05:57,736 --> 00:06:02,698
+Unix, Ken Thompson had worked on a system
+for processing regular expressions by
+
+73
+00:06:02,698 --> 00:06:07,597
+converting them only as far as a NFA and
+simulating the NFA in code. We're now
+
+74
+00:06:07,597 --> 00:06:12,433
+going to meet some of the Unix
+extensions to regular expressions. You can
+
+75
+00:06:12,433 --> 00:06:17,583
+put brackets around any list of characters
+as a shorthand for the same characters
+
+76
+00:06:17,583 --> 00:06:25,427
+connected by plus signs in the notation we
+have used until now. You can also describe
+
+77
+00:06:25,427 --> 00:06:32,260
+a sequence of symbols that are consecutive
+in the ASCII order of characters by giving
+
+78
+00:06:32,260 --> 00:06:38,537
+the first character, a dash and then the
+last character. For example [a-z], that's
+
+79
+00:06:38,537 --> 00:06:44,417
+this, stands for any lower case letter
+because the lower case letters have
+
+80
+00:06:44,417 --> 00:06:50,296
+consecutive codes in ASCII. You can
+represent any letter by putting dashes
+
+81
+00:06:50,296 --> 00:06:58,976
+between lower case a and z and the same
+for upper case, that's this. Okay. Notice that
+
+82
+00:06:58,976 --> 00:07:03,753
+the upper and lower case letters are not
+consecutive in ASCII, so you cannot
+
+83
+00:07:03,753 --> 00:07:09,503
+represent this 52 characters with a single
+range. Incidentally, as we see, characters
+
+84
+00:07:09,503 --> 00:07:16,313
+like brackets and dash have special needs,
+meanings in Unix regular expressions. So
+
+85
+00:07:16,313 --> 00:07:22,791
+if you want to use one of these characters
+as itself, you need to precede it by a
+
+86
+00:07:22,791 --> 00:07:29,103
+backslash. So, for example, slash left
+bracket is a real left bracket. It's not
+
+87
+00:07:29,103 --> 00:07:36,494
+the left bracket that you find in, in the,
+in range expression. And the character dot
+
+88
+00:07:36,494 --> 00:07:45,037
+or period is shorthand for any character.
+Here are some more Unix changes to the
+
+89
+00:07:45,037 --> 00:07:50,938
+regular expression notation we learned.
+Okay, the union operator is actually
+
+90
+00:07:50,938 --> 00:07:58,540
+represented by a vertical bar, instead of
+the plus. But the plus symbol is another
+
+91
+00:07:58,540 --> 00:08:06,390
+operator used like star, and meaning one
+or more. That is, in the Unix notation,
+
+92
+00:08:06,390 --> 00:08:13,730
+E+, that's that, is shorthand for E
+concatenated with E<i>. So for example,</i>
+
+93
+00:08:14,036 --> 00:08:22,883
+[a-z]+ means one or more lower
+case letters. The question mark operator
+
+94
+00:08:22,883 --> 00:08:30,814
+is also used like star but means zero or
+one of. The is E? Is shorthand for E plus
+
+95
+00:08:30,814 --> 00:08:39,429
+epsilon. So for example, [AB]? means an
+optional A or B. We would write it in our
+
+96
+00:08:39,429 --> 00:08:46,473
+original notation as A plus B plus
+epsilon. You may remember our DFA example
+
+97
+00:08:46,473 --> 00:08:51,916
+for recognizing strings that end in "ing".
+It involved a lot of explanation as we
+
+98
+00:08:51,916 --> 00:08:57,221
+considered where to go from each of the
+state that represented some progress
+
+99
+00:08:57,221 --> 00:09:02,457
+toward finding ing. However, there is an
+easy regular expression for the same
+
+100
+00:09:02,457 --> 00:09:08,367
+language using the Unix dot, it's just .<i>ing,
+like that. Okay. Or even if we</i>
+
+101
+00:09:08,367 --> 00:09:13,730
+didn't have the dot in our notation, could
+simply replace it by all the legal input
+
+102
+00:09:13,730 --> 00:09:20,593
+symbols connected by pluses. In fact, it's
+even much easier to design an NFA for this
+
+103
+00:09:20,593 --> 00:09:26,537
+language than it is to design a DFA. Okay,
+here is an NFA. Essentially, it guesses
+
+104
+00:09:26,537 --> 00:09:32,707
+when it has seen the 'i' that begins the
+final "ing". Thus, even on an input like the
+
+105
+00:09:32,707 --> 00:09:38,576
+first 'i' in skiing, it can remain in the
+start state. That is, it can go from the
+
+106
+00:09:38,576 --> 00:09:44,821
+start state to itself on an 'i' if it likes.
+And in fact, it always does like, 'cause
+
+107
+00:09:44,821 --> 00:09:52,676
+the NFA always does everything. Okay it
+can, anyway, it can remain, in the start
+
+108
+00:09:52,676 --> 00:09:59,233
+state on first 'i' and then only travel to
+the right that is here on the second 'i'.
+
+109
+00:09:59,233 --> 00:10:05,954
+There's no need to worry about what to do
+in a state like one that represents the 'i' as
+
+110
+00:10:05,954 --> 00:10:12,429
+the discovery of 'i' and 'n' where do you go
+if the next input in not 'g' it doesn't
+
+111
+00:10:12,429 --> 00:10:19,783
+matter because you'll still be here. And
+another sequence of states will get you
+
+112
+00:10:19,783 --> 00:10:25,849
+where you actually need to go. Now let's
+talk a little bit about lexical analysis,
+
+113
+00:10:25,849 --> 00:10:30,947
+the breaking of an input program into its
+basic units called tokens. For example,
+
+114
+00:10:30,947 --> 00:10:36,640
+every identifier in a program is a token.
+Likewise the reserved words like if or why
+
+115
+00:10:36,640 --> 00:10:41,653
+are tokens. Many single characters are
+tokens by themselves. In typical
+
+116
+00:10:41,653 --> 00:10:47,599
+programing languages semicolon is a token
+used for separating statements, plus is a
+
+117
+00:10:47,599 --> 00:10:53,472
+token indicating addition, less than is a
+token by itself indicating the less than
+
+118
+00:10:53,472 --> 00:10:59,059
+comparison operator. There are also
+multi-character operators such as the less
+
+119
+00:10:59,059 --> 00:11:05,564
+than or equal sign which together indicate
+the less than equal comparison. There are
+
+120
+00:11:05,564 --> 00:11:10,469
+tools, like Lex, or its open source version
+flex, that let you write a regular
+
+121
+00:11:10,469 --> 00:11:16,329
+expression for each token. You can also
+provide a piece of code as an action to be
+
+122
+00:11:16,329 --> 00:11:21,292
+executed, when an instance of that regular
+expression is recognized. For example, the
+
+123
+00:11:21,292 --> 00:11:28,143
+code for when an integer is found might
+simply return that integer. As an example,
+
+124
+00:11:28,143 --> 00:11:36,352
+the expression for identifiers might be
+the one shown here. That's this. Using the
+
+125
+00:11:36,352 --> 00:11:43,390
+unix notation, this expression describes
+identifiers as any letter, that's this,
+
+126
+00:11:43,390 --> 00:11:50,427
+followed by zero or more star letters or
+digits. In many languages identifiers
+
+127
+00:11:50,427 --> 00:11:57,104
+allow some more options, for example,
+underscore might be included as if it were
+
+128
+00:11:57,104 --> 00:12:04,090
+another digit so it would just appear in
+this list here. Okay, underscore. In Lex
+
+129
+00:12:04,090 --> 00:12:09,628
+you write an action which is an arbitrary
+code to be executed when the regular
+
+130
+00:12:09,628 --> 00:12:15,096
+expression for a token is matched. In the
+simplest cases, all this code does is
+
+131
+00:12:15,096 --> 00:12:20,705
+return an integer code representing the
+token found. But the action might be much
+
+132
+00:12:20,705 --> 00:12:25,752
+more complicated. For example, if an
+identifier is found, the action might
+
+133
+00:12:25,752 --> 00:12:31,571
+involve installing that identifier in a
+symbol table where all identifiers used by
+
+134
+00:12:31,571 --> 00:12:36,758
+the program are stored. When building a
+lexical analyzer using regular
+
+135
+00:12:36,758 --> 00:12:43,450
+expressions for the tokens there are some
+resolution and ambiguities that need to be
+
+136
+00:12:43,450 --> 00:12:50,003
+faced. Two examples are illustrated here.
+For one. Reserve words like "if" also match
+
+137
+00:12:50,003 --> 00:12:56,023
+the expression for identifiers. But "if"
+is not a legal identifier. So we have to
+
+138
+00:12:56,023 --> 00:13:02,044
+make sure that lexical analyzer does
+the right thing on "if". Okay. For another
+
+139
+00:13:02,044 --> 00:13:06,765
+when we see less than. We don't
+immediately know if it's a token by itself
+
+140
+00:13:06,765 --> 00:13:12,063
+or a part of a larger token which would be
+less than or equal in this case. We need
+
+141
+00:13:12,063 --> 00:13:17,361
+to make sure we don't prematurely declare
+victory and return, less then, when less
+
+142
+00:13:17,361 --> 00:13:22,390
+than or equal, is intended by the
+programmer. A good architecture for
+
+143
+00:13:22,390 --> 00:13:27,714
+building a lexical analysis code from
+regular expressions is to start by
+
+144
+00:13:27,714 --> 00:13:34,624
+converting each regular expression to an
+Epsilon NFA. Each of these Epsilon NFAs
+
+145
+00:13:34,624 --> 00:13:39,318
+has it's own final state with which the
+action for that regular expression is
+
+146
+00:13:39,318 --> 00:13:46,361
+associated. We combine all these epsilon
+NFAs by introducing a new start state. The
+
+147
+00:13:46,361 --> 00:13:53,194
+start state has epsilon transitions to the
+start states for each of the NFAs. Looks
+
+148
+00:13:53,194 --> 00:13:59,630
+something like this. Here's the new start
+state. Here are all the old start states
+
+149
+00:13:59,630 --> 00:14:06,104
+and their automata. And we've just put
+transitions on epsilon to each one of
+
+150
+00:14:06,104 --> 00:14:13,158
+them. Okay. All the final states of the
+NFAs remain final and they each have their
+
+151
+00:14:13,158 --> 00:14:20,038
+associated actions. So for example, these
+are, these are all final states. Nfa can
+
+152
+00:14:20,038 --> 00:14:26,742
+have several final states in fact. After
+that combination we convert to DFA or
+
+153
+00:14:26,742 --> 00:14:31,511
+perhaps an NFA without epsilon transitions
+which we will then simulate. Okay, we
+
+154
+00:14:31,511 --> 00:14:36,399
+need to give the regular expressions in
+ordering and this ordering determines the
+
+155
+00:14:36,399 --> 00:14:41,110
+priority among actions. A typical
+ordering puts all the reserved words
+
+156
+00:14:41,110 --> 00:14:46,088
+ahead of identifier, so that way if the
+DFA discovers that the next token is if,
+
+157
+00:14:46,088 --> 00:14:51,256
+it in principle does not know whether to
+execute the action for the reserved word
+
+158
+00:14:51,256 --> 00:14:55,731
+if, or for identifiers, or both. But the
+fact that if takes priority over
+
+159
+00:14:55,731 --> 00:15:00,646
+identifiers says that this token should be
+treated as a reserved word and not as an
+
+160
+00:15:00,646 --> 00:15:05,790
+identifier. However to make all this work
+right, the DFA action need a special
+
+161
+00:15:05,790 --> 00:15:10,530
+ability. The ability to take an input
+symbol that is read and put it back at the
+
+162
+00:15:10,530 --> 00:15:15,196
+front of the input stream. That input will
+then be read again, typically the next
+
+163
+00:15:15,196 --> 00:15:21,314
+time the lexical analyzer is
+told to look for the next token. Here's an
+
+164
+00:15:21,314 --> 00:15:26,815
+example of why the ability to restore an
+input symbol dressed red back to the front
+
+165
+00:15:26,815 --> 00:15:31,988
+of the input is important. Suppose the
+lexical analyzer is told to find the
+
+166
+00:15:31,988 --> 00:15:36,834
+next token and the first character it
+reads on the input is the less-than
+
+167
+00:15:36,834 --> 00:15:42,138
+symbol. It has to read the next input, and
+if that input is an equal sign then we
+
+168
+00:15:42,138 --> 00:15:48,319
+can be sure the token is less than or
+equal. But, if the input is anything else,
+
+169
+00:15:48,319 --> 00:15:53,683
+for example a blank, a letter, or a digit,
+then that character must be put back on
+
+170
+00:15:53,683 --> 00:16:00,043
+the input and less than, by itself,
+declared to be the token. For another
+
+171
+00:16:00,043 --> 00:16:06,227
+example if the lexical analyzer has read
+the characters 'i' and 'f' in its quest for a
+
+172
+00:16:06,227 --> 00:16:12,152
+token, it might have seen the reserved word
+"if". But we won't know until it reads the
+
+173
+00:16:12,152 --> 00:16:16,376
+next character if that character is a
+letter or a digit, anything that can
+
+174
+00:16:16,376 --> 00:16:20,942
+extend that identifier, then we do not have
+the reserved word "if", we have a longer
+
+175
+00:16:20,942 --> 00:16:25,737
+identifier. However, if the next character
+is not one that can extend that identifier
+
+176
+00:16:25,737 --> 00:16:30,246
+such as a blank or a left parentheses,
+then we really do have the reserved word
+
+177
+00:16:30,246 --> 00:16:34,870
+"if", in that case, the next character must
+be pushed back onto the front of the input.

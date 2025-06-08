@@ -1,0 +1,1014 @@
+1
+00:00:00,000 --> 00:00:04,824
+Now we are ready to show some particular
+problems not that have algorithms. The
+
+2
+00:00:04,824 --> 00:00:09,709
+central ideas of this lecture are first,
+that turn machines can be enumerated. So
+
+3
+00:00:09,709 --> 00:00:14,594
+we can talk about the [inaudible] Turing
+machine that let's us diagonalize over
+
+4
+00:00:14,594 --> 00:00:19,234
+Turing machines the way we diagonalized
+over languages, showing a particular
+
+5
+00:00:19,234 --> 00:00:24,181
+language that cannot be the language of
+any Turing machine. Then we establish the
+
+6
+00:00:24,181 --> 00:00:29,030
+principal that a problem is really a
+language And we show specific problems not
+
+7
+00:00:29,030 --> 00:00:33,710
+to have [inaudible] machines. To enumerate
+[inaudible] machines we're going to
+
+8
+00:00:33,710 --> 00:00:38,573
+develop the specific representation of
+[inaudible] machines as binary strings. It
+
+9
+00:00:38,573 --> 00:00:43,346
+is sufficient to provide a code for
+touring machines who's input output is 01.
+
+10
+00:00:43,346 --> 00:00:47,628
+Although we could encode others if we
+wanted to. The reason that it is
+
+11
+00:00:47,628 --> 00:00:52,829
+sufficient to assume only zero and one are
+inputs is that touring machine codes will
+
+12
+00:00:52,829 --> 00:00:57,479
+be binary strings. So it can focus on
+touring machines on input output 01 as
+
+13
+00:00:57,479 --> 00:01:02,558
+inputs to other touring machines with the
+same alphabet. The first thing we need to
+
+14
+00:01:02,558 --> 00:01:07,311
+do is provide integer codes to the
+components of the touring machine. We give
+
+15
+00:01:07,311 --> 00:01:12,563
+integers one, two, three and so on to the
+states. We assume that Q1 is always the
+
+16
+00:01:12,563 --> 00:01:17,748
+starred state, and we also assume that Q2
+is the one final state of the Turing
+
+17
+00:01:17,748 --> 00:01:23,000
+machine. Notice that once Turing machines
+enter the final state, nothing further
+
+18
+00:01:23,000 --> 00:01:28,327
+matters. So we can always merge all final
+states into one. Thus we can restrict our
+
+19
+00:01:28,327 --> 00:01:33,064
+attention to touring machines with a
+single final state and know that we can
+
+20
+00:01:33,064 --> 00:01:37,616
+still define any recursively enumerable
+language. The other states will be
+
+21
+00:01:37,616 --> 00:01:42,598
+numbered three, four and so on. The tape
+symbols that are also numbers starting at
+
+22
+00:01:42,598 --> 00:01:47,457
+one. We'll assume X1 is always the input
+symbol zero and X2 is always the input
+
+23
+00:01:47,457 --> 00:01:52,317
+symbol one. X3 will always be the blank
+and any other tape symbols are numbered
+
+24
+00:01:52,317 --> 00:01:59,955
+four and above. They're two directions but
+we need to number them. D-, D1 is left and
+
+25
+00:01:59,955 --> 00:02:04,759
+D2 is right. Consider a rule expressed
+using the integer numbering of the
+
+26
+00:02:04,759 --> 00:02:11,075
+components, that is the state QI scanning
+symbol XJ well suppose the touring machine
+
+27
+00:02:11,075 --> 00:02:18,011
+goes to state QK right symbol XL and moves
+in the direction Ds of M. Represent this
+
+28
+00:02:18,011 --> 00:02:24,862
+rule with blocks of IJKLM0s separated by
+single ones. Notice that all the integers
+
+29
+00:02:24,862 --> 00:02:31,798
+are positive so the representation for a
+rule never has consecutive ones. With them
+
+30
+00:02:31,798 --> 00:02:38,650
+represented in entire tour machine by all
+its rules concatenated and separated by
+
+31
+00:02:38,650 --> 00:02:43,341
+pairs of ones. Once we have Turing
+machines represented by binary strings we
+
+32
+00:02:43,341 --> 00:02:47,658
+can convert these strings to unique
+integers using the trick we explained a
+
+33
+00:02:47,658 --> 00:02:52,258
+while ago. Put a one in front of a binary
+string and treat the result as a binary
+
+34
+00:02:52,258 --> 00:02:56,580
+integer. Thus, we can talk about the
+[inaudible] Turing machine. And of course
+
+35
+00:02:56,580 --> 00:03:01,342
+we earlier learned we can talk about the
+[inaudible] binary string Small matters
+
+36
+00:03:01,342 --> 00:03:06,735
+that some binary represent flawed turn
+machines for example, it might have a pair
+
+37
+00:03:06,735 --> 00:03:11,795
+of double ones with other then four single
+ones between them. That would not
+
+38
+00:03:11,795 --> 00:03:17,254
+represent five blocks of 0s and therefore
+would not represent any [sound]. However
+
+39
+00:03:17,254 --> 00:03:22,381
+let's assume that any binary string that
+is flawed represents a turn machine
+
+40
+00:03:22,381 --> 00:03:27,841
+excepts the empty language. Likewise, if I
+is the integer we get from such a string
+
+41
+00:03:27,841 --> 00:03:32,918
+then the Ith turn machine accepts the
+empty language. So here is a table we're
+
+42
+00:03:32,918 --> 00:03:37,936
+letting Turing machines to the strings
+they accept. The value in row I and column
+
+43
+00:03:37,936 --> 00:03:43,425
+J is one of the [inaudible] Turing machine
+accepts the [inaudible] string. And zero
+
+44
+00:03:43,425 --> 00:03:48,475
+if it does not. Notice that if the
+[inaudible] Turing machine is one of the
+
+45
+00:03:48,475 --> 00:03:53,996
+flawed ones, then it's rows is all zeros.
+Any matrix of zero and ones with rows and
+
+46
+00:03:53,996 --> 00:03:59,518
+columns corresponding to all the integers
+can be diagonalized over. That is, we can
+
+47
+00:03:59,518 --> 00:04:05,020
+construct an infinite sequence of zeros
+and ones and call it D. Such that the
+
+48
+00:04:05,020 --> 00:04:10,736
+[inaudible] of D is the compliment of the
+bit in position [inaudible] along the
+
+49
+00:04:10,736 --> 00:04:15,916
+diagonal. We can argue that D is not a row
+of the matrix and therefore does not
+
+50
+00:04:15,916 --> 00:04:23,076
+represent the language accepted by any
+Turing machine. De cap your row J because
+
+51
+00:04:23,076 --> 00:04:31,676
+it disagrees with the Jth row in their Jth
+entries. Thus D can not be a row and
+
+52
+00:04:31,676 --> 00:04:36,989
+therefore the language it describes, the
+language that contains the Ith string, if
+
+53
+00:04:36,989 --> 00:04:42,105
+and only if, the Ith bit of D is one is
+not the language of any Turing machine.
+
+54
+00:04:42,105 --> 00:04:47,549
+Notice that this language can be described
+as the set that contains the Ith string,
+
+55
+00:04:47,549 --> 00:04:52,851
+if an only if, the Ith Turing machine does
+not accept the Ith string. Let's give a
+
+56
+00:04:52,851 --> 00:04:57,961
+name to this language, L sub D with a
+diagonalization language. Again L sub D is
+
+57
+00:04:57,961 --> 00:05:03,201
+the set of binary strings W. Such that W
+is the [inaudible] string for some I. And
+
+58
+00:05:03,201 --> 00:05:08,377
+the [inaudible] Turing machine does not
+accept W. We just argued that L sub D is
+
+59
+00:05:08,377 --> 00:05:13,675
+not a recursively re-numerable language,
+that is it has no Turing machine. We early
+
+60
+00:05:13,675 --> 00:05:18,410
+approve that since there are more
+languages than integers and since there
+
+61
+00:05:18,410 --> 00:05:23,656
+are no more turn machines than integers,
+we already know that there were languages
+
+62
+00:05:23,656 --> 00:05:28,838
+with no turn machine but now we're much
+better off. We have a particular language
+
+63
+00:05:28,838 --> 00:05:34,276
+L sub D and a description of this language
+such that L sub D is one of the languages
+
+64
+00:05:34,276 --> 00:05:39,394
+without a turn machine. Note, however that
+L sub D is a delicate language. We know
+
+65
+00:05:39,394 --> 00:05:44,576
+what it is but we can't, for example, tell
+whether a given binary string W is in L
+
+66
+00:05:44,576 --> 00:05:49,770
+sub D. To do so, we can figure out the I's
+such that W is the [inaudible] string.
+
+67
+00:05:49,770 --> 00:05:54,976
+That's the easy part. Now we can write
+down the code for the [inaudible] Turing
+
+68
+00:05:54,976 --> 00:06:00,182
+machine. In fact, that code is W. If W is
+the code for a flawed Turing machine, we
+
+69
+00:06:00,182 --> 00:06:05,322
+know it doesn't accept W. But some W's
+give good codes for Turing machines, and
+
+70
+00:06:05,322 --> 00:06:10,528
+in fact every Turing machine with input
+alphabet, zero, and one has at least one
+
+71
+00:06:10,528 --> 00:06:15,617
+code W. We can't always figure out whether
+a Turing machine is gonna accept or run
+
+72
+00:06:15,617 --> 00:06:20,677
+forever without accepting. So for at least
+some W's we've never learned whether or
+
+73
+00:06:20,677 --> 00:06:25,723
+not that W is an L sub D. Let us introduce
+the formal concept of a problem. In
+
+74
+00:06:25,723 --> 00:06:30,910
+formally a problem is a yes/no question
+about an infinite number of possible
+
+75
+00:06:30,910 --> 00:06:35,827
+instances of the problem. Here's an
+example of a problem that is actually
+
+76
+00:06:35,827 --> 00:06:41,217
+quite famous. And we'll see why soon. The
+instances of the Hamilton Cycle problem
+
+77
+00:06:41,217 --> 00:06:46,269
+are undirected graphs. There are an
+infinite number of graphs of course. The
+
+78
+00:06:46,269 --> 00:06:51,659
+answer to the question implied by the
+Hamilton Cycle problem is yes. If there is
+
+79
+00:06:51,659 --> 00:06:57,742
+a Hamilton Cycle in the graph That is a
+cycle that passes through each node
+
+80
+00:06:57,742 --> 00:07:07,912
+exactly once. For example, For example,
+here's a graph that happens to have a
+
+81
+00:07:07,912 --> 00:07:15,103
+Hamilton cycle. It is also got some other
+edges here and there. But the important
+
+82
+00:07:15,103 --> 00:07:22,208
+thing is that it does have the Hamilton
+cycle in which every node appears once. So
+
+83
+00:07:22,208 --> 00:07:29,563
+formally a problem is simply a language
+over some alphabet sigma. Each string and
+
+84
+00:07:29,563 --> 00:07:34,578
+sigma star can be viewed as an instance of
+the problem once we decide on an encoding
+
+85
+00:07:34,578 --> 00:07:39,297
+for instance as a strings. We'll see a
+number of examples of these encodings, but
+
+86
+00:07:39,297 --> 00:07:44,193
+we already saw one when we encoded Turing
+machines as binary strings. It should not
+
+87
+00:07:44,193 --> 00:07:48,676
+be hard for you to devise an encoding for
+graphs in a similar spirit. In the
+
+88
+00:07:48,676 --> 00:07:53,514
+language associated with the problem, is
+the set of strings that code instances to
+
+89
+00:07:53,514 --> 00:07:58,105
+which the answer is yes. Typically as we
+did for turn machines our coding allows
+
+90
+00:07:58,105 --> 00:08:02,472
+certain strings that are flawed. They
+don't really represent an instance. Well
+
+91
+00:08:02,472 --> 00:08:06,839
+always assume that flawed encodings
+represent instances for which the answer
+
+92
+00:08:06,839 --> 00:08:11,695
+is no. For example as a problem, the
+language LD can be stated. Does this turn
+
+93
+00:08:11,695 --> 00:08:16,598
+machine not accept its own code? When we
+talk about problems, we use the term
+
+94
+00:08:16,598 --> 00:08:21,566
+decidable. It means that there is an
+algorithm to answer its question. That is
+
+95
+00:08:21,566 --> 00:08:26,727
+a turn machine that accepts the encoded
+instances for the problem for which the
+
+96
+00:08:26,727 --> 00:08:31,372
+answer is yes and also halts without
+accepting the other instances. So a
+
+97
+00:08:31,372 --> 00:08:36,920
+decidable problem is really the same thing
+as a recursive language if we think of the
+
+98
+00:08:36,920 --> 00:08:44,254
+language as encoding a problem. The
+opposite of decidable is undecidable. So
+
+99
+00:08:44,254 --> 00:08:49,110
+here is what we know about languages so
+far. In the center we see the recursive
+
+100
+00:08:49,110 --> 00:08:54,274
+languages or as problems, the decidable
+problems. Then there is a super set of the
+
+101
+00:08:54,274 --> 00:08:59,315
+recursive language called the recursively
+enumerable languages. These recall other
+
+102
+00:08:59,315 --> 00:09:04,601
+languages accepted by Turing machines with
+no guarantee that they will halt on inputs
+
+103
+00:09:04,601 --> 00:09:09,150
+that they never accept. And then there is
+outer space. The uncountably many
+
+104
+00:09:09,150 --> 00:09:13,884
+languages that are not recursively
+enumerable. They have no Turing machine at
+
+105
+00:09:13,884 --> 00:09:18,399
+all. So far we have one example of a
+language, L sub D, that lives in this
+
+106
+00:09:18,399 --> 00:09:23,045
+region. Remember that the undecidable
+problems are all those in either the
+
+107
+00:09:23,045 --> 00:09:28,130
+second ring. Recursively enumerable but
+not recursive languages. Or an outer space
+
+108
+00:09:28,130 --> 00:09:33,404
+that is everything that is not yellow in
+this diagram and a big question we need to
+
+109
+00:09:33,404 --> 00:09:38,238
+answer, are there any languages in the
+second ring? Those that are recursively
+
+110
+00:09:38,238 --> 00:09:43,115
+and enumerable but not recursive. And
+remember, the real goal of our plan is to
+
+111
+00:09:43,115 --> 00:09:47,480
+show some real problems that are
+undecidable. The fact that L sub D is
+
+112
+00:09:47,480 --> 00:09:52,280
+undecidable and in fact super-undecidable
+because it is not even recurs-ably
+
+113
+00:09:52,280 --> 00:09:57,455
+enumerable is interesting but it doesn't
+by itself tell us anything about the real
+
+114
+00:09:57,455 --> 00:10:03,432
+world. So here are some examples of real
+problems that are undecidable. Will a
+
+115
+00:10:03,432 --> 00:10:10,725
+program ever reach a particular line of
+code? Is the given context re grammar
+
+116
+00:10:10,725 --> 00:10:15,526
+ambiguous? Are two given grammar?s
+equivalent in the sense that they generate
+
+117
+00:10:15,526 --> 00:10:20,168
+the same language? But still staying
+within the world of Turing machines rather
+
+118
+00:10:20,168 --> 00:10:24,928
+than the real world, but a necessary way
+station on our trek to the real world is
+
+119
+00:10:24,928 --> 00:10:29,452
+to show a particular language to be
+recursively enumerable but not recursive.
+
+120
+00:10:29,452 --> 00:10:34,329
+This is the language we call L sub U, the
+Universal Turing machine language. In more
+
+121
+00:10:34,329 --> 00:10:39,265
+detail, the Universal Turing machine takes
+its input a binary string consisting of a
+
+122
+00:10:39,265 --> 00:10:45,174
+code of some Turing machine M and some
+input W for M. Universal Turing machine
+
+123
+00:10:45,174 --> 00:10:52,903
+accepts the coded M and W, if and only if,
+M accepts W. The idea of the universal
+
+124
+00:10:52,903 --> 00:10:58,383
+Turing machine should not seem strange if
+you ever contemplated a Java virtual
+
+125
+00:10:58,383 --> 00:11:03,447
+machine. The JVM takes a coded Java
+program and input for the program and
+
+126
+00:11:03,447 --> 00:11:08,511
+executes the program on the input. In
+fact, the JVM is more general on the
+
+127
+00:11:08,511 --> 00:11:14,338
+capability than a Turing machine which can
+only make a single except output. The JVM
+
+128
+00:11:14,338 --> 00:11:19,541
+can cause whatever output the program
+calls to be made. So let's see how to
+
+129
+00:11:19,541 --> 00:11:25,286
+build an universal Turing machine. First
+of all, inputs to the Universal Turing
+
+130
+00:11:25,286 --> 00:11:30,898
+machine are in the form: a code for the
+machine M, three ones, and then the binary
+
+131
+00:11:30,898 --> 00:11:36,051
+string W. Since a valid code for M can
+never have three consecutive ones, it is
+
+132
+00:11:36,051 --> 00:11:41,621
+never ambiguous what part of the input to
+the Universal Turing machine is M and what
+
+133
+00:11:41,621 --> 00:11:46,732
+part is W. The Universal Turing machine
+accepts it's input if and only if that
+
+134
+00:11:46,732 --> 00:11:52,040
+input has a valid code for some Turing
+machine M and that Turing machine accepts
+
+135
+00:11:52,040 --> 00:11:57,282
+W. So for example, the Universal machine
+never accepts a string that doesn't have
+
+136
+00:11:57,282 --> 00:12:02,799
+three consecutive ones. We'll design the
+universal Turing machine as a multi-tape
+
+137
+00:12:02,799 --> 00:12:08,840
+machine. The first tape will hold the
+input and we never change that. The second
+
+138
+00:12:08,840 --> 00:12:14,476
+tape is used to represent the current tape
+of M during the simulation of M with input
+
+139
+00:12:14,476 --> 00:12:20,136
+W. We'll discuss this representation
+shortly. The third tape of the Universal
+
+140
+00:12:20,136 --> 00:12:25,482
+machine simply represents the state of M.
+The first thing that the Universal machine
+
+141
+00:12:25,482 --> 00:12:30,700
+needs to do is to examine its input and
+particularly that portion that represents
+
+142
+00:12:30,700 --> 00:12:35,792
+M. As to check that between consecutive
+double ones there are always five blocks
+
+143
+00:12:35,792 --> 00:12:40,947
+of zeros. There also has to check that a
+block of three ones appears somewhere on
+
+144
+00:12:40,947 --> 00:12:45,970
+its input, and regards this as the end of
+rules for M. Finally since M is assumed
+
+145
+00:12:45,970 --> 00:12:50,982
+deterministic, the universal machine needs
+to check that there are never two rules
+
+146
+00:12:50,982 --> 00:12:55,749
+that agree on the first two components.
+All this checking will require running
+
+147
+00:12:55,749 --> 00:13:00,822
+back and forth on the input quite a bit.
+It can be facilitated by copying blocks of
+
+148
+00:13:00,822 --> 00:13:04,856
+0s onto one of the other tapes and
+comparing these with the other
+
+149
+00:13:04,856 --> 00:13:09,824
+representation for M. If any flaws are
+found with this code for M or the 111 is
+
+150
+00:13:09,824 --> 00:13:14,717
+not found then M is regarded as a Turing
+machine that accepts nothing. So the
+
+151
+00:13:14,717 --> 00:13:19,990
+universal Turing machine immediately halts
+and rejects its input. Assuming the code
+
+152
+00:13:19,990 --> 00:13:24,819
+for M is valid, the universal Turing
+machine next examines the code for M to
+
+153
+00:13:24,819 --> 00:13:30,092
+determine how many squares of its own tape
+its need to represent one simple events
+
+154
+00:13:30,092 --> 00:13:36,468
+tape. That is we discover the longest
+block of 0s representing a tape symbol and
+
+155
+00:13:36,468 --> 00:13:42,770
+add one to that for a marker between
+symbols of Ms tape. Thus if say X7 is the
+
+156
+00:13:42,770 --> 00:13:49,233
+highest numbered symbol then we'll use
+eight squares to represent one symbol of
+
+157
+00:13:49,233 --> 00:13:55,938
+M. Symbol XI will be represented I 0s and
+seven minus I blanks followed by a marker
+
+158
+00:13:55,938 --> 00:14:05,952
+outside. For example, here's how we would
+represent X5. Five 0s Two blanks and then
+
+159
+00:14:05,952 --> 00:14:12,481
+the pound sign. Now a [inaudible] is take
+two to represent the input W. Remember 0s
+
+160
+00:14:12,481 --> 00:14:18,533
+are X1 and 1s are X2. Blanks on the second
+tape of the universal machine all
+
+161
+00:14:18,533 --> 00:14:24,903
+represent X to X3, the blank of M. But we
+won't initialize those squares until we
+
+162
+00:14:24,903 --> 00:14:30,944
+need to. Finally we initialize tape three
+to hold the start state. That state is
+
+163
+00:14:30,944 --> 00:14:38,580
+always Q1 so it is represented by a single
+zero. Now we're ready to simulate M. We
+
+164
+00:14:38,580 --> 00:14:44,058
+have the current state on tape three and
+the tape of M is represented on tape two.
+
+165
+00:14:44,058 --> 00:14:49,737
+We scan the moves the M on tape one until
+we find a move that matches both the state
+
+166
+00:14:49,737 --> 00:14:55,348
+and this tape symbol. If we can't find one
+then apparently M halts without accepting
+
+167
+00:14:55,348 --> 00:15:00,893
+W so the universal machine does so as well
+but if we find a match, we'll find right
+
+168
+00:15:00,893 --> 00:15:06,104
+after that on tape one, the new state
+which we install on tape three replacing
+
+169
+00:15:06,104 --> 00:15:11,117
+the old state. We also find a new tape
+symbol for which to replace the old tape
+
+170
+00:15:11,117 --> 00:15:16,369
+symbol under the head of tape two. And we
+also move the tape head one simulated
+
+171
+00:15:16,369 --> 00:15:21,395
+square of M's tape left or right,
+whichever the move says. And most
+
+172
+00:15:21,395 --> 00:15:27,020
+important, if MM enters an accepting state
+then the universal machine stops
+
+173
+00:15:27,020 --> 00:15:33,170
+simulating and accepts zone input which,
+remember, is the pair machine M plus input
+
+174
+00:15:33,170 --> 00:15:39,020
+string W. We claim that the language L sub
+U is recursively enumerable but not
+
+175
+00:15:39,020 --> 00:15:45,020
+recursive. We just show that there is a
+turn machine for the language L sub U so
+
+176
+00:15:45,020 --> 00:15:51,779
+surely LU is enumerable. But suppose L sub
+U were recursive. That means there's a
+
+177
+00:15:51,779 --> 00:15:58,560
+turn machine that always halts and who's
+language is L sub U. If that were the case
+
+178
+00:15:58,560 --> 00:16:03,789
+then L sub D the diagonalization language
+would also be recursive. We're going to
+
+179
+00:16:03,789 --> 00:16:08,244
+explain why on the next slide. But we
+already know that L sub D isn't
+
+180
+00:16:08,244 --> 00:16:14,630
+recursively enumerable, let alone
+recursive. So let's assume that L sub U is
+
+181
+00:16:14,630 --> 00:16:21,523
+recursive. We construct an algorithm for L
+sub D as follows. We're given an input W.
+
+182
+00:16:21,523 --> 00:16:28,333
+Let's suppose that W is the Ith string.
+The first thing to do is to check whether
+
+183
+00:16:28,333 --> 00:16:34,806
+or not W is a valid code for a turn
+machine. For example that it doesn't have
+
+184
+00:16:34,806 --> 00:16:42,110
+three consecutive 1s. If the code is not a
+valid string, Then the Ith Turing machine
+
+185
+00:16:42,110 --> 00:16:49,862
+defines the empty language. That means W,
+the Ith string, is not in the language of
+
+186
+00:16:49,862 --> 00:16:57,376
+the Ith Turing machine. Therefore, W is
+[inaudible] D. Now suppose W is a valid
+
+187
+00:16:57,376 --> 00:17:03,277
+code for a turn machine. Then simulate the
+hypothetical algorithm for L sub U on the
+
+188
+00:17:03,277 --> 00:17:08,968
+input W111W. That bit string represents
+the Ith turn machine processing the input
+
+189
+00:17:08,968 --> 00:17:14,729
+that is the Ith string. Eventually this
+algorithm will halt and tell us whether or
+
+190
+00:17:14,729 --> 00:17:19,978
+not the Ith machine accepts the Ith
+string. If the algorithm says yes, the Ith
+
+191
+00:17:19,978 --> 00:17:25,551
+machine accepts the Ith string then we say
+no because that means W is not in L sub D.
+
+192
+00:17:25,551 --> 00:17:31,123
+However if the hypothetical algorithm says
+no, then we accept W because W is in L sub
+
+193
+00:17:31,123 --> 00:17:36,368
+D. With proof that there is no algorithm
+or any kind of turn machine for L sub D
+
+194
+00:17:36,368 --> 00:17:41,744
+therefore we must blame our assumption.
+The only thing we assume without proof was
+
+195
+00:17:41,744 --> 00:17:46,857
+that there was an algorithm for L sub U.
+That means that there really isn't an
+
+196
+00:17:46,857 --> 00:17:52,593
+algorithm for L sub U. Put this facts
+together and we conclude that L sub U is
+
+197
+00:17:52,593 --> 00:17:57,670
+really recursively enumerable but not
+recursive. So here is our improved version
+
+198
+00:17:57,670 --> 00:18:02,048
+of the universe of languages. We still
+have the decidable problems of
+
+199
+00:18:02,048 --> 00:18:06,998
+equivalently recursive languages in the
+center. Outside there are two kinds of
+
+200
+00:18:06,998 --> 00:18:11,758
+undecidable problems. The second ring is
+the languages that are recursively
+
+201
+00:18:11,758 --> 00:18:17,088
+enumerable but not recursive. We now have
+a concrete example of such a problem L sub
+
+202
+00:18:17,088 --> 00:18:22,005
+U, the universal turn machine language.
+And beyond that is the not recursively
+
+203
+00:18:22,005 --> 00:18:26,311
+enumerable languages of which we have one
+concrete example, L sub D.
